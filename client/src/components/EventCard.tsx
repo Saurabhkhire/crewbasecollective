@@ -6,6 +6,7 @@ interface EventCardProps {
   slug: string;
   name: string;
   type: string;
+  isPartnerEvent?: boolean;
   eventDate: string;
   endDate?: string | null;
   startTime?: string | null;
@@ -18,6 +19,7 @@ export function EventCard({
   slug,
   name,
   type,
+  isPartnerEvent = false,
   eventDate,
   endDate,
   startTime,
@@ -49,9 +51,16 @@ export function EventCard({
             <Calendar size={48} />
           </div>
         )}
-        <span className="absolute left-3 top-3 rounded-full border border-[var(--border)] bg-[var(--panel)]/90 px-3 py-1 text-xs font-semibold text-[var(--cyan)] backdrop-blur">
-          {EVENT_TYPE_LABELS[type] || type}
-        </span>
+        <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+          <span className="rounded-full border border-[var(--border)] bg-[var(--panel)]/90 px-3 py-1 text-xs font-semibold text-[var(--cyan)] backdrop-blur">
+            {EVENT_TYPE_LABELS[type] || type}
+          </span>
+        </div>
+        {isPartnerEvent && (
+          <span className="absolute right-3 top-3 rounded-full border border-[var(--cyan)]/45 bg-[var(--cyan)]/20 px-4 py-1.5 text-sm font-semibold text-white shadow-sm backdrop-blur">
+            Partner Event
+          </span>
+        )}
       </div>
       <div className="p-5">
         <h3 className="text-lg font-semibold leading-snug text-white group-hover:text-[var(--cyan)]">

@@ -8,6 +8,7 @@ interface EventRow {
   slug: string;
   name: string;
   type: string;
+  isPartnerEvent: boolean;
   eventDate: string;
   endDate: string | null;
   startTime: string | null;
@@ -29,6 +30,7 @@ function EventSection({ title, eyebrow, events }: { title: string; eyebrow: stri
             slug={event.slug}
             name={event.name}
             type={event.type}
+            isPartnerEvent={event.isPartnerEvent}
             eventDate={event.eventDate}
             endDate={event.endDate}
             startTime={event.startTime}
