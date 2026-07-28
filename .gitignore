@@ -2,8 +2,10 @@
 node_modules/
 
 # builds
+dist/
 client/dist/
 server/dist/
+cms/dist/
 
 # misc
 .DS_Store
