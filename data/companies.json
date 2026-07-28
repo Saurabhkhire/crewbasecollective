@@ -369,6 +369,26 @@
       "id": "891f7ff9-9fb5-48b9-8ac5-6a666aa11cb3",
       "createdAt": "2026-07-28T02:51:32.085Z",
       "updatedAt": "2026-07-28T04:52:36.910Z"
+    },
+    {
+      "name": "Lovable",
+      "logoUrl": "/images/companies/1785215321643-m6ltslhzfc.png",
+      "website": "https://lovable.dev/",
+      "linkedin": null,
+      "information": "Lovable is an AI-powered application development platform that enables users to build full-stack web applications using natural language. By describing an idea in plain English, developers and non-developers can generate production-ready applications with frontend, backend, database integration, and authentication—without starting from scratch.",
+      "id": "7f91461b-467d-47c6-b188-2c847d298a2b",
+      "createdAt": "2026-07-28T05:08:43.270Z",
+      "updatedAt": "2026-07-28T05:08:43.270Z"
+    },
+    {
+      "name": "Google AI Studio",
+      "logoUrl": "/images/companies/1785215361028-iecfkvfgw9.jpg",
+      "website": "https://aistudio.google.com/",
+      "linkedin": null,
+      "information": "Google AI Studio is Google's web-based platform for building, testing, and deploying applications powered by Gemini AI models. It provides an intuitive environment for prompt engineering, model experimentation, and API integration, making it easy to prototype and integrate generative AI into applications.",
+      "id": "b2a8b6b8-b12c-4cf0-92fe-554491f86636",
+      "createdAt": "2026-07-28T05:09:30.650Z",
+      "updatedAt": "2026-07-28T05:09:30.650Z"
     }
   ]
 }

@@ -295,6 +295,22 @@
       "website": "https://o1assist.com/",
       "linkedin": null,
       "information": "O-1 Assist is an AI-powered platform that helps exceptional professionals prepare strong O-1, EB-1A, and Global Talent visa applications. It streamlines the entire petition process by helping applicants build qualifying evidence, organize documentation, and connect with experienced immigration attorneys for filing."
+    },
+    {
+      "id": "7f91461b-467d-47c6-b188-2c847d298a2b",
+      "name": "Lovable",
+      "logoUrl": "/images/companies/1785215321643-m6ltslhzfc.png",
+      "website": "https://lovable.dev/",
+      "linkedin": null,
+      "information": "Lovable is an AI-powered application development platform that enables users to build full-stack web applications using natural language. By describing an idea in plain English, developers and non-developers can generate production-ready applications with frontend, backend, database integration, and authentication—without starting from scratch."
+    },
+    {
+      "id": "b2a8b6b8-b12c-4cf0-92fe-554491f86636",
+      "name": "Google AI Studio",
+      "logoUrl": "/images/companies/1785215361028-iecfkvfgw9.jpg",
+      "website": "https://aistudio.google.com/",
+      "linkedin": null,
+      "information": "Google AI Studio is Google's web-based platform for building, testing, and deploying applications powered by Gemini AI models. It provides an intuitive environment for prompt engineering, model experimentation, and API integration, making it easy to prototype and integrate generative AI into applications."
     }
   ]
 }

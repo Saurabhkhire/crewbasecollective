@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:01:14.531Z",
-    "updatedAt": "2026-07-28T05:01:40.753Z"
+    "updatedAt": "2026-07-28T05:10:03.683Z"
   },
   "tracks": [],
   "sponsors": [
@@ -61,6 +61,22 @@
           "companyName": "Crewbase Collective"
         }
       ]
+    },
+    {
+      "id": "263e2cfe-8922-4f36-b2b1-045aa30c1ba3",
+      "companyName": "Lovable",
+      "companyWebsite": "https://lovable.dev/",
+      "companyLogo": "/images/companies/1785215321643-m6ltslhzfc.png",
+      "companyDescription": "Lovable is an AI-powered application development platform that enables users to build full-stack web applications using natural language. By describing an idea in plain English, developers and non-developers can generate production-ready applications with frontend, backend, database integration, and authentication—without starting from scratch.",
+      "representatives": []
+    },
+    {
+      "id": "f4a5a12c-a2de-4904-b4c4-6b1dcc365590",
+      "companyName": "Google AI Studio",
+      "companyWebsite": "https://aistudio.google.com/",
+      "companyLogo": "/images/companies/1785215361028-iecfkvfgw9.jpg",
+      "companyDescription": "Google AI Studio is Google's web-based platform for building, testing, and deploying applications powered by Gemini AI models. It provides an intuitive environment for prompt engineering, model experimentation, and API integration, making it easy to prototype and integrate generative AI into applications.",
+      "representatives": []
     }
   ],
   "partners": [],
