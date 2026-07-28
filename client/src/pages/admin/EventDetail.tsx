@@ -42,7 +42,7 @@ interface EventData {
   isPartnerEvent: boolean;
 }
 
-type Item = Record<string, unknown>;
+type Item = { id: string; [key: string]: unknown };
 
 interface SubData {
   tracks: Item[];
@@ -1693,10 +1693,10 @@ export default function AdminEventDetail() {
     const itemId = (item: Item) => item.id as string;
 
     return (
-      <SortableList<Item & { id: string }>
-        items={items as (Item & { id: string })[]}
+      <SortableList<Item>
+        items={items}
         onReorder={reorderItems}
-        renderItem={(item, index) => (
+        renderItem={(item: Item, index) => (
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1 text-sm text-zinc-200">
                   {tab === "tracks" && (
