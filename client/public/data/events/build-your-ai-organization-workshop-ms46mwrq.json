@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:05:23.050Z",
-    "updatedAt": "2026-07-28T04:59:16.879Z"
+    "updatedAt": "2026-07-28T05:35:26.623Z"
   },
   "tracks": [],
   "sponsors": [
@@ -44,6 +44,21 @@
           "linkedin": "https://www.linkedin.com/in/suanmiao/",
           "role": "Co-Founder",
           "companyName": "Kylon"
+        }
+      ]
+    },
+    {
+      "id": "0bac90a5-861b-4ec3-83d4-d8c51ee41ac2",
+      "companyName": "Nebius",
+      "companyWebsite": "https://nebius.com/",
+      "companyLogo": "/images/companies/1785211513988-8tlzc2qqnhq.png",
+      "companyDescription": "​Nebius provides full-stack AI cloud infrastructure for developers, startups, enterprises, and research teams. Its platform helps teams build, train, and deploy AI products in a secure, high-performance, and cost-efficient environment.",
+      "representatives": [
+        {
+          "username": "Colin Lowenberg",
+          "linkedin": "https://www.linkedin.com/in/wifi/",
+          "role": "DevRel",
+          "companyName": "Nebius"
         }
       ]
     }

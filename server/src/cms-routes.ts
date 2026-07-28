@@ -18,6 +18,8 @@ import {
   updateCompany,
   updateEventBasics,
   updatePerson,
+  reorderEventCollection,
+  type ReorderableCollection,
 } from "./data/repository.js";
 import { isCompetitionEvent, newId, type EventType } from "./data/types.js";
 import {
@@ -333,6 +335,7 @@ cmsRouter.post("/events/:id/detail", (req, res) => {
           customName: null,
           partnerType: data.partnerType,
           customType: data.customType || null,
+          sortOrder: record.partners.length,
         };
         record.partners.push(row);
         saveEventRecord(record);
@@ -495,6 +498,21 @@ cmsRouter.post("/events/:id/detail", (req, res) => {
           const row = record.schedule.find((s) => s.id === item.id);
           if (row) row.sortOrder = item.sortOrder;
         }
+        saveEventRecord(record);
+        rebuild();
+        res.json({ success: true });
+        return;
+      }
+      case "reorder": {
+        const { collection, orderedIds } = data as {
+          collection: ReorderableCollection;
+          orderedIds: string[];
+        };
+        if (!collection || !Array.isArray(orderedIds)) {
+          res.status(400).json({ error: "collection and orderedIds required" });
+          return;
+        }
+        reorderEventCollection(record, collection, orderedIds);
         saveEventRecord(record);
         rebuild();
         res.json({ success: true });

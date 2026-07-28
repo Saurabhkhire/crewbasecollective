@@ -11,6 +11,7 @@ import {
   Gavel,
   Loader2,
   Handshake,
+  Link2,
   type LucideIcon,
 } from "lucide-react";
 import { loadData } from "@/lib/api";
@@ -114,6 +115,99 @@ interface EventDetail {
   photos: { id: string; imageUrl: string; caption: string | null }[];
 }
 
+type BandTone = "default" | "sponsors" | "people" | "prizes";
+
+const BAND_BODY: Record<BandTone, string> = {
+  default:
+    "border-[var(--border)] bg-[linear-gradient(180deg,rgba(8,24,39,0.95),rgba(3,11,19,0.98))]",
+  sponsors:
+    "border-[var(--border)] bg-[linear-gradient(180deg,rgba(8,24,39,0.95),rgba(3,11,19,0.98))]",
+  people:
+    "border-[var(--border)] bg-[linear-gradient(180deg,rgba(8,24,39,0.95),rgba(3,11,19,0.98))]",
+  prizes:
+    "border-[var(--border)] bg-[linear-gradient(180deg,rgba(8,24,39,0.95),rgba(3,11,19,0.98))]",
+};
+
+const BAND_HEADER =
+  "border-b border-[rgba(24,174,232,0.28)] bg-[linear-gradient(90deg,rgba(24,174,232,0.22),rgba(12,130,194,0.1))]";
+
+function EventBand({
+  title,
+  icon: Icon,
+  tone = "default",
+  children,
+}: {
+  title: string;
+  icon?: LucideIcon;
+  tone?: BandTone;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className={`overflow-hidden rounded-2xl border ${BAND_BODY[tone]}`}>
+      <div className={`flex items-center gap-2 px-5 py-4 sm:px-6 ${BAND_HEADER}`}>
+        {Icon && <Icon size={18} className="shrink-0 text-[#7dd3fc]" />}
+        <h2 className="text-base font-bold uppercase tracking-[0.55px] text-[#b8e8ff] sm:text-lg">
+          {title}
+        </h2>
+      </div>
+      <div className="p-5 sm:p-6">{children}</div>
+    </section>
+  );
+}
+
+function EventMetaCard({
+  icon: Icon,
+  label,
+  children,
+}: {
+  icon: LucideIcon;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-xl border border-[var(--border)] bg-[rgba(6,17,28,0.88)] p-4 backdrop-blur-sm">
+      <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.5px] text-[#7dd3fc]">
+        <Icon size={14} className="shrink-0" />
+        {label}
+      </div>
+      <div className="text-[15px] font-medium leading-snug text-white">{children}</div>
+    </div>
+  );
+}
+
+function TimelineList({ children }: { children: React.ReactNode }) {
+  return <ul className="space-y-0">{children}</ul>;
+}
+
+function TimelineItem({
+  isLast,
+  time,
+  title,
+  subtitle,
+}: {
+  isLast: boolean;
+  time?: string | null;
+  title: React.ReactNode;
+  subtitle?: React.ReactNode;
+}) {
+  return (
+    <li className="relative flex gap-3 pb-5 last:pb-0">
+      {!isLast && (
+        <span
+          className="absolute left-[5px] top-3 bottom-0 w-px bg-[rgba(24,174,232,0.25)]"
+          aria-hidden
+        />
+      )}
+      <span className="relative mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-[#38bdf8] shadow-[0_0_8px_rgba(56,189,248,0.45)]" />
+      <div className="min-w-0 flex-1">
+        {time ? <p className="text-sm text-[var(--muted)]">{time}</p> : null}
+        <p className={`font-medium text-white ${time ? "mt-0.5" : ""}`}>{title}</p>
+        {subtitle ? <div className="mt-1 text-sm text-[var(--muted)]">{subtitle}</div> : null}
+      </div>
+    </li>
+  );
+}
+
 function PersonLink({ name, linkedin }: { name: string; linkedin: string | null }) {
   const url = externalUrl(linkedin);
   if (url) {
@@ -122,13 +216,13 @@ function PersonLink({ name, linkedin }: { name: string; linkedin: string | null 
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="font-medium text-zinc-100 hover:text-white hover:underline"
+        className="font-medium text-white transition hover:text-[var(--cyan)]"
       >
         {name}
       </a>
     );
   }
-  return <span className="font-medium text-zinc-100">{name}</span>;
+  return <span className="font-medium text-white">{name}</span>;
 }
 
 function roleAtCompany(role?: string | null, company?: string | null) {
@@ -140,50 +234,30 @@ function roleAtCompany(role?: string | null, company?: string | null) {
   return "";
 }
 
-function Section({
-  title,
-  icon: Icon,
-  children,
-}: {
-  title: string;
-  icon?: LucideIcon;
-  children: React.ReactNode;
-}) {
+function PersonRow({ name, linkedin, meta }: { name: string; linkedin: string | null; meta: string }) {
   return (
-    <section className="mt-12">
-      <h2 className="flex items-center gap-2 text-xl font-bold text-zinc-100">
-        {Icon && <Icon size={20} className="text-brand-500" />}
-        {title}
-      </h2>
-      <div className="mt-5">{children}</div>
-    </section>
+    <li className="border-b border-[var(--border)] py-3.5 last:border-0 last:pb-0">
+      <p className="text-[15px] leading-relaxed text-[var(--muted)]">
+        <PersonLink name={name} linkedin={linkedin} />
+        {meta ? <span className="text-[var(--muted)]"> · {meta}</span> : null}
+      </p>
+    </li>
   );
 }
 
-function OrgBlock({
-  name,
-  website,
-  logo,
-  description,
-  typeLabel,
-}: {
-  name: string | null;
-  website: string | null;
-  logo: string | null;
-  description: string | null;
-  typeLabel?: string | null;
-}) {
+function ExternalLinkRow({ label, href }: { label: string; href: string }) {
   return (
-    <div className="border-b border-[var(--border)] pb-6 last:border-0 last:pb-0">
-      <SponsorDisplay
-        name={name}
-        website={website}
-        logo={logo}
-        description={description}
-        typeLabel={typeLabel}
-        compact
-      />
-    </div>
+    <li className="border-b border-[var(--border)] py-3.5 last:border-0 last:pb-0">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 text-[15px] font-semibold text-[var(--cyan)] transition hover:brightness-110"
+      >
+        {label}
+        <ExternalLink size={14} className="opacity-80" />
+      </a>
+    </li>
   );
 }
 
@@ -282,7 +356,11 @@ export default function EventDetailPage() {
     const withoutTimes = data.speakers.filter((s) => !s.startTime);
     const days = withTimes.length > 0 ? groupByDay(withTimes) : [];
     if (withoutTimes.length > 0) {
-      days.push({ dayKey: "other", heading: withTimes.length > 0 ? "Also speaking" : "", items: withoutTimes });
+      days.push({
+        dayKey: "other",
+        heading: withTimes.length > 0 ? "Also speaking" : "",
+        items: withoutTimes,
+      });
     }
     return days;
   }, [data]);
@@ -314,9 +392,9 @@ export default function EventDetailPage() {
 
   if (notFound) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-24 text-center">
-        <h1 className="text-2xl font-bold text-zinc-100">Event not found</h1>
-        <Link to="/events" className="mt-4 inline-block text-brand-500 hover:underline">
+      <div className="mx-auto w-[90%] max-w-6xl px-4 py-24 pt-[130px] text-center">
+        <h1 className="section-title">Event not found</h1>
+        <Link to="/events" className="mt-4 inline-block text-[var(--cyan)] hover:underline">
           &larr; Back to Events
         </Link>
       </div>
@@ -325,8 +403,8 @@ export default function EventDetailPage() {
 
   if (!data) {
     return (
-      <div className="flex justify-center py-24">
-        <Loader2 className="h-8 w-8 animate-spin text-brand-500" />
+      <div className="flex justify-center py-24 pt-[130px]">
+        <Loader2 className="h-8 w-8 animate-spin text-[var(--cyan)]" />
       </div>
     );
   }
@@ -339,7 +417,7 @@ export default function EventDetailPage() {
   const regularHosts = hosts.filter((h) => h.hostType !== "volunteer");
   const volunteers = hosts.filter((h) => h.hostType === "volunteer");
 
-  const dateLine =
+  const fullDateLine =
     event.endDate && event.endDate !== event.eventDate
       ? `${formatDate(event.eventDate)} – ${formatDate(event.endDate)}`
       : formatDate(event.eventDate);
@@ -348,431 +426,424 @@ export default function EventDetailPage() {
     ? `${formatTime(event.startTime)}${event.endTime ? ` – ${formatTime(event.endTime)}` : ""}`
     : null;
 
+  const hasRegistrationLinks = Boolean(
+    event.lumaLink || event.eventbriteLink || event.groupLink
+  );
+
+  const mapsUrl = event.location
+    ? mapsUrlForLocation(event.location, event.locationLat, event.locationLng)
+    : null;
+
   return (
-    <div>
-      {event.coverImageUrl && (
-        <div className="relative mt-[86px] aspect-[21/9] max-h-[420px] w-full overflow-hidden bg-[var(--panel)]">
-          <img
-            src={event.coverImageUrl}
-            alt={event.name}
-            className="h-full w-full object-cover"
-          />
-        </div>
-      )}
+    <div className="pb-20">
+      <div className="mx-auto w-[90%] max-w-6xl pt-[110px]">
+        {event.coverImageUrl && (
+          <div className="card overflow-hidden !p-0">
+            <div className="flex min-h-[200px] items-center justify-center bg-[var(--panel)] p-4 sm:p-6">
+              <img
+                src={event.coverImageUrl}
+                alt={event.name}
+                className="max-h-[min(520px,65vh)] w-full object-contain"
+              />
+            </div>
+          </div>
+        )}
 
-      <div className={`mx-auto w-[90%] max-w-3xl py-10 ${event.coverImageUrl ? "" : "pt-[130px]"}`}>
-        <div>
-        <span className="rounded-full border border-[var(--border)] bg-[var(--cyan)]/10 px-3 py-1 text-xs font-semibold text-[var(--cyan)]">
-          {EVENT_TYPE_LABELS[event.type] || event.type}
-        </span>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          {event.name}
-        </h1>
+        <div className={event.coverImageUrl ? "mt-8" : ""}>
+          <div className="eyebrow">Event</div>
+          <span className="inline-block rounded-full border border-[var(--border)] bg-[rgba(9,247,223,0.1)] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--cyan)]">
+            {EVENT_TYPE_LABELS[event.type] || event.type}
+          </span>
+          <h1 className="section-title mt-4">{event.name}</h1>
 
-        <div className="mt-5 space-y-2 text-sm text-[var(--muted)]">
-          <p className="flex items-start gap-2">
-            <Calendar size={16} className="mt-0.5 shrink-0 text-brand-500" />
-            <span>{dateLine}</span>
-          </p>
-          {timeLine && (
-            <p className="flex items-start gap-2">
-              <Clock size={16} className="mt-0.5 shrink-0 text-brand-500" />
-              <span>{timeLine}</span>
-            </p>
-          )}
-          {event.location && (
-            <p className="flex items-start gap-2">
-              <MapPin size={16} className="mt-0.5 shrink-0 text-brand-500" />
-              {mapsUrlForLocation(event.location, event.locationLat, event.locationLng) ? (
-                <a
-                  href={mapsUrlForLocation(event.location, event.locationLat, event.locationLng)!}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-brand-400 hover:underline"
-                >
-                  {event.location}
-                </a>
+          <div className="mt-6 space-y-3">
+            <EventMetaCard icon={Calendar} label="Date & Time">
+              <span className="block font-bold text-white">{fullDateLine}</span>
+              {timeLine ? (
+                <span className="mt-2 block text-sm font-bold text-white">{timeLine}</span>
               ) : (
-                <span>{event.location}</span>
+                <span className="mt-2 block text-sm font-normal text-[var(--muted)]">
+                  Time to be announced
+                </span>
               )}
-            </p>
+            </EventMetaCard>
+            {event.location && (
+              <EventMetaCard icon={MapPin} label="Location">
+                {mapsUrl ? (
+                  <a
+                    href={mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition hover:text-[#7dd3fc] hover:underline"
+                  >
+                    {event.location}
+                  </a>
+                ) : (
+                  event.location
+                )}
+              </EventMetaCard>
+            )}
+          </div>
+
+          <div className="mt-6">
+            <button type="button" className="btn-primary">
+              Register
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-10 space-y-6">
+          {hasRegistrationLinks && (
+            <EventBand title="Registration & Links" icon={Link2} tone="default">
+              <ul>
+                {event.lumaLink && (
+                  <ExternalLinkRow label="LUMA Link" href={event.lumaLink} />
+                )}
+                {event.eventbriteLink && (
+                  <ExternalLinkRow label="Eventbrite Link" href={event.eventbriteLink} />
+                )}
+                {event.groupLink && (
+                  <li className="border-b border-[var(--border)] py-3.5 last:border-0 last:pb-0">
+                    <a
+                      href={event.groupLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-[15px] font-semibold text-[var(--cyan)] transition hover:brightness-110"
+                    >
+                      {/discord/i.test(event.groupLink)
+                        ? "Discord Link"
+                        : /whatsapp|wa\.me|chat\.whatsapp/i.test(event.groupLink)
+                          ? "WhatsApp Link"
+                          : "Group Link"}
+                      <ExternalLink size={14} className="opacity-80" />
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </EventBand>
+          )}
+
+          {event.description && (
+            <EventBand title="Description" tone="default">
+              <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-[var(--muted)]">
+                {event.description}
+              </p>
+            </EventBand>
+          )}
+
+          {event.theme && (
+            <EventBand title="Theme" tone="default">
+              <p className="text-lg font-medium text-white">{event.theme}</p>
+            </EventBand>
+          )}
+
+          {tracks.length > 0 && (
+            <EventBand title="Tracks" tone="default">
+              <div className="space-y-5">
+                {tracks.map((track) => (
+                  <div
+                    key={track.id}
+                    className="border-b border-[var(--border)] pb-5 last:border-0 last:pb-0"
+                  >
+                    <h3 className="font-semibold text-white">{track.name}</h3>
+                    {track.description && (
+                      <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-[var(--muted)]">
+                        {track.description}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </EventBand>
+          )}
+
+          {sponsors.length > 0 && (
+            <EventBand title="Sponsors" icon={Trophy} tone="sponsors">
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {sponsors.map((s) => (
+                  <div
+                    key={s.id}
+                    className="rounded-xl border border-[var(--border)] bg-[rgba(2,7,13,0.45)] p-4"
+                  >
+                    <SponsorDisplay
+                      name={s.companyName}
+                      website={s.companyWebsite}
+                      logo={s.companyLogo}
+                      description={s.companyDescription}
+                      compact
+                    />
+                  </div>
+                ))}
+              </div>
+            </EventBand>
+          )}
+
+          {venuePartners.length > 0 && (
+            <EventBand title="Venue Partner" tone="sponsors">
+              <div className="space-y-6">
+                {venuePartners.map((p, i) => (
+                  <div
+                    key={i}
+                    className="border-b border-[var(--border)] pb-6 last:border-0 last:pb-0"
+                  >
+                    <SponsorDisplay
+                      name={p.companyName}
+                      website={p.companyWebsite}
+                      logo={p.companyLogo}
+                      description={p.companyDescription}
+                      compact
+                    />
+                  </div>
+                ))}
+              </div>
+            </EventBand>
+          )}
+
+          {otherPartners.length > 0 && (
+            <EventBand title="Partners" tone="sponsors">
+              <div className="space-y-6">
+                {otherPartners.map((p, i) => (
+                  <div
+                    key={i}
+                    className="border-b border-[var(--border)] pb-6 last:border-0 last:pb-0"
+                  >
+                    <SponsorDisplay
+                      name={p.companyName}
+                      website={p.companyWebsite}
+                      logo={p.companyLogo}
+                      description={p.companyDescription}
+                      typeLabel={
+                        p.partnerType === "custom"
+                          ? p.customType
+                          : PARTNER_TYPE_LABELS[p.partnerType] || p.partnerType
+                      }
+                      compact
+                    />
+                  </div>
+                ))}
+              </div>
+            </EventBand>
+          )}
+
+          {prizes.length > 0 && (
+            <EventBand title="Prizes" icon={Trophy} tone="prizes">
+              <div className="space-y-5">
+                {prizeGroups.map((group) => (
+                  <div
+                    key={group.sponsor}
+                    className="rounded-xl border border-[var(--border)] bg-[rgba(2,7,13,0.4)] p-4"
+                  >
+                    {group.sponsor !== "Prizes" && (
+                      <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--cyan)]">
+                        {group.sponsor}
+                      </p>
+                    )}
+                    <div className="space-y-4">
+                      {group.categories.map((cat) => (
+                        <div key={cat.name}>
+                          <h3 className="font-semibold text-white">{cat.name}</h3>
+                          <ul className="mt-2 space-y-2">
+                            {cat.items.map((p, i) => (
+                              <li key={i} className="text-sm text-[var(--muted)]">
+                                <span className="font-medium text-white">
+                                  {placementLabel(p.placement, p.customLabel)}
+                                </span>
+                                {p.amount && <span> — {p.amount}</span>}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </EventBand>
+          )}
+
+          {scheduleByDay.length > 0 && (
+            <EventBand title="Schedule" icon={Clock} tone="default">
+              <div className="space-y-8">
+                {scheduleByDay.map((day) => (
+                  <div key={day.dayKey}>
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-[#7dd3fc]">
+                      {day.heading}
+                    </h3>
+                    <TimelineList>
+                      {day.items.map((item, index) => (
+                        <TimelineItem
+                          key={item.id}
+                          isLast={index === day.items.length - 1}
+                          time={`${formatClockFromIso(item.startTime)} – ${formatClockFromIso(item.endTime)}`}
+                          title={item.topic}
+                          subtitle={
+                            item.speakers.length > 0 ? (
+                              <>
+                                {item.speakers.map((s, i) => (
+                                  <span key={i}>
+                                    {i > 0 && ", "}
+                                    <PersonLink name={s.username} linkedin={s.linkedin} />
+                                  </span>
+                                ))}
+                              </>
+                            ) : undefined
+                          }
+                        />
+                      ))}
+                    </TimelineList>
+                  </div>
+                ))}
+              </div>
+            </EventBand>
+          )}
+
+          {speakers.length > 0 && (
+            <EventBand title="Speakers" icon={Mic} tone="people">
+              <div className="space-y-8">
+                {speakersByDay.map((day) => (
+                  <div key={day.dayKey || "speakers"}>
+                    {day.heading && (
+                      <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#7dd3fc]">
+                        {day.heading}
+                      </h3>
+                    )}
+                    <TimelineList>
+                      {day.items.map((s, index) => {
+                        const meta = roleAtCompany(s.title, s.companyName);
+                        const topic = s.topic?.trim();
+                        const time =
+                          s.startTime && s.endTime
+                            ? `${formatClockFromIso(s.startTime)} – ${formatClockFromIso(s.endTime)}`
+                            : null;
+                        const identity = (
+                          <>
+                            <PersonLink name={s.username} linkedin={s.linkedin} />
+                            {meta ? (
+                              <span className="font-normal text-[var(--muted)]"> · {meta}</span>
+                            ) : null}
+                          </>
+                        );
+                        return (
+                          <TimelineItem
+                            key={`${s.username}-${s.startTime}-${index}`}
+                            isLast={index === day.items.length - 1}
+                            time={time}
+                            title={identity}
+                            subtitle={
+                              topic ? (
+                                <span className="font-semibold text-white">{topic}</span>
+                              ) : undefined
+                            }
+                          />
+                        );
+                      })}
+                    </TimelineList>
+                  </div>
+                ))}
+              </div>
+            </EventBand>
+          )}
+
+          {judges.length > 0 && (
+            <EventBand title="Judges" icon={Gavel} tone="people">
+              <ul>
+                {judges.map((j, i) => (
+                  <PersonRow
+                    key={i}
+                    name={j.username}
+                    linkedin={j.linkedin}
+                    meta={roleAtCompany(j.role || j.title, j.companyName)}
+                  />
+                ))}
+              </ul>
+            </EventBand>
+          )}
+
+          {sponsorReps.length > 0 && (
+            <EventBand title="Sponsor Representatives" icon={Handshake} tone="people">
+              <ul>
+                {sponsorReps.map((r, i) => (
+                  <PersonRow
+                    key={i}
+                    name={r.username}
+                    linkedin={r.linkedin}
+                    meta={roleAtCompany(r.role, r.companyName)}
+                  />
+                ))}
+              </ul>
+            </EventBand>
+          )}
+
+          {regularHosts.length > 0 && (
+            <EventBand title="Hosts" icon={Users} tone="people">
+              <ul>
+                {regularHosts.map((h, i) => (
+                  <PersonRow
+                    key={i}
+                    name={h.username}
+                    linkedin={h.linkedin}
+                    meta={roleAtCompany(h.role || h.title, h.companyName)}
+                  />
+                ))}
+              </ul>
+            </EventBand>
+          )}
+
+          {volunteers.length > 0 && (
+            <EventBand title="Volunteers" icon={Users} tone="people">
+              <ul>
+                {volunteers.map((h, i) => (
+                  <PersonRow
+                    key={i}
+                    name={h.username}
+                    linkedin={h.linkedin}
+                    meta={roleAtCompany(h.role || h.title, h.companyName)}
+                  />
+                ))}
+              </ul>
+            </EventBand>
+          )}
+
+          {photos.length > 0 && (
+            <EventBand title="Gallery" tone="default">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                {photos.map((photo) => (
+                  <div
+                    key={photo.id}
+                    className="relative aspect-square overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--panel)]"
+                  >
+                    <img
+                      src={photo.imageUrl}
+                      alt={photo.caption || ""}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                    {photo.caption && (
+                      <p className="absolute inset-x-0 bottom-0 bg-[rgba(2,7,13,0.75)] px-2 py-1.5 text-xs text-white">
+                        {photo.caption}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </EventBand>
+          )}
+
+          {links.length > 0 && (
+            <EventBand title="Links" icon={Link2} tone="default">
+              <ul>
+                {links.map((link) => (
+                  <ExternalLinkRow key={link.id} label={link.label} href={link.url} />
+                ))}
+              </ul>
+            </EventBand>
           )}
         </div>
 
-        {(event.lumaLink || event.eventbriteLink || event.groupLink) && (
-          <div className="mt-6 flex flex-wrap gap-3">
-            {event.lumaLink && (
-              <a
-                href={event.lumaLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary"
-              >
-                Register on Luma <ExternalLink className="ml-1 h-4 w-4" />
-              </a>
-            )}
-            {event.eventbriteLink && (
-              <a
-                href={event.eventbriteLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary"
-              >
-                Eventbrite <ExternalLink className="ml-1 h-4 w-4" />
-              </a>
-            )}
-            {event.groupLink && (
-              <a
-                href={event.groupLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary"
-              >
-                {/discord/i.test(event.groupLink)
-                  ? "Join Discord"
-                  : /whatsapp|wa\.me|chat\.whatsapp/i.test(event.groupLink)
-                    ? "Join WhatsApp"
-                    : "Join group"}{" "}
-                <ExternalLink className="ml-1 h-4 w-4" />
-              </a>
-            )}
-          </div>
-        )}
-
-        {event.description && (
-          <div className="mt-8 border-t border-zinc-800 pt-8">
-            <p className="whitespace-pre-wrap leading-relaxed text-zinc-300">{event.description}</p>
-          </div>
-        )}
-
-        {event.theme && (
-          <Section title="Theme">
-            <p className="text-lg text-zinc-100">{event.theme}</p>
-          </Section>
-        )}
-
-        {tracks.length > 0 && (
-          <Section title="Tracks">
-            <div className="space-y-6">
-              {tracks.map((track) => (
-                <div key={track.id} className="border-b border-zinc-800 pb-5 last:border-0 last:pb-0">
-                  <h3 className="text-base font-semibold text-zinc-100">{track.name}</h3>
-                  {track.description && (
-                    <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-zinc-400">
-                      {track.description}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </Section>
-        )}
-
-        {sponsors.length > 0 && (
-          <Section title="Sponsors" icon={Trophy}>
-            <div className="grid gap-5 sm:grid-cols-2">
-              {sponsors.map((s) => (
-                <div
-                  key={s.id}
-                  className="rounded-2xl border border-[var(--border)] bg-[rgba(6,17,28,0.6)] p-5"
-                >
-                  <SponsorDisplay
-                    name={s.companyName}
-                    website={s.companyWebsite}
-                    logo={s.companyLogo}
-                    description={s.companyDescription}
-                    compact
-                  />
-                </div>
-              ))}
-            </div>
-          </Section>
-        )}
-
-        {venuePartners.length > 0 && (
-          <Section title="Venue Partner">
-            <div className="space-y-6">
-              {venuePartners.map((p, i) => (
-                <OrgBlock
-                  key={i}
-                  name={p.companyName}
-                  website={p.companyWebsite}
-                  logo={p.companyLogo}
-                  description={p.companyDescription}
-                />
-              ))}
-            </div>
-          </Section>
-        )}
-
-        {otherPartners.length > 0 && (
-          <Section title="Partners">
-            <div className="space-y-6">
-              {otherPartners.map((p, i) => (
-                <OrgBlock
-                  key={i}
-                  name={p.companyName}
-                  website={p.companyWebsite}
-                  logo={p.companyLogo}
-                  description={p.companyDescription}
-                  typeLabel={
-                    p.partnerType === "custom"
-                      ? p.customType
-                      : PARTNER_TYPE_LABELS[p.partnerType] || p.partnerType
-                  }
-                />
-              ))}
-            </div>
-          </Section>
-        )}
-
-        {prizes.length > 0 && (
-          <Section title="Prizes" icon={Trophy}>
-            <div className="space-y-4">
-              {prizeGroups.map((group) => (
-                <div
-                  key={group.sponsor}
-                  className="rounded-xl border border-zinc-700 bg-zinc-900/95 p-5 shadow-lg shadow-black/25"
-                >
-                  {group.sponsor !== "Prizes" && (
-                    <p className="mb-3 text-sm font-medium uppercase tracking-wide text-zinc-500">
-                      {group.sponsor}
-                    </p>
-                  )}
-                  <div className="space-y-4">
-                    {group.categories.map((cat) => (
-                      <div key={cat.name}>
-                        <h3 className="font-semibold text-zinc-50">{cat.name}</h3>
-                        <ul className="mt-2 space-y-2">
-                          {cat.items.map((p, i) => (
-                            <li key={i} className="text-sm text-zinc-300">
-                              <span className="font-medium text-zinc-100">
-                                {placementLabel(p.placement, p.customLabel)}
-                              </span>
-                              {p.amount && (
-                                <span className="text-zinc-400"> — {p.amount}</span>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-        )}
-
-        {scheduleByDay.length > 0 && (
-          <Section title="Schedule" icon={Clock}>
-            <div className="space-y-8">
-              {scheduleByDay.map((day) => (
-                <div key={day.dayKey}>
-                  <h3 className="text-base font-semibold text-zinc-200">{day.heading}</h3>
-                  <ul className="mt-3 space-y-0">
-                    {day.items.map((item, index) => (
-                      <li key={item.id} className="relative flex gap-3 pb-5 last:pb-0">
-                        {index < day.items.length - 1 && (
-                          <span
-                            className="absolute left-[5px] top-3 bottom-0 w-px bg-zinc-700"
-                            aria-hidden
-                          />
-                        )}
-                        <span className="relative mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-brand-500" />
-                        <div className="min-w-0 flex-1">
-                          <p className="text-sm text-zinc-400">
-                            {formatClockFromIso(item.startTime)}
-                            {" – "}
-                            {formatClockFromIso(item.endTime)}
-                          </p>
-                          <p className="mt-0.5 font-medium text-zinc-100">{item.topic}</p>
-                          {item.speakers.length > 0 && (
-                            <p className="mt-1 text-sm text-zinc-500">
-                              {item.speakers.map((s, i) => (
-                                <span key={i}>
-                                  {i > 0 && ", "}
-                                  <PersonLink name={s.username} linkedin={s.linkedin} />
-                                </span>
-                              ))}
-                            </p>
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </Section>
-        )}
-
-        {speakers.length > 0 && (
-          <Section title="Speakers" icon={Mic}>
-            <div className="space-y-8">
-              {speakersByDay.map((day) => (
-                <div key={day.dayKey || "speakers"}>
-                  {day.heading && (
-                    <h3 className="mb-3 text-base font-semibold text-zinc-200">{day.heading}</h3>
-                  )}
-                  <ul className="mt-3 space-y-0">
-                    {day.items.map((s, index) => (
-                      <li
-                        key={`${s.username}-${s.startTime}-${index}`}
-                        className="relative flex gap-3 pb-5 last:pb-0"
-                      >
-                        {index < day.items.length - 1 && (
-                          <span
-                            className="absolute left-[5px] top-3 bottom-0 w-px bg-zinc-700"
-                            aria-hidden
-                          />
-                        )}
-                        <span className="relative mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-brand-500" />
-                        <div className="min-w-0 flex-1">
-                          {s.startTime && s.endTime && (
-                            <p className="text-sm text-zinc-400">
-                              {formatClockFromIso(s.startTime)}
-                              {" – "}
-                              {formatClockFromIso(s.endTime)}
-                            </p>
-                          )}
-                          <p className="mt-0.5 text-zinc-200">
-                            <PersonLink name={s.username} linkedin={s.linkedin} />
-                            {s.topic ? (
-                              <span className="text-zinc-400"> · {s.topic}</span>
-                            ) : null}
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </Section>
-        )}
-
-        {judges.length > 0 && (
-          <Section title="Judges" icon={Gavel}>
-            <ul className="space-y-3">
-              {judges.map((j, i) => {
-                const meta = roleAtCompany(j.role || j.title, j.companyName);
-                return (
-                  <li key={i} className="border-b border-zinc-800 pb-3 last:border-0 last:pb-0">
-                    <p className="text-zinc-200">
-                      <PersonLink name={j.username} linkedin={j.linkedin} />
-                      {meta ? <span className="text-zinc-400"> · {meta}</span> : null}
-                    </p>
-                  </li>
-                );
-              })}
-            </ul>
-          </Section>
-        )}
-
-        {sponsorReps.length > 0 && (
-          <Section title="Sponsor Representatives" icon={Handshake}>
-            <ul className="space-y-3">
-              {sponsorReps.map((r, i) => {
-                const meta = roleAtCompany(r.role, r.companyName);
-                return (
-                  <li key={i} className="border-b border-zinc-800 pb-3 last:border-0 last:pb-0">
-                    <p className="text-zinc-200">
-                      <PersonLink name={r.username} linkedin={r.linkedin} />
-                      {meta ? <span className="text-zinc-400"> · {meta}</span> : null}
-                    </p>
-                  </li>
-                );
-              })}
-            </ul>
-          </Section>
-        )}
-
-        {regularHosts.length > 0 && (
-          <Section title="Hosts" icon={Users}>
-            <ul className="space-y-3">
-              {regularHosts.map((h, i) => {
-                // Only show written extra/sub role — not generic "Host"
-                const meta = roleAtCompany(h.role, h.companyName);
-                return (
-                  <li key={i} className="border-b border-zinc-800 pb-3 last:border-0 last:pb-0">
-                    <p className="text-zinc-200">
-                      <PersonLink name={h.username} linkedin={h.linkedin} />
-                      {meta ? <span className="text-zinc-400"> · {meta}</span> : null}
-                    </p>
-                  </li>
-                );
-              })}
-            </ul>
-          </Section>
-        )}
-
-        {volunteers.length > 0 && (
-          <Section title="Volunteers" icon={Users}>
-            <ul className="space-y-3">
-              {volunteers.map((h, i) => {
-                const meta = roleAtCompany(h.role || h.title, h.companyName);
-                return (
-                  <li key={i} className="border-b border-zinc-800 pb-3 last:border-0 last:pb-0">
-                    <p className="text-zinc-200">
-                      <PersonLink name={h.username} linkedin={h.linkedin} />
-                      {meta ? <span className="text-zinc-400"> · {meta}</span> : null}
-                    </p>
-                  </li>
-                );
-              })}
-            </ul>
-          </Section>
-        )}
-
-        {photos.length > 0 && (
-          <Section title="Gallery">
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {photos.map((photo) => (
-                <div
-                  key={photo.id}
-                  className="relative aspect-square overflow-hidden rounded-lg bg-zinc-800"
-                >
-                  <img
-                    src={photo.imageUrl}
-                    alt={photo.caption || ""}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                  />
-                  {photo.caption && (
-                    <p className="absolute inset-x-0 bottom-0 bg-zinc-950/70 px-2 py-1 text-xs text-zinc-200">
-                      {photo.caption}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </Section>
-        )}
-
-        {links.length > 0 && (
-          <Section title="Links">
-            <div className="flex flex-wrap gap-3">
-              {links.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary"
-                >
-                  {link.label} <ExternalLink className="ml-1 h-3.5 w-3.5" />
-                </a>
-              ))}
-            </div>
-          </Section>
-        )}
-
-        <div className="mt-12">
-          <Link to="/events" className="text-sm text-brand-500 hover:underline">
+        <div className="mt-10">
+          <Link to="/events" className="text-sm text-[var(--cyan)] hover:underline">
             &larr; Back to Events
           </Link>
-        </div>
         </div>
       </div>
     </div>

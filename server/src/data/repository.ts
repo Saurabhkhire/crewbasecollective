@@ -25,6 +25,58 @@ export const IMAGES_DIR = path.join(DATA_DIR, "images");
 export const PUBLIC_DATA_DIR = path.join(ROOT, "client/public/data");
 export const PUBLIC_IMAGES_DIR = path.join(ROOT, "client/public/images");
 
+function sortByOrder<T extends { sortOrder?: number }>(items: T[]): T[] {
+  return [...items].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+}
+
+export type ReorderableCollection =
+  | "tracks"
+  | "sponsors"
+  | "partners"
+  | "prizes"
+  | "schedule"
+  | "speakers"
+  | "judges"
+  | "hosts"
+  | "links"
+  | "photos";
+
+export function reorderEventCollection(
+  record: EventRecord,
+  collection: ReorderableCollection,
+  orderedIds: string[]
+): void {
+  const key = collection as keyof Pick<
+    EventRecord,
+    | "tracks"
+    | "sponsors"
+    | "partners"
+    | "prizes"
+    | "schedule"
+    | "speakers"
+    | "judges"
+    | "hosts"
+    | "links"
+    | "photos"
+  >;
+  const arr = record[key] as { id: string; sortOrder?: number }[];
+  const byId = new Map(arr.map((item) => [item.id, item]));
+  const reordered: typeof arr = [];
+  for (let i = 0; i < orderedIds.length; i++) {
+    const item = byId.get(orderedIds[i]);
+    if (!item) continue;
+    item.sortOrder = i;
+    reordered.push(item);
+  }
+  for (const item of arr) {
+    if (!orderedIds.includes(item.id)) {
+      item.sortOrder = reordered.length;
+      reordered.push(item);
+    }
+  }
+  (record[key] as typeof arr) = reordered;
+}
+
 function ensureDirs() {
   for (const dir of [
     DATA_DIR,
@@ -304,7 +356,7 @@ export function buildPublicEventDetail(record: EventRecord) {
   const companies = companyMap();
   const { event } = record;
 
-  const sponsors = record.sponsors.map((sponsor) => {
+  const sponsors = sortByOrder(record.sponsors).map((sponsor) => {
     const company = companies.get(sponsor.companyId);
     const reps = [
       ...(sponsor.representatives || []).map((r) => {
@@ -353,7 +405,7 @@ export function buildPublicEventDetail(record: EventRecord) {
     };
   });
 
-  const partners = record.partners.map((p) => {
+  const partners = sortByOrder(record.partners).map((p) => {
     const company = p.companyId ? companies.get(p.companyId) : null;
     return {
       partnerType: p.partnerType,
@@ -366,7 +418,7 @@ export function buildPublicEventDetail(record: EventRecord) {
   });
 
   const prizes = isCompetitionEvent(event.type)
-    ? record.prizes.map((p) => ({
+    ? sortByOrder(record.prizes).map((p) => ({
         placement: p.placement,
         customLabel: p.customLabel,
         prizeName: p.prizeName,
@@ -396,7 +448,8 @@ export function buildPublicEventDetail(record: EventRecord) {
     .filter((s) => !s.isSkipped)
     .sort(
       (a, b) =>
-        (a.startTime || "").localeCompare(b.startTime || "") || a.sortOrder - b.sortOrder
+        (a.startTime || "").localeCompare(b.startTime || "") ||
+        (a.sortOrder ?? 0) - (b.sortOrder ?? 0)
     )
     .map((s) => {
       const person = people.get(s.userId);
@@ -413,7 +466,7 @@ export function buildPublicEventDetail(record: EventRecord) {
     });
 
   const judges = isCompetitionEvent(event.type)
-    ? record.judges.map((j) => {
+    ? sortByOrder(record.judges).map((j) => {
         const person = people.get(j.userId);
         return {
           username: person?.username || "Unknown",
@@ -425,7 +478,7 @@ export function buildPublicEventDetail(record: EventRecord) {
       })
     : [];
 
-  const hosts = record.hosts.map((h) => {
+  const hosts = sortByOrder(record.hosts).map((h) => {
     const person = people.get(h.userId);
     return {
       username: person?.username || "Unknown",
@@ -573,7 +626,7 @@ export function adminEventDetail(record: EventRecord) {
   const people = personMap();
   const companies = companyMap();
 
-  const sponsors = record.sponsors.map((sponsor) => {
+  const sponsors = sortByOrder(record.sponsors).map((sponsor) => {
     const company = companies.get(sponsor.companyId);
     const reps = [
       ...(sponsor.representatives || []).map((r) => ({
@@ -607,7 +660,7 @@ export function adminEventDetail(record: EventRecord) {
     };
   });
 
-  const partners = record.partners.map((p) => {
+  const partners = sortByOrder(record.partners).map((p) => {
     const company = p.companyId ? companies.get(p.companyId) : null;
     return {
       ...p,
@@ -619,22 +672,22 @@ export function adminEventDetail(record: EventRecord) {
     };
   });
 
-  const speakers = record.speakers.map((s) => ({
+  const speakers = sortByOrder(record.speakers).map((s) => ({
     ...s,
     username: people.get(s.userId)?.username || "Unknown",
   }));
 
-  const judges = record.judges.map((j) => ({
+  const judges = sortByOrder(record.judges).map((j) => ({
     ...j,
     username: people.get(j.userId)?.username || "Unknown",
   }));
 
-  const hosts = record.hosts.map((h) => ({
+  const hosts = sortByOrder(record.hosts).map((h) => ({
     ...h,
     username: people.get(h.userId)?.username || "Unknown",
   }));
 
-  const schedule = record.schedule.map((item) => ({
+  const schedule = sortByOrder(record.schedule).map((item) => ({
     ...item,
     speakers: (item.speakers || []).map((s) => ({
       ...s,
@@ -643,16 +696,16 @@ export function adminEventDetail(record: EventRecord) {
   }));
 
   return {
-    tracks: record.tracks,
+    tracks: sortByOrder(record.tracks),
     sponsors,
     partners,
-    prizes: record.prizes,
+    prizes: sortByOrder(record.prizes),
     schedule,
     speakers,
     judges,
     hosts,
-    links: record.links,
-    photos: record.photos,
+    links: sortByOrder(record.links),
+    photos: sortByOrder(record.photos),
     liveState: record.liveState,
   };
 }

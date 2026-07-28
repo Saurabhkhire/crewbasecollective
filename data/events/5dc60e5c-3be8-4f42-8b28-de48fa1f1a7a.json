@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:05:23.050Z",
-    "updatedAt": "2026-07-28T04:59:16.879Z"
+    "updatedAt": "2026-07-28T05:35:26.623Z"
   },
   "tracks": [],
   "sponsors": [
@@ -37,6 +37,17 @@
         },
         {
           "userId": "58551e72-eca6-4e63-bb8e-466194849542"
+        }
+      ]
+    },
+    {
+      "id": "0bac90a5-861b-4ec3-83d4-d8c51ee41ac2",
+      "companyId": "126c51c7-58af-4afb-a963-7ebb6c70df26",
+      "personId": null,
+      "sortOrder": 1,
+      "representatives": [
+        {
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0"
         }
       ]
     }

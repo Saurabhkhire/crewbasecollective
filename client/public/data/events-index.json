@@ -23,7 +23,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T05:05:23.050Z",
-      "updatedAt": "2026-07-28T04:59:16.879Z"
+      "updatedAt": "2026-07-28T05:35:26.623Z"
     },
     {
       "id": "7d7d5ce9-ac13-4d56-b52d-ffd2d324f168",
@@ -102,12 +102,12 @@
     },
     {
       "id": "22a921ea-034a-4f59-a57a-da3e892ff495",
-      "slug": "bay-builders-hackathon",
+      "slug": "bay-builders-hackathon-ms4bzwpw",
       "name": "Bay Builders Hackathon",
       "type": "hackathon",
       "description": "Build the future of AI organizations. Create AI-powered tools, workflows, and solutions that help businesses and teams operate in new ways.",
       "theme": "Build your AI Organization",
-      "dayLabel": "Monday",
+      "dayLabel": "Mon, Jul 13",
       "eventDate": "2026-07-13",
       "endDate": "2026-07-13",
       "startTime": "09:30:00",
@@ -115,15 +115,15 @@
       "location": "AWS Builders Loft, 525 Market St, San Francisco, CA 94015",
       "locationLat": null,
       "locationLng": null,
-      "coverImageUrl": null,
-      "coverPageUrl": null,
-      "lumaLink": null,
-      "eventbriteLink": null,
-      "groupLink": null,
+      "coverImageUrl": "/images/covers/1785223527053-d8o65635cv.png",
+      "coverPageUrl": "",
+      "lumaLink": "",
+      "eventbriteLink": "",
+      "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-07-27T10:10:59.212Z"
+      "updatedAt": "2026-07-28T07:25:31.384Z"
     },
     {
       "id": "d534e62b-616a-4dc6-8b8d-a61ed0f72431",
@@ -173,7 +173,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-07-27T23:20:54.777Z"
+      "updatedAt": "2026-07-28T07:01:40.247Z"
     },
     {
       "id": "1148f625-6e64-4105-903a-ac2eebcf9c19",

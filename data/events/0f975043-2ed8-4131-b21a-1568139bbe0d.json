@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-27T23:20:54.777Z"
+    "updatedAt": "2026-07-28T07:01:40.247Z"
   },
   "tracks": [
     {
@@ -172,6 +172,13 @@
       "companyId": "ce36b4a9-3b26-4b98-9dcf-1a885ecdaa52",
       "customName": null,
       "partnerType": "venue",
+      "customType": null
+    },
+    {
+      "id": "84570472-8153-4bef-b673-2c8667e4ad4c",
+      "companyId": "d2bc21c4-ae2c-4807-ba3d-61a337406c7a",
+      "customName": null,
+      "partnerType": "community",
       "customType": null
     }
   ],

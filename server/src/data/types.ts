@@ -76,6 +76,7 @@ export interface EventPartner {
   customName: string | null;
   partnerType: PartnerType;
   customType: string | null;
+  sortOrder?: number;
 }
 
 export interface Prize {

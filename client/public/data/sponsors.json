@@ -311,6 +311,14 @@
       "website": "https://aistudio.google.com/",
       "linkedin": null,
       "information": "Google AI Studio is Google's web-based platform for building, testing, and deploying applications powered by Gemini AI models. It provides an intuitive environment for prompt engineering, model experimentation, and API integration, making it easy to prototype and integrate generative AI into applications."
+    },
+    {
+      "id": "d2bc21c4-ae2c-4807-ba3d-61a337406c7a",
+      "name": "Devnovate",
+      "logoUrl": "/images/companies/1785222057323-b6nwi8hknnm.png",
+      "website": "https://devnovate.co/",
+      "linkedin": null,
+      "information": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions."
     }
   ]
 }

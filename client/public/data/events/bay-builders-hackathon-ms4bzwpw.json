@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "22a921ea-034a-4f59-a57a-da3e892ff495",
-    "slug": "bay-builders-hackathon",
+    "slug": "bay-builders-hackathon-ms4bzwpw",
     "name": "Bay Builders Hackathon",
     "type": "hackathon",
     "description": "Build the future of AI organizations. Create AI-powered tools, workflows, and solutions that help businesses and teams operate in new ways.",
     "theme": "Build your AI Organization",
-    "dayLabel": "Monday",
+    "dayLabel": "Mon, Jul 13",
     "eventDate": "2026-07-13",
     "endDate": "2026-07-13",
     "startTime": "09:30:00",
@@ -14,15 +14,15 @@
     "location": "AWS Builders Loft, 525 Market St, San Francisco, CA 94015",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785223527053-d8o65635cv.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-27T10:10:59.212Z"
+    "updatedAt": "2026-07-28T07:25:31.384Z"
   },
   "tracks": [
     {
@@ -287,6 +287,14 @@
       "companyWebsite": "https://www.amazon.com/",
       "companyLogo": "/images/companies/1785212689187-f3m6tc56v9n.png",
       "companyDescription": "Amazon Web Services (AWS) is a leading cloud computing platform that provides on-demand infrastructure, storage, databases, AI services, and developer tools. It enables businesses and developers to build, deploy, and scale applications without managing physical servers."
+    },
+    {
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Devnovate",
+      "companyWebsite": "https://devnovate.co/",
+      "companyLogo": "/images/companies/1785222057323-b6nwi8hknnm.png",
+      "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions."
     }
   ],
   "prizes": [
@@ -770,6 +778,13 @@
       "role": null,
       "title": "Founding Partnerships Lead",
       "companyName": "You.com"
+    },
+    {
+      "username": "Alice Shikova",
+      "linkedin": "https://www.linkedin.com/in/alice-shikova-36a708194/",
+      "role": null,
+      "title": "Heat of GTM and Relations",
+      "companyName": "Space ID"
     }
   ],
   "hosts": [

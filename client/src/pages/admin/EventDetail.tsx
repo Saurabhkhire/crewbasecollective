@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Plus, Trash2, ArrowLeft, RefreshCw, GripVertical, Upload, Pencil } from "lucide-react";
+import { Plus, Trash2, ArrowLeft, RefreshCw, Upload, Pencil } from "lucide-react";
+import { SortableList } from "@/components/admin/SortableList";
 import { api } from "@/lib/api";
 import { uploadImage, uploadImages } from "@/lib/upload";
 import { EVENT_TYPE_LABELS, isCompetitionEvent } from "@/lib/utils";
@@ -82,13 +83,13 @@ const entityMap: Record<Exclude<Tab, "basics">, string> = {
 const TAB_HELP: Record<Tab, string> = {
   basics: "Edit name, type, date, times, location, cover, registration and group links.",
   tracks: "Hackathon / pitch tracks — name and description.",
-  sponsors: "Select a company and representatives. Reps stay in sync with Judges (added/removed together). Logo and description come from Companies.",
+  sponsors: "Select a company and representatives. Drag to reorder. Reps stay in sync with Judges.",
   partners: "Select a company and partner type. Logo and description come from Companies.",
   prizes: "Select the sponsor first, edit the default prize name, placement and amount.",
   schedule: "Set default minutes. For multi-day events, start and end can be on different days. New slots chain from the previous end.",
   speakers: "Set default minutes. For multi-day events, start and end can be on different days. New speakers chain from the previous end.",
-  judges: "Select judges (hackathon / pitch only). Sponsor representatives stay in sync here when you add or remove them on Sponsors.",
-  hosts: "Select a person, host type, and optional sub-role (e.g. Emcee, Registration).",
+  judges: "Select judges (hackathon / pitch only). Drag to reorder.",
+  hosts: "Select a person, host type, and optional sub-role. Drag to reorder.",
   links: "Extra external links shown on the event page.",
   photos: "Upload gallery images (multiple files).",
 };
@@ -503,11 +504,14 @@ export default function AdminEventDetail() {
 
   const patchTimedRow = async (
     kind: "schedule" | "speakers",
-    index: number,
+    itemId: string,
     patch: { startTime?: string; endTime?: string; minutes?: number }
   ) => {
     if (!data) return;
-    const items = sortedTimedItems(data[kind] || [], kind, "asc");
+    const items = [...(data[kind] || [])].sort(
+      (a, b) => Number(a.sortOrder ?? 0) - Number(b.sortOrder ?? 0)
+    );
+    const index = items.findIndex((row) => row.id === itemId);
     const item = items[index];
     if (!item) return;
 
@@ -692,36 +696,15 @@ export default function AdminEventDetail() {
     load();
   };
 
-  const moveScheduleItem = async (index: number, direction: "up" | "down") => {
-    if (!data?.schedule) return;
-    const items = sortedTimedItems(data.schedule, "schedule", "asc");
-    const target = direction === "up" ? index - 1 : index + 1;
-    if (target < 0 || target >= items.length) return;
-
-    // Swap times so chronological order matches the move
-    const a = items[index];
-    const b = items[target];
-    const aStart = a.startTime as string;
-    const aEnd = a.endTime as string;
-    const bStart = b.startTime as string;
-    const bEnd = b.endTime as string;
-
+  const reorderItems = async (orderedIds: string[]) => {
+    if (!eventId || tab === "basics") return;
     setError("");
     try {
       await api(`/api/admin/events/${eventId}/detail`, {
-        method: "PUT",
+        method: "POST",
         body: JSON.stringify({
-          entity: "schedule",
-          entityId: a.id,
-          data: { topic: a.topic, startTime: bStart, endTime: bEnd },
-        }),
-      });
-      await api(`/api/admin/events/${eventId}/detail`, {
-        method: "PUT",
-        body: JSON.stringify({
-          entity: "schedule",
-          entityId: b.id,
-          data: { topic: b.topic, startTime: aStart, endTime: aEnd },
+          entity: "reorder",
+          data: { collection: tab, orderedIds },
         }),
       });
       await load();
@@ -1700,31 +1683,22 @@ export default function AdminEventDetail() {
   const renderList = () => {
     if (tab === "basics") return null;
     const rawItems = data[tab] || [];
-    const items =
-      tab === "speakers" || tab === "schedule"
-        ? sortedTimedItems(rawItems, tab, "asc")
-        : rawItems;
+    const items = [...rawItems].sort(
+      (a, b) => Number(a.sortOrder ?? 0) - Number(b.sortOrder ?? 0)
+    );
     if (items.length === 0) {
       return <p className="py-6 text-sm text-zinc-500">Nothing added yet for this section.</p>;
     }
 
+    const itemId = (item: Item) => item.id as string;
+
     return (
-      <div className="space-y-2">
-        {items.map((item, index) => (
-          <div
-            key={item.id as string}
-            className="rounded-lg border border-zinc-800 px-4 py-3"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex min-w-0 flex-1 items-start gap-2">
-                {tab === "schedule" && (
-                  <div className="flex flex-col gap-0.5 pt-1">
-                    <button type="button" onClick={() => moveScheduleItem(index, "up")} className="text-xs text-zinc-600 hover:text-zinc-400">▲</button>
-                    <GripVertical className="h-4 w-4 text-zinc-600" />
-                    <button type="button" onClick={() => moveScheduleItem(index, "down")} className="text-xs text-zinc-600 hover:text-zinc-400">▼</button>
-                  </div>
-                )}
-                <div className="min-w-0 flex-1 text-sm text-zinc-200">
+      <SortableList
+        items={items as { id: string }[]}
+        onReorder={reorderItems}
+        renderItem={(item, index) => (
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1 text-sm text-zinc-200">
                   {tab === "tracks" && (
                     <div>
                       <p className="font-medium text-zinc-100">{item.name as string}</p>
@@ -1807,7 +1781,7 @@ export default function AdminEventDetail() {
                                   item.startTime as string,
                                   item.endTime as string
                                 );
-                                void patchTimedRow("schedule", index, {
+                                void patchTimedRow("schedule", itemId(item), {
                                   startTime: dayTimeToIso(
                                     e.target.value,
                                     timeInputFromIso(item.startTime)
@@ -1838,7 +1812,7 @@ export default function AdminEventDetail() {
                                 item.startTime as string,
                                 item.endTime as string
                               );
-                              void patchTimedRow("schedule", index, {
+                              void patchTimedRow("schedule", itemId(item), {
                                 startTime: dayTimeToIso(day, e.target.value),
                                 minutes: mins,
                               });
@@ -1852,7 +1826,7 @@ export default function AdminEventDetail() {
                               className="input-field !w-auto !py-1 !text-xs"
                               value={dateInputFromValue(item.endTime) || eventDays[0]}
                               onChange={(e) => {
-                                void patchTimedRow("schedule", index, {
+                                void patchTimedRow("schedule", itemId(item), {
                                   endTime: dayTimeToIso(
                                     e.target.value,
                                     timeInputFromIso(item.endTime)
@@ -1880,7 +1854,7 @@ export default function AdminEventDetail() {
                               const day = dateInputFromValue(item.endTime) ||
                                 dateInputFromValue(item.startTime) ||
                                 eventDays[0];
-                              void patchTimedRow("schedule", index, {
+                              void patchTimedRow("schedule", itemId(item), {
                                 endTime: dayTimeToIso(day, e.target.value),
                               });
                             }}
@@ -1900,7 +1874,7 @@ export default function AdminEventDetail() {
                             onBlur={(e) => {
                               const mins = Number(e.target.value);
                               if (!Number.isFinite(mins) || mins <= 0) return;
-                              void patchTimedRow("schedule", index, { minutes: mins });
+                              void patchTimedRow("schedule", itemId(item), { minutes: mins });
                             }}
                           />
                         </label>
@@ -1929,7 +1903,7 @@ export default function AdminEventDetail() {
                                   item.startTime as string,
                                   item.endTime as string
                                 );
-                                void patchTimedRow("speakers", index, {
+                                void patchTimedRow("speakers", itemId(item), {
                                   startTime: dayTimeToIso(
                                     e.target.value,
                                     timeInputFromIso(item.startTime)
@@ -1965,7 +1939,7 @@ export default function AdminEventDetail() {
                                 item.startTime as string,
                                 item.endTime as string
                               );
-                              void patchTimedRow("speakers", index, {
+                              void patchTimedRow("speakers", itemId(item), {
                                 startTime: dayTimeToIso(day, e.target.value),
                                 minutes: mins,
                               });
@@ -1979,7 +1953,7 @@ export default function AdminEventDetail() {
                               className="input-field !w-auto !py-1 !text-xs"
                               value={dateInputFromValue(item.endTime) || eventDays[0]}
                               onChange={(e) => {
-                                void patchTimedRow("speakers", index, {
+                                void patchTimedRow("speakers", itemId(item), {
                                   endTime: dayTimeToIso(
                                     e.target.value,
                                     timeInputFromIso(item.endTime)
@@ -2008,7 +1982,7 @@ export default function AdminEventDetail() {
                                 dateInputFromValue(item.endTime) ||
                                 dateInputFromValue(item.startTime) ||
                                 eventDays[0];
-                              void patchTimedRow("speakers", index, {
+                              void patchTimedRow("speakers", itemId(item), {
                                 endTime: dayTimeToIso(day, e.target.value),
                               });
                             }}
@@ -2028,7 +2002,7 @@ export default function AdminEventDetail() {
                             onBlur={(e) => {
                               const mins = Number(e.target.value);
                               if (!Number.isFinite(mins) || mins <= 0) return;
-                              void patchTimedRow("speakers", index, { minutes: mins });
+                              void patchTimedRow("speakers", itemId(item), { minutes: mins });
                             }}
                           />
                         </label>
@@ -2059,29 +2033,27 @@ export default function AdminEventDetail() {
                       <span>{(item.caption as string) || "Photo"}</span>
                     </div>
                   )}
-                </div>
-              </div>
-              <div className="flex shrink-0 items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => startEditItem(item)}
-                  className="text-brand-400 hover:text-brand-300"
-                  title="Edit"
-                >
-                  <Pencil className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => deleteEntity(entityMap[tab], item.id as string)}
-                  className="text-red-400 hover:text-red-300"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
+            </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                type="button"
+                onClick={() => startEditItem(item)}
+                className="text-brand-400 hover:text-brand-300"
+                title="Edit"
+              >
+                <Pencil className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => deleteEntity(entityMap[tab], item.id as string)}
+                className="text-red-400 hover:text-red-300"
+              >
+                <Trash2 className="h-4 w-4" />
+              </button>
             </div>
           </div>
-        ))}
-      </div>
+        )}
+      />
     );
   };
 

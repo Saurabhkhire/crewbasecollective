@@ -84,6 +84,65 @@ export function isCompetitionEvent(type: string): boolean {
   return type === "hackathon" || type === "pitch_competition";
 }
 
+export interface EventScheduleFields {
+  eventDate: string;
+  endDate?: string | null;
+  startTime?: string | null;
+  endTime?: string | null;
+}
+
+function applyTimeToLocalDate(day: string, time: string): Date {
+  const base = parseLocalDate(day);
+  const [hours, minutes, seconds] = time.split(":");
+  base.setHours(
+    parseInt(hours, 10) || 0,
+    parseInt(minutes || "0", 10) || 0,
+    parseInt((seconds || "0").slice(0, 2), 10) || 0,
+    0
+  );
+  return base;
+}
+
+/** When an event starts (local). Midnight if no start time. */
+export function getEventStartAt(event: EventScheduleFields): Date {
+  if (event.startTime) {
+    return applyTimeToLocalDate(event.eventDate, event.startTime);
+  }
+  const d = parseLocalDate(event.eventDate);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+/** When an event ends (local). End of last day if no end time. */
+export function getEventEndAt(event: EventScheduleFields): Date {
+  const lastDay = event.endDate || event.eventDate;
+  if (event.endTime) {
+    return applyTimeToLocalDate(lastDay, event.endTime);
+  }
+  const d = parseLocalDate(lastDay);
+  d.setHours(23, 59, 59, 999);
+  return d;
+}
+
+export function isEventPast(event: EventScheduleFields, now = new Date()): boolean {
+  return getEventEndAt(event).getTime() < now.getTime();
+}
+
+export function partitionEventsBySchedule<T extends EventScheduleFields>(
+  events: T[],
+  now = new Date()
+): { upcoming: T[]; past: T[] } {
+  const upcoming: T[] = [];
+  const past: T[] = [];
+  for (const event of events) {
+    if (isEventPast(event, now)) past.push(event);
+    else upcoming.push(event);
+  }
+  upcoming.sort((a, b) => getEventStartAt(a).getTime() - getEventStartAt(b).getTime());
+  past.sort((a, b) => getEventEndAt(b).getTime() - getEventEndAt(a).getTime());
+  return { upcoming, past };
+}
+
 export const EVENT_TYPE_LABELS: Record<string, string> = {
   hackathon: "Hackathon",
   pitch_competition: "Pitch Competition",

@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import { EventCard } from "@/components/EventCard";
 import { loadData } from "@/lib/api";
+import { partitionEventsBySchedule } from "@/lib/utils";
 
 interface EventRow {
   id: string;
@@ -13,6 +14,32 @@ interface EventRow {
   endTime: string | null;
   location: string | null;
   coverImageUrl: string | null;
+}
+
+function EventSection({ title, eyebrow, events }: { title: string; eyebrow: string; events: EventRow[] }) {
+  if (events.length === 0) return null;
+  return (
+    <section className="mt-14">
+      <div className="eyebrow">{eyebrow}</div>
+      <h2 className="section-title mb-6">{title}</h2>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {events.map((event) => (
+          <EventCard
+            key={event.id}
+            slug={event.slug}
+            name={event.name}
+            type={event.type}
+            eventDate={event.eventDate}
+            endDate={event.endDate}
+            startTime={event.startTime}
+            endTime={event.endTime}
+            location={event.location}
+            coverImageUrl={event.coverImageUrl}
+          />
+        ))}
+      </div>
+    </section>
+  );
 }
 
 export default function EventsPage() {
@@ -33,6 +60,8 @@ export default function EventsPage() {
       .finally(() => setLoaded(true));
   }, []);
 
+  const { upcoming, past } = partitionEventsBySchedule(events);
+
   return (
     <div className="mx-auto w-[90%] max-w-6xl pb-20 pt-[130px]">
       <div className="eyebrow">Community calendar</div>
@@ -45,25 +74,17 @@ export default function EventsPage() {
         <p className="mt-12 text-[var(--muted)]">Loading events…</p>
       ) : error ? (
         <p className="mt-12 text-[var(--muted)]">{error}</p>
-      ) : events.length === 0 ? (
+      ) : upcoming.length === 0 && past.length === 0 ? (
         <p className="mt-12 text-[var(--muted)]">No events published yet. Check back soon!</p>
       ) : (
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {events.map((event) => (
-            <EventCard
-              key={event.id}
-              slug={event.slug}
-              name={event.name}
-              type={event.type}
-              eventDate={event.eventDate}
-              endDate={event.endDate}
-              startTime={event.startTime}
-              endTime={event.endTime}
-              location={event.location}
-              coverImageUrl={event.coverImageUrl}
-            />
-          ))}
-        </div>
+        <>
+          {upcoming.length > 0 && (
+            <EventSection title="Upcoming Events" eyebrow="What's next" events={upcoming} />
+          )}
+          {past.length > 0 && (
+            <EventSection title="Past Events" eyebrow="Recap" events={past} />
+          )}
+        </>
       )}
     </div>
   );
