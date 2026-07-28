@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "build:data": "tsx scripts/build-data.ts",
+    "publish:content": "tsx scripts/publish-content.ts",
     "build": "npm run build:data && npm run build -w client && tsx scripts/prepare-vercel-output.ts",
     "build:all": "npm run build:data && npm run build -w server && npm run build -w client",
     "dev": "concurrently -n api,client -c blue,green \"npm run dev:api\" \"npm run dev -w client\"",

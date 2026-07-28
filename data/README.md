@@ -1,6 +1,6 @@
 # Content data (source of truth)
 
-Edit via the local CMS (`npm run dev:cms`), then commit this folder plus `client/public/data` and `client/public/images`.
+Edit via the local CMS (`npm run dev:cms`), then publish with `npm run publish:content`.
 
 **Full schema & Supabase mapping:** [`docs/CONTENT_SCHEMA.md`](../docs/CONTENT_SCHEMA.md)  
 **TypeScript types:** `server/src/data/types.ts`
@@ -26,6 +26,17 @@ client/public/images/       # copy of data/images/
 ```
 
 Rebuild: `npm run build:data` (CMS does this automatically on save).
+
+## Publish to production
+
+```bash
+npm run publish:content
+# or: npm run publish:content -- "Add Bay Builders hackathon"
+```
+
+Rebuilds `client/public/` from `data/`, commits content files, and pushes to `main`. Vercel redeploys automatically.
+
+**Vercel:** Root Directory must be `.` (repo root), not `client/`.
 
 ## One-time import from Postgres
 
