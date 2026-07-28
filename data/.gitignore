@@ -1,0 +1,2 @@
+# Keep data/ in git — content is the source of truth for the static site.
+# Large temp files can be ignored here if needed later.

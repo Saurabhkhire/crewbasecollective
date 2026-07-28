@@ -1,0 +1,2085 @@
+{
+  "people": [
+    {
+      "id": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "username": "Saurabh Khire",
+      "email": "saurabhskhire@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Crewbase Collective",
+      "judged": [
+        {
+          "eventName": "Sports World Cup Hackathon",
+          "slug": "sports-world-cup-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Design & Deploy Workshop",
+          "slug": "design-deploy-workshop-ms46uxam",
+          "eventDate": "2026-07-19"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        },
+        {
+          "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "eventDate": "2026-07-23"
+        },
+        {
+          "eventName": "Design & Deploy Workshop",
+          "slug": "design-deploy-workshop-ms46uxam",
+          "eventDate": "2026-07-19"
+        },
+        {
+          "eventName": "Sports World Cup Hackathon",
+          "slug": "sports-world-cup-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Break my Product",
+          "slug": "break-my-product",
+          "eventDate": "2026-06-17"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+      "username": "Colin Lowenberg",
+      "email": "colin.lowenberg@ex.nebius.com",
+      "linkedin": "https://www.linkedin.com/in/wifi/",
+      "role": "participant",
+      "title": "DevRel",
+      "companyName": "Nebius",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
+      "username": "Tony Chwang",
+      "email": "tony.chang@insforge.dev",
+      "linkedin": "https://www.linkedin.com/in/tony-chang-0430/",
+      "role": "participant",
+      "title": "Co Founder",
+      "companyName": "InsForge",
+      "judged": [
+        {
+          "eventName": "Sports World Cup Hackathon",
+          "slug": "sports-world-cup-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Design & Deploy Workshop",
+          "slug": "design-deploy-workshop-ms46uxam",
+          "eventDate": "2026-07-19"
+        },
+        {
+          "eventName": "Sports World Cup Hackathon",
+          "slug": "sports-world-cup-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "7d7cae25-6b4b-40f4-a43d-68d6a33f1888",
+      "username": "Can Lyu",
+      "email": "can.lyu@insforge.dev",
+      "linkedin": "https://www.linkedin.com/in/can-lyu-3039aa140/",
+      "role": "participant",
+      "title": "Software Developer",
+      "companyName": "InsForge",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "50bd11f2-553a-4155-bacb-f9bb484163b1",
+      "username": "Wei Dou",
+      "email": "carmen.dou@insforge.dev",
+      "linkedin": "https://www.linkedin.com/in/wei-dou-2b15a628b/",
+      "role": "participant",
+      "title": "Software Developer",
+      "companyName": "InsForge",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "7f036918-17f4-4402-a977-6d93745eaad1",
+      "username": "Anna Zakowska",
+      "email": "Anna.j.zakowska@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/zakowska/",
+      "role": "participant",
+      "title": "Investor and Managing Partner",
+      "companyName": "Dragons and Angels Fund",
+      "judged": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "967ce10f-2d9b-4aba-a4c0-b2bc2f08665e",
+      "username": "Merve Isler",
+      "email": "merve@themarvelo.us",
+      "linkedin": "https://www.linkedin.com/in/misslers/",
+      "role": "participant",
+      "title": "Ecosystem Builder",
+      "companyName": "AI Builders",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "10d0005c-ca54-4047-ae5b-61a9e6553aef",
+      "username": "Gunjan Ramateke",
+      "email": "Gunjanramteke@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/gunjan-ramteke-18276642/",
+      "role": "participant",
+      "title": "Strategic Partnerships Development Manager",
+      "companyName": "Amazon",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "c716e34b-4658-4229-971d-337dafd266ad",
+      "username": "Apurva Jain",
+      "email": "Apurvajain.kota@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/apurva-jain22/",
+      "role": "participant",
+      "title": "Software Engineer",
+      "companyName": "META",
+      "judged": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "241daa56-01c2-4360-bd89-9ce28b538eb8",
+      "username": "Dhruvil Darji",
+      "email": "Dhruvildarji1409@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/dhruvildarji/",
+      "role": "participant",
+      "title": "Senior Software Engineer",
+      "companyName": "NVDIA",
+      "judged": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "f919531a-c213-4c13-91d1-9f82f7e7f0cd",
+      "username": "Shouvik Sharma",
+      "email": "shouvik19@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/shouvik-sharma/",
+      "role": "participant",
+      "title": "Software Engineer",
+      "companyName": "Chime",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "13511e40-7954-49b4-b052-99c3fdb4c400",
+      "username": "Vince Kohli",
+      "email": "vincekohli@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/vincekohli/",
+      "role": "participant",
+      "title": "Strategic Advisor",
+      "companyName": "Google Deepmind",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "username": "Abhi Vasanth",
+      "email": "abhivasanth@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "role": "participant",
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company",
+      "judged": [
+        {
+          "eventName": "Sports World Cup Hackathon",
+          "slug": "sports-world-cup-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        },
+        {
+          "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "eventDate": "2026-07-23"
+        },
+        {
+          "eventName": "Design & Deploy Workshop",
+          "slug": "design-deploy-workshop-ms46uxam",
+          "eventDate": "2026-07-19"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Break my Product",
+          "slug": "break-my-product",
+          "eventDate": "2026-06-17"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "username": "Ayush Ojha",
+      "email": "ayushojzha@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "role": "participant",
+      "title": "Software Engineer",
+      "companyName": "HiJenny",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        },
+        {
+          "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "eventDate": "2026-07-23"
+        },
+        {
+          "eventName": "Design & Deploy Workshop",
+          "slug": "design-deploy-workshop-ms46uxam",
+          "eventDate": "2026-07-19"
+        },
+        {
+          "eventName": "Sports World Cup Hackathon",
+          "slug": "sports-world-cup-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Break my Product",
+          "slug": "break-my-product",
+          "eventDate": "2026-06-17"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "cc853936-97be-4466-aa48-ef2df44199e3",
+      "username": "Martina Beg",
+      "email": "Beg.Martina@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/martinabeg/",
+      "role": "participant",
+      "title": "GTM Lead",
+      "companyName": "Abaka AI",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "9df2ae20-42b2-4402-817c-e86584b16a53",
+      "username": "Ann Cai",
+      "email": "xiaoran.cai@ethis.tech",
+      "linkedin": "https://www.linkedin.com/in/qianjiangwork/",
+      "role": "participant",
+      "title": "Product Designer",
+      "companyName": "Microsoft",
+      "judged": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "2f59f73a-bf58-415b-a57c-6032b2d403f4",
+      "username": "Mahek Pervez",
+      "email": "mahek07615@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/mahekparvez/",
+      "role": "participant",
+      "title": "Tech Content Creator",
+      "companyName": "Instagram",
+      "judged": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "70ee12c4-b8b1-4e2f-8222-94be68325a31",
+      "username": "Kolliakal Rupesh",
+      "email": "kollaikalrupesh@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/kollaikalrupesh/",
+      "role": "participant",
+      "title": "Applied AI Engineer",
+      "companyName": "WayLine",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e4cd14e9-fc89-434b-bd7e-f61ec32df501",
+      "username": "Katherine Brough",
+      "email": "katherine@nupathapp.com",
+      "linkedin": "https://www.linkedin.com/in/katherine-brough-751682113",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "NuPath AI",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "a6f949f8-76ce-4ab5-9b56-7e5734cbcf7f",
+      "username": "Anya Ozmen",
+      "email": "anya@gameer.ai",
+      "linkedin": "https://www.linkedin.com/in/anyakaryaozmen/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Gameer",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "469b38c7-fdd4-4dca-aac6-324b2465ee30",
+      "username": "Zhi Ling",
+      "email": "zhi@attrilo.co",
+      "linkedin": "https://www.linkedin.com/in/zhilinglim/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Attrilo",
+      "judged": [
+        {
+          "eventName": "Sports World Cup Hackathon",
+          "slug": "sports-world-cup-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "1c4e8541-8a18-4ee6-9fe8-a9c59b5ef2e7",
+      "username": "Elaine H",
+      "email": "elaine@getclera.com",
+      "linkedin": "https://www.linkedin.com/in/elaine-hladik/",
+      "role": "participant",
+      "title": "Founding Grwth",
+      "companyName": "Clera",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ]
+    },
+    {
+      "id": "16de374b-2c62-47b3-aa5e-f2168a2fdcbc",
+      "username": "Eeshan Gulhati",
+      "email": "eshaan@argide.ai",
+      "linkedin": "https://www.linkedin.com/in/eshaangulati/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Argide",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "ba049bb6-5502-4d46-81dd-cb0d9a079c0d",
+      "username": "Devinder Sodhi",
+      "email": "Dev@sodhirao.com",
+      "linkedin": "https://www.linkedin.com/in/devindersodhi/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Learning Layer Labs",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e79c5014-59c9-4f6c-90e8-1d8a0fc2f7c7",
+      "username": "Dathan Guiley",
+      "email": "dathan@wilde.agency",
+      "linkedin": "https://www.linkedin.com/in/dathan-guiley/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "WildLife Agency LLC",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "0b3f9617-f260-4187-a555-062ab8689b40",
+      "username": "Ruomeng Sun",
+      "email": "synruomeng@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/ruomengsun/",
+      "role": "participant",
+      "title": "GTM",
+      "companyName": "Photon.codes",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "2ebe8a14-50a7-4576-bc2c-c1ca508814ee",
+      "username": "Harnoor Singh",
+      "email": "harnoor@hydradb.com",
+      "linkedin": "https://www.linkedin.com/in/iharnoor/",
+      "role": "participant",
+      "title": "DevRel",
+      "companyName": "HydraDB",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "a036fe7c-a768-4261-a08d-6bdb458a505c",
+      "username": "Katherine Gao",
+      "email": "sgao@ucsd.edu",
+      "linkedin": "https://www.linkedin.com/in/katherine-siyi-gao-853095204/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Stealth",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "829cfa46-5d04-4a3e-900a-3c8e86133ef5",
+      "username": "Mike Rice",
+      "email": "mike.rice@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/infogurus/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Agi Corp",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "3c95a6ff-9bb1-45de-b010-ca066adfb8c2",
+      "username": "Haruka Takamori",
+      "email": "a@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/haruka-takamori-morimori/",
+      "role": "participant",
+      "title": "Co-Founder",
+      "companyName": "Svyal",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ]
+    },
+    {
+      "id": "27810087-f831-49ab-a042-5450121608fd",
+      "username": "Wendy Wang",
+      "email": "b@mail.com",
+      "linkedin": "https://www.linkedin.com/in/wendianwang/",
+      "role": "participant",
+      "title": "Computer Teaching Assistant",
+      "companyName": "Welsey College",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ]
+    },
+    {
+      "id": "bb06d11d-5b27-48db-9f30-a81b30cbe339",
+      "username": "Fabian C",
+      "email": "fabian@getclera.com",
+      "linkedin": "https://www.linkedin.com/in/fabian-c-544a10276/",
+      "role": "participant",
+      "title": "Founding Engineer",
+      "companyName": "Clera",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
+      "username": "Chelsey Huang",
+      "email": "Chenxi.huang1028@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+      "role": "participant",
+      "title": "Co-Founder",
+      "companyName": "Finchip AI",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "eventDate": "2026-07-23"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        },
+        {
+          "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "eventDate": "2026-07-23"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "3ba0ec20-3861-40da-90c4-41a0e1eabc29",
+      "username": "Coco Wang",
+      "email": "coco@finchip.ai",
+      "linkedin": "https://www.linkedin.com/in/coco-wang-28781b87/",
+      "role": "participant",
+      "title": "GTM",
+      "companyName": "Finchip AI",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "eventDate": "2026-07-23"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        },
+        {
+          "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "eventDate": "2026-07-23"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "bcb420be-2b7d-40ac-b640-a61bb0194148",
+      "username": "Gary Yang",
+      "email": "gary@finchip.ai",
+      "linkedin": "https://www.linkedin.com/in/gary-yangge/",
+      "role": "participant",
+      "title": "Founding Partner",
+      "companyName": "Finchip AI",
+      "judged": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "9623f78c-9180-4594-ba43-9dc70f073d6f",
+      "username": "Dave Neilsan",
+      "email": "dnielsen@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/dnielsen/",
+      "role": "participant",
+      "title": "Founding Head of DevRel",
+      "companyName": "Cognee",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "fe33565d-c604-4e00-a041-810631800cfe",
+      "username": "Ofer Mendelevitch",
+      "email": "ofer.mendelevitch@band.ai",
+      "linkedin": "https://www.linkedin.com/in/ofermend/",
+      "role": "participant",
+      "title": "Head of DevRel",
+      "companyName": "BAND",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "58551e72-eca6-4e63-bb8e-466194849542",
+      "username": "Quinn Leng",
+      "email": "quinn.leng.666@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/suanmiao/",
+      "role": "participant",
+      "title": "Co-Founder",
+      "companyName": "Kylon",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "hosted": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
+      "username": "Christina Bowllan",
+      "email": "cbowllan1@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/christina-bowllan-074563177/",
+      "role": "participant",
+      "title": "Founding Team",
+      "companyName": "Kylon",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "hosted": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e7bbfc41-2193-436f-bce6-a67804dfabc0",
+      "username": "Eva Reader",
+      "email": "eva.c.reder@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/evareder/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "GrowthMasters",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "5bc4a584-3ae5-4950-805e-d7dec6195dd1",
+      "username": "Juan Felipe Campos",
+      "email": "jfcampos.surmount@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/juanfelipecampos/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "GrowthMasters",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "username": "Amitabh Das",
+      "email": "amitabh.das1998@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Agent OS",
+      "judged": [
+        {
+          "eventName": "Sports World Cup Hackathon",
+          "slug": "sports-world-cup-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "Build your AI Organization Workshop",
+          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "eventDate": "2026-07-24"
+        },
+        {
+          "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "eventDate": "2026-07-23"
+        },
+        {
+          "eventName": "Design & Deploy Workshop",
+          "slug": "design-deploy-workshop-ms46uxam",
+          "eventDate": "2026-07-19"
+        },
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "7abf0d6b-1aee-4860-b564-1ab69b9e2ed8",
+      "username": "Rene Turcios",
+      "email": "cloudtheboy@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/reneturcios/",
+      "role": "participant",
+      "title": "Ambdassedor",
+      "companyName": "Replit",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Design & Deploy Workshop",
+          "slug": "design-deploy-workshop-ms46uxam",
+          "eventDate": "2026-07-19"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e7cb1995-2c06-4bc3-9540-1851d883b428",
+      "username": "Barada Sahu",
+      "email": "barada@kubric.io",
+      "linkedin": "https://www.linkedin.com/in/baradas/",
+      "role": "participant",
+      "title": "Technical Founder",
+      "companyName": "Mason",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "6c7ce050-8536-48aa-8697-e0225bf83981",
+      "username": "Tejal Rangdal",
+      "email": "tejalrangdal24@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/tejalrangdal/",
+      "role": "participant",
+      "title": "Co-Founder",
+      "companyName": "Brain2",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "2a98f550-94d7-441b-9b24-9859e5fb75c3",
+      "username": "JJ Caffey",
+      "email": "jj@jjcaffey.com",
+      "linkedin": "https://www.linkedin.com/in/sarahjjcaffey/",
+      "role": "participant",
+      "title": "Angel Investor and Co Founder",
+      "companyName": "Venture Foragers",
+      "judged": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "674351b1-5833-4a82-8871-c66201154e26",
+      "username": "Rebecca Burd",
+      "email": "rebecca@tigrisdata.com",
+      "linkedin": "https://www.linkedin.com/in/rebecca-burd/",
+      "role": "participant",
+      "title": "GTM",
+      "companyName": "Tigris Data",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "d010c64f-9835-4a5e-a9bf-78003502b085",
+      "username": "Arjun Chintapalli",
+      "email": "arjun@rtrvr.ai",
+      "linkedin": "https://www.linkedin.com/in/arjun-chintapalli/",
+      "role": "participant",
+      "title": "Co-Founder",
+      "companyName": "Retriver AI",
+      "judged": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "939c0411-0eae-40d6-a22a-6fc63e750374",
+      "username": "Petros Hong",
+      "email": "petros.hong@apify.com",
+      "linkedin": "https://www.linkedin.com/in/petroshong/",
+      "role": "participant",
+      "title": "DevRel",
+      "companyName": "Apify",
+      "judged": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e4f59da5-9d7e-4678-9efd-83a0f8055453",
+      "username": "Devon Kelly",
+      "email": "devon@kalibr.systems",
+      "linkedin": "https://www.linkedin.com/in/devon-kelley-0333a674/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Kalibr",
+      "judged": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e67ec570-5118-4654-978c-2a53bbdedcc6",
+      "username": "Bhavani Kalisetty",
+      "email": "bhavani@rtrvr.ai",
+      "linkedin": "https://www.linkedin.com/in/bhavani-kalisetty/",
+      "role": "participant",
+      "title": "Co-Founder",
+      "companyName": "Retriver AI",
+      "judged": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "49bc8e3c-debd-4579-a9be-6cd567058dd9",
+      "username": "Hazal Mestci",
+      "email": "hazal@render.com",
+      "linkedin": "https://www.linkedin.com/in/hazalmestci/",
+      "role": "participant",
+      "title": "DevRel",
+      "companyName": "Render",
+      "judged": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e2af9075-633b-48b5-9f4e-ede03672bbb1",
+      "username": "Aviral Bharadwaj",
+      "email": "aviral.lancer@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/aviral-bhardwaj/",
+      "role": "participant",
+      "title": "Founder",
+      "companyName": "Devnovate",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "hosted": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "76666c01-c717-400b-9c66-2fdf6df8905d",
+      "username": "Lukas Bekr",
+      "email": "lukas.bekr@apify.com",
+      "linkedin": "https://www.linkedin.com/in/lukasbekr/",
+      "role": "participant",
+      "title": "DevRel",
+      "companyName": "Apify",
+      "judged": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "f481c0e0-c88f-4ecd-b329-e0ed512b4035",
+      "username": "Marijan Cipcic",
+      "email": "marijan@daytona.io",
+      "linkedin": "https://www.linkedin.com/in/marijan-cipcic-9bab3049/",
+      "role": "participant",
+      "title": "DevRel",
+      "companyName": "Daytona",
+      "judged": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "39c7927a-d6e1-4dff-ae5a-6b0de2904ff5",
+      "username": "Borna Perak",
+      "email": "bperak@daytona.io",
+      "linkedin": "https://www.linkedin.com/in/bornaperak/",
+      "role": "participant",
+      "title": "DevRel",
+      "companyName": "Daytona",
+      "judged": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon",
+          "eventDate": "2026-05-31"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "c8d7e836-bbd7-4ae8-8fca-15af3d3bfb50",
+      "username": "Madison Lee",
+      "email": "madison.lee@you.com",
+      "linkedin": "https://www.linkedin.com/in/madison-lee-a31234126/",
+      "role": "participant",
+      "title": "Founding Partnerships Lead",
+      "companyName": "You.com",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "71fda600-99d7-423c-a98b-bf83055beaf1",
+      "username": "Mariane Bekker",
+      "email": "foundersbay@mail.beehiiv.com",
+      "linkedin": "https://www.linkedin.com/in/marianebekker/",
+      "role": "participant",
+      "title": "Head of Developer Relationships",
+      "companyName": "You.com",
+      "judged": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        },
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+      "username": "Mansi More",
+      "email": "mansi.more943@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/mansimore9/",
+      "role": "participant",
+      "title": "AI Growth Engineer",
+      "companyName": "RocketRide",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "92b04cf1-8ccf-49e8-b0c8-9a3544b44ae5",
+      "username": "Amina Ebrahim",
+      "email": "amina@growingpies.ai",
+      "linkedin": "https://www.linkedin.com/in/aminaebraham/",
+      "role": "participant",
+      "title": "Chief Operating Officer",
+      "companyName": "Growing Pies",
+      "judged": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "f018a7e1-c984-4ad5-b9d3-869bd6c63f5f",
+      "username": "Robin Meister",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/robinmeister/",
+      "role": "participant",
+      "title": "Partnership Manager",
+      "companyName": "FutureHouse AI",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "4a6df53d-5019-43ad-a19e-10e208e26e7b",
+      "username": "Gary Qi",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/qi-zhen/",
+      "role": "participant",
+      "title": "Devrel",
+      "companyName": "TRAE",
+      "judged": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Wizard Hackathon",
+          "slug": "wizard-hackathon",
+          "eventDate": "2026-06-28"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "4082d0c7-8de9-40f4-b80b-1bc657231853",
+      "username": "Alice Shikova",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/alice-shikova-36a708194/",
+      "role": "participant",
+      "title": "Heat of GTM and Relations",
+      "companyName": "Space ID",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon",
+          "eventDate": "2026-07-13"
+        }
+      ],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
+      "username": "Pramod Thebe",
+      "email": "pthebe.sfsu@gmaiil.com",
+      "linkedin": "https://www.linkedin.com/in/pramodthebe/",
+      "role": "participant",
+      "title": "Co-Founder",
+      "companyName": "Hi Tuto",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "Break my Product",
+          "slug": "break-my-product",
+          "eventDate": "2026-06-17"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    }
+  ]
+}

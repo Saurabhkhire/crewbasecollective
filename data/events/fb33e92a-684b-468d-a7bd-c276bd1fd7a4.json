@@ -1,0 +1,97 @@
+{
+  "event": {
+    "id": "fb33e92a-684b-468d-a7bd-c276bd1fd7a4",
+    "slug": "design-deploy-workshop-ms46uxam",
+    "name": "Design & Deploy Workshop",
+    "type": "workshop",
+    "description": "Turn your idea into a working product using AI. In this hands-on workshop, you will learn how to design, build, and deploy a modern web application using AI-powered development tools.\n\nYou will go through the complete process of building a product — from creating ideas and designing interfaces to adding functionality, connecting backend services, and launching your application.\n\nDuring the workshop, you will use AI tools to create designs, build your application, add features, and deploy a working prototype. You will learn a practical AI-powered workflow that you can use to quickly turn ideas into real products.\n\nThis workshop is designed for founders, designers, developers, students, and anyone interested in building with AI. Bring your laptop and an idea, or create one during the session.",
+    "theme": "",
+    "dayLabel": "Sun, Jul 19",
+    "eventDate": "2026-07-19",
+    "endDate": "2026-07-19",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T05:01:14.531Z",
+    "updatedAt": "2026-07-28T05:01:40.753Z"
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "51f23bc5-7459-46b5-9e08-a1ce3f8b31a0",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03"
+        }
+      ]
+    },
+    {
+      "id": "05c4560e-d178-44d1-8c7c-95f2bb4835e4",
+      "companyId": "0fe2c0cc-b4e1-40f6-b905-fddb942e685f",
+      "personId": null,
+      "sortOrder": 1,
+      "representatives": [
+        {
+          "userId": "7abf0d6b-1aee-4860-b564-1ab69b9e2ed8"
+        },
+        {
+          "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83"
+        }
+      ]
+    }
+  ],
+  "partners": [],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "id": "dceac90e-0edb-4500-af41-f48a81e129f2",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "65975cd0-9789-45ac-a2de-5ea8af2a8031",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "ccd8aa86-ae3b-49b8-860f-85a0693230a2",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "093e3b3f-d80d-4e13-838b-07cf500f1206",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 3
+    }
+  ],
+  "links": [],
+  "photos": [],
+  "liveState": null
+}

@@ -1,0 +1,26 @@
+import { Routes, Route, Navigate } from "react-router-dom";
+import AdminLayout from "@/pages/admin/Layout";
+import AdminDashboard from "@/pages/admin/Dashboard";
+import AdminCompanies from "@/pages/admin/Companies";
+import AdminPeople from "@/pages/admin/People";
+import AdminEvents from "@/pages/admin/Events";
+import AdminEventDetail from "@/pages/admin/EventDetail";
+import AdminRequests from "@/pages/admin/Requests";
+
+/** Reuses client admin pages — same /admin/* paths. */
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<AdminDashboard />} />
+        <Route path="companies" element={<AdminCompanies />} />
+        <Route path="people" element={<AdminPeople />} />
+        <Route path="events" element={<AdminEvents />} />
+        <Route path="events/:id" element={<AdminEventDetail />} />
+        <Route path="requests" element={<AdminRequests />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/admin" replace />} />
+    </Routes>
+  );
+}

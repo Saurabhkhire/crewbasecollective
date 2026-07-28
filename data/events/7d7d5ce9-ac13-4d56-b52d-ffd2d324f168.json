@@ -1,0 +1,124 @@
+{
+  "event": {
+    "id": "7d7d5ce9-ac13-4d56-b52d-ffd2d324f168",
+    "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+    "name": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+    "type": "workshop",
+    "description": "Learn how to take an idea from a simple prompt to a working application using AI. This hands-on workshop covers the complete AI development process — building applications, securing AI-generated code, and publishing reusable AI skills.\n\nYou will use AI tools to create an application, test and improve its security, and turn parts of your project into tools that other AI agents can use.\n\nYou will build an application from a single prompt using AI, learn how AI can plan, code, test, and improve projects, identify and fix security issues in AI-generated code, publish your work as reusable AI Skills, explore how modern AI workflows are changing software development.\n\nPerfect for developers, builders, and anyone interested in creating applications with AI.",
+    "theme": "",
+    "dayLabel": "Thu, Jul 23",
+    "eventDate": "2026-07-23",
+    "endDate": "2026-07-23",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785214914162-2mua42jryrx.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T05:03:00.105Z",
+    "updatedAt": "2026-07-28T05:01:59.838Z"
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "fc9b44d8-2b16-41ab-97ef-80c2fbbab11b",
+      "companyId": "33646e72-dd9d-42e5-b978-4c6c5bae1d50",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": []
+    },
+    {
+      "id": "2e01f365-7ded-405d-91b4-3813c5ea48ba",
+      "companyId": "15b62625-a629-406c-a14a-bd7c07e451b8",
+      "personId": null,
+      "sortOrder": 1,
+      "representatives": []
+    },
+    {
+      "id": "d9fd880c-5fa7-4c28-857a-d09ea52c61a2",
+      "companyId": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
+      "personId": null,
+      "sortOrder": 2,
+      "representatives": [
+        {
+          "userId": "3ba0ec20-3861-40da-90c4-41a0e1eabc29"
+        },
+        {
+          "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c"
+        }
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "id": "bf06fde9-0e43-4cc3-930a-3d4287e87fd1",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null
+    }
+  ],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "id": "6ce03182-bf8f-432d-afa2-0da7c6611746",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "173c306a-5b03-4bb3-a163-c64be6da3593",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "8afb10d8-b993-4fe8-94ac-f7c4797427f5",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "d0e2ec01-3c6a-4934-af5b-54c890d4ac33",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 3
+    },
+    {
+      "id": "b0c56d47-36fe-4821-9a9b-dde0840b4443",
+      "userId": "3ba0ec20-3861-40da-90c4-41a0e1eabc29",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 4
+    },
+    {
+      "id": "e1b041a2-836b-4186-8d89-f04c89ca0742",
+      "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 5
+    }
+  ],
+  "links": [],
+  "photos": [],
+  "liveState": null
+}

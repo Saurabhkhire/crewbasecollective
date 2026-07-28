@@ -1,0 +1,374 @@
+{
+  "companies": [
+    {
+      "id": "126c51c7-58af-4afb-a963-7ebb6c70df26",
+      "name": "Nebius",
+      "logoUrl": "/images/companies/1785211513988-8tlzc2qqnhq.png",
+      "website": "https://nebius.com/",
+      "linkedin": null,
+      "information": "​Nebius provides full-stack AI cloud infrastructure for developers, startups, enterprises, and research teams. Its platform helps teams build, train, and deploy AI products in a secure, high-performance, and cost-efficient environment.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:05:16.435Z"
+    },
+    {
+      "id": "31e1f1f1-28e5-471e-a44c-2e9c5625f890",
+      "name": "You.com",
+      "logoUrl": "/images/companies/1785209932980-p8bizqeq4s8.png",
+      "website": "https://you.com/",
+      "linkedin": null,
+      "information": "​You.com delivers leading Web Search APIs for AI systems. It powers applications that reason like experts and act through intelligent agents and workflows using real-time, citation-backed answers built on proprietary vertical and domain-specific web indices.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T03:38:55.067Z"
+    },
+    {
+      "id": "0fe2c0cc-b4e1-40f6-b905-fddb942e685f",
+      "name": "Replit",
+      "logoUrl": "/images/companies/1785210602454-dx8jzplit9.png",
+      "website": "https://replit.com/",
+      "linkedin": null,
+      "information": "​Replit helps builders create, collaborate, and deploy software directly from the browser. At Wizard Hackathon, Replit gives participants credits to move faster from idea to working product.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T03:50:16.304Z"
+    },
+    {
+      "id": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "name": "InsForge",
+      "logoUrl": "/images/companies/1785211739551-lkj2ozofmy.png",
+      "website": "https://insforge.dev/",
+      "linkedin": null,
+      "information": "​InsForge is building agent-native cloud infrastructure for modern AI development. It brings together model gateway, compute, deployment, database, authentication, and more so AI coding agents can operate across the full development workflow.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:09:01.684Z"
+    },
+    {
+      "id": "bdeab284-92c8-4cd6-a583-d6b97ac3cc17",
+      "name": "Daytona",
+      "logoUrl": "/images/companies/1785212203278-lxedpo8hkf.png",
+      "website": "https://www.daytona.io/",
+      "linkedin": null,
+      "information": "Daytona is a secure and scalable infrastructure platform for running AI-generated code and AI agent workflows. It provides isolated, programmable environments (sandboxes) where developers and AI systems can safely execute code, test applications, and run complex workflows without risking underlying",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:16:44.677Z"
+    },
+    {
+      "id": "89e11f70-e77f-4a35-9e2d-c446a62a420e",
+      "name": "Render",
+      "logoUrl": "/images/companies/1785210685334-zb544j28zlk.png",
+      "website": "https://render.com/",
+      "linkedin": null,
+      "information": "Render is a cloud application platform that helps developers build, deploy, and scale web applications, APIs, databases, and background services without managing complex infrastructure. It provides a simple developer experience with automatic deployments, managed services, and scalable hosting.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T03:51:26.792Z"
+    },
+    {
+      "id": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
+      "name": "Apify",
+      "logoUrl": "/images/companies/1785212496944-ep49vacvynw.png",
+      "website": "https://apify.com/",
+      "linkedin": null,
+      "information": "Apify is a cloud platform for web scraping, data extraction, and browser automation that helps developers and businesses collect, process, and analyze web data at scale. It provides ready-made tools (Actors) and infrastructure for automating web tasks, crawling websites, and building data pipelines.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:21:38.474Z"
+    },
+    {
+      "id": "49e8e316-55ce-4198-91a7-3877900d8184",
+      "name": "Kylon",
+      "logoUrl": "/images/companies/1785211592121-b8chlaj1059.png",
+      "website": "https://kylon.io/",
+      "linkedin": null,
+      "information": "​Kylon is an AI agent team that runs your entire business.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:06:33.967Z"
+    },
+    {
+      "id": "53fd5d2e-fc4c-4341-b00d-35fb952c90e3",
+      "name": "Nimble",
+      "logoUrl": "/images/companies/1785211444029-sgjdq58awfs.png",
+      "website": "https://www.nimbleway.com/",
+      "linkedin": null,
+      "information": "​Nimble enables your AI agents and teams to stream the precise intelligence they need from the live web, powered by infrastructure built to reliably access even the most complex, difficult-to-reach data.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:04:05.801Z"
+    },
+    {
+      "id": "23f6d519-7c66-4576-a18d-fc4128c70b84",
+      "name": "GrowthMasters",
+      "logoUrl": "/images/companies/1785211989271-7oxq54g1bsp.jpg",
+      "website": "https://growthmasters.io/",
+      "linkedin": null,
+      "information": "GrowthMasters is a growth-focused platform that helps businesses and startups accelerate their growth through strategic marketing, sales, and business development solutions. It focuses on helping companies improve customer acquisition, optimize growth strategies, and build scalable systems for long-term success.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:13:10.633Z"
+    },
+    {
+      "id": "9f585aad-9eb6-40b1-be59-22e36cc9bc8c",
+      "name": "HydraDB",
+      "logoUrl": "/images/companies/1785211850174-m6oeejytwp.png",
+      "website": "https://hydradb.com/",
+      "linkedin": null,
+      "information": "​The serverless context infra built with in-memory data stores: ultra low latency, highest precision recall, and relationally-aware. Build memory layers, stateful agents, and context stores with the highest accuracy.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:10:58.064Z"
+    },
+    {
+      "id": "5c222f24-ce35-4cf8-8aa5-c4538eb07aed",
+      "name": "Tigris Data",
+      "logoUrl": "/images/companies/1785209887348-be6rimqs8qm.png",
+      "website": "https://www.tigrisdata.com/",
+      "linkedin": null,
+      "information": "Tigris Data is a cloud storage company that provides a globally distributed, S3-compatible object storage service designed for modern applications, especially AI and machine learning workloads",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T03:38:08.973Z"
+    },
+    {
+      "id": "ab49b4d3-4304-4eb7-95d3-d6e3eb34e29b",
+      "name": "TRAE",
+      "logoUrl": "/images/companies/1785209332208-gyb68tkmu7n.jpg",
+      "website": "https://www.trae.ai/",
+      "linkedin": null,
+      "information": "Trae supports builders with AI-powered coding tools to help participants move faster while building their hackathon projects.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T03:28:55.119Z"
+    },
+    {
+      "id": "46c4776b-4ebc-4a29-b36b-c941e0084327",
+      "name": "Retriver AI",
+      "logoUrl": "/images/companies/1785210183784-u6ht0kn917g.png",
+      "website": "https://www.rtrvr.ai/",
+      "linkedin": null,
+      "information": "Retriver AI is an AI web agent platform that enables users to automate web browsing, data extraction, and repetitive browser workflows using natural language. Instead of writing custom scripts or web scrapers, you describe a task in plain English, and the AI agent performs it in a real browser.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T03:43:36.251Z"
+    },
+    {
+      "id": "a8b947e6-4514-4a1d-bbce-32e6adbcd8b0",
+      "name": "Brain2",
+      "logoUrl": "/images/companies/1785212352576-n9x2vj2y3r.png",
+      "website": null,
+      "linkedin": null,
+      "information": "A second brain to help humans liberate their first one",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:19:13.819Z"
+    },
+    {
+      "id": "54bdc2ff-ae28-41ed-9947-3e1568c30ee3",
+      "name": "RocketRide",
+      "logoUrl": "/images/companies/1785210080444-4uisnjke947.jpg",
+      "website": "https://cloud.rocketride.ai/",
+      "linkedin": null,
+      "information": "RocketRide is an open-source AI workflow platform that enables developers to build, debug, and deploy AI applications without ever leaving their IDE. Its powerful meta-harness streamlines the entire development lifecycle, making it easy to create, test, and optimize AI workflows in one place.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T03:41:21.925Z"
+    },
+    {
+      "id": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "name": "Homebrew Club",
+      "logoUrl": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "website": "https://homebrewclub.berrry.app/",
+      "linkedin": null,
+      "information": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:12:12.679Z"
+    },
+    {
+      "id": "f8d0ad39-c8ad-4daf-a653-ec12d80cc222",
+      "name": "Amazon",
+      "logoUrl": "/images/companies/1785212689187-f3m6tc56v9n.png",
+      "website": "https://www.amazon.com/",
+      "linkedin": null,
+      "information": "Amazon Web Services (AWS) is a leading cloud computing platform that provides on-demand infrastructure, storage, databases, AI services, and developer tools. It enables businesses and developers to build, deploy, and scale applications without managing physical servers.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:24:50.824Z"
+    },
+    {
+      "id": "1a9c01e6-3691-4a48-8256-8313a31576af",
+      "name": "Govia",
+      "logoUrl": "/images/companies/1785212098749-ovvyz6or0h.png",
+      "website": "https://govia.app/",
+      "linkedin": null,
+      "information": "​GoVia is a technology platform dedicated to improving safety, transparency, and communication during police-community interactions. Through innovative tools and accessible resources, GoVia empowers individuals with information, support, and guidance to promote accountability, de-escalation, and informed decision-making.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:14:59.768Z"
+    },
+    {
+      "id": "5383693e-3d16-4168-b392-2ce712a5ae08",
+      "name": "NeverZero",
+      "logoUrl": null,
+      "website": null,
+      "linkedin": null,
+      "information": null,
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-26T10:48:32.233Z"
+    },
+    {
+      "id": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
+      "name": "Finchip AI",
+      "logoUrl": "/images/companies/1785212159902-1n84dyel8sj.jpg",
+      "website": "https://finchip.ai/",
+      "linkedin": null,
+      "information": "​FinChip helps turn AI skills into ownable digital assets that can be launched, discovered, used, and traded. For builders exploring agent capabilities, skill marketplaces, and programmable AI services, FinChip opens up a new way to think about software as something agents can own and invoke.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:16:01.228Z"
+    },
+    {
+      "id": "e2361fb1-6445-4e2e-b7ac-ac010b70f5ed",
+      "name": "Cognee",
+      "logoUrl": "/images/companies/1785212290007-ewyk32c92u.png",
+      "website": "https://www.cognee.ai/",
+      "linkedin": null,
+      "information": "​Cognee is an open-source memory platform for AI agents that transforms documents, relational data, and system context into persistent memory. It helps agents retain context across sessions and integrates seamlessly with tools like Claude Code, Codex, OpenClaw, and n8n.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:18:11.480Z"
+    },
+    {
+      "id": "aeeb497e-4490-41cc-a99b-fabafb9de69d",
+      "name": "BAND",
+      "logoUrl": "/images/companies/1785212397077-z4nmmk0w89.png",
+      "website": "https://www.band.ai/",
+      "linkedin": null,
+      "information": "​BAND is an enterprise-grade interaction layer that enables humans and AI agents to collaborate seamlessly. It provides real-time communication, built-in governance, and a structured framework for managing complex multi-agent systems securely and at scale.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:20:36.050Z"
+    },
+    {
+      "id": "76f43e64-cf39-4c3d-93da-7322286df630",
+      "name": "Growing Pies",
+      "logoUrl": "/images/companies/1785212050319-omg4gxox09h.jpg",
+      "website": "https://growingpies.ai/",
+      "linkedin": null,
+      "information": "​Growing Pies is supporting builders at Wizard Hackathon with a dedicated winning prize and helping bring more energy, opportunity, and momentum to the builder community.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:14:11.839Z"
+    },
+    {
+      "id": "3a75ca05-cfc5-4fdd-9136-88c565183e34",
+      "name": "Kalibr",
+      "logoUrl": "/images/companies/1785211669589-r5qzcb3d83o.jpg",
+      "website": "https://kalibr.systems/",
+      "linkedin": null,
+      "information": "Kalibr is an AI infrastructure platform designed to make AI agents more reliable, efficient, and autonomous. It helps AI systems complete complex, multi-step workflows by monitoring execution, detecting failures, and dynamically improving how models and tools are used",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:07:51.670Z"
+    },
+    {
+      "id": "ddc094a6-d04d-4911-9962-24be06f06e4e",
+      "name": "Opsera",
+      "logoUrl": "/images/companies/1785211323810-kxkhx97kf6.png",
+      "website": "https://opsera.ai/",
+      "linkedin": null,
+      "information": "Opsera is an AI-powered continuous delivery and DevOps automation platform that helps organizations streamline software delivery, improve engineering productivity, and manage complex DevOps workflows. It provides a unified platform to build, deploy, secure, and monitor applications across multiple environments and cloud providers.",
+      "createdAt": "2026-07-26T10:48:32.233Z",
+      "updatedAt": "2026-07-28T04:02:30.567Z"
+    },
+    {
+      "id": "ce36b4a9-3b26-4b98-9dcf-1a885ecdaa52",
+      "name": "Frontier Tower",
+      "logoUrl": "/images/companies/1785213449727-wcwud560ckg.jpg",
+      "website": "https://frontiertower.io/",
+      "linkedin": null,
+      "information": "Frontier Tower is a 16-floor innovation hub in San Francisco being transformed into a self-governed vertical village for frontier technologies and creative expression. It brings together leading researchers, builders, entrepreneurs, and artists working at the edge of human progress.",
+      "createdAt": "2026-07-26T21:36:36.619Z",
+      "updatedAt": "2026-07-28T04:37:31.946Z"
+    },
+    {
+      "id": "6946039e-0572-4162-b97e-0195a15d35cf",
+      "name": "Tavily",
+      "logoUrl": "/images/companies/1785213491420-hxrrbxy4ydv.png",
+      "website": "https://www.tavily.com/",
+      "linkedin": null,
+      "information": "​Tavily gives builders powerful search and research infrastructure for AI applications. It helps teams create agents, tools, and workflows that can access relevant web information and reason with better context.",
+      "createdAt": "2026-07-26T22:31:44.831Z",
+      "updatedAt": "2026-07-28T04:38:36.020Z"
+    },
+    {
+      "id": "754d2277-26cc-4416-9d3b-e0779870877e",
+      "name": "Agent OS",
+      "logoUrl": "/images/companies/1785213573176-gm3k8u59t3a.jpg",
+      "website": "https://app.theagentos.space/",
+      "linkedin": null,
+      "information": "​AgentOS is an operating system for AI agents, built around runtime, observability, security, and evals. It helps teams build agents that are easier to trace, monitor, test, and deploy with more confidence.",
+      "createdAt": "2026-07-26T23:01:16.417Z",
+      "updatedAt": "2026-07-28T04:41:27.374Z"
+    },
+    {
+      "id": "d23c3043-0393-4395-8740-5531f3e4e190",
+      "name": "Lyzr",
+      "logoUrl": "/images/companies/1785213855303-od1hbol7hl.jpg",
+      "website": "https://www.lyzr.ai/",
+      "linkedin": null,
+      "information": "Build production-grade, multi-agent AI workflows for sports analytics or coaching insights using a low-code agentic framework.",
+      "createdAt": "2026-07-26T23:33:53.105Z",
+      "updatedAt": "2026-07-28T04:44:17.565Z"
+    },
+    {
+      "id": "0638ff79-676f-4bca-946c-ad4f8d447d9f",
+      "name": "Qdrant",
+      "logoUrl": "/images/companies/1785213967203-32dt41o2s98.png",
+      "website": "https://qdrant.tech/",
+      "linkedin": null,
+      "information": "Power your app with high-performance vector search—perfect for multi-modal sports data, video retrieval, and biometrics.",
+      "createdAt": "2026-07-26T23:34:09.961Z",
+      "updatedAt": "2026-07-28T04:46:08.884Z"
+    },
+    {
+      "id": "1c7fd6de-4750-4691-ab74-38e05685a3c4",
+      "name": "Enkrypt AI",
+      "logoUrl": "/images/companies/1785214016121-qa2cw4l9azs.png",
+      "website": "https://www.enkryptai.com/",
+      "linkedin": null,
+      "information": "Secure your generative AI products and guard against data leaks, hallucinations, and adversarial attacks.",
+      "createdAt": "2026-07-26T23:34:24.518Z",
+      "updatedAt": "2026-07-28T04:46:58.126Z"
+    },
+    {
+      "id": "882365e2-3fe6-4f5b-895c-3a9b7e92148e",
+      "name": "AIHouse",
+      "logoUrl": "/images/companies/1785214106783-aaozmtkpwz.png",
+      "website": "https://www.aihouze.xyz/",
+      "linkedin": null,
+      "information": "​AIHouse is the community layer powering this ecosystem. Built for founders, researchers, engineers, students, and AI enthusiasts, AI House creates a space where people consistently learn, share, collaborate, and grow together.",
+      "createdAt": "2026-07-26T23:34:32.905Z",
+      "updatedAt": "2026-07-28T04:48:31.278Z"
+    },
+    {
+      "name": "AutonomLayer",
+      "logoUrl": "/images/companies/1785214210652-01i2saorytfi.png",
+      "website": "https://autonomlayer.com/",
+      "linkedin": null,
+      "information": "​AutonomLayer is an autonomous AI software engineering platform that goes beyond traditional AI coding assistants. Instead of requiring continuous prompting, it independently plans work, generates and refines prompts, writes code, tests, debugs, reviews, and iterates until an application is production-ready.",
+      "id": "33646e72-dd9d-42e5-b978-4c6c5bae1d50",
+      "createdAt": "2026-07-28T02:51:06.823Z",
+      "updatedAt": "2026-07-28T04:50:11.934Z"
+    },
+    {
+      "name": "Synk",
+      "logoUrl": "/images/companies/1785214232494-1vzvughomb1.jpg",
+      "website": "https://snyk.io/",
+      "linkedin": null,
+      "information": "​Snyk helps developers build securely by automatically finding and fixing vulnerabilities in code, open-source dependencies, containers, and infrastructure. It's an essential part of modern software development, ensuring that AI-generated code is secure before it reaches production.",
+      "id": "15b62625-a629-406c-a14a-bd7c07e451b8",
+      "createdAt": "2026-07-28T02:51:11.923Z",
+      "updatedAt": "2026-07-28T04:51:24.701Z"
+    },
+    {
+      "name": "AIGO AI",
+      "logoUrl": "/images/companies/1785214390082-1ompbza0xii.jpg",
+      "website": "https://aigo.ai/",
+      "linkedin": null,
+      "information": "Aigo is a Cognitive AI platform focused on building adaptive, self-learning AI systems that go beyond traditional large language models. Instead of relying on massive datasets and probabilistic generation, Aigo emphasizes continuous learning, reasoning, memory, and contextual understanding to create intelligent assistants for enterprise applications",
+      "id": "e0044788-b9ef-4038-8078-367cbf8235cf",
+      "createdAt": "2026-07-28T02:51:18.371Z",
+      "updatedAt": "2026-07-28T04:53:13.969Z"
+    },
+    {
+      "name": "O1 Assist",
+      "logoUrl": "/images/companies/1785214301331-k7aalh3d4jo.jpg",
+      "website": "https://o1assist.com/",
+      "linkedin": null,
+      "information": "O-1 Assist is an AI-powered platform that helps exceptional professionals prepare strong O-1, EB-1A, and Global Talent visa applications. It streamlines the entire petition process by helping applicants build qualifying evidence, organize documentation, and connect with experienced immigration attorneys for filing.",
+      "id": "891f7ff9-9fb5-48b9-8ac5-6a666aa11cb3",
+      "createdAt": "2026-07-28T02:51:32.085Z",
+      "updatedAt": "2026-07-28T04:52:36.910Z"
+    }
+  ]
+}

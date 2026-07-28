@@ -1,0 +1,211 @@
+{
+  "event": {
+    "id": "2dc9d72c-99b2-4b38-8b26-c94995c2513c",
+    "slug": "sports-world-cup-hackathon",
+    "name": "Sports World Cup Hackathon",
+    "type": "hackathon",
+    "description": "Build innovative projects around sports, combining technology, creativity, and ideas to solve problems in the world of sports. Create, experiment, and compete with other builders.",
+    "theme": "Build around Sports and AI",
+    "dayLabel": "Monday – Friday",
+    "eventDate": "2026-07-13",
+    "endDate": "2026-07-17",
+    "startTime": "10:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": null,
+    "coverPageUrl": null,
+    "lumaLink": null,
+    "eventbriteLink": null,
+    "groupLink": null,
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-26T10:48:32.629Z",
+    "updatedAt": "2026-07-27T10:11:14.582Z"
+  },
+  "tracks": [
+    {
+      "id": "63682eaa-0908-4168-b393-1c366912960f",
+      "name": "Athlete Performance & Coaching",
+      "description": "​Build tools that help athletes and coaches improve performance through AI, analytics, training, wearables, injury prevention, biomechanics, or video analysis.",
+      "sortOrder": 0
+    },
+    {
+      "id": "a458421a-eb40-4f82-b96b-89b33e00d0d5",
+      "name": "Fan Experience & Engagement",
+      "description": "Create products that enhance the fan experience through fantasy sports, social engagement, predictions, gamification, personalized content, or interactive viewing.",
+      "sortOrder": 0
+    },
+    {
+      "id": "1faf26e7-e7de-461a-9e9d-155bea2800fe",
+      "name": "Media, Content & Broadcasting",
+      "description": "Develop AI-powered solutions for sports commentary, highlights, content creation, broadcasting, multilingual coverage, or sports journalism.",
+      "sortOrder": 0
+    },
+    {
+      "id": "5a7b48b7-d41d-48a2-96e3-777fe3b2fa03",
+      "name": "Sports Business & Operations",
+      "description": "​Build products for leagues, clubs, tournaments, venues, sponsorships, ticketing, scheduling, scouting, operations, or sports analytics.",
+      "sortOrder": 0
+    },
+    {
+      "id": "dca9f26c-c17e-4036-ad32-0c7188977287",
+      "name": "Open Innovation",
+      "description": "​Have an idea that doesn't fit the above tracks? Build any sports-related product.",
+      "sortOrder": 0
+    }
+  ],
+  "sponsors": [
+    {
+      "id": "889a2a40-e29c-440e-b1a6-be2878b30e07",
+      "companyName": "InsForge",
+      "companyWebsite": "https://insforge.dev/",
+      "companyLogo": "/images/companies/1785211739551-lkj2ozofmy.png",
+      "companyDescription": "​InsForge is building agent-native cloud infrastructure for modern AI development. It brings together model gateway, compute, deployment, database, authentication, and more so AI coding agents can operate across the full development workflow.",
+      "representatives": [
+        {
+          "username": "Tony Chwang",
+          "linkedin": "https://www.linkedin.com/in/tony-chang-0430/",
+          "role": "Co Founder",
+          "companyName": "InsForge"
+        }
+      ]
+    },
+    {
+      "id": "59635313-1e18-4cc4-a010-a8f2ef5f7272",
+      "companyName": "Lyzr",
+      "companyWebsite": "https://www.lyzr.ai/",
+      "companyLogo": "/images/companies/1785213855303-od1hbol7hl.jpg",
+      "companyDescription": "Build production-grade, multi-agent AI workflows for sports analytics or coaching insights using a low-code agentic framework.",
+      "representatives": []
+    },
+    {
+      "id": "e8b89a3d-841c-4700-bd43-39239ba53237",
+      "companyName": "AIHouse",
+      "companyWebsite": "https://www.aihouze.xyz/",
+      "companyLogo": "/images/companies/1785214106783-aaozmtkpwz.png",
+      "companyDescription": "​AIHouse is the community layer powering this ecosystem. Built for founders, researchers, engineers, students, and AI enthusiasts, AI House creates a space where people consistently learn, share, collaborate, and grow together.",
+      "representatives": []
+    },
+    {
+      "id": "35bf42c0-e584-4018-9a61-80a554e57d87",
+      "companyName": "Qdrant",
+      "companyWebsite": "https://qdrant.tech/",
+      "companyLogo": "/images/companies/1785213967203-32dt41o2s98.png",
+      "companyDescription": "Power your app with high-performance vector search—perfect for multi-modal sports data, video retrieval, and biometrics.",
+      "representatives": []
+    },
+    {
+      "id": "450174d8-aa61-45eb-bee5-3e75042bb8f8",
+      "companyName": "Enkrypt AI",
+      "companyWebsite": "https://www.enkryptai.com/",
+      "companyLogo": "/images/companies/1785214016121-qa2cw4l9azs.png",
+      "companyDescription": "Secure your generative AI products and guard against data leaks, hallucinations, and adversarial attacks.",
+      "representatives": []
+    }
+  ],
+  "partners": [
+    {
+      "partnerType": "venue",
+      "customType": null,
+      "companyName": "Homebrew Club",
+      "companyWebsite": "https://homebrewclub.berrry.app/",
+      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
+    }
+  ],
+  "prizes": [
+    {
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Best use of Lyzr",
+      "amount": "$300 Cash",
+      "currency": "USD",
+      "companyName": "Lyzr"
+    }
+  ],
+  "schedule": [
+    {
+      "id": "5a3a9354-4744-4d55-ae17-0be64ea174c5",
+      "startTime": "2026-07-13T17:00:00.000Z",
+      "endTime": "2026-07-18T01:00:00.000Z",
+      "topic": "Hacking Sprint",
+      "speakers": []
+    },
+    {
+      "id": "76211273-6a69-47de-8ca3-92e913bdbe44",
+      "startTime": "2026-07-18T01:00:00.000Z",
+      "endTime": "2026-07-18T03:00:00.000Z",
+      "topic": "Project Demos ",
+      "speakers": []
+    },
+    {
+      "id": "3ac0fdb6-aec8-43db-8f49-a8c68e217ba8",
+      "startTime": "2026-07-18T03:00:00.000Z",
+      "endTime": "2026-07-18T04:00:00.000Z",
+      "topic": "Judging and Winners Celebration",
+      "speakers": []
+    }
+  ],
+  "speakers": [],
+  "judges": [
+    {
+      "username": "Tony Chwang",
+      "linkedin": "https://www.linkedin.com/in/tony-chang-0430/",
+      "role": null,
+      "title": "Co Founder",
+      "companyName": "InsForge"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Zhi Ling",
+      "linkedin": "https://www.linkedin.com/in/zhilinglim/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Attrilo"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    }
+  ],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

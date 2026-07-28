@@ -1,0 +1,141 @@
+{
+  "event": {
+    "id": "5dc60e5c-3be8-4f42-8b28-de48fa1f1a7a",
+    "slug": "build-your-ai-organization-workshop-ms46mwrq",
+    "name": "Build your AI Organization Workshop",
+    "type": "workshop",
+    "description": "Learn how to create AI agents that can help with real business tasks. In this hands-on workshop, you will explore how AI can automate workflows, support teams, and improve daily operations. Use Kylon to create agents and Nebius for cloud compute.\n\nYou will see real examples, build your own AI agent with guidance from the Kylon team, and learn how to use AI for practical business use cases.\n\nNo advanced AI experience is needed — just bring your laptop and ideas for tasks you want to automate.",
+    "theme": "",
+    "dayLabel": "Fri, Jul 24",
+    "eventDate": "2026-07-24",
+    "endDate": "2026-07-24",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785214523166-rp1v9pddbh.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T05:05:23.050Z",
+    "updatedAt": "2026-07-28T04:59:16.879Z"
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "a91d7871-821f-4d7f-8062-a71ad34dfa6c",
+      "companyName": "Kylon",
+      "companyWebsite": "https://kylon.io/",
+      "companyLogo": "/images/companies/1785211592121-b8chlaj1059.png",
+      "companyDescription": "​Kylon is an AI agent team that runs your entire business.",
+      "representatives": [
+        {
+          "username": "Christina Bowllan",
+          "linkedin": "https://www.linkedin.com/in/christina-bowllan-074563177/",
+          "role": "Founding Team",
+          "companyName": "Kylon"
+        },
+        {
+          "username": "Quinn Leng",
+          "linkedin": "https://www.linkedin.com/in/suanmiao/",
+          "role": "Co-Founder",
+          "companyName": "Kylon"
+        }
+      ]
+    }
+  ],
+  "partners": [],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    },
+    {
+      "username": "Quinn Leng",
+      "linkedin": "https://www.linkedin.com/in/suanmiao/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Kylon"
+    },
+    {
+      "username": "Colin Lowenberg",
+      "linkedin": "https://www.linkedin.com/in/wifi/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "DevRel",
+      "companyName": "Nebius"
+    },
+    {
+      "username": "Christina Bowllan",
+      "linkedin": "https://www.linkedin.com/in/christina-bowllan-074563177/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founding Team",
+      "companyName": "Kylon"
+    },
+    {
+      "username": "Chelsey Huang",
+      "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Finchip AI"
+    },
+    {
+      "username": "Coco Wang",
+      "linkedin": "https://www.linkedin.com/in/coco-wang-28781b87/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "GTM",
+      "companyName": "Finchip AI"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

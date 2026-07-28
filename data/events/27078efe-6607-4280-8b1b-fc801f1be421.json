@@ -1,0 +1,696 @@
+{
+  "event": {
+    "id": "27078efe-6607-4280-8b1b-fc801f1be421",
+    "slug": "applied-ai-intelligence-hackathon",
+    "name": "Applied AI Intelligence Hackathon",
+    "type": "hackathon",
+    "description": "Build real-world solutions using AI. Create innovative applications, tools, and workflows that apply AI to solve practical problems and improve the way people work, learn, and interact with technology.\n\nBring your ideas, experiment with AI, and collaborate with other builders to create impactful projects.",
+    "theme": "AI Agents that Act",
+    "dayLabel": "Sunday",
+    "eventDate": "2026-05-31",
+    "endDate": "2026-05-31",
+    "startTime": "09:00:00",
+    "endTime": "20:00:00",
+    "location": "Frontier Tower, 995 Market Street, San Francisco, CA 94103",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": null,
+    "coverPageUrl": null,
+    "lumaLink": null,
+    "eventbriteLink": null,
+    "groupLink": null,
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-26T10:48:32.629Z",
+    "updatedAt": "2026-07-27T10:10:54.618Z"
+  },
+  "tracks": [
+    {
+      "id": "3d01935d-d88b-41bb-80dd-44a40cb54e78",
+      "name": "Finance",
+      "description": "Build AI solutions that improve personal finance, banking, investment analysis, fraud detection, risk management, or financial operations.",
+      "sortOrder": 0
+    },
+    {
+      "id": "8ad577ee-1ee7-47ba-b69a-ca3c3b769eae",
+      "name": "Law",
+      "description": "Create AI tools that simplify legal research, contract analysis, compliance, document automation, or access to legal services.",
+      "sortOrder": 0
+    },
+    {
+      "id": "44a4db5d-7540-4e9f-9f54-a72b2380d546",
+      "name": "Healthcare",
+      "description": "Develop intelligent applications for patient care, medical diagnostics, healthcare operations, clinical decision support, or wellness.",
+      "sortOrder": 0
+    },
+    {
+      "id": "1fa1d4b7-096b-4960-9207-b179adb0e838",
+      "name": "Marketing",
+      "description": "Use AI to enhance customer engagement, content creation, campaign optimization, personalization, analytics, and brand growth.",
+      "sortOrder": 0
+    },
+    {
+      "id": "f080aba5-9141-4fb7-8ab4-d652d764308e",
+      "name": "Education",
+      "description": "Design AI-powered learning experiences, tutoring systems, skill assessment tools, personalized education, or classroom assistants.",
+      "sortOrder": 0
+    },
+    {
+      "id": "f32bd312-a791-4b55-8a08-9e6a33f69c32",
+      "name": "Choose your Own",
+      "description": "Choose any project you want to work on",
+      "sortOrder": 0
+    }
+  ],
+  "sponsors": [
+    {
+      "id": "21cba2ba-69a7-4e5a-88b0-3e875215337d",
+      "companyId": "5c222f24-ce35-4cf8-8aa5-c4538eb07aed",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "674351b1-5833-4a82-8871-c66201154e26"
+        }
+      ]
+    },
+    {
+      "id": "60538d7a-74bb-4e82-872f-c8cc4a6838fa",
+      "companyId": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "939c0411-0eae-40d6-a22a-6fc63e750374"
+        },
+        {
+          "userId": "76666c01-c717-400b-9c66-2fdf6df8905d"
+        }
+      ]
+    },
+    {
+      "id": "264c6130-f5f5-4774-b432-6395615c9355",
+      "companyId": "126c51c7-58af-4afb-a963-7ebb6c70df26",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0"
+        }
+      ]
+    },
+    {
+      "id": "081af4ad-833e-42d7-b32f-59e0545637c6",
+      "companyId": "bdeab284-92c8-4cd6-a583-d6b97ac3cc17",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "f481c0e0-c88f-4ecd-b329-e0ed512b4035"
+        },
+        {
+          "userId": "39c7927a-d6e1-4dff-ae5a-6b0de2904ff5"
+        }
+      ]
+    },
+    {
+      "id": "0d3d5ebb-ffca-41d3-8d5b-663f212c888b",
+      "companyId": "89e11f70-e77f-4a35-9e2d-c446a62a420e",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "49bc8e3c-debd-4579-a9be-6cd567058dd9"
+        }
+      ]
+    },
+    {
+      "id": "50a0fcfc-74b7-47f2-a96f-c7a165fab564",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03"
+        }
+      ]
+    },
+    {
+      "id": "f7843622-ebf2-4995-8995-f05e2515356d",
+      "companyId": "ddc094a6-d04d-4911-9962-24be06f06e4e",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "7abf0d6b-1aee-4860-b564-1ab69b9e2ed8"
+        }
+      ]
+    },
+    {
+      "id": "fc255264-8285-428e-bf05-f47c0904d931",
+      "companyId": "46c4776b-4ebc-4a29-b36b-c941e0084327",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "d010c64f-9835-4a5e-a9bf-78003502b085"
+        },
+        {
+          "userId": "e67ec570-5118-4654-978c-2a53bbdedcc6"
+        }
+      ]
+    },
+    {
+      "id": "ea507a73-48ab-4c71-bcc4-b7da45543fba",
+      "companyId": "a8b947e6-4514-4a1d-bbce-32e6adbcd8b0",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "6c7ce050-8536-48aa-8697-e0225bf83981"
+        }
+      ]
+    },
+    {
+      "id": "e4c19b85-5bce-4c32-8204-a44c400f3830",
+      "companyId": "3a75ca05-cfc5-4fdd-9136-88c565183e34",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "e4f59da5-9d7e-4678-9efd-83a0f8055453"
+        }
+      ]
+    },
+    {
+      "id": "a9c85403-4742-4044-bd9c-cddbf227d1e6",
+      "companyId": "6946039e-0572-4162-b97e-0195a15d35cf",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0"
+        }
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "id": "03b7cc19-e27a-4d54-911d-34c8fb36b5fd",
+      "companyId": "ce36b4a9-3b26-4b98-9dcf-1a885ecdaa52",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null
+    }
+  ],
+  "prizes": [
+    {
+      "id": "a8ff3791-dbc4-4797-9bc9-a46be6fdd6ba",
+      "trackId": null,
+      "sponsorId": "21cba2ba-69a7-4e5a-88b0-3e875215337d",
+      "companyId": "5c222f24-ce35-4cf8-8aa5-c4538eb07aed",
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Best use of Tigris Data",
+      "amount": "$1500 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "a704aff1-b050-421c-9e99-2d4273973cbd",
+      "trackId": null,
+      "sponsorId": "50a0fcfc-74b7-47f2-a96f-c7a165fab564",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "placement": "first",
+      "customLabel": null,
+      "prizeName": "Best use of InsForge",
+      "amount": "$500 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "577d91d5-8f7a-4268-b086-46f90816902c",
+      "trackId": null,
+      "sponsorId": "50a0fcfc-74b7-47f2-a96f-c7a165fab564",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "placement": "second",
+      "customLabel": null,
+      "prizeName": "Best use of InsForge",
+      "amount": "$300 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "a1037adf-3458-4b59-bd81-7d13b74a9be7",
+      "trackId": null,
+      "sponsorId": "50a0fcfc-74b7-47f2-a96f-c7a165fab564",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "placement": "third",
+      "customLabel": null,
+      "prizeName": "Best use of InsForge",
+      "amount": "$200 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "7b179020-c163-4362-a3d8-adf92f55e985",
+      "trackId": null,
+      "sponsorId": "f7843622-ebf2-4995-8995-f05e2515356d",
+      "companyId": "ddc094a6-d04d-4911-9962-24be06f06e4e",
+      "placement": "first",
+      "customLabel": null,
+      "prizeName": "Best use of Opsera",
+      "amount": "$500 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "993b9c9d-9849-43e4-9499-72516b0f3d63",
+      "trackId": null,
+      "sponsorId": "f7843622-ebf2-4995-8995-f05e2515356d",
+      "companyId": "ddc094a6-d04d-4911-9962-24be06f06e4e",
+      "placement": "second",
+      "customLabel": null,
+      "prizeName": "Best use of Opsera",
+      "amount": "$300 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "52334c27-b937-4cbe-99e5-29a0f7346286",
+      "trackId": null,
+      "sponsorId": "f7843622-ebf2-4995-8995-f05e2515356d",
+      "companyId": "ddc094a6-d04d-4911-9962-24be06f06e4e",
+      "placement": "third",
+      "customLabel": null,
+      "prizeName": "Best use of Opsera",
+      "amount": "$200 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "7dcaec47-6f0f-49bd-bb9a-718a626cfeb5",
+      "trackId": null,
+      "sponsorId": "fc255264-8285-428e-bf05-f47c0904d931",
+      "companyId": "46c4776b-4ebc-4a29-b36b-c941e0084327",
+      "placement": "first",
+      "customLabel": null,
+      "prizeName": "Best use of Retriver AI",
+      "amount": "$500 Cash + $500 credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "db94fb19-def7-429e-8ad5-e94cd4768b53",
+      "trackId": null,
+      "sponsorId": "fc255264-8285-428e-bf05-f47c0904d931",
+      "companyId": "46c4776b-4ebc-4a29-b36b-c941e0084327",
+      "placement": "second",
+      "customLabel": null,
+      "prizeName": "Best use of Retriver AI",
+      "amount": "$300 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "95d1800a-4084-4bc9-8b47-258900c1f718",
+      "trackId": null,
+      "sponsorId": "fc255264-8285-428e-bf05-f47c0904d931",
+      "companyId": "46c4776b-4ebc-4a29-b36b-c941e0084327",
+      "placement": "third",
+      "customLabel": null,
+      "prizeName": "Best use of Retriver AI",
+      "amount": "$200 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "dfd206fc-d4c0-42f2-af17-863864b94805",
+      "trackId": null,
+      "sponsorId": "0d3d5ebb-ffca-41d3-8d5b-663f212c888b",
+      "companyId": "89e11f70-e77f-4a35-9e2d-c446a62a420e",
+      "placement": "first",
+      "customLabel": null,
+      "prizeName": "Best use of Render",
+      "amount": "$500 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "5ddc0d7b-330d-4b91-836f-c20dceb74f56",
+      "trackId": null,
+      "sponsorId": "0d3d5ebb-ffca-41d3-8d5b-663f212c888b",
+      "companyId": "89e11f70-e77f-4a35-9e2d-c446a62a420e",
+      "placement": "first",
+      "customLabel": null,
+      "prizeName": "Best use of Render",
+      "amount": "$500 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "b7163adb-e273-4c69-b29d-14742b1e2aec",
+      "trackId": null,
+      "sponsorId": "0d3d5ebb-ffca-41d3-8d5b-663f212c888b",
+      "companyId": "89e11f70-e77f-4a35-9e2d-c446a62a420e",
+      "placement": "second",
+      "customLabel": null,
+      "prizeName": "Best use of Render",
+      "amount": "$300 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "938369ff-d520-4bae-b7a6-943a69846a82",
+      "trackId": null,
+      "sponsorId": "0d3d5ebb-ffca-41d3-8d5b-663f212c888b",
+      "companyId": "89e11f70-e77f-4a35-9e2d-c446a62a420e",
+      "placement": "third",
+      "customLabel": null,
+      "prizeName": "Best use of Render",
+      "amount": "$200 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "97e88b3f-1317-45f4-80fc-31fa62e4d669",
+      "trackId": null,
+      "sponsorId": "081af4ad-833e-42d7-b32f-59e0545637c6",
+      "companyId": "bdeab284-92c8-4cd6-a583-d6b97ac3cc17",
+      "placement": "first",
+      "customLabel": null,
+      "prizeName": "Best use of Daytona",
+      "amount": "$3000 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "aadef508-b341-4991-94ab-ebb381464351",
+      "trackId": null,
+      "sponsorId": "081af4ad-833e-42d7-b32f-59e0545637c6",
+      "companyId": "bdeab284-92c8-4cd6-a583-d6b97ac3cc17",
+      "placement": "second",
+      "customLabel": null,
+      "prizeName": "Best use of Daytona",
+      "amount": "$2000 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "c6911cca-9894-4825-ac07-b3e1d3d13916",
+      "trackId": null,
+      "sponsorId": "081af4ad-833e-42d7-b32f-59e0545637c6",
+      "companyId": "bdeab284-92c8-4cd6-a583-d6b97ac3cc17",
+      "placement": "third",
+      "customLabel": null,
+      "prizeName": "Best use of Daytona",
+      "amount": "$1000 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "29d8f656-1a75-48c8-a7c5-c1e9578d0d2f",
+      "trackId": null,
+      "sponsorId": "60538d7a-74bb-4e82-872f-c8cc4a6838fa",
+      "companyId": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
+      "placement": "first",
+      "customLabel": null,
+      "prizeName": "Best use of Apify",
+      "amount": "$200 Visa giftcard + $200 credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "63ec0949-5baf-4e1c-a0df-97456cebd903",
+      "trackId": null,
+      "sponsorId": "60538d7a-74bb-4e82-872f-c8cc4a6838fa",
+      "companyId": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
+      "placement": "second",
+      "customLabel": null,
+      "prizeName": "Best use of Apify",
+      "amount": "$100 Visa giftcard + $100 credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "a4b646ba-d246-45c2-85a8-830b8f0a00c5",
+      "trackId": null,
+      "sponsorId": "60538d7a-74bb-4e82-872f-c8cc4a6838fa",
+      "companyId": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
+      "placement": "third",
+      "customLabel": null,
+      "prizeName": "Best use of Apify",
+      "amount": " $100 credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "accccc99-b429-4311-9541-a5b7bba314e5",
+      "trackId": null,
+      "sponsorId": "ea507a73-48ab-4c71-bcc4-b7da45543fba",
+      "companyId": "a8b947e6-4514-4a1d-bbce-32e6adbcd8b0",
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Change Maker Award",
+      "amount": "$100 giftcard",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "2fd79d67-55a3-4987-9d73-38918a2496df",
+      "trackId": null,
+      "sponsorId": "e4c19b85-5bce-4c32-8204-a44c400f3830",
+      "companyId": "3a75ca05-cfc5-4fdd-9136-88c565183e34",
+      "placement": "custom",
+      "customLabel": "1 year Kalibr Pro free ($1,788 credits)",
+      "prizeName": "Best use of Kalibr",
+      "amount": null,
+      "currency": "USD",
+      "sortOrder": 0
+    }
+  ],
+  "schedule": [
+    {
+      "id": "78743734-a87f-423a-9f47-fdd4fe4eeb6e",
+      "startTime": "2026-05-31T16:00:00.000Z",
+      "endTime": "2026-05-31T17:00:00.000Z",
+      "topic": "Welcome and Opening Ceremony",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "b8d47067-4cc2-46b6-8de3-77194485834a",
+      "startTime": "2026-05-31T17:00:00.000Z",
+      "endTime": "2026-05-31T18:00:00.000Z",
+      "topic": "Theme Introduction, Sponsor Demos, and Inspiration Talks",
+      "sortOrder": 1,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "13eb0fc2-31e7-445f-a78c-d96537a13431",
+      "startTime": "2026-05-31T18:00:00.000Z",
+      "endTime": "2026-06-01T00:00:00.000Z",
+      "topic": "Hacking Sprint",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "7b9f5a84-a5b7-41c5-a1e8-363bb7f19612",
+      "startTime": "2026-06-01T02:00:00.000Z",
+      "endTime": "2026-06-01T03:00:00.000Z",
+      "topic": "Winners Announcement and Demos",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "70297000-10a4-4d75-9230-f38a41d4dc46",
+      "startTime": "2026-06-04T00:00:00.000Z",
+      "endTime": "2026-06-04T02:00:00.000Z",
+      "topic": "Submissions and Judging",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    }
+  ],
+  "speakers": [
+    {
+      "id": "2c1a5e84-717e-4f47-b9a6-fcfdd533d9d9",
+      "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+      "eventDay": "2026-05-31",
+      "startTime": "2026-05-31T17:00:00.000Z",
+      "endTime": "2026-05-31T17:10:00.000Z",
+      "topic": "Nebius AI cloud and Tavily",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "7e6d4330-4992-41fd-aab8-90b810cf7a12",
+      "userId": "7abf0d6b-1aee-4860-b564-1ab69b9e2ed8",
+      "eventDay": "2026-05-31",
+      "startTime": "2026-05-31T17:10:00.000Z",
+      "endTime": "2026-05-31T17:20:00.000Z",
+      "topic": "AI-Powered DevOps Automation in Opsera",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "7df2e535-bb0e-42c2-9c69-c5d6a873bd80",
+      "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
+      "eventDay": "2026-05-31",
+      "startTime": "2026-05-31T17:20:00.000Z",
+      "endTime": "2026-05-31T17:30:00.000Z",
+      "topic": "Agent-native backend in InsForge",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "0aa801d6-4f8d-4947-994e-de419221a01d",
+      "userId": "76666c01-c717-400b-9c66-2fdf6df8905d",
+      "eventDay": "2026-05-31",
+      "startTime": "2026-05-31T17:30:00.000Z",
+      "endTime": "2026-05-31T17:40:00.000Z",
+      "topic": "Web Scraping & Automation in Apify",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "b06ae38a-56ab-4332-8bd2-c52819d25bfc",
+      "userId": "39c7927a-d6e1-4dff-ae5a-6b0de2904ff5",
+      "eventDay": "2026-05-31",
+      "startTime": "2026-05-31T17:40:00.000Z",
+      "endTime": "2026-05-31T17:50:00.000Z",
+      "topic": "Cloud Sandbox in Daytona",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "e6478a21-0012-4e36-9b11-7c5b13533776",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "eventDay": "2026-05-31",
+      "startTime": "2026-05-31T17:50:00.000Z",
+      "endTime": "2026-05-31T18:00:00.000Z",
+      "topic": "Rules, Tracks & Submission",
+      "isSkipped": false,
+      "sortOrder": 0
+    }
+  ],
+  "judges": [
+    {
+      "id": "99538544-6a4f-41a4-8ff7-cd449e3cc744",
+      "userId": "967ce10f-2d9b-4aba-a4c0-b2bc2f08665e",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "818ccf02-8874-4e00-8ecd-e9a62bed2aae",
+      "userId": "2a98f550-94d7-441b-9b24-9859e5fb75c3",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "487b9a95-c8e4-475f-b21f-aa4a69238d96",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "2380b756-2df4-428b-b6f1-5cf7e53f5fae",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "303fcf13-3a36-45b8-9251-dfec328ebffa",
+      "userId": "13511e40-7954-49b4-b052-99c3fdb4c400",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "f121a9d3-3abd-4538-9429-b88e4f6bfd05",
+      "userId": "d010c64f-9835-4a5e-a9bf-78003502b085",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "8d72743e-c9e7-4d08-bb45-255be9a7f6fc",
+      "userId": "e67ec570-5118-4654-978c-2a53bbdedcc6",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "7d2c890f-1622-4da8-8361-0e9bde3ebd87",
+      "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "276cfdc1-6525-4951-a2d8-80333f4bb595",
+      "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "1eeed8b8-e823-4fce-b875-a16b8d7cc015",
+      "userId": "49bc8e3c-debd-4579-a9be-6cd567058dd9",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "4002dac4-5773-4fe9-b32e-2588f621f163",
+      "userId": "e4f59da5-9d7e-4678-9efd-83a0f8055453",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "55c640d4-bac9-40cb-aab1-2a6342d7a05b",
+      "userId": "f481c0e0-c88f-4ecd-b329-e0ed512b4035",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "1eb32e26-60b5-4853-9ea7-8a688c5c3883",
+      "userId": "39c7927a-d6e1-4dff-ae5a-6b0de2904ff5",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "5b17e235-bb00-43f0-bd26-de22a9d68f8b",
+      "userId": "939c0411-0eae-40d6-a22a-6fc63e750374",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "c73ae819-9eb6-444c-a493-6f1f66b553f9",
+      "userId": "76666c01-c717-400b-9c66-2fdf6df8905d",
+      "role": null,
+      "sortOrder": 0
+    }
+  ],
+  "hosts": [
+    {
+      "id": "f3a6073f-1a53-49b1-a456-a480764b7882",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "d7b0450a-cbc2-45db-a3c3-e100e6ca709a",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    }
+  ],
+  "links": [],
+  "photos": [],
+  "liveState": {
+    "liveReassignmentAt": "2026-07-26T11:02:25.029Z"
+  }
+}

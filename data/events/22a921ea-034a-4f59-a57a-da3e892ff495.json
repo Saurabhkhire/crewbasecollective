@@ -1,0 +1,821 @@
+{
+  "event": {
+    "id": "22a921ea-034a-4f59-a57a-da3e892ff495",
+    "slug": "bay-builders-hackathon",
+    "name": "Bay Builders Hackathon",
+    "type": "hackathon",
+    "description": "Build the future of AI organizations. Create AI-powered tools, workflows, and solutions that help businesses and teams operate in new ways.",
+    "theme": "Build your AI Organization",
+    "dayLabel": "Monday",
+    "eventDate": "2026-07-13",
+    "endDate": "2026-07-13",
+    "startTime": "09:30:00",
+    "endTime": "20:00:00",
+    "location": "AWS Builders Loft, 525 Market St, San Francisco, CA 94015",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": null,
+    "coverPageUrl": null,
+    "lumaLink": null,
+    "eventbriteLink": null,
+    "groupLink": null,
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-26T10:48:32.629Z",
+    "updatedAt": "2026-07-27T10:10:59.212Z"
+  },
+  "tracks": [
+    {
+      "id": "bce9960b-f6d3-4ad6-8763-8a1fd98e5b3e",
+      "name": "AI SaaS Startup (B2B Tools)",
+      "description": "​Build an AI software company that solves a clear business problem. Your product should help companies save time, reduce costs, or improve decision-making.  ​Examples:  ​AI sales assistant that writes follow-up emails and tracks leads  ​HR AI that screens resumes and ranks candidates  ​Finance AI that analyzes expenses and explains trends  ​AI support agent that resolves customer tickets automatically",
+      "sortOrder": 0
+    },
+    {
+      "id": "c843701f-a983-40b9-b832-c2346cc6a0b3",
+      "name": "AI Consumer Startup (Everyday Apps)",
+      "description": "​Create an AI-powered app for everyday users. Focus on personal productivity, lifestyle, learning, or entertainment.  ​Examples:  ​AI study coach that turns notes into quizzes and revision plans  ​AI fitness planner that creates workouts and meal routines  ​AI dating coach that improves profiles and messages  ​AI personal planner that schedules your day based on goals",
+      "sortOrder": 0
+    },
+    {
+      "id": "6b675679-b845-4a41-8f9f-7f3763589736",
+      "name": "AI Agent Company (Autonomous Workers)",
+      "description": "​Build AI agents that can complete tasks end-to-end. These are not chatbots—they are “AI employees” that take goals and execute workflows.  ​Examples:  ​AI marketing agent that creates and schedules social media campaigns  ​AI research agent that reads articles and writes summaries  ​AI recruiter agent that finds candidates and books interviews  ​AI travel agent that plans full trips based on preferences",
+      "sortOrder": 0
+    },
+    {
+      "id": "ff58a32d-0467-419e-8f63-472e7658eaac",
+      "name": "Vertical AI Company (Industry Specialists)",
+      "description": "Focus on one industry and build a highly specialized AI product for it. Go deep instead of broad.  ​Examples:  ​AI lawyer assistant that reviews contracts and finds risks  ​AI healthcare assistant that summarizes patient reports  ​AI real estate assistant that analyzes properties and generates listings",
+      "sortOrder": 0
+    },
+    {
+      "id": "cce454c5-4358-4fbb-9f4e-da1700bc2430",
+      "name": "AI Creative Studio (Content & Media Company)",
+      "description": "​Build an AI company that generates or enhances creative content. This is the “AI entertainment studio” track.  ​Examples:  ​AI film generator that creates short movies from prompts  ​AI music studio that composes songs based on mood  ​AI game content generator that builds characters and storylines  ​AI influencer tool that creates social media posts and videos",
+      "sortOrder": 0
+    },
+    {
+      "id": "b75fba3d-8479-4f01-99b4-13831aa01946",
+      "name": "Choose Your Own AI Company",
+      "description": "​Build any AI startup idea that doesn’t fit into the above tracks. This is for the most experimental, bold, or unconventional ideas.  ​Examples:  ​AI marketplace where users hire AI agents for different tasks  ​AI startup simulator that runs a company autonomously  ​AI negotiation agent that helps users close deals  ​AI life operating system that manages everything from emails to goals",
+      "sortOrder": 0
+    }
+  ],
+  "sponsors": [
+    {
+      "id": "14f324f8-9823-4aa9-92bf-df5e00f8db27",
+      "companyId": "126c51c7-58af-4afb-a963-7ebb6c70df26",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0"
+        }
+      ]
+    },
+    {
+      "id": "3bd015dc-55f3-4473-86d4-10051a87335a",
+      "companyId": "6946039e-0572-4162-b97e-0195a15d35cf",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0"
+        }
+      ]
+    },
+    {
+      "id": "93eab37c-f76b-45bf-a50f-a8b9cce09d6c",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03"
+        },
+        {
+          "userId": "50bd11f2-553a-4155-bacb-f9bb484163b1"
+        },
+        {
+          "userId": "7d7cae25-6b4b-40f4-a43d-68d6a33f1888"
+        }
+      ]
+    },
+    {
+      "id": "277dcdb7-dcbb-49f2-9577-f78f931a46a1",
+      "companyId": "49e8e316-55ce-4198-91a7-3877900d8184",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e"
+        },
+        {
+          "userId": "58551e72-eca6-4e63-bb8e-466194849542"
+        }
+      ]
+    },
+    {
+      "id": "a827b4a7-abe3-46d9-882e-8497d1d6bec1",
+      "companyId": "53fd5d2e-fc4c-4341-b00d-35fb952c90e3",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": []
+    },
+    {
+      "id": "a7538f70-6613-4f1d-b971-6f5b878dce52",
+      "companyId": "23f6d519-7c66-4576-a18d-fc4128c70b84",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "5bc4a584-3ae5-4950-805e-d7dec6195dd1"
+        },
+        {
+          "userId": "e7bbfc41-2193-436f-bce6-a67804dfabc0"
+        }
+      ]
+    },
+    {
+      "id": "67ff0465-85da-4753-afe4-98c0cdfa9ef1",
+      "companyId": "9f585aad-9eb6-40b1-be59-22e36cc9bc8c",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "2ebe8a14-50a7-4576-bc2c-c1ca508814ee"
+        }
+      ]
+    },
+    {
+      "id": "fdf69101-1693-49a4-9621-9ecc9b8e06f5",
+      "companyId": "e2361fb1-6445-4e2e-b7ac-ac010b70f5ed",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "9623f78c-9180-4594-ba43-9dc70f073d6f"
+        }
+      ]
+    },
+    {
+      "id": "4c3fac63-1419-45ca-a51b-c841f7b47ca4",
+      "companyId": "aeeb497e-4490-41cc-a99b-fabafb9de69d",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "fe33565d-c604-4e00-a041-810631800cfe"
+        }
+      ]
+    },
+    {
+      "id": "dadece0a-b7da-40f0-9413-d5db47f59c39",
+      "companyId": "31e1f1f1-28e5-471e-a44c-2e9c5625f890",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "71fda600-99d7-423c-a98b-bf83055beaf1"
+        },
+        {
+          "userId": "c8d7e836-bbd7-4ae8-8fca-15af3d3bfb50"
+        }
+      ]
+    },
+    {
+      "id": "29f6992f-451d-4865-aa7a-a469c460682f",
+      "companyId": "54bdc2ff-ae28-41ed-9947-3e1568c30ee3",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "e2af9075-633b-48b5-9f4e-ede03672bbb1"
+        },
+        {
+          "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e"
+        }
+      ]
+    },
+    {
+      "id": "3f1ca1b9-d576-4b88-aac0-85f04b9d5324",
+      "companyId": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "3ba0ec20-3861-40da-90c4-41a0e1eabc29"
+        },
+        {
+          "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c"
+        }
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "id": "2505933f-7d56-4ea3-8aa2-a8363d9f851a",
+      "companyId": "f8d0ad39-c8ad-4daf-a653-ec12d80cc222",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null
+    }
+  ],
+  "prizes": [
+    {
+      "id": "bef2241a-9b66-4fcc-b299-5a3b14d883a7",
+      "trackId": null,
+      "sponsorId": "93eab37c-f76b-45bf-a50f-a8b9cce09d6c",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "placement": "first",
+      "customLabel": null,
+      "prizeName": "Best use of InsForge",
+      "amount": "$500 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "f7d01d42-784a-4723-b426-fe1bc6486bf1",
+      "trackId": null,
+      "sponsorId": "93eab37c-f76b-45bf-a50f-a8b9cce09d6c",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "placement": "second",
+      "customLabel": null,
+      "prizeName": "Best use of InsForge",
+      "amount": "$300 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "e32f08cf-d348-494b-90e5-c22e95c29753",
+      "trackId": null,
+      "sponsorId": "93eab37c-f76b-45bf-a50f-a8b9cce09d6c",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "placement": "third",
+      "customLabel": null,
+      "prizeName": "Best use of InsForge",
+      "amount": "$100 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "ffc79558-7305-482d-a4f5-daa81040395a",
+      "trackId": null,
+      "sponsorId": "4c3fac63-1419-45ca-a51b-c841f7b47ca4",
+      "companyId": "aeeb497e-4490-41cc-a99b-fabafb9de69d",
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Best use of BAND",
+      "amount": "$500 Cash",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "86b2a6fe-4061-4f37-a92a-d86297df83a4",
+      "trackId": null,
+      "sponsorId": "29f6992f-451d-4865-aa7a-a469c460682f",
+      "companyId": "54bdc2ff-ae28-41ed-9947-3e1568c30ee3",
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Best use of RocketRide",
+      "amount": "$500 Credits",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "c49dae44-df2e-421d-abf2-47e98f696871",
+      "trackId": null,
+      "sponsorId": "277dcdb7-dcbb-49f2-9577-f78f931a46a1",
+      "companyId": "49e8e316-55ce-4198-91a7-3877900d8184",
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Best use of Kylon",
+      "amount": "$1000 giftcard",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "e9f8027b-6187-4e76-a354-f878499ef538",
+      "trackId": null,
+      "sponsorId": "a827b4a7-abe3-46d9-882e-8497d1d6bec1",
+      "companyId": "53fd5d2e-fc4c-4341-b00d-35fb952c90e3",
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Best use of Nimble",
+      "amount": "50,000 credits + $250 giftcard",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "798725aa-2540-4ac2-be6b-3a648672b749",
+      "trackId": null,
+      "sponsorId": "67ff0465-85da-4753-afe4-98c0cdfa9ef1",
+      "companyId": "9f585aad-9eb6-40b1-be59-22e36cc9bc8c",
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Best use of HydraDB",
+      "amount": "6 Months of HydraDB and tokens",
+      "currency": "USD",
+      "sortOrder": 0
+    },
+    {
+      "id": "806cce7c-67c1-4181-b7f7-21e505e9067b",
+      "trackId": null,
+      "sponsorId": "dadece0a-b7da-40f0-9413-d5db47f59c39",
+      "companyId": "31e1f1f1-28e5-471e-a44c-2e9c5625f890",
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Best use of You.com",
+      "amount": "$1000 credits",
+      "currency": "USD",
+      "sortOrder": 0
+    }
+  ],
+  "schedule": [
+    {
+      "id": "63ee8c6b-a622-443c-b171-ebcb64f1587e",
+      "startTime": "2026-07-14T02:00:00.000Z",
+      "endTime": "2026-07-14T03:00:00.000Z",
+      "topic": "Winners Announcement and Demos",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "46251766-3efd-4509-b747-335001a4a0a7",
+      "startTime": "2026-07-14T00:00:00.000Z",
+      "endTime": "2026-07-14T02:00:00.000Z",
+      "topic": "Submissions and Judging",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "c02717c2-70f2-499e-965b-b3ffad068115",
+      "startTime": "2026-07-13T16:00:00.000Z",
+      "endTime": "2026-07-13T17:00:00.000Z",
+      "topic": "Welcome and Opening Ceremony",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "dd166abe-23e3-4bb4-890f-c3e59cdf9113",
+      "startTime": "2026-07-13T17:00:00.000Z",
+      "endTime": "2026-07-13T18:00:00.000Z",
+      "topic": "Theme Introduction, Sponsor Demos, and Inspiration Talks",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "40cf6567-46ac-46c9-97cc-95a21a5626a7",
+      "startTime": "2026-07-13T18:00:00.000Z",
+      "endTime": "2026-07-14T00:00:00.000Z",
+      "topic": "Hacking Sprint",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    }
+  ],
+  "speakers": [
+    {
+      "id": "ad32bf21-84f8-4796-9fcd-3f966ebb841a",
+      "userId": "50bd11f2-553a-4155-bacb-f9bb484163b1",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:00:00.000Z",
+      "endTime": "2026-07-13T17:05:00.000Z",
+      "topic": "Agent-native backend in InsForge",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "26e86c99-a117-4f67-937d-95a682960661",
+      "userId": "967ce10f-2d9b-4aba-a4c0-b2bc2f08665e",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:05:00.000Z",
+      "endTime": "2026-07-13T17:10:00.000Z",
+      "topic": "AI ecosystem for founder and investors in AI Insiders",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "616975db-b0c7-4253-9458-57c92ce8bf32",
+      "userId": "2ebe8a14-50a7-4576-bc2c-c1ca508814ee",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:10:00.000Z",
+      "endTime": "2026-07-13T17:15:00.000Z",
+      "topic": "AI Agents and Memory Layer in HydraDB",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "90d4ddc0-ed56-4eee-b5a1-461bfafd0b9e",
+      "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:15:00.000Z",
+      "endTime": "2026-07-13T17:20:00.000Z",
+      "topic": "Nebius AI cloud and Tavily",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "106f510f-28f2-48ce-88f1-73e140f9890f",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:20:00.000Z",
+      "endTime": "2026-07-13T17:25:00.000Z",
+      "topic": "AI Agent Operating system in AgentOS",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "f7f61176-144a-44a0-bbfd-01715924dcd5",
+      "userId": "4082d0c7-8de9-40f4-b80b-1bc657231853",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:25:00.000Z",
+      "endTime": "2026-07-13T17:30:00.000Z",
+      "topic": "GTM for AI Companies in Space ID",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "84a7b2a0-8f24-4aac-ba72-04fd5d5e44c5",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:30:00.000Z",
+      "endTime": "2026-07-13T17:35:00.000Z",
+      "topic": "Safety app for police encounters using Govia",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "dee35da5-3dee-44a2-84ff-52b48b30a36f",
+      "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:35:00.000Z",
+      "endTime": "2026-07-13T17:40:00.000Z",
+      "topic": "AI Skills in FinChip",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "9dce915c-9cf3-4426-a36a-c835b092bff5",
+      "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:40:00.000Z",
+      "endTime": "2026-07-13T17:45:00.000Z",
+      "topic": "Deploy AI pipelines directly inside your IDE with Rocket Ride",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "3d1373f5-84a3-4129-a7ca-ee7c7ed648dc",
+      "userId": "e7bbfc41-2193-436f-bce6-a67804dfabc0",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:45:00.000Z",
+      "endTime": "2026-07-13T17:50:00.000Z",
+      "topic": "Create AI Agents for business in Kylon, web search in Nimble and Growthmasters",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "4bc19a0d-1442-4bfd-98f6-a19e6551d1c3",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:50:00.000Z",
+      "endTime": "2026-07-13T17:54:00.000Z",
+      "topic": "Web search to AI applications in You.com",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "3662870c-5a47-475f-a34b-d1ab6f02dcc7",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:54:00.000Z",
+      "endTime": "2026-07-13T17:57:00.000Z",
+      "topic": "Enterprise AI collaboration platform in BAND",
+      "isSkipped": false,
+      "sortOrder": 0
+    },
+    {
+      "id": "407e6cd3-5652-40fc-9522-43e38e1e2fe1",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "eventDay": "2026-07-13",
+      "startTime": "2026-07-13T17:57:00.000Z",
+      "endTime": "2026-07-13T18:00:00.000Z",
+      "topic": "Persistent memory for AI agents in Cognee",
+      "isSkipped": false,
+      "sortOrder": 0
+    }
+  ],
+  "judges": [
+    {
+      "id": "f34b1b3b-267c-4fef-89aa-f76ebbab668e",
+      "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "52b3f681-352c-4a21-9b8e-4091042341c3",
+      "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "ba835f2a-36d3-4544-8b7a-81197a8e8b30",
+      "userId": "50bd11f2-553a-4155-bacb-f9bb484163b1",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "5d242f59-ab6f-4fd8-a8fb-38b3cf76234a",
+      "userId": "7d7cae25-6b4b-40f4-a43d-68d6a33f1888",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "c012c34c-0820-45c4-9415-8eb97e5875ec",
+      "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "4742218b-590f-481f-b268-1cf17cd66910",
+      "userId": "58551e72-eca6-4e63-bb8e-466194849542",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "9180358a-c487-4f0e-8934-1a6e0d7fb08d",
+      "userId": "5bc4a584-3ae5-4950-805e-d7dec6195dd1",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "bd1d9774-040f-424c-ba8a-2839382b9a03",
+      "userId": "e7bbfc41-2193-436f-bce6-a67804dfabc0",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "974ea6db-c68a-4af4-94c6-7bb99e4594d5",
+      "userId": "2ebe8a14-50a7-4576-bc2c-c1ca508814ee",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "700b84fa-9b75-4175-b50d-3c32bf0bbf64",
+      "userId": "9623f78c-9180-4594-ba43-9dc70f073d6f",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "13fd3802-cf66-48d0-a525-e56512eb0fe7",
+      "userId": "fe33565d-c604-4e00-a041-810631800cfe",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "7b6c169c-24d3-451c-8d37-d0bf3a6450ec",
+      "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "28e0779f-1f48-4edf-805f-d6550a5bd82d",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "de284d67-af88-4c92-b2f0-6aeedcb34393",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "14542953-8f56-4021-bca5-dd64396d9560",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "75bcb51f-35c3-4bc3-95b0-38b6aa4ddc26",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "df2749ed-9ecf-4f79-a698-51f2a98f6146",
+      "userId": "a6f949f8-76ce-4ab5-9b56-7e5734cbcf7f",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "b47bbdc0-639e-43c2-adfb-3a04380fff57",
+      "userId": "e7cb1995-2c06-4bc3-9540-1851d883b428",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "47b6c78a-294c-45ff-b17a-2089e704906d",
+      "userId": "e79c5014-59c9-4f6c-90e8-1d8a0fc2f7c7",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "0ea5fc7b-6e65-4edc-bb15-b11c2d3ba477",
+      "userId": "ba049bb6-5502-4d46-81dd-cb0d9a079c0d",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "d45b0319-4d12-4d19-8688-37bb380ac70b",
+      "userId": "1c4e8541-8a18-4ee6-9fe8-a9c59b5ef2e7",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "99054a90-0403-4282-8d6b-d379d3b2ab87",
+      "userId": "bb06d11d-5b27-48db-9f30-a81b30cbe339",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "fd456315-e16a-4f32-b35a-95f8189ff22b",
+      "userId": "16de374b-2c62-47b3-aa5e-f2168a2fdcbc",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "52a7c7a7-9ea6-4595-af92-91aefd07cf66",
+      "userId": "10d0005c-ca54-4047-ae5b-61a9e6553aef",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "c0d05a5b-ecfd-48a7-9f51-a18b38e53cad",
+      "userId": "e4cd14e9-fc89-434b-bd7e-f61ec32df501",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "92b47345-c8f8-4020-b33c-0762d48dd583",
+      "userId": "a036fe7c-a768-4261-a08d-6bdb458a505c",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "2592323d-bd10-40c1-950c-b015bae62391",
+      "userId": "70ee12c4-b8b1-4e2f-8222-94be68325a31",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "3ce990f1-aa0a-4026-bcaa-6ea895e8fd83",
+      "userId": "967ce10f-2d9b-4aba-a4c0-b2bc2f08665e",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "21192c0f-ba85-4e1b-ac65-27e0b1b34963",
+      "userId": "f919531a-c213-4c13-91d1-9f82f7e7f0cd",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "55851e42-56f1-4598-b814-8b208cd67791",
+      "userId": "0b3f9617-f260-4187-a555-062ab8689b40",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "4a39c596-c6aa-4022-9e9d-1dc598bec1fe",
+      "userId": "13511e40-7954-49b4-b052-99c3fdb4c400",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "0aaec0fe-a35e-4e73-894e-c1dadde84708",
+      "userId": "469b38c7-fdd4-4dca-aac6-324b2465ee30",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "7097d6de-1ec5-4ffb-a1e7-ce06bc69c05d",
+      "userId": "71fda600-99d7-423c-a98b-bf83055beaf1",
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "10653513-128b-4775-afc7-0d2555eb4b21",
+      "userId": "c8d7e836-bbd7-4ae8-8fca-15af3d3bfb50",
+      "role": null,
+      "sortOrder": 0
+    }
+  ],
+  "hosts": [
+    {
+      "id": "5ac172e3-08dc-4848-a04f-9d24aa7ce9e0",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "75b72f9e-1eee-4dd6-9484-d9aaa0d53564",
+      "userId": "1c4e8541-8a18-4ee6-9fe8-a9c59b5ef2e7",
+      "hostType": "volunteer",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "fde79836-ae43-4e54-8534-9dd469f85393",
+      "userId": "27810087-f831-49ab-a042-5450121608fd",
+      "hostType": "volunteer",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "55d6e55c-afa1-422e-9004-c77540e7da61",
+      "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "64b18ada-9204-40aa-8304-1e1c36bdb5d7",
+      "userId": "3ba0ec20-3861-40da-90c4-41a0e1eabc29",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "6122b3b8-1bd6-4a2c-9434-24969e0e3b4d",
+      "userId": "3c95a6ff-9bb1-45de-b010-ca066adfb8c2",
+      "hostType": "volunteer",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "a9c095bb-a3c2-444b-8b1f-5b6b6b6f934f",
+      "userId": "829cfa46-5d04-4a3e-900a-3c8e86133ef5",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "9e90bba6-0665-48db-92a7-cda7b37f85b5",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "09823cbb-9de7-4f1d-9ce3-7a5261916f41",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "cb35a371-8107-4d1f-aa69-507774e1e2f1",
+      "userId": "e2af9075-633b-48b5-9f4e-ede03672bbb1",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "3a90b483-f263-49e4-91f9-050b81de1fc5",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "dbc410d3-0327-438d-9db3-e5e4128a1c5d",
+      "userId": "f018a7e1-c984-4ad5-b9d3-869bd6c63f5f",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    }
+  ],
+  "links": [],
+  "photos": [],
+  "liveState": null
+}
