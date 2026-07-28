@@ -1693,8 +1693,8 @@ export default function AdminEventDetail() {
     const itemId = (item: Item) => item.id as string;
 
     return (
-      <SortableList
-        items={items as { id: string }[]}
+      <SortableList<Item & { id: string }>
+        items={items as (Item & { id: string })[]}
         onReorder={reorderItems}
         renderItem={(item, index) => (
           <div className="flex items-start justify-between gap-3">
