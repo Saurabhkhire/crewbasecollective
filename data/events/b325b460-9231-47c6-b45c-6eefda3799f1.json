@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "b325b460-9231-47c6-b45c-6eefda3799f1",
-    "slug": "break-my-product-20",
+    "slug": "break-my-product-2-0-ms5ng06m",
     "name": "Break my Product 2.0",
     "type": "mixer",
     "description": "Real users. Tougher testing. Better products.\n\nBuilt something and want brutally honest feedback before your next launch?\n\nWe are back with an improved format designed to help founders uncover hidden issues, validate assumptions, and ship with confidence.\n\nWhether you're building an MVP, AI product, startup, side project, or prototype, this session gives you direct access to thoughtful testers who aren't afraid to ask hard questions.\n\nHow it works:\n\nBring a product, prototype, MVP, or side project.\nGet matched with fellow founders, builders, designers, and creators.\nWatch as they explore, test, question, and intentionally try to break your product.\nReceive candid, actionable feedback on usability, onboarding, messaging, UX, positioning, and overall product experience.\nReturn the favor by testing someone else's product and sharing your own insights.\n\nThis isn't a demo day—it's a collaborative product stress test.\n\nYou'll leave with:\n\nFresh perspectives from real users.\nA clearer understanding of where people get stuck.\nActionable improvements you can implement immediately.\nNew connections with builders who care about creating better products.\n\nWhether you're validating an idea, polishing an MVP, preparing for launch, or iterating after your first release, this is your chance to discover what works, what doesn't, and what to fix next.",
-    "theme": null,
-    "dayLabel": "Monday",
+    "theme": "",
+    "dayLabel": "Mon, Jun 22",
     "eventDate": "2026-06-22",
     "endDate": "2026-06-22",
     "startTime": "18:00:00",
@@ -14,24 +14,74 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785303220534-lzbp7mk1zgq.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T04:30:01.626Z",
-    "updatedAt": "2026-07-27T10:10:44.470Z"
+    "updatedAt": "2026-07-29T05:33:44.304Z"
   },
   "tracks": [],
   "sponsors": [],
-  "partners": [],
+  "partners": [
+    {
+      "id": "af5c77da-d783-4569-8f09-a5ff2ed09dd8",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null,
+      "sortOrder": 0
+    }
+  ],
   "prizes": [],
   "schedule": [],
   "speakers": [],
   "judges": [],
-  "hosts": [],
+  "hosts": [
+    {
+      "id": "c9bf2d3d-a998-41e7-9bf3-33325e5fccb0",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "6e5a7592-980d-4112-b7e3-3a5793a3ff87",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "e8b7fbfd-510d-441d-a02e-b4ee069465e2",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "06f9f979-5637-4871-a6f8-2e2202dde36a",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 3
+    },
+    {
+      "id": "6dac9b39-8196-402d-8457-49c77bd11be2",
+      "userId": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 4
+    }
+  ],
   "links": [],
   "photos": [],
   "liveState": null

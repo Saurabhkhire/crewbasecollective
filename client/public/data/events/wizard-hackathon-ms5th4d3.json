@@ -1,0 +1,667 @@
+{
+  "event": {
+    "id": "0f975043-2ed8-4131-b21a-1568139bbe0d",
+    "slug": "wizard-hackathon-ms5th4d3",
+    "name": "Wizard Hackathon",
+    "type": "hackathon",
+    "description": "Enter the world of magic and creativity. Build your own spells using technology, AI, and imagination to create unique experiences and innovative solutions.",
+    "theme": "Build your Spells",
+    "dayLabel": "Sun, Jun 28",
+    "eventDate": "2026-06-28",
+    "endDate": "2026-06-28",
+    "startTime": "09:00:00",
+    "endTime": "20:00:00",
+    "location": "Frontier Tower, 995 Market Street, San Francisco, CA 94103",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785313352478-uybhqulahdg.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-26T10:48:32.629Z",
+    "updatedAt": "2026-07-29T08:22:34.073Z"
+  },
+  "tracks": [
+    {
+      "id": "0e7f5298-cb7b-4e67-bee3-b9f134685f9a",
+      "name": "Sports Arena",
+      "description": "​Build tools that change how people play, watch, train, or experience sports.  ​This track is for sports tech, fitness, fan engagement, fantasy sports, live match experiences, analytics, and training products.  ​Example spells:  ​Live match companion app with real-time stats and predictions  ​AI-powered personal fitness coach  ​Fantasy sports platform with social features  ​Fan engagement tool for major sporting events",
+      "sortOrder": 0
+    },
+    {
+      "id": "a7ad1f77-f11d-4963-b64e-7f3a29a8429b",
+      "name": "Creative Expressions",
+      "description": "Build products for music, storytelling, writing, art, and creative collaboration.  ​This track is for builders who want to use technology to help people create, remix, share, and experience stories or media in new ways.  ​Example spells:  ​Interactive AI story generator with branching plots  ​Music composition tool based on mood or prompts  ​Collaborative platform for writers, musicians, or creators  ​Personalized storytelling experience powered by user input",
+      "sortOrder": 0
+    },
+    {
+      "id": "5b340afd-c9a9-4ac2-a38c-10cd6307c22f",
+      "name": "Potion Lab",
+      "description": "Build products focused on personalization, identity, communication, and human connection.  ​This track is for apps that adapt to users, improve social experiences, or create more meaningful digital interactions between people.  ​Example spells:  ​Personalized matchmaking or dating app  ​Smart social network based on interests and personality  ​AI assistant that adapts to a user’s communication style  ​Recommendation engine for communities, events, or creators",
+      "sortOrder": 0
+    },
+    {
+      "id": "50c68f9b-bf08-4532-9e27-5961aaee952b",
+      "name": "Gamecraft Arena",
+      "description": "Build games, playful products, or gamified experiences for real-world use cases.  ​This track is for teams using game mechanics to make learning, productivity, fitness, social interaction, or daily habits more fun and engaging.  ​Example spells:  ​Puzzle game that improves memory or logic skills  ​Gamified habit tracker with rewards and levels  ​Educational game for learning new skills  ​Interactive challenge platform for teams or communities",
+      "sortOrder": 0
+    }
+  ],
+  "sponsors": [
+    {
+      "id": "2f54340c-86c7-4fe3-8497-4bdbf2d0dc19",
+      "companyName": "Nebius",
+      "companyWebsite": "https://nebius.com/",
+      "companyLogo": "/images/companies/1785211513988-8tlzc2qqnhq.png",
+      "companyDescription": "​Nebius provides full-stack AI cloud infrastructure for developers, startups, enterprises, and research teams. Its platform helps teams build, train, and deploy AI products in a secure, high-performance, and cost-efficient environment.",
+      "representatives": [
+        {
+          "username": "Colin Lowenberg",
+          "linkedin": "https://www.linkedin.com/in/wifi/",
+          "role": "DevRel",
+          "companyName": "Nebius"
+        }
+      ]
+    },
+    {
+      "id": "050e4280-56f0-4195-b1f5-06709948d78c",
+      "companyName": "InsForge",
+      "companyWebsite": "https://insforge.dev/",
+      "companyLogo": "/images/companies/1785211739551-lkj2ozofmy.png",
+      "companyDescription": "​InsForge is building agent-native cloud infrastructure for modern AI development. It brings together model gateway, compute, deployment, database, authentication, and more so AI coding agents can operate across the full development workflow.",
+      "representatives": [
+        {
+          "username": "Tony Chwang",
+          "linkedin": "https://www.linkedin.com/in/tony-chang-0430/",
+          "role": "Co Founder",
+          "companyName": "InsForge"
+        },
+        {
+          "username": "Wei Dou",
+          "linkedin": "https://www.linkedin.com/in/wei-dou-2b15a628b/",
+          "role": "Software Developer",
+          "companyName": "InsForge"
+        },
+        {
+          "username": "Can Lyu",
+          "linkedin": "https://www.linkedin.com/in/can-lyu-3039aa140/",
+          "role": "Software Developer",
+          "companyName": "InsForge"
+        }
+      ]
+    },
+    {
+      "id": "bf946d6e-129f-4d6a-9a21-b2fc7fa91136",
+      "companyName": "You.com",
+      "companyWebsite": "https://you.com/",
+      "companyLogo": "/images/companies/1785209932980-p8bizqeq4s8.png",
+      "companyDescription": "​You.com delivers leading Web Search APIs for AI systems. It powers applications that reason like experts and act through intelligent agents and workflows using real-time, citation-backed answers built on proprietary vertical and domain-specific web indices.",
+      "representatives": [
+        {
+          "username": "Mariane Bekker",
+          "linkedin": "https://www.linkedin.com/in/marianebekker/",
+          "role": "Head of Developer Relationships",
+          "companyName": "You.com"
+        },
+        {
+          "username": "Madison Lee",
+          "linkedin": "https://www.linkedin.com/in/madison-lee-a31234126/",
+          "role": "Founding Partnerships Lead",
+          "companyName": "You.com"
+        }
+      ]
+    },
+    {
+      "id": "120677ca-f90c-4b82-bbcf-f8ec9a9c84e9",
+      "companyName": "Tavily",
+      "companyWebsite": "https://www.tavily.com/",
+      "companyLogo": "/images/companies/1785213491420-hxrrbxy4ydv.png",
+      "companyDescription": "​Tavily gives builders powerful search and research infrastructure for AI applications. It helps teams create agents, tools, and workflows that can access relevant web information and reason with better context.",
+      "representatives": [
+        {
+          "username": "Colin Lowenberg",
+          "linkedin": "https://www.linkedin.com/in/wifi/",
+          "role": "DevRel",
+          "companyName": "Nebius"
+        }
+      ]
+    },
+    {
+      "id": "6bfaddf9-c539-418c-848a-ef3537c959a9",
+      "companyName": "Replit",
+      "companyWebsite": "https://replit.com/",
+      "companyLogo": "/images/companies/1785210602454-dx8jzplit9.png",
+      "companyDescription": "​Replit helps builders create, collaborate, and deploy software directly from the browser. At Wizard Hackathon, Replit gives participants credits to move faster from idea to working product.",
+      "representatives": [
+        {
+          "username": "Rene Turcios",
+          "linkedin": "https://www.linkedin.com/in/reneturcios/",
+          "role": "Ambdassedor",
+          "companyName": "Replit"
+        }
+      ]
+    },
+    {
+      "id": "7727eb21-86ba-4dea-855d-8a41847e40f5",
+      "companyName": "TRAE",
+      "companyWebsite": "https://www.trae.ai/",
+      "companyLogo": "/images/companies/1785209332208-gyb68tkmu7n.jpg",
+      "companyDescription": "Trae supports builders with AI-powered coding tools to help participants move faster while building their hackathon projects.",
+      "representatives": [
+        {
+          "username": "Gary Qi",
+          "linkedin": "https://www.linkedin.com/in/qi-zhen/",
+          "role": "Devrel",
+          "companyName": "TRAE"
+        }
+      ]
+    },
+    {
+      "id": "eb862ba9-4437-40a8-8dc2-0487dfab3134",
+      "companyName": "Growing Pies",
+      "companyWebsite": "https://growingpies.ai/",
+      "companyLogo": "/images/companies/1785212050319-omg4gxox09h.jpg",
+      "companyDescription": "​Growing Pies is supporting builders at Wizard Hackathon with a dedicated winning prize and helping bring more energy, opportunity, and momentum to the builder community.",
+      "representatives": [
+        {
+          "username": "Amina Ebrahim",
+          "linkedin": "https://www.linkedin.com/in/aminaebraham/",
+          "role": "Chief Operating Officer",
+          "companyName": "Growing Pies"
+        }
+      ]
+    },
+    {
+      "id": "31cf67ef-0d78-4de4-a5a6-58d66115c041",
+      "companyName": "Homebrew Club",
+      "companyWebsite": "https://homebrewclub.berrry.app/",
+      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures.",
+      "representatives": [
+        {
+          "username": "Saurabh Khire",
+          "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+          "role": "Founder",
+          "companyName": "Crewbase Collective"
+        }
+      ]
+    },
+    {
+      "id": "7ee1241e-d8d2-4f64-9f75-894da42f4685",
+      "companyName": "Finchip AI",
+      "companyWebsite": "https://finchip.ai/",
+      "companyLogo": "/images/companies/1785212159902-1n84dyel8sj.jpg",
+      "companyDescription": "​FinChip helps turn AI skills into ownable digital assets that can be launched, discovered, used, and traded. For builders exploring agent capabilities, skill marketplaces, and programmable AI services, FinChip opens up a new way to think about software as something agents can own and invoke.",
+      "representatives": [
+        {
+          "username": "Gary Yang",
+          "linkedin": "https://www.linkedin.com/in/gary-yangge/",
+          "role": "Founding Partner",
+          "companyName": "Finchip AI"
+        },
+        {
+          "username": "Coco Wang",
+          "linkedin": "https://www.linkedin.com/in/coco-wang-28781b87/",
+          "role": "GTM",
+          "companyName": "Finchip AI"
+        },
+        {
+          "username": "Chelsey Huang",
+          "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+          "role": "Co-Founder",
+          "companyName": "Finchip AI"
+        }
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "partnerType": "venue",
+      "customType": null,
+      "companyName": "Frontier Tower",
+      "companyWebsite": "https://frontiertower.io/",
+      "companyLogo": "/images/companies/1785213449727-wcwud560ckg.jpg",
+      "companyDescription": "Frontier Tower is a 16-floor innovation hub in San Francisco being transformed into a self-governed vertical village for frontier technologies and creative expression. It brings together leading researchers, builders, entrepreneurs, and artists working at the edge of human progress."
+    },
+    {
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Devnovate",
+      "companyWebsite": "https://devnovate.co/",
+      "companyLogo": "/images/companies/1785222057323-b6nwi8hknnm.png",
+      "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions."
+    }
+  ],
+  "prizes": [
+    {
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Winning Prize",
+      "amount": null,
+      "currency": "USD",
+      "companyName": "Growing Pies"
+    },
+    {
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Special Wizard Prize",
+      "amount": "Free Day pass to Host Event",
+      "currency": "USD",
+      "companyName": "Homebrew Club"
+    },
+    {
+      "placement": "first",
+      "customLabel": null,
+      "prizeName": "Best use of InsForge",
+      "amount": "$500 Cash",
+      "currency": "USD",
+      "companyName": "InsForge"
+    },
+    {
+      "placement": "second",
+      "customLabel": null,
+      "prizeName": "Best use of InsForge",
+      "amount": "$300 Cash",
+      "currency": "USD",
+      "companyName": "InsForge"
+    },
+    {
+      "placement": "winning",
+      "customLabel": null,
+      "prizeName": "Best use of You.com",
+      "amount": "$1000 credits",
+      "currency": "USD",
+      "companyName": "You.com"
+    },
+    {
+      "placement": "third",
+      "customLabel": null,
+      "prizeName": "Best use of InsForge",
+      "amount": "$100 Cash",
+      "currency": "USD",
+      "companyName": "InsForge"
+    }
+  ],
+  "schedule": [
+    {
+      "id": "a75ac704-5f66-4f66-967d-b61306be24b2",
+      "startTime": "2026-06-28T16:00:00.000Z",
+      "endTime": "2026-06-28T17:00:00.000Z",
+      "topic": "Welcome and Opening Ceremony",
+      "speakers": []
+    },
+    {
+      "id": "a5cab320-8e8e-4308-95ab-dad1814530ca",
+      "startTime": "2026-06-28T17:00:00.000Z",
+      "endTime": "2026-06-28T18:00:00.000Z",
+      "topic": "Theme Introduction, Sponsor Demos, and Inspiration Talks",
+      "speakers": []
+    },
+    {
+      "id": "4dcb8369-a5cb-497b-b262-1d44e7c0f61a",
+      "startTime": "2026-06-28T18:00:00.000Z",
+      "endTime": "2026-06-29T00:00:00.000Z",
+      "topic": "Hacking Sprint",
+      "speakers": []
+    },
+    {
+      "id": "f8103741-8b14-4b2e-a78b-9c212856709c",
+      "startTime": "2026-06-29T00:00:00.000Z",
+      "endTime": "2026-06-29T02:00:00.000Z",
+      "topic": "Submissions and Judging",
+      "speakers": []
+    },
+    {
+      "id": "2106ccda-b203-46e5-89ad-9d9df87677a0",
+      "startTime": "2026-06-29T02:00:00.000Z",
+      "endTime": "2026-06-29T03:00:00.000Z",
+      "topic": "Winners Announcement and Demos",
+      "speakers": []
+    }
+  ],
+  "speakers": [
+    {
+      "username": "Wei Dou",
+      "linkedin": "https://www.linkedin.com/in/wei-dou-2b15a628b/",
+      "eventDay": "2026-06-28",
+      "startTime": "2026-06-28T17:00:00.000Z",
+      "endTime": "2026-06-28T17:05:00.000Z",
+      "topic": "Agent-native backend in InsForge",
+      "title": "Software Developer",
+      "companyName": "InsForge"
+    },
+    {
+      "username": "Gary Yang",
+      "linkedin": "https://www.linkedin.com/in/gary-yangge/",
+      "eventDay": "2026-06-28",
+      "startTime": "2026-06-28T17:05:00.000Z",
+      "endTime": "2026-06-28T17:10:00.000Z",
+      "topic": "AI Skills in FinChip",
+      "title": "Founding Partner",
+      "companyName": "Finchip AI"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "eventDay": "2026-06-28",
+      "startTime": "2026-06-28T17:10:00.000Z",
+      "endTime": "2026-06-28T17:15:00.000Z",
+      "topic": "Deploy apps in Replit",
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "eventDay": "2026-06-28",
+      "startTime": "2026-06-28T17:15:00.000Z",
+      "endTime": "2026-06-28T17:20:00.000Z",
+      "topic": "Safety app for police encounters using Govia",
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Gary Qi",
+      "linkedin": "https://www.linkedin.com/in/qi-zhen/",
+      "eventDay": "2026-06-28",
+      "startTime": "2026-06-28T17:20:00.000Z",
+      "endTime": "2026-06-28T17:25:00.000Z",
+      "topic": "ByteDance AI coding product TRAE",
+      "title": "Devrel",
+      "companyName": "TRAE"
+    },
+    {
+      "username": "Colin Lowenberg",
+      "linkedin": "https://www.linkedin.com/in/wifi/",
+      "eventDay": "2026-06-28",
+      "startTime": "2026-06-28T17:25:00.000Z",
+      "endTime": "2026-06-28T17:35:00.000Z",
+      "topic": "Nebius AI cloud and Tavily",
+      "title": "DevRel",
+      "companyName": "Nebius"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "eventDay": "2026-06-28",
+      "startTime": "2026-06-28T17:35:00.000Z",
+      "endTime": "2026-06-28T17:40:00.000Z",
+      "topic": "Web search to AI applications in You.com",
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "eventDay": "2026-06-28",
+      "startTime": "2026-06-28T17:40:00.000Z",
+      "endTime": "2026-06-28T17:50:00.000Z",
+      "topic": "Rules, Tracks and Submission",
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    }
+  ],
+  "judges": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    },
+    {
+      "username": "Colin Lowenberg",
+      "linkedin": "https://www.linkedin.com/in/wifi/",
+      "role": null,
+      "title": "DevRel",
+      "companyName": "Nebius"
+    },
+    {
+      "username": "Tony Chwang",
+      "linkedin": "https://www.linkedin.com/in/tony-chang-0430/",
+      "role": null,
+      "title": "Co Founder",
+      "companyName": "InsForge"
+    },
+    {
+      "username": "Wei Dou",
+      "linkedin": "https://www.linkedin.com/in/wei-dou-2b15a628b/",
+      "role": null,
+      "title": "Software Developer",
+      "companyName": "InsForge"
+    },
+    {
+      "username": "Can Lyu",
+      "linkedin": "https://www.linkedin.com/in/can-lyu-3039aa140/",
+      "role": null,
+      "title": "Software Developer",
+      "companyName": "InsForge"
+    },
+    {
+      "username": "Gary Yang",
+      "linkedin": "https://www.linkedin.com/in/gary-yangge/",
+      "role": null,
+      "title": "Founding Partner",
+      "companyName": "Finchip AI"
+    },
+    {
+      "username": "Chelsey Huang",
+      "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Finchip AI"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Anna Zakowska",
+      "linkedin": "https://www.linkedin.com/in/zakowska/",
+      "role": null,
+      "title": "Investor and Managing Partner",
+      "companyName": "Dragons and Angels Fund"
+    },
+    {
+      "username": "Anya Ozmen",
+      "linkedin": "https://www.linkedin.com/in/anyakaryaozmen/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Gameer"
+    },
+    {
+      "username": "Apurva Jain",
+      "linkedin": "https://www.linkedin.com/in/apurva-jain22/",
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "META"
+    },
+    {
+      "username": "Dhruvil Darji",
+      "linkedin": "https://www.linkedin.com/in/dhruvildarji/",
+      "role": null,
+      "title": "Senior Software Engineer",
+      "companyName": "NVDIA"
+    },
+    {
+      "username": "Gunjan Ramateke",
+      "linkedin": "https://www.linkedin.com/in/gunjan-ramteke-18276642/",
+      "role": null,
+      "title": "Strategic Partnerships Development Manager",
+      "companyName": "Amazon"
+    },
+    {
+      "username": "Mahek Pervez",
+      "linkedin": "https://www.linkedin.com/in/mahekparvez/",
+      "role": null,
+      "title": "Tech Content Creator",
+      "companyName": "Instagram"
+    },
+    {
+      "username": "Katherine Brough",
+      "linkedin": "https://www.linkedin.com/in/katherine-brough-751682113",
+      "role": null,
+      "title": "Founder",
+      "companyName": "NuPath AI"
+    },
+    {
+      "username": "Kolliakal Rupesh",
+      "linkedin": "https://www.linkedin.com/in/kollaikalrupesh/",
+      "role": null,
+      "title": "Applied AI Engineer",
+      "companyName": "WayLine"
+    },
+    {
+      "username": "Merve Isler",
+      "linkedin": "https://www.linkedin.com/in/misslers/",
+      "role": null,
+      "title": "Ecosystem Builder",
+      "companyName": "AI Builders"
+    },
+    {
+      "username": "Shouvik Sharma",
+      "linkedin": "https://www.linkedin.com/in/shouvik-sharma/",
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "Chime"
+    },
+    {
+      "username": "Vince Kohli",
+      "linkedin": "https://www.linkedin.com/in/vincekohli/",
+      "role": null,
+      "title": "Strategic Advisor",
+      "companyName": "Google Deepmind"
+    },
+    {
+      "username": "Ann Cai",
+      "linkedin": "https://www.linkedin.com/in/qianjiangwork/",
+      "role": null,
+      "title": "Product Designer",
+      "companyName": "Microsoft"
+    },
+    {
+      "username": "Mariane Bekker",
+      "linkedin": "https://www.linkedin.com/in/marianebekker/",
+      "role": null,
+      "title": "Head of Developer Relationships",
+      "companyName": "You.com"
+    },
+    {
+      "username": "Madison Lee",
+      "linkedin": "https://www.linkedin.com/in/madison-lee-a31234126/",
+      "role": null,
+      "title": "Founding Partnerships Lead",
+      "companyName": "You.com"
+    },
+    {
+      "username": "Amina Ebrahim",
+      "linkedin": "https://www.linkedin.com/in/aminaebraham/",
+      "role": null,
+      "title": "Chief Operating Officer",
+      "companyName": "Growing Pies"
+    },
+    {
+      "username": "Gary Qi",
+      "linkedin": "https://www.linkedin.com/in/qi-zhen/",
+      "role": null,
+      "title": "Devrel",
+      "companyName": "TRAE"
+    }
+  ],
+  "hosts": [
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Wendy Wang",
+      "linkedin": "https://www.linkedin.com/in/wendianwang/",
+      "hostType": "volunteer",
+      "customType": null,
+      "role": null,
+      "title": "Computer Teaching Assistant",
+      "companyName": "Welsey College"
+    },
+    {
+      "username": "Chelsey Huang",
+      "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Finchip AI"
+    },
+    {
+      "username": "Coco Wang",
+      "linkedin": "https://www.linkedin.com/in/coco-wang-28781b87/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "GTM",
+      "companyName": "Finchip AI"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Aviral Bharadwaj",
+      "linkedin": "https://www.linkedin.com/in/aviral-bhardwaj/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Devnovate"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "63d2fbe8-9251-4bf2-a21a-c5761a414a45",
-    "slug": "agents-you-love-2-hackathon-ms4gwm7r",
+    "slug": "agents-you-love-2-hackathon-ms5un2d2",
     "name": "Agents You Love 2 Hackathon",
     "type": "hackathon",
     "description": "Get all the details on Luma page: https://luma.com/agents-you-love-2-hackathon\n\nThis event is hosted by Devnovate",
@@ -14,7 +14,7 @@
     "location": "Frontier Tower, 995 Market Street, San Francisco, CA 94103",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "",
+    "coverImageUrl": "/images/covers/1785315309766-dy8zj9reja7.png",
     "coverPageUrl": "",
     "lumaLink": "https://luma.com/agents-you-love-2-hackathon",
     "eventbriteLink": "",
@@ -22,7 +22,7 @@
     "isPartnerEvent": true,
     "isPublished": true,
     "createdAt": "2026-07-28T09:36:59.991Z",
-    "updatedAt": "2026-07-28T09:42:55.866Z"
+    "updatedAt": "2026-07-29T08:55:11.032Z"
   },
   "tracks": [],
   "sponsors": [],

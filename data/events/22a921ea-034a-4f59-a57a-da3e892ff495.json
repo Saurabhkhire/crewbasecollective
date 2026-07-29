@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "22a921ea-034a-4f59-a57a-da3e892ff495",
-    "slug": "bay-builders-hackathon-ms4bzwpw",
+    "slug": "bay-builders-hackathon-ms5sgpk3",
     "name": "Bay Builders Hackathon",
     "type": "hackathon",
     "description": "Build the future of AI organizations. Create AI-powered tools, workflows, and solutions that help businesses and teams operate in new ways.",
@@ -14,7 +14,7 @@
     "location": "AWS Builders Loft, 525 Market St, San Francisco, CA 94015",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785223527053-d8o65635cv.png",
+    "coverImageUrl": "/images/covers/1785311651085-ima1tt2rob8.png",
     "coverPageUrl": "",
     "lumaLink": "",
     "eventbriteLink": "",
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-28T07:25:31.384Z"
+    "updatedAt": "2026-07-29T07:54:15.311Z"
   },
   "tracks": [
     {
@@ -209,6 +209,17 @@
         },
         {
           "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c"
+        }
+      ]
+    },
+    {
+      "id": "4e5f9da2-8d25-4883-b0bf-80f6b77babd5",
+      "companyId": "1a9c01e6-3691-4a48-8256-8313a31576af",
+      "personId": null,
+      "sortOrder": 12,
+      "representatives": [
+        {
+          "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83"
         }
       ]
     }
@@ -775,14 +786,6 @@
       "id": "6122b3b8-1bd6-4a2c-9434-24969e0e3b4d",
       "userId": "3c95a6ff-9bb1-45de-b010-ca066adfb8c2",
       "hostType": "volunteer",
-      "customType": null,
-      "role": null,
-      "sortOrder": 0
-    },
-    {
-      "id": "a9c095bb-a3c2-444b-8b1f-5b6b6b6f934f",
-      "userId": "829cfa46-5d04-4a3e-900a-3c8e86133ef5",
-      "hostType": "host",
       "customType": null,
       "role": null,
       "sortOrder": 0

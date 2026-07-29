@@ -43,7 +43,7 @@ const socials = [
 ];
 
 const exploreLinks = [
-  { href: "/", label: "Home" },
+  { href: "/events", label: "Events" },
   { href: "/sponsors", label: "Sponsors" },
   { href: "/people", label: "Community" },
 ];

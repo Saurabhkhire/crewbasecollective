@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "5dc60e5c-3be8-4f42-8b28-de48fa1f1a7a",
-    "slug": "build-your-ai-organization-workshop-ms46mwrq",
+    "slug": "build-your-ai-organization-workshop-ms5lzd54",
     "name": "Build your AI Organization Workshop",
     "type": "workshop",
     "description": "Learn how to create AI agents that can help with real business tasks. In this hands-on workshop, you will explore how AI can automate workflows, support teams, and improve daily operations. Use Kylon to create agents and Nebius for cloud compute.\n\nYou will see real examples, build your own AI agent with guidance from the Kylon team, and learn how to use AI for practical business use cases.\n\nNo advanced AI experience is needed — just bring your laptop and ideas for tasks you want to automate.",
@@ -14,7 +14,7 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785214523166-rp1v9pddbh.png",
+    "coverImageUrl": "/images/covers/1785300761392-no293cxnb19.png",
     "coverPageUrl": "",
     "lumaLink": "",
     "eventbriteLink": "",
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:05:23.050Z",
-    "updatedAt": "2026-07-28T05:35:26.623Z"
+    "updatedAt": "2026-07-29T05:06:05.130Z"
   },
   "tracks": [],
   "sponsors": [
@@ -52,7 +52,16 @@
       ]
     }
   ],
-  "partners": [],
+  "partners": [
+    {
+      "id": "4fccab31-dac2-406d-a468-87c19b6ad9eb",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null,
+      "sortOrder": 0
+    }
+  ],
   "prizes": [],
   "schedule": [],
   "speakers": [],

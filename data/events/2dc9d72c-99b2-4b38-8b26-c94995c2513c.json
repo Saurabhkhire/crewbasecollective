@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "2dc9d72c-99b2-4b38-8b26-c94995c2513c",
-    "slug": "sports-world-cup-hackathon",
+    "slug": "sports-world-cup-hackathon-ms5uqqxw",
     "name": "Sports World Cup Hackathon",
     "type": "hackathon",
     "description": "Build innovative projects around sports, combining technology, creativity, and ideas to solve problems in the world of sports. Create, experiment, and compete with other builders.",
     "theme": "Build around Sports and AI",
-    "dayLabel": "Monday – Friday",
+    "dayLabel": "Mon, Jul 13 – Fri, Jul 17",
     "eventDate": "2026-07-13",
     "endDate": "2026-07-17",
     "startTime": "10:00:00",
@@ -14,15 +14,15 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785315481268-lqv2l1p16m.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-27T10:11:14.582Z"
+    "updatedAt": "2026-07-29T08:58:02.856Z"
   },
   "tracks": [
     {

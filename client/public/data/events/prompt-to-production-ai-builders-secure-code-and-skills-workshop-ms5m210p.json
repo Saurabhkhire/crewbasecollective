@@ -1,0 +1,139 @@
+{
+  "event": {
+    "id": "7d7d5ce9-ac13-4d56-b52d-ffd2d324f168",
+    "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
+    "name": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
+    "type": "workshop",
+    "description": "Learn how to take an idea from a simple prompt to a working application using AI. This hands-on workshop covers the complete AI development process — building applications, securing AI-generated code, and publishing reusable AI skills.\n\nYou will use AI tools to create an application, test and improve its security, and turn parts of your project into tools that other AI agents can use.\n\nYou will build an application from a single prompt using AI, learn how AI can plan, code, test, and improve projects, identify and fix security issues in AI-generated code, publish your work as reusable AI Skills, explore how modern AI workflows are changing software development.\n\nPerfect for developers, builders, and anyone interested in creating applications with AI.",
+    "theme": "",
+    "dayLabel": "Thu, Jul 23",
+    "eventDate": "2026-07-23",
+    "endDate": "2026-07-23",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785300887881-wp5l0h4lfwt.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T05:03:00.105Z",
+    "updatedAt": "2026-07-29T04:54:52.586Z"
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "fc9b44d8-2b16-41ab-97ef-80c2fbbab11b",
+      "companyName": "AutonomLayer",
+      "companyWebsite": "https://autonomlayer.com/",
+      "companyLogo": "/images/companies/1785214210652-01i2saorytfi.png",
+      "companyDescription": "​AutonomLayer is an autonomous AI software engineering platform that goes beyond traditional AI coding assistants. Instead of requiring continuous prompting, it independently plans work, generates and refines prompts, writes code, tests, debugs, reviews, and iterates until an application is production-ready.",
+      "representatives": []
+    },
+    {
+      "id": "2e01f365-7ded-405d-91b4-3813c5ea48ba",
+      "companyName": "Synk",
+      "companyWebsite": "https://snyk.io/",
+      "companyLogo": "/images/companies/1785214232494-1vzvughomb1.jpg",
+      "companyDescription": "​Snyk helps developers build securely by automatically finding and fixing vulnerabilities in code, open-source dependencies, containers, and infrastructure. It's an essential part of modern software development, ensuring that AI-generated code is secure before it reaches production.",
+      "representatives": []
+    },
+    {
+      "id": "d9fd880c-5fa7-4c28-857a-d09ea52c61a2",
+      "companyName": "Finchip AI",
+      "companyWebsite": "https://finchip.ai/",
+      "companyLogo": "/images/companies/1785212159902-1n84dyel8sj.jpg",
+      "companyDescription": "​FinChip helps turn AI skills into ownable digital assets that can be launched, discovered, used, and traded. For builders exploring agent capabilities, skill marketplaces, and programmable AI services, FinChip opens up a new way to think about software as something agents can own and invoke.",
+      "representatives": [
+        {
+          "username": "Coco Wang",
+          "linkedin": "https://www.linkedin.com/in/coco-wang-28781b87/",
+          "role": "GTM",
+          "companyName": "Finchip AI"
+        },
+        {
+          "username": "Chelsey Huang",
+          "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+          "role": "Co-Founder",
+          "companyName": "Finchip AI"
+        }
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "partnerType": "venue",
+      "customType": null,
+      "companyName": "Homebrew Club",
+      "companyWebsite": "https://homebrewclub.berrry.app/",
+      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
+    }
+  ],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    },
+    {
+      "username": "Coco Wang",
+      "linkedin": "https://www.linkedin.com/in/coco-wang-28781b87/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "GTM",
+      "companyName": "Finchip AI"
+    },
+    {
+      "username": "Chelsey Huang",
+      "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Finchip AI"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

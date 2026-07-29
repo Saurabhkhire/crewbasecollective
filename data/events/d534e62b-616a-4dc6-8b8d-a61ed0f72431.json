@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "d534e62b-616a-4dc6-8b8d-a61ed0f72431",
-    "slug": "find-your-co-founder",
+    "slug": "find-your-co-founder-ms5n4l82",
     "name": "Find your Co-Founder",
     "type": "mixer",
     "description": "A founder networking event designed to help entrepreneurs connect with the right people, share experiences, and find potential co-founders to build with.\n\nDuring the event, participants will be divided into three groups based on their current startup journey: those exploring ideas, those actively building their products, and founders who have already raised funding. Experienced founders will share their knowledge, lessons, and guidance to help others overcome challenges and move forward.\n\nThrough group discussions, networking sessions, and founder conversations, participants will have the opportunity to meet people with complementary skills, explore potential partnerships, and find the right co-founder match.\n\nWhether you are looking for a technical partner, business partner, or someone to start a new venture with, this event is a place to connect with builders and turn ideas into action.",
-    "theme": null,
-    "dayLabel": "Monday",
+    "theme": "",
+    "dayLabel": "Mon, Jul 6",
     "eventDate": "2026-07-06",
     "endDate": "2026-07-06",
     "startTime": "17:00:00",
@@ -14,24 +14,74 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785302688964-ci34941uvuu.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T04:53:55.437Z",
-    "updatedAt": "2026-07-27T10:10:46.244Z"
+    "updatedAt": "2026-07-29T05:24:51.701Z"
   },
   "tracks": [],
   "sponsors": [],
-  "partners": [],
+  "partners": [
+    {
+      "id": "ecd1e8ef-91c8-4a06-a741-eb95710f8153",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null,
+      "sortOrder": 0
+    }
+  ],
   "prizes": [],
   "schedule": [],
   "speakers": [],
   "judges": [],
-  "hosts": [],
+  "hosts": [
+    {
+      "id": "29b5b9da-e4dc-4696-9eef-0fce1e17d5b1",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "7d1766b2-956d-4523-a1b2-1d224d0d2031",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "3bb16aaa-23fe-4293-bc69-d3527ccd7890",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "4582a7c2-12f5-41b5-acc9-5c08cab70f54",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 3
+    },
+    {
+      "id": "a62269ae-558f-408b-904b-6c56d8e09396",
+      "userId": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 4
+    }
+  ],
   "links": [],
   "photos": [],
   "liveState": null

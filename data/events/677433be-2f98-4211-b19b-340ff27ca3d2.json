@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "677433be-2f98-4211-b19b-340ff27ca3d2",
-    "slug": "co-founder-connections-meet-share-and-build-together",
+    "slug": "co-founder-connections-meet-share-and-build-together-ms5n3uro",
     "name": "Co-Founder Connections: Meet, Share, and Build Together",
     "type": "mixer",
     "description": "An event designed for founders, builders, and aspiring entrepreneurs to meet potential co-founders and connect with people who share the same passion for building new ideas.\n\nParticipants will have the opportunity to share their backgrounds, startup experiences, skills, and the ideas they are working on. Through conversations and networking, you can discover potential collaborators who complement your strengths and could become the right partner for your next venture.\n\nWhether you are looking for a technical co-founder, business partner, or someone to explore ideas with, this event is a space to meet motivated builders, exchange experiences, and create meaningful connections.\n\nCome meet fellow entrepreneurs, share your story, and find the right person to build with.",
-    "theme": null,
-    "dayLabel": "Friday",
+    "theme": "",
+    "dayLabel": "Fri, Jun 26",
     "eventDate": "2026-06-26",
     "endDate": "2026-06-26",
     "startTime": "18:00:00",
@@ -14,24 +14,74 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785302655683-oiturf3m4nn.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T04:56:10.096Z",
-    "updatedAt": "2026-07-27T10:11:09.742Z"
+    "updatedAt": "2026-07-29T05:24:17.413Z"
   },
   "tracks": [],
   "sponsors": [],
-  "partners": [],
+  "partners": [
+    {
+      "id": "bec9b973-f8b7-430f-bf67-62ad826a1b36",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null,
+      "sortOrder": 0
+    }
+  ],
   "prizes": [],
   "schedule": [],
   "speakers": [],
   "judges": [],
-  "hosts": [],
+  "hosts": [
+    {
+      "id": "4ce03bc3-4d04-4d6f-b4a0-c92a3d2b6265",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "7c0706fc-65a5-472f-a90b-38421203dd8f",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "7f269942-fc9d-482c-99fd-a48150d4ed03",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "858d18ef-9f12-430f-b1b8-53f91de2f03e",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 3
+    },
+    {
+      "id": "1d9a4656-b52e-415c-9070-76b5b8b6cd57",
+      "userId": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 4
+    }
+  ],
   "links": [],
   "photos": [],
   "liveState": null

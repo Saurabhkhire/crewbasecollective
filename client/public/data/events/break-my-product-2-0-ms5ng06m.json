@@ -1,0 +1,92 @@
+{
+  "event": {
+    "id": "b325b460-9231-47c6-b45c-6eefda3799f1",
+    "slug": "break-my-product-2-0-ms5ng06m",
+    "name": "Break my Product 2.0",
+    "type": "mixer",
+    "description": "Real users. Tougher testing. Better products.\n\nBuilt something and want brutally honest feedback before your next launch?\n\nWe are back with an improved format designed to help founders uncover hidden issues, validate assumptions, and ship with confidence.\n\nWhether you're building an MVP, AI product, startup, side project, or prototype, this session gives you direct access to thoughtful testers who aren't afraid to ask hard questions.\n\nHow it works:\n\nBring a product, prototype, MVP, or side project.\nGet matched with fellow founders, builders, designers, and creators.\nWatch as they explore, test, question, and intentionally try to break your product.\nReceive candid, actionable feedback on usability, onboarding, messaging, UX, positioning, and overall product experience.\nReturn the favor by testing someone else's product and sharing your own insights.\n\nThis isn't a demo day—it's a collaborative product stress test.\n\nYou'll leave with:\n\nFresh perspectives from real users.\nA clearer understanding of where people get stuck.\nActionable improvements you can implement immediately.\nNew connections with builders who care about creating better products.\n\nWhether you're validating an idea, polishing an MVP, preparing for launch, or iterating after your first release, this is your chance to discover what works, what doesn't, and what to fix next.",
+    "theme": "",
+    "dayLabel": "Mon, Jun 22",
+    "eventDate": "2026-06-22",
+    "endDate": "2026-06-22",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785303220534-lzbp7mk1zgq.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T04:30:01.626Z",
+    "updatedAt": "2026-07-29T05:33:44.304Z"
+  },
+  "tracks": [],
+  "sponsors": [],
+  "partners": [
+    {
+      "partnerType": "venue",
+      "customType": null,
+      "companyName": "Homebrew Club",
+      "companyWebsite": "https://homebrewclub.berrry.app/",
+      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
+    }
+  ],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Pramod Thebe",
+      "linkedin": "https://www.linkedin.com/in/pramodthebe/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Hi Tuto"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

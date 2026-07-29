@@ -1,0 +1,83 @@
+{
+  "event": {
+    "id": "7d9d6ed3-d45a-42ef-ba82-907e6e6155ad",
+    "slug": "journey-to-founder-and-find-your-co-founder-ms5n2o03",
+    "name": "Journey to Founder and Find your Co Founder",
+    "type": "mixer",
+    "description": "A community event where founders, aspiring entrepreneurs, and builders come together to share their journeys, experiences, and lessons from building companies.\n\nParticipants will share their stories — from the early idea stage and challenges they faced to the decisions, successes, and failures that shaped their founder journey. This is an opportunity to learn from others, exchange ideas, and connect with people who are also building something new.\n\nWhether you are already a founder, exploring a startup idea, or looking for the right co-founder to build with, this event is designed to help you meet like-minded people and create meaningful connections.\n\nCome share your journey, learn from others, and find potential collaborators for your next venture.",
+    "theme": "",
+    "dayLabel": "Fri, Jun 19 – Wed, Jun 24",
+    "eventDate": "2026-06-19",
+    "endDate": "2026-06-24",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785302598863-cvjl4arlg7v.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T04:36:51.947Z",
+    "updatedAt": "2026-07-29T05:23:21.989Z"
+  },
+  "tracks": [],
+  "sponsors": [],
+  "partners": [],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Pramod Thebe",
+      "linkedin": "https://www.linkedin.com/in/pramodthebe/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Hi Tuto"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

@@ -1,0 +1,100 @@
+{
+  "event": {
+    "id": "1148f625-6e64-4105-903a-ac2eebcf9c19",
+    "slug": "pitch-competition-ms5mttqr",
+    "name": "Pitch Competition",
+    "type": "pitch_competition",
+    "description": "An opportunity for founders to pitch their startups directly in front of investors, mentors, and the startup community. Participants will present their ideas, business models, and vision while receiving valuable feedback from experienced investors and industry leaders.\n\nDuring the competition, founders will have the chance to showcase their company, explain the problem they are solving, highlight their growth potential, and share why their startup is worth investing in.\n\nWhether you are raising your first round or looking to refine your pitch, this event provides a platform to practice presenting your vision, connect with investors, and gain insights to help take your startup forward.\n\nCome pitch your startup, get feedback, and connect with people who can help you grow.",
+    "theme": "",
+    "dayLabel": "Sat, Jun 27",
+    "eventDate": "2026-06-27",
+    "endDate": "2026-06-27",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785302187602-vp4cl9wcgdi.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T04:59:41.047Z",
+    "updatedAt": "2026-07-29T05:18:14.648Z"
+  },
+  "tracks": [],
+  "sponsors": [],
+  "partners": [
+    {
+      "partnerType": "venue",
+      "customType": null,
+      "companyName": "Homebrew Club",
+      "companyWebsite": "https://homebrewclub.berrry.app/",
+      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
+    }
+  ],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [
+    {
+      "username": "JJ Caffey",
+      "linkedin": "https://www.linkedin.com/in/sarahjjcaffey/",
+      "role": null,
+      "title": "Angel Investor and Co Founder",
+      "companyName": "Venture Foragers"
+    }
+  ],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    },
+    {
+      "username": "Pramod Thebe",
+      "linkedin": "https://www.linkedin.com/in/pramodthebe/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Hi Tuto"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

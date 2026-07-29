@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "3111192a-eccb-4cb3-9e98-3df81f599587",
-    "slug": "o1-visa-strategy-and-fireside-chat",
+    "slug": "o1-visa-strategy-and-fireside-chat-ms5q9u76",
     "name": "O1 Visa Strategy and Fireside Chat",
     "type": "demo",
     "description": "Join us for an informative session on the O-1 visa pathway for founders, builders, researchers, engineers, and community leaders.\n\nGuest speaker Karishma Mandal will share practical insights on building a strong O-1 profile, preparing your application, and showcasing your impact through achievements, publications, speaking opportunities, community involvement, and other forms of recognition.\n\nWhether you are exploring the O-1 path or actively preparing your application, this event will help you understand the process and connect with others on a similar journey.",
-    "theme": null,
-    "dayLabel": "Wednesday",
+    "theme": "",
+    "dayLabel": "Wed, Jun 24",
     "eventDate": "2026-06-24",
     "endDate": "2026-06-24",
     "startTime": "18:00:00",
@@ -14,24 +14,74 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785307969427-2c4bz8ydaxd.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T04:58:01.709Z",
-    "updatedAt": "2026-07-27T10:11:18.145Z"
+    "updatedAt": "2026-07-29T06:52:55.497Z"
   },
   "tracks": [],
-  "sponsors": [],
-  "partners": [],
+  "sponsors": [
+    {
+      "id": "b09b8272-a085-4580-bfb8-9868ada2a5a9",
+      "companyId": "891f7ff9-9fb5-48b9-8ac5-6a666aa11cb3",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": []
+    }
+  ],
+  "partners": [
+    {
+      "id": "27a59d46-3d74-4511-8139-f7df9f18652b",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null,
+      "sortOrder": 0
+    }
+  ],
   "prizes": [],
   "schedule": [],
   "speakers": [],
   "judges": [],
-  "hosts": [],
+  "hosts": [
+    {
+      "id": "693ae3ab-5211-44b3-aed2-5afd00d38cae",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "6156d174-8582-4859-970f-fe4426737f47",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "342b1da3-7393-44eb-be8e-92a834b7a7d6",
+      "userId": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "530e9bdd-2a63-4025-9fb7-85c877386afd",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 3
+    }
+  ],
   "links": [],
   "photos": [],
   "liveState": null

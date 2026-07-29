@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "1148f625-6e64-4105-903a-ac2eebcf9c19",
-    "slug": "pitch-competition",
+    "slug": "pitch-competition-ms5mttqr",
     "name": "Pitch Competition",
     "type": "pitch_competition",
     "description": "An opportunity for founders to pitch their startups directly in front of investors, mentors, and the startup community. Participants will present their ideas, business models, and vision while receiving valuable feedback from experienced investors and industry leaders.\n\nDuring the competition, founders will have the chance to showcase their company, explain the problem they are solving, highlight their growth potential, and share why their startup is worth investing in.\n\nWhether you are raising your first round or looking to refine your pitch, this event provides a platform to practice presenting your vision, connect with investors, and gain insights to help take your startup forward.\n\nCome pitch your startup, get feedback, and connect with people who can help you grow.",
-    "theme": null,
-    "dayLabel": "Saturday",
+    "theme": "",
+    "dayLabel": "Sat, Jun 27",
     "eventDate": "2026-06-27",
     "endDate": "2026-06-27",
     "startTime": "18:00:00",
@@ -14,24 +14,81 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785302187602-vp4cl9wcgdi.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T04:59:41.047Z",
-    "updatedAt": "2026-07-27T10:11:11.539Z"
+    "updatedAt": "2026-07-29T05:18:14.648Z"
   },
   "tracks": [],
   "sponsors": [],
-  "partners": [],
+  "partners": [
+    {
+      "id": "700f47d9-3797-4217-8697-775105e87640",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null,
+      "sortOrder": 0
+    }
+  ],
   "prizes": [],
   "schedule": [],
   "speakers": [],
-  "judges": [],
-  "hosts": [],
+  "judges": [
+    {
+      "id": "01212cfb-9700-4872-9b11-ae1fd0357112",
+      "userId": "2a98f550-94d7-441b-9b24-9859e5fb75c3",
+      "role": null,
+      "sortOrder": 0
+    }
+  ],
+  "hosts": [
+    {
+      "id": "7dc6888a-d7c4-435b-8dd8-377abb1ab261",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "b6cfac6f-8588-42ec-b137-f933bed44b69",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "43736e28-125b-4e1e-aada-a308fe12ff34",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "b613d39d-c621-43c0-8ccb-70d11a26da62",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 3
+    },
+    {
+      "id": "479cc2f0-e97c-49b5-b682-e2538c967834",
+      "userId": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 4
+    }
+  ],
   "links": [],
   "photos": [],
   "liveState": null

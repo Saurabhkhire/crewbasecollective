@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "7d7d5ce9-ac13-4d56-b52d-ffd2d324f168",
-    "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+    "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
     "name": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
     "type": "workshop",
     "description": "Learn how to take an idea from a simple prompt to a working application using AI. This hands-on workshop covers the complete AI development process — building applications, securing AI-generated code, and publishing reusable AI skills.\n\nYou will use AI tools to create an application, test and improve its security, and turn parts of your project into tools that other AI agents can use.\n\nYou will build an application from a single prompt using AI, learn how AI can plan, code, test, and improve projects, identify and fix security issues in AI-generated code, publish your work as reusable AI Skills, explore how modern AI workflows are changing software development.\n\nPerfect for developers, builders, and anyone interested in creating applications with AI.",
@@ -14,7 +14,7 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785214914162-2mua42jryrx.png",
+    "coverImageUrl": "/images/covers/1785300887881-wp5l0h4lfwt.png",
     "coverPageUrl": "",
     "lumaLink": "",
     "eventbriteLink": "",
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:03:00.105Z",
-    "updatedAt": "2026-07-28T05:01:59.838Z"
+    "updatedAt": "2026-07-29T04:54:52.586Z"
   },
   "tracks": [],
   "sponsors": [

@@ -1,0 +1,92 @@
+{
+  "event": {
+    "id": "6de88808-3635-4174-8c3e-33efa07577cb",
+    "slug": "break-my-product-ms5njbla",
+    "name": "Break my Product",
+    "type": "mixer",
+    "description": "​Real users. Real feedback. Real product insights.\n\n​Built something and want honest feedback before your next launch?\n\n​In this interactive session, founders, builders, designers, and creators will be paired with each other to test products, uncover blind spots, and share actionable feedback.\n\n​Here's how it works:\n\n​Bring a product, prototype, MVP, or side project.\n\n​Get matched with other participants.\n\n​Watch as they explore, test, question, and intentionally try to \"break\" your product.\n\n​Receive candid feedback on usability, clarity, onboarding, positioning, and overall experience.\n\n​Return the favor by testing someone else's product.\n\n​Whether you're validating a new idea, refining an MVP, or preparing for launch, you'll leave with fresh perspectives and a list of improvements you can act on immediately.",
+    "theme": "",
+    "dayLabel": "Wed, Jun 17",
+    "eventDate": "2026-06-17",
+    "endDate": "2026-06-17",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785303377608-uz58uy3t0tq.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T04:19:35.975Z",
+    "updatedAt": "2026-07-29T05:36:19.057Z"
+  },
+  "tracks": [],
+  "sponsors": [],
+  "partners": [
+    {
+      "partnerType": "venue",
+      "customType": null,
+      "companyName": "Homebrew Club",
+      "companyWebsite": "https://homebrewclub.berrry.app/",
+      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
+    }
+  ],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Pramod Thebe",
+      "linkedin": "https://www.linkedin.com/in/pramodthebe/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Hi Tuto"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

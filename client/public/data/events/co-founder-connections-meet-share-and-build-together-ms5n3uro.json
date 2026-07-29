@@ -1,0 +1,92 @@
+{
+  "event": {
+    "id": "677433be-2f98-4211-b19b-340ff27ca3d2",
+    "slug": "co-founder-connections-meet-share-and-build-together-ms5n3uro",
+    "name": "Co-Founder Connections: Meet, Share, and Build Together",
+    "type": "mixer",
+    "description": "An event designed for founders, builders, and aspiring entrepreneurs to meet potential co-founders and connect with people who share the same passion for building new ideas.\n\nParticipants will have the opportunity to share their backgrounds, startup experiences, skills, and the ideas they are working on. Through conversations and networking, you can discover potential collaborators who complement your strengths and could become the right partner for your next venture.\n\nWhether you are looking for a technical co-founder, business partner, or someone to explore ideas with, this event is a space to meet motivated builders, exchange experiences, and create meaningful connections.\n\nCome meet fellow entrepreneurs, share your story, and find the right person to build with.",
+    "theme": "",
+    "dayLabel": "Fri, Jun 26",
+    "eventDate": "2026-06-26",
+    "endDate": "2026-06-26",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785302655683-oiturf3m4nn.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T04:56:10.096Z",
+    "updatedAt": "2026-07-29T05:24:17.413Z"
+  },
+  "tracks": [],
+  "sponsors": [],
+  "partners": [
+    {
+      "partnerType": "venue",
+      "customType": null,
+      "companyName": "Homebrew Club",
+      "companyWebsite": "https://homebrewclub.berrry.app/",
+      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
+    }
+  ],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    },
+    {
+      "username": "Pramod Thebe",
+      "linkedin": "https://www.linkedin.com/in/pramodthebe/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Hi Tuto"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

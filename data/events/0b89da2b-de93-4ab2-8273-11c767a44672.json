@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "0b89da2b-de93-4ab2-8273-11c767a44672",
-    "slug": "aigo-ai-demo-night",
+    "slug": "aigo-ai-demo-night-ms5nq0h7",
     "name": "AIGO AI Demo Night",
     "type": "demo",
     "description": "Join us for an AI demo night exploring the future of intelligent systems beyond traditional AI models. Discover how Cognitive AI focuses on reasoning, memory, learning, and adapting to real-world situations.\n\nThe event will feature Srini Pagidyala from Aigo.ai, who will showcase live demos and share how Aigo.ai is building the next generation of AI through adaptive intelligence.\n\nConnect with AI builders, founders, and enthusiasts while exploring new ideas around the future of AI.",
-    "theme": null,
-    "dayLabel": "Thursday",
+    "theme": "",
+    "dayLabel": "Thu, Jun 18",
     "eventDate": "2026-06-18",
     "endDate": "2026-06-18",
     "startTime": "18:00:00",
@@ -14,24 +14,74 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785303687104-uwourtmioek.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T04:44:48.617Z",
-    "updatedAt": "2026-07-27T10:11:16.385Z"
+    "updatedAt": "2026-07-29T05:41:31.243Z"
   },
   "tracks": [],
-  "sponsors": [],
-  "partners": [],
+  "sponsors": [
+    {
+      "id": "674ad6b8-5ab8-47e6-9fb9-7cb20b6d1f27",
+      "companyId": "e0044788-b9ef-4038-8078-367cbf8235cf",
+      "personId": null,
+      "sortOrder": 0,
+      "representatives": []
+    }
+  ],
+  "partners": [
+    {
+      "id": "14596911-db18-42d1-a6d2-6ccd53e413ae",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null,
+      "sortOrder": 0
+    }
+  ],
   "prizes": [],
   "schedule": [],
   "speakers": [],
   "judges": [],
-  "hosts": [],
+  "hosts": [
+    {
+      "id": "985a6e07-125f-405b-9e04-5b74475b1092",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "9ce05bfc-ca0b-41fb-baf1-21d558ff2c2c",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "e8eac05d-e869-40ce-a605-356b522c8041",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "330087af-5925-428e-ae92-b151b616cfe9",
+      "userId": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 3
+    }
+  ],
   "links": [],
   "photos": [],
   "liveState": null

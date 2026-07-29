@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "fb33e92a-684b-468d-a7bd-c276bd1fd7a4",
-    "slug": "design-deploy-workshop-ms46uxam",
+    "slug": "design-deploy-workshop-ms5mfqce",
     "name": "Design & Deploy Workshop",
     "type": "workshop",
     "description": "Turn your idea into a working product using AI. In this hands-on workshop, you will learn how to design, build, and deploy a modern web application using AI-powered development tools.\n\nYou will go through the complete process of building a product — from creating ideas and designing interfaces to adding functionality, connecting backend services, and launching your application.\n\nDuring the workshop, you will use AI tools to create designs, build your application, add features, and deploy a working prototype. You will learn a practical AI-powered workflow that you can use to quickly turn ideas into real products.\n\nThis workshop is designed for founders, designers, developers, students, and anyone interested in building with AI. Bring your laptop and an idea, or create one during the session.",
@@ -14,7 +14,7 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "",
+    "coverImageUrl": "/images/covers/1785301524693-1jewnp7hw4n.png",
     "coverPageUrl": "",
     "lumaLink": "",
     "eventbriteLink": "",
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:01:14.531Z",
-    "updatedAt": "2026-07-28T05:10:03.683Z"
+    "updatedAt": "2026-07-29T05:05:45.236Z"
   },
   "tracks": [],
   "sponsors": [
@@ -66,7 +66,16 @@
       "representatives": []
     }
   ],
-  "partners": [],
+  "partners": [
+    {
+      "id": "e6761436-d7ea-45a7-8e44-38a53ad0f1f8",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null,
+      "sortOrder": 0
+    }
+  ],
   "prizes": [],
   "schedule": [],
   "speakers": [],

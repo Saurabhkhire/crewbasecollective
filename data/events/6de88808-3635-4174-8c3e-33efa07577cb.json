@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "6de88808-3635-4174-8c3e-33efa07577cb",
-    "slug": "break-my-product",
+    "slug": "break-my-product-ms5njbla",
     "name": "Break my Product",
     "type": "mixer",
     "description": "​Real users. Real feedback. Real product insights.\n\n​Built something and want honest feedback before your next launch?\n\n​In this interactive session, founders, builders, designers, and creators will be paired with each other to test products, uncover blind spots, and share actionable feedback.\n\n​Here's how it works:\n\n​Bring a product, prototype, MVP, or side project.\n\n​Get matched with other participants.\n\n​Watch as they explore, test, question, and intentionally try to \"break\" your product.\n\n​Receive candid feedback on usability, clarity, onboarding, positioning, and overall experience.\n\n​Return the favor by testing someone else's product.\n\n​Whether you're validating a new idea, refining an MVP, or preparing for launch, you'll leave with fresh perspectives and a list of improvements you can act on immediately.",
-    "theme": null,
-    "dayLabel": "Wednesday",
+    "theme": "",
+    "dayLabel": "Wed, Jun 17",
     "eventDate": "2026-06-17",
     "endDate": "2026-06-17",
     "startTime": "18:00:00",
@@ -14,42 +14,35 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785303377608-uz58uy3t0tq.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T04:19:35.975Z",
-    "updatedAt": "2026-07-27T10:11:00.981Z"
+    "updatedAt": "2026-07-29T05:36:19.057Z"
   },
   "tracks": [],
   "sponsors": [],
-  "partners": [],
+  "partners": [
+    {
+      "id": "3ab1dca9-fb37-4ec4-be1a-21e882259181",
+      "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "customName": null,
+      "partnerType": "venue",
+      "customType": null,
+      "sortOrder": 0
+    }
+  ],
   "prizes": [],
   "schedule": [],
   "speakers": [],
   "judges": [],
   "hosts": [
     {
-      "id": "1070f529-28a6-4183-baea-e3d7a926fc16",
-      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "sortOrder": 0
-    },
-    {
-      "id": "5461b976-7d3b-4646-9bbd-00d5d0d0a123",
-      "userId": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "sortOrder": 0
-    },
-    {
-      "id": "9327b4a8-89b9-4d06-93b2-638977cc908d",
+      "id": "76573e71-c577-47cc-86ad-75f96e37bbe3",
       "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
       "hostType": "host",
       "customType": null,
@@ -57,12 +50,36 @@
       "sortOrder": 0
     },
     {
+      "id": "1070f529-28a6-4183-baea-e3d7a926fc16",
+      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "5461b976-7d3b-4646-9bbd-00d5d0d0a123",
+      "userId": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "9327b4a8-89b9-4d06-93b2-638977cc908d",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 3
+    },
+    {
       "id": "3f7d9664-dded-4ae7-8d22-dd7da8f9a12a",
       "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 4
     }
   ],
   "links": [],

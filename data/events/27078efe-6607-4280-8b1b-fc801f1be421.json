@@ -1,12 +1,12 @@
 {
   "event": {
     "id": "27078efe-6607-4280-8b1b-fc801f1be421",
-    "slug": "applied-ai-intelligence-hackathon",
+    "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
     "name": "Applied AI Intelligence Hackathon",
     "type": "hackathon",
     "description": "Build real-world solutions using AI. Create innovative applications, tools, and workflows that apply AI to solve practical problems and improve the way people work, learn, and interact with technology.\n\nBring your ideas, experiment with AI, and collaborate with other builders to create impactful projects.",
     "theme": "AI Agents that Act",
-    "dayLabel": "Sunday",
+    "dayLabel": "Sun, May 31",
     "eventDate": "2026-05-31",
     "endDate": "2026-05-31",
     "startTime": "09:00:00",
@@ -14,15 +14,15 @@
     "location": "Frontier Tower, 995 Market Street, San Francisco, CA 94103",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": null,
-    "coverPageUrl": null,
-    "lumaLink": null,
-    "eventbriteLink": null,
-    "groupLink": null,
+    "coverImageUrl": "/images/covers/1785314939953-73sy5ahvhk2.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-27T10:10:54.618Z"
+    "updatedAt": "2026-07-29T08:49:03.574Z"
   },
   "tracks": [
     {
@@ -201,6 +201,14 @@
       "customName": null,
       "partnerType": "venue",
       "customType": null
+    },
+    {
+      "id": "6ac73814-6375-44c6-89a5-7098c4b7ab77",
+      "companyId": "d2bc21c4-ae2c-4807-ba3d-61a337406c7a",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "sortOrder": 1
     }
   ],
   "prizes": [
@@ -686,6 +694,14 @@
       "customType": null,
       "role": null,
       "sortOrder": 0
+    },
+    {
+      "id": "b271f229-5fe2-4bbd-b46e-fe980b2a5583",
+      "userId": "e2af9075-633b-48b5-9f4e-ede03672bbb1",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "sortOrder": 2
     }
   ],
   "links": [],

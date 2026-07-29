@@ -11,93 +11,138 @@
       "judged": [
         {
           "eventName": "Sports World Cup Hackathon",
-          "slug": "sports-world-cup-hackathon",
+          "slug": "sports-world-cup-hackathon-ms5uqqxw",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "sponsored": [
         {
           "eventName": "Design & Deploy Workshop",
-          "slug": "design-deploy-workshop-ms46uxam",
+          "slug": "design-deploy-workshop-ms5mfqce",
           "eventDate": "2026-07-19"
         },
         {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
+          "eventDate": "2026-07-13"
+        },
+        {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         },
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
-          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
           "eventDate": "2026-07-23"
         },
         {
           "eventName": "Design & Deploy Workshop",
-          "slug": "design-deploy-workshop-ms46uxam",
+          "slug": "design-deploy-workshop-ms5mfqce",
           "eventDate": "2026-07-19"
         },
         {
           "eventName": "Sports World Cup Hackathon",
-          "slug": "sports-world-cup-hackathon",
+          "slug": "sports-world-cup-hackathon-ms5uqqxw",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
+          "eventName": "Find your Co-Founder",
+          "slug": "find-your-co-founder-ms5n4l82",
+          "eventDate": "2026-07-06"
+        },
+        {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
+          "eventName": "Pitch Competition",
+          "slug": "pitch-competition-ms5mttqr",
+          "eventDate": "2026-06-27"
+        },
+        {
+          "eventName": "Co-Founder Connections: Meet, Share, and Build Together",
+          "slug": "co-founder-connections-meet-share-and-build-together-ms5n3uro",
+          "eventDate": "2026-06-26"
+        },
+        {
+          "eventName": "O1 Visa Strategy and Fireside Chat",
+          "slug": "o1-visa-strategy-and-fireside-chat-ms5q9u76",
+          "eventDate": "2026-06-24"
+        },
+        {
+          "eventName": "Break my Product 2.0",
+          "slug": "break-my-product-2-0-ms5ng06m",
+          "eventDate": "2026-06-22"
+        },
+        {
+          "eventName": "Journey to Founder and Find your Co Founder",
+          "slug": "journey-to-founder-and-find-your-co-founder-ms5n2o03",
+          "eventDate": "2026-06-19"
+        },
+        {
+          "eventName": "AIGO AI Demo Night",
+          "slug": "aigo-ai-demo-night-ms5nq0h7",
+          "eventDate": "2026-06-18"
+        },
+        {
           "eventName": "Break my Product",
-          "slug": "break-my-product",
+          "slug": "break-my-product-ms5njbla",
+          "eventDate": "2026-06-17"
+        },
+        {
+          "eventName": "Break my Product",
+          "slug": "break-my-product-ms5njbla",
           "eventDate": "2026-06-17"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -115,63 +160,63 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "sponsored": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         }
       ],
@@ -189,56 +234,56 @@
       "judged": [
         {
           "eventName": "Sports World Cup Hackathon",
-          "slug": "sports-world-cup-hackathon",
+          "slug": "sports-world-cup-hackathon-ms5uqqxw",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "spoke": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "sponsored": [
         {
           "eventName": "Design & Deploy Workshop",
-          "slug": "design-deploy-workshop-ms46uxam",
+          "slug": "design-deploy-workshop-ms5mfqce",
           "eventDate": "2026-07-19"
         },
         {
           "eventName": "Sports World Cup Hackathon",
-          "slug": "sports-world-cup-hackathon",
+          "slug": "sports-world-cup-hackathon-ms5uqqxw",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -257,12 +302,12 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -270,12 +315,12 @@
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -294,36 +339,36 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -342,7 +387,7 @@
       "judged": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -363,24 +408,24 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -400,12 +445,12 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -426,7 +471,7 @@
       "judged": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -447,7 +492,7 @@
       "judged": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -468,12 +513,12 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -494,17 +539,17 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -525,22 +570,22 @@
       "judged": [
         {
           "eventName": "Sports World Cup Hackathon",
-          "slug": "sports-world-cup-hackathon",
+          "slug": "sports-world-cup-hackathon-ms5uqqxw",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -549,37 +594,72 @@
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         },
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
-          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
           "eventDate": "2026-07-23"
         },
         {
           "eventName": "Design & Deploy Workshop",
-          "slug": "design-deploy-workshop-ms46uxam",
+          "slug": "design-deploy-workshop-ms5mfqce",
           "eventDate": "2026-07-19"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
+          "eventName": "Find your Co-Founder",
+          "slug": "find-your-co-founder-ms5n4l82",
+          "eventDate": "2026-07-06"
+        },
+        {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
+          "eventName": "Pitch Competition",
+          "slug": "pitch-competition-ms5mttqr",
+          "eventDate": "2026-06-27"
+        },
+        {
+          "eventName": "Co-Founder Connections: Meet, Share, and Build Together",
+          "slug": "co-founder-connections-meet-share-and-build-together-ms5n3uro",
+          "eventDate": "2026-06-26"
+        },
+        {
+          "eventName": "O1 Visa Strategy and Fireside Chat",
+          "slug": "o1-visa-strategy-and-fireside-chat-ms5q9u76",
+          "eventDate": "2026-06-24"
+        },
+        {
+          "eventName": "Break my Product 2.0",
+          "slug": "break-my-product-2-0-ms5ng06m",
+          "eventDate": "2026-06-22"
+        },
+        {
+          "eventName": "Journey to Founder and Find your Co Founder",
+          "slug": "journey-to-founder-and-find-your-co-founder-ms5n2o03",
+          "eventDate": "2026-06-19"
+        },
+        {
+          "eventName": "AIGO AI Demo Night",
+          "slug": "aigo-ai-demo-night-ms5nq0h7",
+          "eventDate": "2026-06-18"
+        },
+        {
           "eventName": "Break my Product",
-          "slug": "break-my-product",
+          "slug": "break-my-product-ms5njbla",
           "eventDate": "2026-06-17"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -597,19 +677,19 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "spoke": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -617,37 +697,72 @@
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         },
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
-          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
           "eventDate": "2026-07-23"
         },
         {
           "eventName": "Design & Deploy Workshop",
-          "slug": "design-deploy-workshop-ms46uxam",
+          "slug": "design-deploy-workshop-ms5mfqce",
           "eventDate": "2026-07-19"
         },
         {
           "eventName": "Sports World Cup Hackathon",
-          "slug": "sports-world-cup-hackathon",
+          "slug": "sports-world-cup-hackathon-ms5uqqxw",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
+          "eventName": "Find your Co-Founder",
+          "slug": "find-your-co-founder-ms5n4l82",
+          "eventDate": "2026-07-06"
+        },
+        {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
+          "eventName": "Pitch Competition",
+          "slug": "pitch-competition-ms5mttqr",
+          "eventDate": "2026-06-27"
+        },
+        {
+          "eventName": "Co-Founder Connections: Meet, Share, and Build Together",
+          "slug": "co-founder-connections-meet-share-and-build-together-ms5n3uro",
+          "eventDate": "2026-06-26"
+        },
+        {
+          "eventName": "O1 Visa Strategy and Fireside Chat",
+          "slug": "o1-visa-strategy-and-fireside-chat-ms5q9u76",
+          "eventDate": "2026-06-24"
+        },
+        {
+          "eventName": "Break my Product 2.0",
+          "slug": "break-my-product-2-0-ms5ng06m",
+          "eventDate": "2026-06-22"
+        },
+        {
+          "eventName": "Journey to Founder and Find your Co Founder",
+          "slug": "journey-to-founder-and-find-your-co-founder-ms5n2o03",
+          "eventDate": "2026-06-19"
+        },
+        {
+          "eventName": "AIGO AI Demo Night",
+          "slug": "aigo-ai-demo-night-ms5nq0h7",
+          "eventDate": "2026-06-18"
+        },
+        {
           "eventName": "Break my Product",
-          "slug": "break-my-product",
+          "slug": "break-my-product-ms5njbla",
           "eventDate": "2026-06-17"
         }
       ],
@@ -680,7 +795,7 @@
       "judged": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -701,7 +816,7 @@
       "judged": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -722,12 +837,12 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -748,12 +863,12 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -774,12 +889,12 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -800,12 +915,12 @@
       "judged": [
         {
           "eventName": "Sports World Cup Hackathon",
-          "slug": "sports-world-cup-hackathon",
+          "slug": "sports-world-cup-hackathon-ms5uqqxw",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -826,7 +941,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -837,7 +952,7 @@
       "volunteered": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ]
@@ -853,7 +968,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -874,7 +989,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -895,7 +1010,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -916,7 +1031,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -937,21 +1052,21 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -970,7 +1085,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -991,18 +1106,7 @@
       "judged": [],
       "spoke": [],
       "sponsored": [],
-      "hosted": [
-        {
-          "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
-          "eventDate": "2026-07-13"
-        },
-        {
-          "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
-          "eventDate": "2026-06-28"
-        }
-      ],
+      "hosted": [],
       "partnered": [],
       "volunteered": []
     },
@@ -1022,7 +1126,7 @@
       "volunteered": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ]
@@ -1043,12 +1147,12 @@
       "volunteered": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ]
@@ -1064,7 +1168,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1085,58 +1189,58 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "sponsored": [
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
-          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
           "eventDate": "2026-07-23"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         },
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
-          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
           "eventDate": "2026-07-23"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -1156,39 +1260,39 @@
       "sponsored": [
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
-          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
           "eventDate": "2026-07-23"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         },
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
-          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
           "eventDate": "2026-07-23"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -1206,21 +1310,21 @@
       "judged": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "spoke": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "sponsored": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -1239,7 +1343,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1247,7 +1351,7 @@
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1266,7 +1370,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1274,7 +1378,7 @@
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1293,7 +1397,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1301,19 +1405,19 @@
       "sponsored": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         }
       ],
@@ -1331,7 +1435,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1339,19 +1443,19 @@
       "sponsored": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         }
       ],
@@ -1369,21 +1473,21 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1402,7 +1506,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1410,7 +1514,7 @@
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1429,24 +1533,24 @@
       "judged": [
         {
           "eventName": "Sports World Cup Hackathon",
-          "slug": "sports-world-cup-hackathon",
+          "slug": "sports-world-cup-hackathon-ms5uqqxw",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1454,28 +1558,53 @@
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",
-          "slug": "build-your-ai-organization-workshop-ms46mwrq",
+          "slug": "build-your-ai-organization-workshop-ms5lzd54",
           "eventDate": "2026-07-24"
         },
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
-          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms46vc0s",
+          "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
           "eventDate": "2026-07-23"
         },
         {
           "eventName": "Design & Deploy Workshop",
-          "slug": "design-deploy-workshop-ms46uxam",
+          "slug": "design-deploy-workshop-ms5mfqce",
           "eventDate": "2026-07-19"
         },
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
+          "eventName": "Find your Co-Founder",
+          "slug": "find-your-co-founder-ms5n4l82",
+          "eventDate": "2026-07-06"
+        },
+        {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Pitch Competition",
+          "slug": "pitch-competition-ms5mttqr",
+          "eventDate": "2026-06-27"
+        },
+        {
+          "eventName": "Co-Founder Connections: Meet, Share, and Build Together",
+          "slug": "co-founder-connections-meet-share-and-build-together-ms5n3uro",
+          "eventDate": "2026-06-26"
+        },
+        {
+          "eventName": "Break my Product 2.0",
+          "slug": "break-my-product-2-0-ms5ng06m",
+          "eventDate": "2026-06-22"
+        },
+        {
+          "eventName": "Journey to Founder and Find your Co Founder",
+          "slug": "journey-to-founder-and-find-your-co-founder-ms5n2o03",
+          "eventDate": "2026-06-19"
         }
       ],
       "partnered": [],
@@ -1493,24 +1622,24 @@
       "spoke": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "sponsored": [
         {
           "eventName": "Design & Deploy Workshop",
-          "slug": "design-deploy-workshop-ms46uxam",
+          "slug": "design-deploy-workshop-ms5mfqce",
           "eventDate": "2026-07-19"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         },
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1529,7 +1658,7 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1552,7 +1681,7 @@
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1570,8 +1699,13 @@
       "companyName": "Venture Foragers",
       "judged": [
         {
+          "eventName": "Pitch Competition",
+          "slug": "pitch-competition-ms5mttqr",
+          "eventDate": "2026-06-27"
+        },
+        {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1594,7 +1728,7 @@
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1613,7 +1747,7 @@
       "judged": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1621,7 +1755,7 @@
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1640,7 +1774,7 @@
       "judged": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1648,7 +1782,7 @@
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1667,7 +1801,7 @@
       "judged": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1675,7 +1809,7 @@
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1694,7 +1828,7 @@
       "judged": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1702,7 +1836,7 @@
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1721,7 +1855,7 @@
       "judged": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1729,7 +1863,7 @@
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1750,20 +1884,25 @@
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "hosted": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
+        },
+        {
+          "eventName": "Applied AI Intelligence Hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
+          "eventDate": "2026-05-31"
         }
       ],
       "partnered": [],
@@ -1780,21 +1919,21 @@
       "judged": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "spoke": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1813,7 +1952,7 @@
       "judged": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1821,7 +1960,7 @@
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1840,21 +1979,21 @@
       "judged": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "spoke": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "sponsored": [
         {
           "eventName": "Applied AI Intelligence Hackathon",
-          "slug": "applied-ai-intelligence-hackathon",
+          "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
@@ -1873,12 +2012,12 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -1886,12 +2025,12 @@
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -1910,12 +2049,12 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -1923,12 +2062,12 @@
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         },
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -1948,14 +2087,14 @@
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "sponsored": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -1974,7 +2113,7 @@
       "judged": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -1982,7 +2121,7 @@
       "sponsored": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -2004,7 +2143,7 @@
       "hosted": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -2022,21 +2161,21 @@
       "judged": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "spoke": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "sponsored": [
         {
           "eventName": "Wizard Hackathon",
-          "slug": "wizard-hackathon",
+          "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
@@ -2055,14 +2194,14 @@
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "spoke": [
         {
           "eventName": "Bay Builders Hackathon",
-          "slug": "bay-builders-hackathon-ms4bzwpw",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
@@ -2084,8 +2223,43 @@
       "sponsored": [],
       "hosted": [
         {
+          "eventName": "Find your Co-Founder",
+          "slug": "find-your-co-founder-ms5n4l82",
+          "eventDate": "2026-07-06"
+        },
+        {
+          "eventName": "Pitch Competition",
+          "slug": "pitch-competition-ms5mttqr",
+          "eventDate": "2026-06-27"
+        },
+        {
+          "eventName": "Co-Founder Connections: Meet, Share, and Build Together",
+          "slug": "co-founder-connections-meet-share-and-build-together-ms5n3uro",
+          "eventDate": "2026-06-26"
+        },
+        {
+          "eventName": "O1 Visa Strategy and Fireside Chat",
+          "slug": "o1-visa-strategy-and-fireside-chat-ms5q9u76",
+          "eventDate": "2026-06-24"
+        },
+        {
+          "eventName": "Break my Product 2.0",
+          "slug": "break-my-product-2-0-ms5ng06m",
+          "eventDate": "2026-06-22"
+        },
+        {
+          "eventName": "Journey to Founder and Find your Co Founder",
+          "slug": "journey-to-founder-and-find-your-co-founder-ms5n2o03",
+          "eventDate": "2026-06-19"
+        },
+        {
+          "eventName": "AIGO AI Demo Night",
+          "slug": "aigo-ai-demo-night-ms5nq0h7",
+          "eventDate": "2026-06-18"
+        },
+        {
           "eventName": "Break my Product",
-          "slug": "break-my-product",
+          "slug": "break-my-product-ms5njbla",
           "eventDate": "2026-06-17"
         }
       ],

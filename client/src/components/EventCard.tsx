@@ -38,12 +38,12 @@ export function EventCard({
 
   return (
     <Link to={`/events/${slug}`} className="group card overflow-hidden !p-0">
-      <div className="relative aspect-[16/9] overflow-hidden bg-[var(--panel)]">
+      <div className="relative aspect-[4/3] overflow-hidden bg-[var(--bg-deep)]">
         {coverImageUrl ? (
           <img
             src={coverImageUrl}
             alt={name}
-            className="h-full w-full object-cover transition group-hover:scale-105"
+            className="h-full w-full object-contain p-2 transition group-hover:opacity-95"
             loading="lazy"
           />
         ) : (
@@ -51,18 +51,18 @@ export function EventCard({
             <Calendar size={48} />
           </div>
         )}
-        <div className="absolute left-3 top-3 flex flex-wrap gap-2">
-          <span className="rounded-full border border-[var(--border)] bg-[var(--panel)]/90 px-3 py-1 text-xs font-semibold text-[var(--cyan)] backdrop-blur">
-            {EVENT_TYPE_LABELS[type] || type}
-          </span>
-        </div>
-        {isPartnerEvent && (
-          <span className="absolute right-3 top-3 rounded-full border border-[var(--cyan)]/45 bg-[var(--cyan)]/20 px-4 py-1.5 text-sm font-semibold text-white shadow-sm backdrop-blur">
-            Partner Event
-          </span>
-        )}
       </div>
       <div className="p-5">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-[var(--border)] bg-[var(--panel)] px-3 py-1 text-xs font-semibold text-[var(--cyan)]">
+            {EVENT_TYPE_LABELS[type] || type}
+          </span>
+          {isPartnerEvent && (
+            <span className="rounded-full border border-[var(--cyan)]/45 bg-[var(--cyan)]/20 px-4 py-1.5 text-sm font-semibold text-white">
+              Partner Event
+            </span>
+          )}
+        </div>
         <h3 className="text-lg font-semibold leading-snug text-white group-hover:text-[var(--cyan)]">
           {name}
         </h3>

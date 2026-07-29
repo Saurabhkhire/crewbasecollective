@@ -1,0 +1,92 @@
+{
+  "event": {
+    "id": "3111192a-eccb-4cb3-9e98-3df81f599587",
+    "slug": "o1-visa-strategy-and-fireside-chat-ms5q9u76",
+    "name": "O1 Visa Strategy and Fireside Chat",
+    "type": "demo",
+    "description": "Join us for an informative session on the O-1 visa pathway for founders, builders, researchers, engineers, and community leaders.\n\nGuest speaker Karishma Mandal will share practical insights on building a strong O-1 profile, preparing your application, and showcasing your impact through achievements, publications, speaking opportunities, community involvement, and other forms of recognition.\n\nWhether you are exploring the O-1 path or actively preparing your application, this event will help you understand the process and connect with others on a similar journey.",
+    "theme": "",
+    "dayLabel": "Wed, Jun 24",
+    "eventDate": "2026-06-24",
+    "endDate": "2026-06-24",
+    "startTime": "18:00:00",
+    "endTime": "21:00:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/1785307969427-2c4bz8ydaxd.png",
+    "coverPageUrl": "",
+    "lumaLink": "",
+    "eventbriteLink": "",
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-27T04:58:01.709Z",
+    "updatedAt": "2026-07-29T06:52:55.497Z"
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "b09b8272-a085-4580-bfb8-9868ada2a5a9",
+      "companyName": "O1 Assist",
+      "companyWebsite": "https://o1assist.com/",
+      "companyLogo": "/images/companies/1785214301331-k7aalh3d4jo.jpg",
+      "companyDescription": "O-1 Assist is an AI-powered platform that helps exceptional professionals prepare strong O-1, EB-1A, and Global Talent visa applications. It streamlines the entire petition process by helping applicants build qualifying evidence, organize documentation, and connect with experienced immigration attorneys for filing.",
+      "representatives": []
+    }
+  ],
+  "partners": [
+    {
+      "partnerType": "venue",
+      "customType": null,
+      "companyName": "Homebrew Club",
+      "companyWebsite": "https://homebrewclub.berrry.app/",
+      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
+    }
+  ],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Pramod Thebe",
+      "linkedin": "https://www.linkedin.com/in/pramodthebe/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Hi Tuto"
+    },
+    {
+      "username": "Abhi Vasanth",
+      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Senior Data Engineer",
+      "companyName": "Pacific Gas and Electric Company"
+    }
+  ],
+  "links": [],
+  "photos": []
+}

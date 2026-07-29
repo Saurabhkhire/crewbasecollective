@@ -45,8 +45,8 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link to="/#get-involved" className="btn-outline-pill gap-1.5">
-            Get Involved <ArrowRight size={14} />
+          <Link to="/events" className="btn-outline-pill gap-1.5">
+            Explore Events <ArrowRight size={14} />
           </Link>
         </div>
 
@@ -75,11 +75,11 @@ export function Navbar() {
             </Link>
           ))}
           <Link
-            to="/#get-involved"
+            to="/events"
             onClick={() => setOpen(false)}
             className="btn-outline-pill mt-3 inline-flex"
           >
-            Get Involved <ArrowRight size={14} />
+            Explore Events <ArrowRight size={14} />
           </Link>
         </div>
       )}

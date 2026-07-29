@@ -1,6 +1,7 @@
 import { Routes, Route, Outlet } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { WireAmbient } from "@/components/WireAmbient";
 import HomePage from "@/pages/Home";
 import EventsPage from "@/pages/Events";
@@ -11,6 +12,7 @@ import PeoplePage from "@/pages/People";
 function PublicLayout() {
   return (
     <div className="relative flex min-h-screen flex-col">
+      <ScrollToTop />
       <WireAmbient />
       <div className="relative z-10 flex min-h-screen flex-col">
         <Navbar />
