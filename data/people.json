@@ -809,7 +809,7 @@
     {
       "id": "4082d0c7-8de9-40f4-b80b-1bc657231853",
       "username": "Alice Shikova",
-      "email": null,
+      "email": "Alenashikova1997@gmail.com",
       "linkedin": "https://www.linkedin.com/in/alice-shikova-36a708194/",
       "role": "participant",
       "title": "Heat of GTM and Relations",
@@ -817,7 +817,7 @@
       "companyId": null,
       "companyName": "Space ID",
       "createdAt": "2026-07-27T03:58:09.288Z",
-      "updatedAt": "2026-07-27T03:58:09.288Z"
+      "updatedAt": "2026-07-29T09:56:37.288Z"
     },
     {
       "id": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
@@ -831,6 +831,32 @@
       "companyName": "Hi Tuto",
       "createdAt": "2026-07-27T04:21:49.362Z",
       "updatedAt": "2026-07-27T04:21:49.362Z"
+    },
+    {
+      "id": "5e741a93-4420-4cbe-b002-f65dc37328fb",
+      "username": "Natalia Mendez",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/natalia-mendez-0425a6212/",
+      "role": "participant",
+      "title": "Developer Relations and Events Intern",
+      "phone": null,
+      "companyId": "15b62625-a629-406c-a14a-bd7c07e451b8",
+      "companyName": "Synk",
+      "createdAt": "2026-07-29T10:56:51.342Z",
+      "updatedAt": "2026-07-29T10:56:51.342Z"
+    },
+    {
+      "id": "47b22c7f-d158-4ab3-b4e9-d60014f79d1e",
+      "username": "Javier Garza",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/jjgarza/",
+      "role": "participant",
+      "title": "Developer Advocate",
+      "phone": null,
+      "companyId": "15b62625-a629-406c-a14a-bd7c07e451b8",
+      "companyName": "Synk",
+      "createdAt": "2026-07-29T10:59:03.109Z",
+      "updatedAt": "2026-07-29T10:59:03.109Z"
     }
   ]
 }

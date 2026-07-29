@@ -2186,7 +2186,7 @@
     {
       "id": "4082d0c7-8de9-40f4-b80b-1bc657231853",
       "username": "Alice Shikova",
-      "email": null,
+      "email": "Alenashikova1997@gmail.com",
       "linkedin": "https://www.linkedin.com/in/alice-shikova-36a708194/",
       "role": "participant",
       "title": "Heat of GTM and Relations",
@@ -2263,6 +2263,36 @@
           "eventDate": "2026-06-17"
         }
       ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "5e741a93-4420-4cbe-b002-f65dc37328fb",
+      "username": "Natalia Mendez",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/natalia-mendez-0425a6212/",
+      "role": "participant",
+      "title": "Developer Relations and Events Intern",
+      "companyName": "Synk",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "47b22c7f-d158-4ab3-b4e9-d60014f79d1e",
+      "username": "Javier Garza",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/jjgarza/",
+      "role": "participant",
+      "title": "Developer Advocate",
+      "companyName": "Synk",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
       "partnered": [],
       "volunteered": []
     }
