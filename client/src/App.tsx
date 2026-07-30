@@ -8,6 +8,7 @@ import EventsPage from "@/pages/Events";
 import EventDetailPage from "@/pages/EventDetail";
 import SponsorsPage from "@/pages/Sponsors";
 import PeoplePage from "@/pages/People";
+import NotFoundPage from "@/pages/NotFound";
 
 function PublicLayout() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/events/:slug" element={<EventDetailPage />} />
         <Route path="/sponsors" element={<SponsorsPage />} />
         <Route path="/people" element={<PeoplePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

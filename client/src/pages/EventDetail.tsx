@@ -412,9 +412,25 @@ export default function EventDetailPage() {
 
   useEffect(() => {
     if (!slug) return;
-    loadData<EventDetail>(`/data/events/${slug}.json`)
-      .then(setData)
-      .catch(() => setNotFound(true));
+
+    let cancelled = false;
+    setNotFound(false);
+    setData(null);
+
+    loadData<EventDetail>(`/data/events/${encodeURIComponent(slug)}.json`)
+      .then((json) => {
+        if (!cancelled) {
+          setData(json);
+          setNotFound(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setNotFound(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
 
   const prizeGroups = useMemo(

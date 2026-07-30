@@ -24,7 +24,7 @@ export async function api<T = unknown>(
 
 /** Load static JSON from /data (built from local CMS). */
 export async function loadData<T>(path: string): Promise<T> {
-  const res = await fetch(path, { credentials: "omit" });
+  const res = await fetch(path, { credentials: "omit", cache: "no-cache" });
   if (!res.ok) {
     throw new Error(`Could not load ${path} (${res.status})`);
   }
