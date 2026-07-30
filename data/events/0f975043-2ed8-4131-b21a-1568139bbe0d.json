@@ -16,13 +16,15 @@
     "locationLng": null,
     "coverImageUrl": "/images/covers/1785313352478-uybhqulahdg.png",
     "coverPageUrl": "",
-    "lumaLink": "",
-    "eventbriteLink": "",
+    "lumaLink": null,
+    "eventbriteLink": null,
     "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-29T08:22:34.073Z"
+    "updatedAt": "2026-07-30T09:09:46.678Z",
+    "lumaLinks": [],
+    "eventbriteLinks": []
   },
   "tracks": [
     {
@@ -610,6 +612,55 @@
     }
   ],
   "links": [],
-  "photos": [],
+  "photos": [
+    {
+      "id": "36bb21f5-8241-421d-b14e-411e6ef56c1f",
+      "imageUrl": "/images/events/wizard-hackathon/1.jpg",
+      "caption": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "f9273565-0155-498c-80b1-6ae24b103b59",
+      "imageUrl": "/images/events/wizard-hackathon/2.jpg",
+      "caption": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "bac5bd48-12f3-4033-8ccd-4d7ece96e189",
+      "imageUrl": "/images/events/wizard-hackathon/3.jpg",
+      "caption": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "fec7e74c-0dc2-4121-ab9f-e1ce6512da0e",
+      "imageUrl": "/images/events/wizard-hackathon/4.jpg",
+      "caption": null,
+      "sortOrder": 3
+    },
+    {
+      "id": "318963b9-1434-44f0-9cf4-dfebd5cb86a6",
+      "imageUrl": "/images/events/wizard-hackathon/5.jpg",
+      "caption": null,
+      "sortOrder": 4
+    },
+    {
+      "id": "b6c0829b-0497-436d-8a24-5df6e273f8c0",
+      "imageUrl": "/images/events/wizard-hackathon/6.jpg",
+      "caption": null,
+      "sortOrder": 5
+    },
+    {
+      "id": "8ec41cc3-b419-40dc-9535-afae90c61e95",
+      "imageUrl": "/images/events/wizard-hackathon/7.jpg",
+      "caption": null,
+      "sortOrder": 6
+    },
+    {
+      "id": "0e7a3010-0f30-466a-bc06-4eacb4a3693b",
+      "imageUrl": "/images/events/wizard-hackathon/8.jpg",
+      "caption": null,
+      "sortOrder": 7
+    }
+  ],
   "liveState": null
 }

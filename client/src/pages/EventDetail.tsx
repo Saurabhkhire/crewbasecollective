@@ -28,6 +28,7 @@ import {
 } from "@/lib/utils";
 import { mapsUrlForLocation } from "@/components/LocationPicker";
 import { SponsorDisplay } from "@/components/SponsorDisplay";
+import { normalizeEventLinks } from "@/lib/event-links";
 
 interface EventDetail {
   event: {
@@ -44,6 +45,8 @@ interface EventDetail {
     locationLat: string | null;
     locationLng: string | null;
     coverImageUrl: string | null;
+    lumaLinks?: string[];
+    eventbriteLinks?: string[];
     lumaLink: string | null;
     eventbriteLink: string | null;
     groupLink: string | null;
@@ -246,18 +249,92 @@ function PersonRow({ name, linkedin, meta }: { name: string; linkedin: string | 
 }
 
 function ExternalLinkRow({ label, href }: { label: string; href: string }) {
+  const url = externalUrl(href);
+  if (!url) return null;
   return (
-    <li className="border-b border-[var(--border)] py-3.5 last:border-0 last:pb-0">
+    <li>
       <a
-        href={href}
+        href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 text-[15px] font-semibold text-[var(--cyan)] transition hover:brightness-110"
+        className="group flex items-center gap-3 rounded-2xl border border-[rgba(24,174,232,0.35)] bg-[rgba(6,17,28,0.88)] px-4 py-3.5 transition hover:border-[rgba(56,189,248,0.55)] hover:bg-[rgba(12,36,56,0.95)]"
       >
-        {label}
-        <ExternalLink size={14} className="opacity-80" />
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[rgba(56,189,248,0.15)] text-[#7dd3fc] ring-1 ring-[rgba(56,189,248,0.35)]">
+          <Link2 size={18} />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold text-white group-hover:text-[#b8e8ff]">{label}</span>
+          <span className="mt-0.5 block truncate text-xs text-[var(--muted)]">{url}</span>
+        </span>
+        <ExternalLink size={16} className="shrink-0 text-[var(--cyan)] opacity-80" />
       </a>
     </li>
+  );
+}
+
+type PlatformKind = "luma" | "eventbrite" | "discord" | "whatsapp" | "group";
+
+function platformFromUrl(url: string): PlatformKind {
+  if (/discord/i.test(url)) return "discord";
+  if (/whatsapp|wa\.me|chat\.whatsapp/i.test(url)) return "whatsapp";
+  return "group";
+}
+
+const PLATFORM_STYLES: Record<
+  PlatformKind | "luma" | "eventbrite",
+  { ring: string; bg: string; label: string }
+> = {
+  luma: {
+    ring: "ring-violet-400/40",
+    bg: "bg-gradient-to-r from-violet-700/90 to-fuchsia-600/85",
+    label: "Luma",
+  },
+  eventbrite: {
+    ring: "ring-orange-400/40",
+    bg: "bg-gradient-to-r from-orange-600/95 to-amber-500/90",
+    label: "Eventbrite",
+  },
+  discord: {
+    ring: "ring-indigo-400/40",
+    bg: "bg-gradient-to-r from-indigo-700/95 to-violet-700/90",
+    label: "Discord",
+  },
+  whatsapp: {
+    ring: "ring-emerald-400/40",
+    bg: "bg-gradient-to-r from-emerald-600/95 to-green-500/90",
+    label: "WhatsApp",
+  },
+  group: {
+    ring: "ring-sky-400/40",
+    bg: "bg-gradient-to-r from-sky-700/95 to-cyan-600/90",
+    label: "Group",
+  },
+};
+
+function PlatformLinkButton({
+  href,
+  kind,
+  label,
+  index,
+}: {
+  href: string;
+  kind: PlatformKind | "luma" | "eventbrite";
+  label: string;
+  index?: number;
+}) {
+  const url = externalUrl(href);
+  if (!url) return null;
+  const style = PLATFORM_STYLES[kind];
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-white ring-1 transition hover:brightness-110 ${style.bg} ${style.ring}`}
+    >
+      {label}
+      {typeof index === "number" && index > 0 ? ` ${index + 1}` : ""}
+    </a>
   );
 }
 
@@ -426,9 +503,17 @@ export default function EventDetailPage() {
     ? `${formatTime(event.startTime)}${event.endTime ? ` – ${formatTime(event.endTime)}` : ""}`
     : null;
 
+  const lumaLinks = normalizeEventLinks(event.lumaLinks, event.lumaLink);
+  const eventbriteLinks = normalizeEventLinks(event.eventbriteLinks, event.eventbriteLink);
+  const groupUrl = externalUrl(event.groupLink);
+  const groupKind = groupUrl ? platformFromUrl(groupUrl) : null;
+
   const hasRegistrationLinks = Boolean(
-    event.lumaLink || event.eventbriteLink || event.groupLink
+    lumaLinks.length || eventbriteLinks.length || groupUrl
   );
+
+  const primaryRegisterUrl =
+    lumaLinks[0] || eventbriteLinks[0] || groupUrl || null;
 
   const mapsUrl = event.location
     ? mapsUrlForLocation(event.location, event.locationLat, event.locationLng)
@@ -439,11 +524,11 @@ export default function EventDetailPage() {
       <div className="mx-auto w-[90%] max-w-6xl pt-[110px]">
         {event.coverImageUrl && (
           <div className="card overflow-hidden !p-0">
-            <div className="flex min-h-[200px] items-center justify-center bg-[var(--panel)] p-4 sm:p-6">
+            <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--panel)] sm:aspect-[16/9]">
               <img
                 src={event.coverImageUrl}
                 alt={event.name}
-                className="max-h-[min(520px,65vh)] w-full object-contain"
+                className="h-full w-full object-contain"
               />
             </div>
           </div>
@@ -486,40 +571,61 @@ export default function EventDetailPage() {
           </div>
 
           <div className="mt-6">
-            <button type="button" className="btn-primary">
-              Register
-            </button>
+            {primaryRegisterUrl ? (
+              <a
+                href={primaryRegisterUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary inline-flex"
+              >
+                Register
+              </a>
+            ) : (
+              <button type="button" className="btn-primary cursor-default opacity-50" disabled>
+                Register
+              </button>
+            )}
           </div>
         </div>
 
         <div className="mt-10 space-y-6">
           {hasRegistrationLinks && (
-            <EventBand title="Registration & Links" icon={Link2} tone="default">
-              <ul>
-                {event.lumaLink && (
-                  <ExternalLinkRow label="LUMA Link" href={event.lumaLink} />
+            <EventBand title="Registration" icon={Link2} tone="default">
+              <div className="flex flex-wrap gap-3">
+                {lumaLinks.map((href, i) => (
+                  <PlatformLinkButton
+                    key={`luma-${i}-${href}`}
+                    href={href}
+                    kind="luma"
+                    label={lumaLinks.length > 1 ? `Registration ${i + 1}` : "Register on Luma"}
+                    index={i}
+                  />
+                ))}
+                {eventbriteLinks.map((href, i) => (
+                  <PlatformLinkButton
+                    key={`eb-${i}-${href}`}
+                    href={href}
+                    kind="eventbrite"
+                    label={
+                      eventbriteLinks.length > 1 ? `Registration ${i + 1}` : "Register on Eventbrite"
+                    }
+                    index={i}
+                  />
+                ))}
+                {groupUrl && groupKind && (
+                  <PlatformLinkButton
+                    href={groupUrl}
+                    kind={groupKind}
+                    label={
+                      groupKind === "discord"
+                        ? "Join Discord"
+                        : groupKind === "whatsapp"
+                          ? "Join WhatsApp"
+                          : "Join group"
+                    }
+                  />
                 )}
-                {event.eventbriteLink && (
-                  <ExternalLinkRow label="Eventbrite Link" href={event.eventbriteLink} />
-                )}
-                {event.groupLink && (
-                  <li className="border-b border-[var(--border)] py-3.5 last:border-0 last:pb-0">
-                    <a
-                      href={event.groupLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[15px] font-semibold text-[var(--cyan)] transition hover:brightness-110"
-                    >
-                      {/discord/i.test(event.groupLink)
-                        ? "Discord Link"
-                        : /whatsapp|wa\.me|chat\.whatsapp/i.test(event.groupLink)
-                          ? "WhatsApp Link"
-                          : "Group Link"}
-                      <ExternalLink size={14} className="opacity-80" />
-                    </a>
-                  </li>
-                )}
-              </ul>
+              </div>
             </EventBand>
           )}
 
@@ -806,24 +912,26 @@ export default function EventDetailPage() {
 
           {photos.length > 0 && (
             <EventBand title="Gallery" tone="default">
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {photos.map((photo) => (
-                  <div
+                  <figure
                     key={photo.id}
-                    className="relative aspect-square overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--panel)]"
+                    className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--panel)]"
                   >
-                    <img
-                      src={photo.imageUrl}
-                      alt={photo.caption || ""}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
+                    <div className="flex min-h-[180px] items-center justify-center bg-[rgba(2,7,13,0.55)] p-2 sm:min-h-[220px]">
+                      <img
+                        src={photo.imageUrl}
+                        alt={photo.caption || "Event photo"}
+                        className="max-h-[min(420px,55vh)] w-full object-contain"
+                        loading="lazy"
+                      />
+                    </div>
                     {photo.caption && (
-                      <p className="absolute inset-x-0 bottom-0 bg-[rgba(2,7,13,0.75)] px-2 py-1.5 text-xs text-white">
+                      <figcaption className="border-t border-[var(--border)] px-3 py-2 text-sm text-[var(--muted)]">
                         {photo.caption}
-                      </p>
+                      </figcaption>
                     )}
-                  </div>
+                  </figure>
                 ))}
               </div>
             </EventBand>
@@ -831,7 +939,7 @@ export default function EventDetailPage() {
 
           {links.length > 0 && (
             <EventBand title="Links" icon={Link2} tone="default">
-              <ul>
+              <ul className="space-y-3">
                 {links.map((link) => (
                   <ExternalLinkRow key={link.id} label={link.label} href={link.url} />
                 ))}

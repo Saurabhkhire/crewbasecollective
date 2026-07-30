@@ -22,10 +22,13 @@ import {
   type ReorderableCollection,
 } from "./data/repository.js";
 import { isCompetitionEvent, newId, type EventType } from "./data/types.js";
+import { deleteImageByUrl, eventImageFolder, renumberEventGalleryFolder } from "./image-names.js";
 import {
   handleImageUpload,
+  handleListImages,
   handleLogoUpload,
   handleMultiImageUpload,
+  handleResolveImage,
   logoUploadMiddleware,
   multiImageUpload,
   singleImageUpload,
@@ -50,6 +53,8 @@ cmsRouter.post("/upload-image", singleImageUpload, (req, res) => {
 cmsRouter.post("/upload-images", multiImageUpload, (req, res) => {
   handleMultiImageUpload(req, res).then(rebuild);
 });
+cmsRouter.get("/resolve-image", handleResolveImage);
+cmsRouter.get("/list-images", handleListImages);
 
 // ─── Companies ───────────────────────────────────────────────────────────────
 
@@ -218,6 +223,8 @@ const eventSchema = z.object({
   locationLng: z.string().optional().nullable(),
   coverImageUrl: z.string().optional().nullable(),
   coverPageUrl: z.string().optional().nullable(),
+  lumaLinks: z.array(z.string()).optional(),
+  eventbriteLinks: z.array(z.string()).optional(),
   lumaLink: z.string().optional().nullable(),
   eventbriteLink: z.string().optional().nullable(),
   groupLink: z.string().optional().nullable(),
@@ -456,6 +463,21 @@ cmsRouter.post("/events/:id/detail", (req, res) => {
         saveEventRecord(record);
         rebuild();
         res.status(201).json(row);
+        return;
+      }
+      case "sync_gallery": {
+        const folder = eventImageFolder(record.event.name);
+        const urls = renumberEventGalleryFolder(folder);
+        const old = [...record.photos].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+        record.photos = urls.map((imageUrl, i) => ({
+          id: old[i]?.id ?? newId(),
+          imageUrl,
+          caption: old[i]?.caption ?? null,
+          sortOrder: i,
+        }));
+        saveEventRecord(record);
+        rebuild();
+        res.json({ success: true, urls, count: urls.length });
         return;
       }
       case "photo": {
@@ -749,9 +771,14 @@ cmsRouter.delete("/events/:id/detail", (req, res) => {
       case "link":
         record.links = record.links.filter((l) => l.id !== entityId);
         break;
-      case "photo":
+      case "photo": {
+        const row = record.photos.find((p) => p.id === entityId);
+        if (row?.imageUrl) {
+          deleteImageByUrl(row.imageUrl);
+        }
         record.photos = record.photos.filter((p) => p.id !== entityId);
         break;
+      }
       default:
         res.status(400).json({ error: "Unknown entity" });
         return;

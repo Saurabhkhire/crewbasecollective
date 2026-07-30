@@ -7,6 +7,8 @@
 import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
+import { eventImageFolder } from "../image-names.js";
+import { normalizeLinkList } from "../data/types.js";
 import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import {
@@ -141,7 +143,7 @@ async function main() {
   console.log("Exporting events...");
   const eventRows = await db.select().from(events);
   for (const event of eventRows) {
-    const slugDir = path.join(IMAGES_DIR, "events", event.slug);
+    const slugDir = path.join(IMAGES_DIR, eventImageFolder(event.name));
     fs.mkdirSync(slugDir, { recursive: true });
 
     let coverImageUrl = event.coverImageUrl;
@@ -248,8 +250,8 @@ async function main() {
         locationLng: event.locationLng ? String(event.locationLng) : null,
         coverImageUrl,
         coverPageUrl,
-        lumaLink: event.lumaLink,
-        eventbriteLink: event.eventbriteLink,
+        lumaLinks: normalizeLinkList(undefined, event.lumaLink),
+        eventbriteLinks: normalizeLinkList(undefined, event.eventbriteLink),
         groupLink: event.groupLink,
         isPartnerEvent: event.isPartnerEvent,
         isPublished: event.isPublished,

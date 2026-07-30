@@ -1,8 +1,10 @@
 ﻿import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Plus, Trash2, Upload, Settings2 } from "lucide-react";
+import { Plus, Trash2, Settings2 } from "lucide-react";
+import { PasteImageField } from "@/components/admin/PasteImageField";
+import { LinkListField } from "@/components/admin/LinkListField";
 import { api } from "@/lib/api";
-import { uploadImage } from "@/lib/upload";
+import { eventImageFolder, sanitizeImageBasename } from "@/lib/upload";
 import { EVENT_TYPE_LABELS } from "@/lib/utils";
 import LocationPicker from "@/components/LocationPicker";
 
@@ -53,8 +55,8 @@ const empty = {
   locationLng: "",
   coverImageUrl: "",
   coverPageUrl: "",
-  lumaLink: "",
-  eventbriteLink: "",
+  lumaLinks: [""] as string[],
+  eventbriteLinks: [""] as string[],
   groupLink: "",
   isPartnerEvent: false,
 };
@@ -64,7 +66,6 @@ export default function AdminEvents() {
   const [events, setEvents] = useState<EventRow[]>([]);
   const [form, setForm] = useState(empty);
   const [showForm, setShowForm] = useState(false);
-  const [uploadingCover, setUploadingCover] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -93,6 +94,8 @@ export default function AdminEvents() {
       // Always live on save — no draft/publish step
       const payload = {
         ...form,
+        lumaLinks: form.lumaLinks.map((s) => s.trim()).filter(Boolean),
+        eventbriteLinks: form.eventbriteLinks.map((s) => s.trim()).filter(Boolean),
         startTime: form.startTime || null,
         endTime: form.endTime || null,
         endDate: form.endDate || null,
@@ -241,63 +244,32 @@ export default function AdminEvents() {
               />
             </div>
             <div className="sm:col-span-2">
-              <label className="label">Cover Image</label>
-              <div className="flex flex-wrap items-center gap-3">
-                {form.coverImageUrl && (
-                  <img
-                    src={form.coverImageUrl}
-                    alt="Cover preview"
-                    className="h-20 w-32 rounded-lg border border-zinc-700 object-cover"
-                  />
-                )}
-                <label className="btn-secondary cursor-pointer">
-                  <Upload className="mr-1 h-4 w-4" />
-                  {uploadingCover ? "Uploading..." : "Upload image"}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    disabled={uploadingCover}
-                    onChange={async (e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return;
-                      setUploadingCover(true);
-                      try {
-                        const url = await uploadImage(file, "covers");
-                        setForm((prev) => ({ ...prev, coverImageUrl: url }));
-                      } catch (err) {
-                        alert(err instanceof Error ? err.message : "Upload failed");
-                      } finally {
-                        setUploadingCover(false);
-                      }
-                    }}
-                  />
-                </label>
-                {form.coverImageUrl && (
-                  <button
-                    type="button"
-                    className="text-sm text-red-400 hover:underline"
-                    onClick={() => setForm({ ...form, coverImageUrl: "" })}
-                  >
-                    Remove
-                  </button>
-                )}
-              </div>
-            </div>
-            <div>
-              <label className="label">Luma Link</label>
-              <input
-                className="input-field"
-                value={form.lumaLink}
-                onChange={(e) => setForm({ ...form, lumaLink: e.target.value })}
+              <PasteImageField
+                label="Cover Image"
+                imageUrl={form.coverImageUrl}
+                onImageUrl={(url) => setForm((prev) => ({ ...prev, coverImageUrl: url }))}
+                folder={eventImageFolder(form.name)}
+                naming="named"
+                fileName="cover"
+                syncFolders={["covers"]}
+                syncNames={[sanitizeImageBasename(form.name)]}
+                syncLabel="cover"
               />
             </div>
-            <div>
-              <label className="label">Eventbrite Link</label>
-              <input
-                className="input-field"
-                value={form.eventbriteLink}
-                onChange={(e) => setForm({ ...form, eventbriteLink: e.target.value })}
+            <div className="sm:col-span-2">
+              <LinkListField
+                label="Luma links"
+                placeholder="https://lu.ma/..."
+                values={form.lumaLinks}
+                onChange={(lumaLinks) => setForm({ ...form, lumaLinks })}
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <LinkListField
+                label="Eventbrite links"
+                placeholder="https://www.eventbrite.com/..."
+                values={form.eventbriteLinks}
+                onChange={(eventbriteLinks) => setForm({ ...form, eventbriteLinks })}
               />
             </div>
             <div className="sm:col-span-2">

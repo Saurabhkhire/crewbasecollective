@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:01:14.531Z",
-    "updatedAt": "2026-07-29T05:05:45.236Z"
+    "updatedAt": "2026-07-30T08:58:46.823Z"
   },
   "tracks": [],
   "sponsors": [
@@ -115,6 +115,13 @@
     }
   ],
   "links": [],
-  "photos": [],
+  "photos": [
+    {
+      "id": "36c4b5c8-f8cb-4bec-99f3-e899f7629ab8",
+      "imageUrl": "/images/events/design-deploy-workshop/design workshop.jpg",
+      "caption": null,
+      "sortOrder": 0
+    }
+  ],
   "liveState": null
 }

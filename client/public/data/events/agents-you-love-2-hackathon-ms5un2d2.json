@@ -17,12 +17,16 @@
     "coverImageUrl": "/images/covers/1785315309766-dy8zj9reja7.png",
     "coverPageUrl": "",
     "lumaLink": "https://luma.com/agents-you-love-2-hackathon",
-    "eventbriteLink": "",
+    "eventbriteLink": null,
     "groupLink": "",
     "isPartnerEvent": true,
     "isPublished": true,
     "createdAt": "2026-07-28T09:36:59.991Z",
-    "updatedAt": "2026-07-29T08:55:11.032Z"
+    "updatedAt": "2026-07-29T08:55:11.032Z",
+    "lumaLinks": [
+      "https://luma.com/agents-you-love-2-hackathon"
+    ],
+    "eventbriteLinks": []
   },
   "tracks": [],
   "sponsors": [],

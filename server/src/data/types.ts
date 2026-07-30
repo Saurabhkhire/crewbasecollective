@@ -166,8 +166,12 @@ export interface EventBasics {
   locationLng: string | null;
   coverImageUrl: string | null;
   coverPageUrl: string | null;
-  lumaLink: string | null;
-  eventbriteLink: string | null;
+  lumaLinks: string[];
+  eventbriteLinks: string[];
+  /** @deprecated Legacy single link — use lumaLinks */
+  lumaLink?: string | null;
+  /** @deprecated Legacy single link — use eventbriteLinks */
+  eventbriteLink?: string | null;
   groupLink: string | null;
   isPartnerEvent: boolean;
   isPublished: boolean;
@@ -204,6 +208,28 @@ export function newId(): string {
 
 export function nowIso(): string {
   return new Date().toISOString();
+}
+
+export function normalizeLinkList(
+  links: string[] | undefined | null,
+  legacy?: string | null
+): string[] {
+  const fromArray = (links ?? []).map((s) => s.trim()).filter(Boolean);
+  if (fromArray.length) return fromArray;
+  const single = legacy?.trim();
+  return single ? [single] : [];
+}
+
+export function normalizeEventBasics(event: EventBasics): EventBasics {
+  const lumaLinks = normalizeLinkList(event.lumaLinks, event.lumaLink);
+  const eventbriteLinks = normalizeLinkList(event.eventbriteLinks, event.eventbriteLink);
+  return {
+    ...event,
+    lumaLinks,
+    eventbriteLinks,
+    lumaLink: lumaLinks[0] ?? null,
+    eventbriteLink: eventbriteLinks[0] ?? null,
+  };
 }
 
 export function slugify(name: string): string {
@@ -254,8 +280,8 @@ export function emptyEvent(partial: {
       locationLng: null,
       coverImageUrl: null,
       coverPageUrl: null,
-      lumaLink: null,
-      eventbriteLink: null,
+      lumaLinks: [],
+      eventbriteLinks: [],
       groupLink: null,
       isPartnerEvent: false,
       isPublished: true,

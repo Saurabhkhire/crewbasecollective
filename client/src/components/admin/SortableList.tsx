@@ -66,7 +66,7 @@ export function SortableList<T extends { id: string }>({
         >
           <div className="flex items-start gap-3">
             <span
-              className="mt-0.5 shrink-0 cursor-grab text-zinc-500 active:cursor-grabbing"
+              className="mt-0.5 shrink-0 cursor-grab touch-none text-zinc-500 active:cursor-grabbing"
               title="Drag to reorder"
             >
               <GripVertical className="h-5 w-5" />

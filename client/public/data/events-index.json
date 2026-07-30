@@ -18,12 +18,16 @@
       "coverImageUrl": "/images/covers/1785315300176-px8rm6smq3.png",
       "coverPageUrl": "",
       "lumaLink": "https://luma.com/iu9svaun",
-      "eventbriteLink": "",
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": true,
       "isPublished": true,
       "createdAt": "2026-07-28T09:42:17.422Z",
-      "updatedAt": "2026-07-29T08:55:02.142Z"
+      "updatedAt": "2026-07-29T08:55:02.142Z",
+      "lumaLinks": [
+        "https://luma.com/iu9svaun"
+      ],
+      "eventbriteLinks": []
     },
     {
       "id": "63d2fbe8-9251-4bf2-a21a-c5761a414a45",
@@ -43,12 +47,16 @@
       "coverImageUrl": "/images/covers/1785315309766-dy8zj9reja7.png",
       "coverPageUrl": "",
       "lumaLink": "https://luma.com/agents-you-love-2-hackathon",
-      "eventbriteLink": "",
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": true,
       "isPublished": true,
       "createdAt": "2026-07-28T09:36:59.991Z",
-      "updatedAt": "2026-07-29T08:55:11.032Z"
+      "updatedAt": "2026-07-29T08:55:11.032Z",
+      "lumaLinks": [
+        "https://luma.com/agents-you-love-2-hackathon"
+      ],
+      "eventbriteLinks": []
     },
     {
       "id": "5dc60e5c-3be8-4f42-8b28-de48fa1f1a7a",
@@ -67,13 +75,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785300761392-no293cxnb19.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T05:05:23.050Z",
-      "updatedAt": "2026-07-29T05:06:05.130Z"
+      "updatedAt": "2026-07-30T08:54:54.120Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "7d7d5ce9-ac13-4d56-b52d-ffd2d324f168",
@@ -92,13 +102,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785300887881-wp5l0h4lfwt.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T05:03:00.105Z",
-      "updatedAt": "2026-07-29T04:54:52.586Z"
+      "updatedAt": "2026-07-30T08:58:21.221Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "fb33e92a-684b-468d-a7bd-c276bd1fd7a4",
@@ -117,13 +129,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785301524693-1jewnp7hw4n.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T05:01:14.531Z",
-      "updatedAt": "2026-07-29T05:05:45.236Z"
+      "updatedAt": "2026-07-30T08:58:46.823Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "2dc9d72c-99b2-4b38-8b26-c94995c2513c",
@@ -142,13 +156,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785315481268-lqv2l1p16m.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-07-29T08:58:02.856Z"
+      "updatedAt": "2026-07-30T09:00:43.928Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "22a921ea-034a-4f59-a57a-da3e892ff495",
@@ -167,13 +183,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785311651085-ima1tt2rob8.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-07-29T07:54:15.311Z"
+      "updatedAt": "2026-07-30T09:05:21.880Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "d534e62b-616a-4dc6-8b8d-a61ed0f72431",
@@ -192,13 +210,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785302688964-ci34941uvuu.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T04:53:55.437Z",
-      "updatedAt": "2026-07-29T05:24:51.701Z"
+      "updatedAt": "2026-07-29T05:24:51.701Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "0f975043-2ed8-4131-b21a-1568139bbe0d",
@@ -217,13 +237,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785313352478-uybhqulahdg.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-07-29T08:22:34.073Z"
+      "updatedAt": "2026-07-30T09:09:46.678Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "1148f625-6e64-4105-903a-ac2eebcf9c19",
@@ -242,13 +264,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785302187602-vp4cl9wcgdi.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T04:59:41.047Z",
-      "updatedAt": "2026-07-29T05:18:14.648Z"
+      "updatedAt": "2026-07-29T05:18:14.648Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "677433be-2f98-4211-b19b-340ff27ca3d2",
@@ -267,13 +291,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785302655683-oiturf3m4nn.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T04:56:10.096Z",
-      "updatedAt": "2026-07-29T05:24:17.413Z"
+      "updatedAt": "2026-07-29T05:24:17.413Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "3111192a-eccb-4cb3-9e98-3df81f599587",
@@ -292,13 +318,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785307969427-2c4bz8ydaxd.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T04:58:01.709Z",
-      "updatedAt": "2026-07-29T06:52:55.497Z"
+      "updatedAt": "2026-07-29T06:52:55.497Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "b325b460-9231-47c6-b45c-6eefda3799f1",
@@ -317,13 +345,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785303220534-lzbp7mk1zgq.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T04:30:01.626Z",
-      "updatedAt": "2026-07-29T05:33:44.304Z"
+      "updatedAt": "2026-07-29T05:33:44.304Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "7d9d6ed3-d45a-42ef-ba82-907e6e6155ad",
@@ -342,13 +372,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785302598863-cvjl4arlg7v.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T04:36:51.947Z",
-      "updatedAt": "2026-07-29T05:23:21.989Z"
+      "updatedAt": "2026-07-29T05:23:21.989Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "0b89da2b-de93-4ab2-8273-11c767a44672",
@@ -367,13 +399,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785303687104-uwourtmioek.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T04:44:48.617Z",
-      "updatedAt": "2026-07-29T05:41:31.243Z"
+      "updatedAt": "2026-07-29T05:41:31.243Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "6de88808-3635-4174-8c3e-33efa07577cb",
@@ -392,13 +426,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785303377608-uz58uy3t0tq.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T04:19:35.975Z",
-      "updatedAt": "2026-07-29T05:36:19.057Z"
+      "updatedAt": "2026-07-29T05:36:19.057Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     },
     {
       "id": "27078efe-6607-4280-8b1b-fc801f1be421",
@@ -417,13 +453,15 @@
       "locationLng": null,
       "coverImageUrl": "/images/covers/1785314939953-73sy5ahvhk2.png",
       "coverPageUrl": "",
-      "lumaLink": "",
-      "eventbriteLink": "",
+      "lumaLink": null,
+      "eventbriteLink": null,
       "groupLink": "",
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-07-29T08:49:03.574Z"
+      "updatedAt": "2026-07-29T08:49:03.574Z",
+      "lumaLinks": [],
+      "eventbriteLinks": []
     }
   ]
 }

@@ -13,9 +13,12 @@ import {
   emptyEvent,
   isCompetitionEvent,
   newId,
+  normalizeEventBasics,
+  normalizeLinkList,
   nowIso,
   slugify,
 } from "./types.js";
+import { eventImageFolder } from "../image-names.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(__dirname, "../../../");
@@ -238,7 +241,12 @@ export function listEventRecords(): EventRecord[] {
   return fs
     .readdirSync(EVENTS_DIR)
     .filter((f) => f.endsWith(".json"))
-    .map((f) => readJson<EventRecord>(path.join(EVENTS_DIR, f), null as unknown as EventRecord))
+    .map((f) => {
+      const record = readJson<EventRecord>(path.join(EVENTS_DIR, f), null as unknown as EventRecord);
+      if (!record) return record;
+      record.event = normalizeEventBasics(record.event);
+      return record;
+    })
     .filter(Boolean)
     .sort((a, b) => (a.event.eventDate < b.event.eventDate ? 1 : -1));
 }
@@ -246,11 +254,15 @@ export function listEventRecords(): EventRecord[] {
 export function getEventRecord(id: string): EventRecord | null {
   const file = eventPath(id);
   if (!fs.existsSync(file)) return null;
-  return readJson<EventRecord>(file, null as unknown as EventRecord);
+  const record = readJson<EventRecord>(file, null as unknown as EventRecord);
+  if (!record) return null;
+  record.event = normalizeEventBasics(record.event);
+  return record;
 }
 
 export function saveEventRecord(record: EventRecord) {
   ensureDirs();
+  record.event = normalizeEventBasics(record.event);
   record.event.updatedAt = nowIso();
   writeJson(eventPath(record.event.id), record);
 }
@@ -277,8 +289,14 @@ export function createEvent(input: {
     locationLng: (input.locationLng as string) ?? null,
     coverImageUrl: (input.coverImageUrl as string) ?? null,
     coverPageUrl: (input.coverPageUrl as string) ?? null,
-    lumaLink: (input.lumaLink as string) ?? null,
-    eventbriteLink: (input.eventbriteLink as string) ?? null,
+    lumaLinks: normalizeLinkList(
+      input.lumaLinks as string[] | undefined,
+      input.lumaLink as string | undefined
+    ),
+    eventbriteLinks: normalizeLinkList(
+      input.eventbriteLinks as string[] | undefined,
+      input.eventbriteLink as string | undefined
+    ),
     groupLink: (input.groupLink as string) ?? null,
     isPartnerEvent: Boolean(input.isPartnerEvent),
     dayLabel: dayLabelFromDate(input.eventDate, (input.endDate as string) ?? null),
@@ -299,7 +317,7 @@ export function updateEventBasics(
     next.dayLabel = dayLabelFromDate(next.eventDate, next.endDate);
   }
   next.isPublished = true;
-  record.event = next;
+  record.event = normalizeEventBasics(next);
   saveEventRecord(record);
   return record;
 }
@@ -696,6 +714,7 @@ export function adminEventDetail(record: EventRecord) {
   }));
 
   return {
+    imageFolder: eventImageFolder(record.event.name),
     tracks: sortByOrder(record.tracks),
     sponsors,
     partners,

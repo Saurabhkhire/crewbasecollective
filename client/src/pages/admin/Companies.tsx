@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Plus, Pencil, Trash2, Upload, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import { PasteImageField } from "@/components/admin/PasteImageField";
 import { api } from "@/lib/api";
 
 interface Company {
@@ -18,7 +19,6 @@ export default function AdminCompanies() {
   const [form, setForm] = useState(empty);
   const [editId, setEditId] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -125,31 +125,6 @@ export default function AdminCompanies() {
     setError("");
   };
 
-  const onLogoFile = async (file: File | null) => {
-    if (!file) return;
-    setUploading(true);
-    setError("");
-    try {
-      const fd = new FormData();
-      fd.append("logo", file);
-      const res = await fetch("/api/admin/upload-logo", {
-        method: "POST",
-        credentials: "include",
-        body: fd,
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Upload failed");
-      }
-      const data = (await res.json()) as { url: string };
-      setForm((prev) => ({ ...prev, logoUrl: data.url }));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Upload failed");
-    } finally {
-      setUploading(false);
-    }
-  };
-
   return (
     <div>
       <div className="flex items-center justify-between gap-4">
@@ -211,33 +186,22 @@ export default function AdminCompanies() {
               />
             </div>
             <div className="sm:col-span-2">
-              <label className="label">Logo</label>
-              <div className="flex flex-wrap items-center gap-3">
-                {form.logoUrl && (
-                  <img
-                    src={form.logoUrl}
-                    alt="Logo preview"
-                    className="h-14 w-14 rounded-lg border border-zinc-700 object-contain bg-zinc-900"
-                  />
-                )}
-                <label className="btn-secondary cursor-pointer">
-                  <Upload className="mr-1 h-4 w-4" />
-                  {uploading ? "Uploading..." : "Upload image"}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    disabled={uploading}
-                    onChange={(e) => onLogoFile(e.target.files?.[0] || null)}
-                  />
-                </label>
-                <input
-                  className="input-field max-w-md"
-                  placeholder="Or paste logo URL"
-                  value={form.logoUrl.startsWith("data:") ? "" : form.logoUrl}
-                  onChange={(e) => setForm({ ...form, logoUrl: e.target.value })}
-                />
-              </div>
+              <PasteImageField
+                label="Logo"
+                imageUrl={form.logoUrl}
+                onImageUrl={(url) => setForm((prev) => ({ ...prev, logoUrl: url }))}
+                folder="companies"
+                naming="named"
+                fileName={form.name}
+                syncLabel="logo"
+                previewClassName="h-14 w-14 rounded-lg border border-zinc-700 object-contain bg-zinc-900"
+              />
+              <input
+                className="input-field mt-3 max-w-md"
+                placeholder="Or paste logo URL"
+                value={form.logoUrl.startsWith("data:") ? "" : form.logoUrl}
+                onChange={(e) => setForm({ ...form, logoUrl: e.target.value })}
+              />
             </div>
           </div>
           <div className="flex gap-2">

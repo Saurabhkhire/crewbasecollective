@@ -16,13 +16,15 @@
     "locationLng": null,
     "coverImageUrl": "/images/covers/1785311651085-ima1tt2rob8.png",
     "coverPageUrl": "",
-    "lumaLink": "",
-    "eventbriteLink": "",
+    "lumaLink": null,
+    "eventbriteLink": null,
     "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-29T07:54:15.311Z"
+    "updatedAt": "2026-07-30T09:05:21.880Z",
+    "lumaLinks": [],
+    "eventbriteLinks": []
   },
   "tracks": [
     {
@@ -903,6 +905,410 @@
       "companyName": "FutureHouse AI"
     }
   ],
-  "links": [],
-  "photos": []
+  "links": [
+    {
+      "id": "dc8a1cac-8deb-4c25-bf84-3b88745d94e1",
+      "label": "Hackathon photos",
+      "url": "https://peterliuphotos.pic-time.com/client/bay-builder-hackathon/",
+      "sortOrder": 0
+    }
+  ],
+  "photos": [
+    {
+      "id": "17e5d680-b5ba-4687-a7a1-02830531194a",
+      "imageUrl": "/images/events/bay-builders-hackathon/1.jpg",
+      "caption": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "9421fd1d-db58-48ae-be3b-0b2a08a17f71",
+      "imageUrl": "/images/events/bay-builders-hackathon/2.jpg",
+      "caption": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "d6117622-8eb0-417f-8533-a5a9fadeb300",
+      "imageUrl": "/images/events/bay-builders-hackathon/3.jpg",
+      "caption": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "02b1d298-7ba9-417b-8b62-af2675773e7f",
+      "imageUrl": "/images/events/bay-builders-hackathon/4.jpg",
+      "caption": null,
+      "sortOrder": 3
+    },
+    {
+      "id": "448bac05-3eac-4791-8711-e7e4f881c8bd",
+      "imageUrl": "/images/events/bay-builders-hackathon/5.jpg",
+      "caption": null,
+      "sortOrder": 4
+    },
+    {
+      "id": "30c5017f-1fc8-4d48-91b9-63da284db653",
+      "imageUrl": "/images/events/bay-builders-hackathon/6.jpg",
+      "caption": null,
+      "sortOrder": 5
+    },
+    {
+      "id": "a8c89815-5ffc-4423-98de-01112d0bbcbb",
+      "imageUrl": "/images/events/bay-builders-hackathon/7.jpg",
+      "caption": null,
+      "sortOrder": 6
+    },
+    {
+      "id": "a5983045-b6e4-4b2c-ba28-309041cc0aed",
+      "imageUrl": "/images/events/bay-builders-hackathon/8.jpg",
+      "caption": null,
+      "sortOrder": 7
+    },
+    {
+      "id": "d2b8989f-bb15-441b-ab4e-8541e6ae558e",
+      "imageUrl": "/images/events/bay-builders-hackathon/9.jpg",
+      "caption": null,
+      "sortOrder": 8
+    },
+    {
+      "id": "4533eddb-cb7c-492c-b932-e31a32718c17",
+      "imageUrl": "/images/events/bay-builders-hackathon/10.jpg",
+      "caption": null,
+      "sortOrder": 9
+    },
+    {
+      "id": "b737152a-945b-4261-b916-f4745edb61a4",
+      "imageUrl": "/images/events/bay-builders-hackathon/11.jpg",
+      "caption": null,
+      "sortOrder": 10
+    },
+    {
+      "id": "70efc1c5-52e9-4b77-9f0f-c8fdb14801c2",
+      "imageUrl": "/images/events/bay-builders-hackathon/12.jpg",
+      "caption": null,
+      "sortOrder": 11
+    },
+    {
+      "id": "0acb3738-3ed6-45f4-a5de-e9b38f50f37c",
+      "imageUrl": "/images/events/bay-builders-hackathon/13.jpg",
+      "caption": null,
+      "sortOrder": 12
+    },
+    {
+      "id": "669b28fd-75e7-40fa-8c67-527fb4891dec",
+      "imageUrl": "/images/events/bay-builders-hackathon/14.jpg",
+      "caption": null,
+      "sortOrder": 13
+    },
+    {
+      "id": "3e8074a5-03ca-403a-bed8-64f6f9edc09e",
+      "imageUrl": "/images/events/bay-builders-hackathon/15.jpg",
+      "caption": null,
+      "sortOrder": 14
+    },
+    {
+      "id": "31ea305f-3940-453f-83a4-9bd3171a6aff",
+      "imageUrl": "/images/events/bay-builders-hackathon/16.jpg",
+      "caption": null,
+      "sortOrder": 15
+    },
+    {
+      "id": "9ba1168a-337c-4f57-9c42-78a091178f65",
+      "imageUrl": "/images/events/bay-builders-hackathon/17.jpg",
+      "caption": null,
+      "sortOrder": 16
+    },
+    {
+      "id": "caf08d2c-546b-4519-af3d-97e098141628",
+      "imageUrl": "/images/events/bay-builders-hackathon/18.jpg",
+      "caption": null,
+      "sortOrder": 17
+    },
+    {
+      "id": "33f0ca35-a6c1-4d0b-9a88-f09f7d28238c",
+      "imageUrl": "/images/events/bay-builders-hackathon/19.jpg",
+      "caption": null,
+      "sortOrder": 18
+    },
+    {
+      "id": "a837df97-222b-468d-950b-670d238bdfcc",
+      "imageUrl": "/images/events/bay-builders-hackathon/20.jpg",
+      "caption": null,
+      "sortOrder": 19
+    },
+    {
+      "id": "77357eb6-f5a4-47c8-a641-2ee60ef0c146",
+      "imageUrl": "/images/events/bay-builders-hackathon/21.jpg",
+      "caption": null,
+      "sortOrder": 20
+    },
+    {
+      "id": "62835455-f688-49a3-b94d-97e2f0375a00",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-10.jpg",
+      "caption": null,
+      "sortOrder": 21
+    },
+    {
+      "id": "a6aba776-e04f-4f96-a6e4-b7a58d57b0ee",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-11.jpg",
+      "caption": null,
+      "sortOrder": 22
+    },
+    {
+      "id": "c4752f04-dd5d-417e-95d6-4112cd329bdd",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-12.jpg",
+      "caption": null,
+      "sortOrder": 23
+    },
+    {
+      "id": "c53760d5-db6a-4998-8927-1fea4209e74b",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-13.jpg",
+      "caption": null,
+      "sortOrder": 24
+    },
+    {
+      "id": "6721d5ff-3549-4f43-9957-2d2e1de58e5d",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-14.jpg",
+      "caption": null,
+      "sortOrder": 25
+    },
+    {
+      "id": "3c627871-4eae-4dad-b6cb-0461a4c652dd",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-15.jpg",
+      "caption": null,
+      "sortOrder": 26
+    },
+    {
+      "id": "05b31d8a-8bb6-47a8-a67a-3468dd335190",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-16.jpg",
+      "caption": null,
+      "sortOrder": 27
+    },
+    {
+      "id": "c295bf5e-9f08-4635-8d93-25025d8ec598",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-17.jpg",
+      "caption": null,
+      "sortOrder": 28
+    },
+    {
+      "id": "115d2c75-9c3f-4aa4-af3c-714628d2bbd9",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-18.jpg",
+      "caption": null,
+      "sortOrder": 29
+    },
+    {
+      "id": "38782b6a-7c73-4387-89a0-7397416796c8",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-19.jpg",
+      "caption": null,
+      "sortOrder": 30
+    },
+    {
+      "id": "2a731b3e-fd00-472f-9945-9daea70bf212",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-2.jpg",
+      "caption": null,
+      "sortOrder": 31
+    },
+    {
+      "id": "4493e596-9d44-4013-8bed-21c99ca50469",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-20.jpg",
+      "caption": null,
+      "sortOrder": 32
+    },
+    {
+      "id": "1f6a5c5b-886f-49f2-8e86-e1a716a28954",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-21.jpg",
+      "caption": null,
+      "sortOrder": 33
+    },
+    {
+      "id": "9a81240f-64cc-43ca-b69c-32c7a863c64e",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-22.jpg",
+      "caption": null,
+      "sortOrder": 34
+    },
+    {
+      "id": "8382c4dc-9dad-401e-a60f-2911cf9b8b0f",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-23.jpg",
+      "caption": null,
+      "sortOrder": 35
+    },
+    {
+      "id": "e99cd466-6aca-4d93-ac1d-73f9424e76eb",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-24.jpg",
+      "caption": null,
+      "sortOrder": 36
+    },
+    {
+      "id": "4993b95a-a27c-415d-9662-19be46c3170c",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-25.jpg",
+      "caption": null,
+      "sortOrder": 37
+    },
+    {
+      "id": "ed1222f8-5162-4b76-8b94-0e67e0c1e46f",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-26.jpg",
+      "caption": null,
+      "sortOrder": 38
+    },
+    {
+      "id": "d994eda3-1f0c-46c9-8d2a-7ecba4add5f7",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-27.jpg",
+      "caption": null,
+      "sortOrder": 39
+    },
+    {
+      "id": "6bbc602e-a9d2-4d34-94e6-fc564baad9e4",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-28.jpg",
+      "caption": null,
+      "sortOrder": 40
+    },
+    {
+      "id": "9f83494c-0930-4e12-b5b9-5df42d89f7b4",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-29.jpg",
+      "caption": null,
+      "sortOrder": 41
+    },
+    {
+      "id": "a32eb828-22b3-4573-9fa4-afb9bd886c39",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-3.jpg",
+      "caption": null,
+      "sortOrder": 42
+    },
+    {
+      "id": "40f6a0de-611e-4ac0-b4f7-616aa2ec6cad",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-30.jpg",
+      "caption": null,
+      "sortOrder": 43
+    },
+    {
+      "id": "63656cf3-f68c-4aa2-bd7b-e8fab2a240cb",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-31.jpg",
+      "caption": null,
+      "sortOrder": 44
+    },
+    {
+      "id": "4d16af4e-9e23-4561-a6f4-48026ce96773",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-32.jpg",
+      "caption": null,
+      "sortOrder": 45
+    },
+    {
+      "id": "5b732c7c-9166-4b5b-b95a-5f784cc0af25",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-33.jpg",
+      "caption": null,
+      "sortOrder": 46
+    },
+    {
+      "id": "e9835ed6-7090-46dd-920f-99ee044f7ae3",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-34.jpg",
+      "caption": null,
+      "sortOrder": 47
+    },
+    {
+      "id": "c66721c1-ed92-40be-a49c-f3d7968ebe09",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-35.jpg",
+      "caption": null,
+      "sortOrder": 48
+    },
+    {
+      "id": "ba09761d-2e5b-4493-8297-b9a8f1e38927",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-36.jpg",
+      "caption": null,
+      "sortOrder": 49
+    },
+    {
+      "id": "9f0a745b-786d-4a13-8102-189f7cec917c",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-37.jpg",
+      "caption": null,
+      "sortOrder": 50
+    },
+    {
+      "id": "37ee94a9-9e86-46ed-89fe-5eb86e8e3af5",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-4.jpg",
+      "caption": null,
+      "sortOrder": 51
+    },
+    {
+      "id": "c5448cf4-5d43-4132-9acb-899a64e2ee28",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-5.jpg",
+      "caption": null,
+      "sortOrder": 52
+    },
+    {
+      "id": "f25a8c12-72ea-4f0b-b11a-62d00ec86e80",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-6.jpg",
+      "caption": null,
+      "sortOrder": 53
+    },
+    {
+      "id": "f32e0feb-4b87-4341-a761-73ff4eb1cf57",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-7.jpg",
+      "caption": null,
+      "sortOrder": 54
+    },
+    {
+      "id": "804c736a-ca98-41d1-8ee7-711ca480ca9f",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-8.jpg",
+      "caption": null,
+      "sortOrder": 55
+    },
+    {
+      "id": "e4c3b921-12d3-4c66-afe5-c3b5f374019d",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night-9.jpg",
+      "caption": null,
+      "sortOrder": 56
+    },
+    {
+      "id": "3177bddd-4e77-493d-9c66-5d6a656de238",
+      "imageUrl": "/images/events/bay-builders-hackathon/AGI Inc. On-Device Night.jpg",
+      "caption": null,
+      "sortOrder": 57
+    },
+    {
+      "id": "8dd8799a-3829-4cf2-b7ce-533b1664e907",
+      "imageUrl": "/images/events/bay-builders-hackathon/WhatsApp Image 2026-07-14 at 11.23.35 PM.jpeg",
+      "caption": null,
+      "sortOrder": 58
+    },
+    {
+      "id": "aa99c918-ac71-4f06-a7fb-a73f33904a11",
+      "imageUrl": "/images/events/bay-builders-hackathon/WhatsApp Image 2026-07-14 at 3.44.19 PM.jpeg",
+      "caption": null,
+      "sortOrder": 59
+    },
+    {
+      "id": "58d4a702-da8d-4515-bd1c-16d83e596093",
+      "imageUrl": "/images/events/bay-builders-hackathon/WhatsApp Image 2026-07-14 at 3.44.20 PM.jpeg",
+      "caption": null,
+      "sortOrder": 60
+    },
+    {
+      "id": "a59dd1e6-799e-4b29-ae80-998c016e59a8",
+      "imageUrl": "/images/events/bay-builders-hackathon/WhatsApp Image 2026-07-14 at 3.44.21 PM.jpeg",
+      "caption": null,
+      "sortOrder": 61
+    },
+    {
+      "id": "bf21b7b5-de5f-430a-a861-4a9e95eb294f",
+      "imageUrl": "/images/events/bay-builders-hackathon/WhatsApp Image 2026-07-14 at 4.52.17 PM.jpeg",
+      "caption": null,
+      "sortOrder": 62
+    },
+    {
+      "id": "bcd051e7-dca4-4c46-97d8-a60ec266e65c",
+      "imageUrl": "/images/events/bay-builders-hackathon/WhatsApp Image 2026-07-14 at 4.52.18 PM.jpeg",
+      "caption": null,
+      "sortOrder": 63
+    },
+    {
+      "id": "a40b2717-c809-4734-ae81-bf1cbece2393",
+      "imageUrl": "/images/events/bay-builders-hackathon/WhatsApp Image 2026-07-14 at 4.52.35 PM.jpeg",
+      "caption": null,
+      "sortOrder": 64
+    },
+    {
+      "id": "53b8ddc2-493a-4992-a133-a3615e27e208",
+      "imageUrl": "/images/events/bay-builders-hackathon/WhatsApp Image 2026-07-14 at 4.52.56 PM.jpeg",
+      "caption": null,
+      "sortOrder": 65
+    }
+  ]
 }

@@ -16,13 +16,15 @@
     "locationLng": null,
     "coverImageUrl": "/images/covers/1785314939953-73sy5ahvhk2.png",
     "coverPageUrl": "",
-    "lumaLink": "",
-    "eventbriteLink": "",
+    "lumaLink": null,
+    "eventbriteLink": null,
     "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-29T08:49:03.574Z"
+    "updatedAt": "2026-07-29T08:49:03.574Z",
+    "lumaLinks": [],
+    "eventbriteLinks": []
   },
   "tracks": [
     {

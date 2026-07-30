@@ -1,9 +1,12 @@
 ﻿import { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Plus, Trash2, ArrowLeft, RefreshCw, Upload, Pencil } from "lucide-react";
+import { Plus, Trash2, ArrowLeft, RefreshCw, Pencil } from "lucide-react";
 import { SortableList } from "@/components/admin/SortableList";
+import { PasteImageField } from "@/components/admin/PasteImageField";
+import { LinkListField } from "@/components/admin/LinkListField";
+import { eventImageFolder, sanitizeImageBasename } from "@/lib/upload";
+import { normalizeEventLinks } from "@/lib/event-links";
 import { api } from "@/lib/api";
-import { uploadImage, uploadImages } from "@/lib/upload";
 import { EVENT_TYPE_LABELS, isCompetitionEvent } from "@/lib/utils";
 import LocationPicker from "@/components/LocationPicker";
 
@@ -22,6 +25,7 @@ type Tab =
 
 interface EventData {
   id: string;
+  slug: string;
   name: string;
   type: string;
   eventDate: string;
@@ -36,6 +40,8 @@ interface EventData {
   locationLng: string | null;
   coverImageUrl: string | null;
   coverPageUrl: string | null;
+  lumaLinks?: string[];
+  eventbriteLinks?: string[];
   lumaLink: string | null;
   eventbriteLink: string | null;
   groupLink: string | null;
@@ -45,6 +51,7 @@ interface EventData {
 type Item = { id: string; [key: string]: unknown };
 
 interface SubData {
+  imageFolder?: string;
   tracks: Item[];
   sponsors: Item[];
   partners: Item[];
@@ -91,7 +98,7 @@ const TAB_HELP: Record<Tab, string> = {
   judges: "Select judges (hackathon / pitch only). Drag to reorder.",
   hosts: "Select a person, host type, and optional sub-role. Drag to reorder.",
   links: "Extra external links shown on the event page.",
-  photos: "Upload gallery images (multiple files).",
+  photos: "Drag the grip to reorder. Delete removes the file from the event folder too.",
 };
 
 /** All dates of the event (inclusive), for day selection on multi-day events. */
@@ -113,6 +120,10 @@ function dayOptionLabel(day: string): string {
   });
 }
 
+function formStr(value: string | string[] | undefined): string {
+  return typeof value === "string" ? value : "";
+}
+
 function basicsFromEvent(event: EventData) {
   return {
     name: event.name || "",
@@ -128,8 +139,8 @@ function basicsFromEvent(event: EventData) {
     locationLng: event.locationLng || "",
     coverImageUrl: event.coverImageUrl || "",
     coverPageUrl: event.coverPageUrl || "",
-    lumaLink: event.lumaLink || "",
-    eventbriteLink: event.eventbriteLink || "",
+    lumaLinks: normalizeEventLinks(event.lumaLinks, event.lumaLink),
+    eventbriteLinks: normalizeEventLinks(event.eventbriteLinks, event.eventbriteLink),
     groupLink: event.groupLink || "",
     isPartnerEvent: event.isPartnerEvent ? "true" : "false",
   };
@@ -249,15 +260,68 @@ export default function AdminEventDetail() {
   const [people, setPeople] = useState<{ id: string; username: string }[]>([]);
   const [form, setForm] = useState<Record<string, string>>({});
   const [editId, setEditId] = useState<string | null>(null);
-  const [basicsForm, setBasicsForm] = useState<Record<string, string>>({});
+  const [basicsForm, setBasicsForm] = useState<Record<string, string | string[]>>({});
   const [uploadingPhotos, setUploadingPhotos] = useState(false);
-  const [uploadingCover, setUploadingCover] = useState(false);
   const [savingBasics, setSavingBasics] = useState(false);
   const [error, setError] = useState("");
   /** Default slot length in minutes for schedule/speakers chaining (may be empty). */
   const [defaultMinutes, setDefaultMinutes] = useState("");
 
   const isCompetition = event ? isCompetitionEvent(event.type) : false;
+  const eventDisplayName = formStr(basicsForm.name).trim() || event?.name || "";
+  const eventPhotoFolder = data?.imageFolder || eventImageFolder(eventDisplayName);
+
+  const syncGalleryFromFolder = async () => {
+    if (!eventId) return;
+    setUploadingPhotos(true);
+    setError("");
+    try {
+      const result = await api<{ count: number; urls: string[] }>(
+        `/api/admin/events/${eventId}/detail`,
+        {
+          method: "POST",
+          body: JSON.stringify({ entity: "sync_gallery", data: {} }),
+        }
+      );
+      setForm({});
+      await load();
+      if (!result.count) {
+        setError(`No gallery images found in data/images/${eventPhotoFolder}.`);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Gallery sync failed");
+    } finally {
+      setUploadingPhotos(false);
+    }
+  };
+
+  const addPhotoUrls = async (urls: string[]) => {
+    if (!eventId || urls.length === 0) return;
+    setUploadingPhotos(true);
+    setError("");
+    try {
+      const existing = new Set((data?.photos || []).map((p) => p.imageUrl as string));
+      const caption = form.caption || "";
+      let added = 0;
+      for (const imageUrl of urls) {
+        if (existing.has(imageUrl)) continue;
+        await api(`/api/admin/events/${eventId}/detail`, {
+          method: "POST",
+          body: JSON.stringify({ entity: "photo", data: { imageUrl, caption } }),
+        });
+        added++;
+      }
+      setForm({});
+      await load();
+      if (added === 0) {
+        setError("No new images to add — they may already be in the gallery.");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploadingPhotos(false);
+    }
+  };
 
   const load = useCallback(async () => {
     if (!eventId) return;
@@ -333,7 +397,7 @@ export default function AdminEventDetail() {
 
   const saveBasics = async () => {
     if (!eventId) return;
-    if (!basicsForm.name?.trim() || !basicsForm.eventDate) {
+    if (!formStr(basicsForm.name).trim() || !formStr(basicsForm.eventDate)) {
       setError("Name and date are required");
       return;
     }
@@ -357,8 +421,10 @@ export default function AdminEventDetail() {
           locationLng: basicsForm.locationLng || null,
           coverImageUrl: basicsForm.coverImageUrl || "",
           coverPageUrl: basicsForm.coverPageUrl || "",
-          lumaLink: basicsForm.lumaLink || "",
-          eventbriteLink: basicsForm.eventbriteLink || "",
+          lumaLinks: (basicsForm.lumaLinks as string[]).map((s) => s.trim()).filter(Boolean),
+          eventbriteLinks: (basicsForm.eventbriteLinks as string[])
+            .map((s) => s.trim())
+            .filter(Boolean),
           groupLink: basicsForm.groupLink || "",
           isPartnerEvent: basicsForm.isPartnerEvent === "true",
           isPublished: true,
@@ -679,7 +745,11 @@ export default function AdminEventDetail() {
   };
 
   const deleteEntity = async (entity: string, entityId: string) => {
-    if (!confirm("Delete this item?")) return;
+    const message =
+      entity === "photo"
+        ? "Delete this photo? It will be removed from the gallery and deleted from the event folder."
+        : "Delete this item?";
+    if (!confirm(message)) return;
     await api(`/api/admin/events/${eventId}/detail`, {
       method: "DELETE",
       body: JSON.stringify({ entity, entityId }),
@@ -811,9 +881,9 @@ export default function AdminEventDetail() {
         <Field label="Location" className="sm:col-span-2">
           <LocationPicker
             value={{
-              location: basicsForm.location || "",
-              locationLat: basicsForm.locationLat || "",
-              locationLng: basicsForm.locationLng || "",
+              location: formStr(basicsForm.location),
+              locationLat: formStr(basicsForm.locationLat),
+              locationLng: formStr(basicsForm.locationLng),
             }}
             onChange={(next) => setBasicsForm({ ...basicsForm, ...next })}
           />
@@ -827,60 +897,33 @@ export default function AdminEventDetail() {
           />
         </Field>
         <Field label="Cover Image" className="sm:col-span-2">
-          <div className="flex flex-wrap items-center gap-3">
-            {basicsForm.coverImageUrl && (
-              <img
-                src={basicsForm.coverImageUrl}
-                alt="Cover preview"
-                className="h-20 w-32 rounded-lg border border-zinc-700 object-cover"
-              />
-            )}
-            <label className="btn-secondary cursor-pointer">
-              <Upload className="mr-1 h-4 w-4" />
-              {uploadingCover ? "Uploading..." : "Upload image"}
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                disabled={uploadingCover}
-                onChange={async (e) => {
-                  const file = e.target.files?.[0];
-                  if (!file) return;
-                  setUploadingCover(true);
-                  try {
-                    const url = await uploadImage(file, "covers");
-                    setBasicsForm((prev) => ({ ...prev, coverImageUrl: url }));
-                  } catch (err) {
-                    setError(err instanceof Error ? err.message : "Upload failed");
-                  } finally {
-                    setUploadingCover(false);
-                  }
-                }}
-              />
-            </label>
-            {basicsForm.coverImageUrl && (
-              <button
-                type="button"
-                className="text-sm text-red-400 hover:underline"
-                onClick={() => setBasicsForm({ ...basicsForm, coverImageUrl: "" })}
-              >
-                Remove
-              </button>
-            )}
-          </div>
-        </Field>
-        <Field label="Luma Link">
-          <input
-            className="input-field"
-            value={basicsForm.lumaLink || ""}
-            onChange={(e) => setBasicsForm({ ...basicsForm, lumaLink: e.target.value })}
+          <PasteImageField
+            label=""
+            imageUrl={formStr(basicsForm.coverImageUrl) || null}
+            onImageUrl={(url) => setBasicsForm((prev) => ({ ...prev, coverImageUrl: url }))}
+            folder={eventPhotoFolder}
+            naming="named"
+            fileName="cover"
+            syncFolders={["covers"]}
+            syncNames={[sanitizeImageBasename(eventDisplayName)]}
+            syncLabel="cover"
+            disabled={savingBasics}
           />
         </Field>
-        <Field label="Eventbrite Link">
-          <input
-            className="input-field"
-            value={basicsForm.eventbriteLink || ""}
-            onChange={(e) => setBasicsForm({ ...basicsForm, eventbriteLink: e.target.value })}
+        <Field label="Luma links" className="sm:col-span-2">
+          <LinkListField
+            label=""
+            placeholder="https://lu.ma/..."
+            values={(basicsForm.lumaLinks as string[]) || [""]}
+            onChange={(lumaLinks) => setBasicsForm({ ...basicsForm, lumaLinks })}
+          />
+        </Field>
+        <Field label="Eventbrite links" className="sm:col-span-2">
+          <LinkListField
+            label=""
+            placeholder="https://www.eventbrite.com/..."
+            values={(basicsForm.eventbriteLinks as string[]) || [""]}
+            onChange={(eventbriteLinks) => setBasicsForm({ ...basicsForm, eventbriteLinks })}
           />
         </Field>
         <Field label="Join group link (Discord / WhatsApp)" className="sm:col-span-2">
@@ -1626,40 +1669,18 @@ export default function AdminEventDetail() {
           <div className="space-y-3">
             {editBanner("photo caption")}
             {!editId && (
-              <label className="btn-secondary inline-flex cursor-pointer">
-                <Upload className="mr-2 h-4 w-4" />
-                {uploadingPhotos ? "Uploading..." : "Upload photos (multiple)"}
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  className="hidden"
-                  disabled={uploadingPhotos}
-                  onChange={async (e) => {
-                    const files = e.target.files;
-                    if (!files || files.length === 0) return;
-                    setUploadingPhotos(true);
-                    setError("");
-                    try {
-                      const urls = await uploadImages(files, "photos");
-                      const caption = form.caption || "";
-                      for (const imageUrl of urls) {
-                        await api(`/api/admin/events/${eventId}/detail`, {
-                          method: "POST",
-                          body: JSON.stringify({ entity: "photo", data: { imageUrl, caption } }),
-                        });
-                      }
-                      setForm({});
-                      await load();
-                    } catch (err) {
-                      setError(err instanceof Error ? err.message : "Upload failed");
-                    } finally {
-                      setUploadingPhotos(false);
-                      e.target.value = "";
-                    }
-                  }}
-                />
-              </label>
+              <PasteImageField
+                label="Event gallery"
+                imageUrl={null}
+                onImageUrl={() => {}}
+                folder={eventPhotoFolder}
+                naming="sequential"
+                multiple
+                disabled={uploadingPhotos}
+                existingUrls={(data?.photos || []).map((p) => p.imageUrl as string)}
+                onMultipleUrls={addPhotoUrls}
+                onGallerySync={syncGalleryFromFolder}
+              />
             )}
             <Field label={editId ? "Caption" : "Optional caption for next upload"}>
               <input className="input-field max-w-sm" value={form.caption || ""} onChange={(e) => setForm({ ...form, caption: e.target.value })} />
@@ -1693,10 +1714,17 @@ export default function AdminEventDetail() {
     const itemId = (item: Item) => item.id as string;
 
     return (
-      <SortableList<Item>
-        items={items}
-        onReorder={reorderItems}
-        renderItem={(item: Item, index) => (
+      <div>
+        {tab === "photos" && items.length > 0 && (
+          <p className="mb-3 text-sm text-zinc-500">
+            Drag the grip handle to change order. Trash deletes the image file from{" "}
+            <code className="text-zinc-400">data/images/{eventPhotoFolder}</code>.
+          </p>
+        )}
+        <SortableList<Item>
+          items={items}
+          onReorder={reorderItems}
+          renderItem={(item: Item, index) => (
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1 text-sm text-zinc-200">
                   {tab === "tracks" && (
@@ -2026,11 +2054,18 @@ export default function AdminEventDetail() {
                     </a>
                   )}
                   {tab === "photos" && (
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4">
                       {(item.imageUrl as string) && (
-                        <img src={item.imageUrl as string} alt="" className="h-12 w-12 rounded object-cover" />
+                        <img
+                          src={item.imageUrl as string}
+                          alt=""
+                          className="h-24 w-36 shrink-0 rounded-lg border border-zinc-700 object-contain bg-zinc-950"
+                        />
                       )}
-                      <span>{(item.caption as string) || "Photo"}</span>
+                      <div>
+                        <p className="font-medium text-zinc-100">{(item.caption as string) || `Photo ${index + 1}`}</p>
+                        <p className="mt-1 text-xs text-zinc-500 break-all">{(item.imageUrl as string) || ""}</p>
+                      </div>
                     </div>
                   )}
             </div>
@@ -2047,13 +2082,15 @@ export default function AdminEventDetail() {
                 type="button"
                 onClick={() => deleteEntity(entityMap[tab], item.id as string)}
                 className="text-red-400 hover:text-red-300"
+                title={tab === "photos" ? "Delete photo and remove file from folder" : "Delete"}
               >
                 <Trash2 className="h-4 w-4" />
               </button>
             </div>
           </div>
         )}
-      />
+        />
+      </div>
     );
   };
 

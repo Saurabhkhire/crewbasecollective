@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:05:23.050Z",
-    "updatedAt": "2026-07-29T05:06:05.130Z"
+    "updatedAt": "2026-07-30T08:54:54.120Z"
   },
   "tracks": [],
   "sponsors": [
@@ -141,6 +141,43 @@
     }
   ],
   "links": [],
-  "photos": [],
+  "photos": [
+    {
+      "id": "4f3a40c3-3a71-4001-9a11-63eb50b3c330",
+      "imageUrl": "/images/events/build-your-ai-organization-workshop/WhatsApp Image 2026-07-28 at 4.46.31 AM.jpeg",
+      "caption": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "61e0b897-ef19-4261-93d9-e88df26eec90",
+      "imageUrl": "/images/events/build-your-ai-organization-workshop/WhatsApp Image 2026-07-28 at 4.46.30 AM (3).jpeg",
+      "caption": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "c947b548-1455-4e54-b56f-c741eecb8f61",
+      "imageUrl": "/images/events/build-your-ai-organization-workshop/WhatsApp Image 2026-07-28 at 4.46.30 AM (2).jpeg",
+      "caption": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "9b766c9f-4574-4676-923b-4ca5439975e6",
+      "imageUrl": "/images/events/build-your-ai-organization-workshop/WhatsApp Image 2026-07-28 at 4.46.31 AM (2).jpeg",
+      "caption": null,
+      "sortOrder": 3
+    },
+    {
+      "id": "5e79d281-a99a-4dae-98cc-453314ddf96a",
+      "imageUrl": "/images/events/build-your-ai-organization-workshop/WhatsApp Image 2026-07-28 at 4.46.30 AM (1).jpeg",
+      "caption": null,
+      "sortOrder": 4
+    },
+    {
+      "id": "ac5b3bb4-695e-414f-a0a2-47fd18449ed5",
+      "imageUrl": "/images/events/build-your-ai-organization-workshop/WhatsApp Image 2026-07-28 at 4.46.30 AM.jpeg",
+      "caption": null,
+      "sortOrder": 5
+    }
+  ],
   "liveState": null
 }

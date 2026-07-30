@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:03:00.105Z",
-    "updatedAt": "2026-07-29T04:54:52.586Z"
+    "updatedAt": "2026-07-30T08:58:21.221Z"
   },
   "tracks": [],
   "sponsors": [
@@ -119,6 +119,31 @@
     }
   ],
   "links": [],
-  "photos": [],
+  "photos": [
+    {
+      "id": "a6c5dc9c-2ff4-465d-8b72-8ff4d4548dae",
+      "imageUrl": "/images/events/prompt-to-production-ai-builders-secure-code-and-skills-workshop/1.jpg",
+      "caption": null,
+      "sortOrder": 0
+    },
+    {
+      "id": "c4f43416-ae6d-4a12-aa63-3a15e7e94c2f",
+      "imageUrl": "/images/events/prompt-to-production-ai-builders-secure-code-and-skills-workshop/2.jpg",
+      "caption": null,
+      "sortOrder": 1
+    },
+    {
+      "id": "aae9153b-27d9-4f17-ae4f-6d281a6deda2",
+      "imageUrl": "/images/events/prompt-to-production-ai-builders-secure-code-and-skills-workshop/3.jpg",
+      "caption": null,
+      "sortOrder": 2
+    },
+    {
+      "id": "8194df95-7339-4e05-a9c4-9345630055a8",
+      "imageUrl": "/images/events/prompt-to-production-ai-builders-secure-code-and-skills-workshop/4.jpg",
+      "caption": null,
+      "sortOrder": 3
+    }
+  ],
   "liveState": null
 }
