@@ -14,7 +14,7 @@
     "location": "AWS Builders Loft, 525 Market St, San Francisco, CA 94015",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785311651085-ima1tt2rob8.png",
+    "coverImageUrl": "/images/covers/bay-builders-hackathon.png",
     "coverPageUrl": "",
     "lumaLink": null,
     "eventbriteLink": null,
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-30T09:05:21.880Z",
+    "updatedAt": "2026-07-31T09:39:11.747Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -837,7 +837,7 @@
     {
       "id": "dc8a1cac-8deb-4c25-bf84-3b88745d94e1",
       "label": "Hackathon photos",
-      "url": "https://peterliuphotos.pic-time.com/client/bay-builder-hackathon/",
+      "url": "https://peterliuphotos.pic-time.com/client/bay-builder-hackathon/gallery",
       "sortOrder": 0
     }
   ],

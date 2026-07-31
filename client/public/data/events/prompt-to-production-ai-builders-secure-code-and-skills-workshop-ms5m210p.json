@@ -14,7 +14,7 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785300887881-wp5l0h4lfwt.png",
+    "coverImageUrl": "/images/covers/prompt-to-production-ai-builders-secure-code-and-skills-workshop.png",
     "coverPageUrl": "",
     "lumaLink": null,
     "eventbriteLink": null,
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:03:00.105Z",
-    "updatedAt": "2026-07-30T08:58:21.221Z",
+    "updatedAt": "2026-07-30T21:29:17.524Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -32,7 +32,7 @@
       "id": "fc9b44d8-2b16-41ab-97ef-80c2fbbab11b",
       "companyName": "AutonomLayer",
       "companyWebsite": "https://autonomlayer.com/",
-      "companyLogo": "/images/companies/1785214210652-01i2saorytfi.png",
+      "companyLogo": "/images/companies/autonomlayer.png",
       "companyDescription": "​AutonomLayer is an autonomous AI software engineering platform that goes beyond traditional AI coding assistants. Instead of requiring continuous prompting, it independently plans work, generates and refines prompts, writes code, tests, debugs, reviews, and iterates until an application is production-ready.",
       "representatives": []
     },
@@ -40,7 +40,7 @@
       "id": "2e01f365-7ded-405d-91b4-3813c5ea48ba",
       "companyName": "Synk",
       "companyWebsite": "https://snyk.io/",
-      "companyLogo": "/images/companies/1785214232494-1vzvughomb1.jpg",
+      "companyLogo": "/images/companies/synk.jpg",
       "companyDescription": "​Snyk helps developers build securely by automatically finding and fixing vulnerabilities in code, open-source dependencies, containers, and infrastructure. It's an essential part of modern software development, ensuring that AI-generated code is secure before it reaches production.",
       "representatives": []
     },
@@ -48,7 +48,7 @@
       "id": "d9fd880c-5fa7-4c28-857a-d09ea52c61a2",
       "companyName": "Finchip AI",
       "companyWebsite": "https://finchip.ai/",
-      "companyLogo": "/images/companies/1785212159902-1n84dyel8sj.jpg",
+      "companyLogo": "/images/companies/finchip-ai.jpg",
       "companyDescription": "​FinChip helps turn AI skills into ownable digital assets that can be launched, discovered, used, and traded. For builders exploring agent capabilities, skill marketplaces, and programmable AI services, FinChip opens up a new way to think about software as something agents can own and invoke.",
       "representatives": [
         {
@@ -72,7 +72,7 @@
       "customType": null,
       "companyName": "Homebrew Club",
       "companyWebsite": "https://homebrewclub.berrry.app/",
-      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyLogo": "/images/companies/homebrew-club.jpg",
       "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
     }
   ],

@@ -1,0 +1,42 @@
+{
+  "event": {
+    "id": "698b5b15-2256-4abb-95f4-758f4eb2a84d",
+    "slug": "builders-campfire-ms8rgmyh",
+    "name": "Builders Campfire",
+    "type": "hackathon",
+    "description": "An intimate night for founders, engineers, and creators building the future\n\n​The best products are built when ambitious people come together.\n\n​Builder Campfire is a private gathering for founders, engineers, and creators to connect through real conversations, shared experiences, and the stories behind the things they build.\n\n​This is not another networking event.\n\n​No awkward introductions.\nNo endless pitches.\nNo collecting random LinkedIn connections.\n\n​Just a room full of builders sharing ideas, lessons, challenges, and opportunities.",
+    "theme": "",
+    "dayLabel": "Mon, Aug 17",
+    "eventDate": "2026-08-17",
+    "endDate": "2026-08-17",
+    "startTime": "18:00",
+    "endTime": "21:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/builders-campfire.png",
+    "coverPageUrl": "",
+    "lumaLinks": [
+      "https://luma.com/vsl63ftr"
+    ],
+    "eventbriteLinks": [],
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-31T09:47:07.256Z",
+    "updatedAt": "2026-07-31T09:49:30.811Z",
+    "lumaLink": "https://luma.com/vsl63ftr",
+    "eventbriteLink": null
+  },
+  "tracks": [],
+  "sponsors": [],
+  "partners": [],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [],
+  "links": [],
+  "photos": [],
+  "liveState": null
+}

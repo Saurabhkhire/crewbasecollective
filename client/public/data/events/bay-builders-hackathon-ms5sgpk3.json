@@ -14,7 +14,7 @@
     "location": "AWS Builders Loft, 525 Market St, San Francisco, CA 94015",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785311651085-ima1tt2rob8.png",
+    "coverImageUrl": "/images/covers/bay-builders-hackathon.png",
     "coverPageUrl": "",
     "lumaLink": null,
     "eventbriteLink": null,
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-30T09:05:21.880Z",
+    "updatedAt": "2026-07-31T09:39:11.747Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -69,7 +69,7 @@
       "id": "14f324f8-9823-4aa9-92bf-df5e00f8db27",
       "companyName": "Nebius",
       "companyWebsite": "https://nebius.com/",
-      "companyLogo": "/images/companies/1785211513988-8tlzc2qqnhq.png",
+      "companyLogo": "/images/companies/nebius.png",
       "companyDescription": "​Nebius provides full-stack AI cloud infrastructure for developers, startups, enterprises, and research teams. Its platform helps teams build, train, and deploy AI products in a secure, high-performance, and cost-efficient environment.",
       "representatives": [
         {
@@ -84,7 +84,7 @@
       "id": "3bd015dc-55f3-4473-86d4-10051a87335a",
       "companyName": "Tavily",
       "companyWebsite": "https://www.tavily.com/",
-      "companyLogo": "/images/companies/1785213491420-hxrrbxy4ydv.png",
+      "companyLogo": "/images/companies/tavily.png",
       "companyDescription": "​Tavily gives builders powerful search and research infrastructure for AI applications. It helps teams create agents, tools, and workflows that can access relevant web information and reason with better context.",
       "representatives": [
         {
@@ -99,7 +99,7 @@
       "id": "93eab37c-f76b-45bf-a50f-a8b9cce09d6c",
       "companyName": "InsForge",
       "companyWebsite": "https://insforge.dev/",
-      "companyLogo": "/images/companies/1785211739551-lkj2ozofmy.png",
+      "companyLogo": "/images/companies/insforge.png",
       "companyDescription": "​InsForge is building agent-native cloud infrastructure for modern AI development. It brings together model gateway, compute, deployment, database, authentication, and more so AI coding agents can operate across the full development workflow.",
       "representatives": [
         {
@@ -126,7 +126,7 @@
       "id": "277dcdb7-dcbb-49f2-9577-f78f931a46a1",
       "companyName": "Kylon",
       "companyWebsite": "https://kylon.io/",
-      "companyLogo": "/images/companies/1785211592121-b8chlaj1059.png",
+      "companyLogo": "/images/companies/kylon.png",
       "companyDescription": "​Kylon is an AI agent team that runs your entire business.",
       "representatives": [
         {
@@ -147,7 +147,7 @@
       "id": "a827b4a7-abe3-46d9-882e-8497d1d6bec1",
       "companyName": "Nimble",
       "companyWebsite": "https://www.nimbleway.com/",
-      "companyLogo": "/images/companies/1785211444029-sgjdq58awfs.png",
+      "companyLogo": "/images/companies/nimble.png",
       "companyDescription": "​Nimble enables your AI agents and teams to stream the precise intelligence they need from the live web, powered by infrastructure built to reliably access even the most complex, difficult-to-reach data.",
       "representatives": []
     },
@@ -155,7 +155,7 @@
       "id": "a7538f70-6613-4f1d-b971-6f5b878dce52",
       "companyName": "GrowthMasters",
       "companyWebsite": "https://growthmasters.io/",
-      "companyLogo": "/images/companies/1785211989271-7oxq54g1bsp.jpg",
+      "companyLogo": "/images/companies/growthmasters.jpg",
       "companyDescription": "GrowthMasters is a growth-focused platform that helps businesses and startups accelerate their growth through strategic marketing, sales, and business development solutions. It focuses on helping companies improve customer acquisition, optimize growth strategies, and build scalable systems for long-term success.",
       "representatives": [
         {
@@ -176,7 +176,7 @@
       "id": "67ff0465-85da-4753-afe4-98c0cdfa9ef1",
       "companyName": "HydraDB",
       "companyWebsite": "https://hydradb.com/",
-      "companyLogo": "/images/companies/1785211850174-m6oeejytwp.png",
+      "companyLogo": "/images/companies/hydradb.png",
       "companyDescription": "​The serverless context infra built with in-memory data stores: ultra low latency, highest precision recall, and relationally-aware. Build memory layers, stateful agents, and context stores with the highest accuracy.",
       "representatives": [
         {
@@ -191,7 +191,7 @@
       "id": "fdf69101-1693-49a4-9621-9ecc9b8e06f5",
       "companyName": "Cognee",
       "companyWebsite": "https://www.cognee.ai/",
-      "companyLogo": "/images/companies/1785212290007-ewyk32c92u.png",
+      "companyLogo": "/images/companies/cognee.png",
       "companyDescription": "​Cognee is an open-source memory platform for AI agents that transforms documents, relational data, and system context into persistent memory. It helps agents retain context across sessions and integrates seamlessly with tools like Claude Code, Codex, OpenClaw, and n8n.",
       "representatives": [
         {
@@ -206,7 +206,7 @@
       "id": "4c3fac63-1419-45ca-a51b-c841f7b47ca4",
       "companyName": "BAND",
       "companyWebsite": "https://www.band.ai/",
-      "companyLogo": "/images/companies/1785212397077-z4nmmk0w89.png",
+      "companyLogo": "/images/companies/band.png",
       "companyDescription": "​BAND is an enterprise-grade interaction layer that enables humans and AI agents to collaborate seamlessly. It provides real-time communication, built-in governance, and a structured framework for managing complex multi-agent systems securely and at scale.",
       "representatives": [
         {
@@ -221,7 +221,7 @@
       "id": "dadece0a-b7da-40f0-9413-d5db47f59c39",
       "companyName": "You.com",
       "companyWebsite": "https://you.com/",
-      "companyLogo": "/images/companies/1785209932980-p8bizqeq4s8.png",
+      "companyLogo": "/images/companies/you-com.png",
       "companyDescription": "​You.com delivers leading Web Search APIs for AI systems. It powers applications that reason like experts and act through intelligent agents and workflows using real-time, citation-backed answers built on proprietary vertical and domain-specific web indices.",
       "representatives": [
         {
@@ -242,7 +242,7 @@
       "id": "29f6992f-451d-4865-aa7a-a469c460682f",
       "companyName": "RocketRide",
       "companyWebsite": "https://cloud.rocketride.ai/",
-      "companyLogo": "/images/companies/1785210080444-4uisnjke947.jpg",
+      "companyLogo": "/images/companies/rocketride.jpg",
       "companyDescription": "RocketRide is an open-source AI workflow platform that enables developers to build, debug, and deploy AI applications without ever leaving their IDE. Its powerful meta-harness streamlines the entire development lifecycle, making it easy to create, test, and optimize AI workflows in one place.",
       "representatives": [
         {
@@ -263,7 +263,7 @@
       "id": "3f1ca1b9-d576-4b88-aac0-85f04b9d5324",
       "companyName": "Finchip AI",
       "companyWebsite": "https://finchip.ai/",
-      "companyLogo": "/images/companies/1785212159902-1n84dyel8sj.jpg",
+      "companyLogo": "/images/companies/finchip-ai.jpg",
       "companyDescription": "​FinChip helps turn AI skills into ownable digital assets that can be launched, discovered, used, and traded. For builders exploring agent capabilities, skill marketplaces, and programmable AI services, FinChip opens up a new way to think about software as something agents can own and invoke.",
       "representatives": [
         {
@@ -284,7 +284,7 @@
       "id": "4e5f9da2-8d25-4883-b0bf-80f6b77babd5",
       "companyName": "Govia",
       "companyWebsite": "https://govia.app/",
-      "companyLogo": "/images/companies/1785212098749-ovvyz6or0h.png",
+      "companyLogo": "/images/companies/govia.png",
       "companyDescription": "​GoVia is a technology platform dedicated to improving safety, transparency, and communication during police-community interactions. Through innovative tools and accessible resources, GoVia empowers individuals with information, support, and guidance to promote accountability, de-escalation, and informed decision-making.",
       "representatives": [
         {
@@ -302,7 +302,7 @@
       "customType": null,
       "companyName": "Amazon",
       "companyWebsite": "https://www.amazon.com/",
-      "companyLogo": "/images/companies/1785212689187-f3m6tc56v9n.png",
+      "companyLogo": "/images/companies/amazon.png",
       "companyDescription": "Amazon Web Services (AWS) is a leading cloud computing platform that provides on-demand infrastructure, storage, databases, AI services, and developer tools. It enables businesses and developers to build, deploy, and scale applications without managing physical servers."
     },
     {
@@ -310,7 +310,7 @@
       "customType": null,
       "companyName": "Devnovate",
       "companyWebsite": "https://devnovate.co/",
-      "companyLogo": "/images/companies/1785222057323-b6nwi8hknnm.png",
+      "companyLogo": "/images/companies/devnovate.png",
       "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions."
     }
   ],
@@ -909,7 +909,7 @@
     {
       "id": "dc8a1cac-8deb-4c25-bf84-3b88745d94e1",
       "label": "Hackathon photos",
-      "url": "https://peterliuphotos.pic-time.com/client/bay-builder-hackathon/",
+      "url": "https://peterliuphotos.pic-time.com/client/bay-builder-hackathon/gallery",
       "sortOrder": 0
     }
   ],

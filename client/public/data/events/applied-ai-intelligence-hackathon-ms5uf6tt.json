@@ -14,7 +14,7 @@
     "location": "Frontier Tower, 995 Market Street, San Francisco, CA 94103",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785314939953-73sy5ahvhk2.png",
+    "coverImageUrl": "/images/covers/applied-ai-intelligence-hackathon.png",
     "coverPageUrl": "",
     "lumaLink": null,
     "eventbriteLink": null,
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-29T08:49:03.574Z",
+    "updatedAt": "2026-07-30T21:29:17.516Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -69,7 +69,7 @@
       "id": "21cba2ba-69a7-4e5a-88b0-3e875215337d",
       "companyName": "Tigris Data",
       "companyWebsite": "https://www.tigrisdata.com/",
-      "companyLogo": "/images/companies/1785209887348-be6rimqs8qm.png",
+      "companyLogo": "/images/companies/tigris-data.png",
       "companyDescription": "Tigris Data is a cloud storage company that provides a globally distributed, S3-compatible object storage service designed for modern applications, especially AI and machine learning workloads",
       "representatives": [
         {
@@ -84,7 +84,7 @@
       "id": "60538d7a-74bb-4e82-872f-c8cc4a6838fa",
       "companyName": "Apify",
       "companyWebsite": "https://apify.com/",
-      "companyLogo": "/images/companies/1785212496944-ep49vacvynw.png",
+      "companyLogo": "/images/companies/apify.png",
       "companyDescription": "Apify is a cloud platform for web scraping, data extraction, and browser automation that helps developers and businesses collect, process, and analyze web data at scale. It provides ready-made tools (Actors) and infrastructure for automating web tasks, crawling websites, and building data pipelines.",
       "representatives": [
         {
@@ -105,7 +105,7 @@
       "id": "264c6130-f5f5-4774-b432-6395615c9355",
       "companyName": "Nebius",
       "companyWebsite": "https://nebius.com/",
-      "companyLogo": "/images/companies/1785211513988-8tlzc2qqnhq.png",
+      "companyLogo": "/images/companies/nebius.png",
       "companyDescription": "​Nebius provides full-stack AI cloud infrastructure for developers, startups, enterprises, and research teams. Its platform helps teams build, train, and deploy AI products in a secure, high-performance, and cost-efficient environment.",
       "representatives": [
         {
@@ -120,7 +120,7 @@
       "id": "081af4ad-833e-42d7-b32f-59e0545637c6",
       "companyName": "Daytona",
       "companyWebsite": "https://www.daytona.io/",
-      "companyLogo": "/images/companies/1785212203278-lxedpo8hkf.png",
+      "companyLogo": "/images/companies/daytona.png",
       "companyDescription": "Daytona is a secure and scalable infrastructure platform for running AI-generated code and AI agent workflows. It provides isolated, programmable environments (sandboxes) where developers and AI systems can safely execute code, test applications, and run complex workflows without risking underlying",
       "representatives": [
         {
@@ -141,7 +141,7 @@
       "id": "0d3d5ebb-ffca-41d3-8d5b-663f212c888b",
       "companyName": "Render",
       "companyWebsite": "https://render.com/",
-      "companyLogo": "/images/companies/1785210685334-zb544j28zlk.png",
+      "companyLogo": "/images/companies/render.png",
       "companyDescription": "Render is a cloud application platform that helps developers build, deploy, and scale web applications, APIs, databases, and background services without managing complex infrastructure. It provides a simple developer experience with automatic deployments, managed services, and scalable hosting.",
       "representatives": [
         {
@@ -156,7 +156,7 @@
       "id": "50a0fcfc-74b7-47f2-a96f-c7a165fab564",
       "companyName": "InsForge",
       "companyWebsite": "https://insforge.dev/",
-      "companyLogo": "/images/companies/1785211739551-lkj2ozofmy.png",
+      "companyLogo": "/images/companies/insforge.png",
       "companyDescription": "​InsForge is building agent-native cloud infrastructure for modern AI development. It brings together model gateway, compute, deployment, database, authentication, and more so AI coding agents can operate across the full development workflow.",
       "representatives": [
         {
@@ -171,7 +171,7 @@
       "id": "f7843622-ebf2-4995-8995-f05e2515356d",
       "companyName": "Opsera",
       "companyWebsite": "https://opsera.ai/",
-      "companyLogo": "/images/companies/1785211323810-kxkhx97kf6.png",
+      "companyLogo": "/images/companies/opsera.png",
       "companyDescription": "Opsera is an AI-powered continuous delivery and DevOps automation platform that helps organizations streamline software delivery, improve engineering productivity, and manage complex DevOps workflows. It provides a unified platform to build, deploy, secure, and monitor applications across multiple environments and cloud providers.",
       "representatives": [
         {
@@ -186,7 +186,7 @@
       "id": "fc255264-8285-428e-bf05-f47c0904d931",
       "companyName": "Retriver AI",
       "companyWebsite": "https://www.rtrvr.ai/",
-      "companyLogo": "/images/companies/1785210183784-u6ht0kn917g.png",
+      "companyLogo": "/images/companies/retriver-ai.png",
       "companyDescription": "Retriver AI is an AI web agent platform that enables users to automate web browsing, data extraction, and repetitive browser workflows using natural language. Instead of writing custom scripts or web scrapers, you describe a task in plain English, and the AI agent performs it in a real browser.",
       "representatives": [
         {
@@ -207,7 +207,7 @@
       "id": "ea507a73-48ab-4c71-bcc4-b7da45543fba",
       "companyName": "Brain2",
       "companyWebsite": null,
-      "companyLogo": "/images/companies/1785212352576-n9x2vj2y3r.png",
+      "companyLogo": "/images/companies/brain2.png",
       "companyDescription": "A second brain to help humans liberate their first one",
       "representatives": [
         {
@@ -222,7 +222,7 @@
       "id": "e4c19b85-5bce-4c32-8204-a44c400f3830",
       "companyName": "Kalibr",
       "companyWebsite": "https://kalibr.systems/",
-      "companyLogo": "/images/companies/1785211669589-r5qzcb3d83o.jpg",
+      "companyLogo": "/images/companies/kalibr.jpg",
       "companyDescription": "Kalibr is an AI infrastructure platform designed to make AI agents more reliable, efficient, and autonomous. It helps AI systems complete complex, multi-step workflows by monitoring execution, detecting failures, and dynamically improving how models and tools are used",
       "representatives": [
         {
@@ -237,7 +237,7 @@
       "id": "a9c85403-4742-4044-bd9c-cddbf227d1e6",
       "companyName": "Tavily",
       "companyWebsite": "https://www.tavily.com/",
-      "companyLogo": "/images/companies/1785213491420-hxrrbxy4ydv.png",
+      "companyLogo": "/images/companies/tavily.png",
       "companyDescription": "​Tavily gives builders powerful search and research infrastructure for AI applications. It helps teams create agents, tools, and workflows that can access relevant web information and reason with better context.",
       "representatives": [
         {
@@ -255,7 +255,7 @@
       "customType": null,
       "companyName": "Frontier Tower",
       "companyWebsite": "https://frontiertower.io/",
-      "companyLogo": "/images/companies/1785213449727-wcwud560ckg.jpg",
+      "companyLogo": "/images/companies/frontier-tower.jpg",
       "companyDescription": "Frontier Tower is a 16-floor innovation hub in San Francisco being transformed into a self-governed vertical village for frontier technologies and creative expression. It brings together leading researchers, builders, entrepreneurs, and artists working at the edge of human progress."
     },
     {
@@ -263,7 +263,7 @@
       "customType": null,
       "companyName": "Devnovate",
       "companyWebsite": "https://devnovate.co/",
-      "companyLogo": "/images/companies/1785222057323-b6nwi8hknnm.png",
+      "companyLogo": "/images/companies/devnovate.png",
       "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions."
     }
   ],

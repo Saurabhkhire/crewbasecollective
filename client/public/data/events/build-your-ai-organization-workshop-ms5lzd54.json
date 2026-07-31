@@ -14,7 +14,7 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785300761392-no293cxnb19.png",
+    "coverImageUrl": "/images/covers/build-your-ai-organization-workshop.png",
     "coverPageUrl": "",
     "lumaLink": null,
     "eventbriteLink": null,
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:05:23.050Z",
-    "updatedAt": "2026-07-30T08:54:54.120Z",
+    "updatedAt": "2026-07-30T21:29:17.518Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -32,7 +32,7 @@
       "id": "a91d7871-821f-4d7f-8062-a71ad34dfa6c",
       "companyName": "Kylon",
       "companyWebsite": "https://kylon.io/",
-      "companyLogo": "/images/companies/1785211592121-b8chlaj1059.png",
+      "companyLogo": "/images/companies/kylon.png",
       "companyDescription": "​Kylon is an AI agent team that runs your entire business.",
       "representatives": [
         {
@@ -53,7 +53,7 @@
       "id": "0bac90a5-861b-4ec3-83d4-d8c51ee41ac2",
       "companyName": "Nebius",
       "companyWebsite": "https://nebius.com/",
-      "companyLogo": "/images/companies/1785211513988-8tlzc2qqnhq.png",
+      "companyLogo": "/images/companies/nebius.png",
       "companyDescription": "​Nebius provides full-stack AI cloud infrastructure for developers, startups, enterprises, and research teams. Its platform helps teams build, train, and deploy AI products in a secure, high-performance, and cost-efficient environment.",
       "representatives": [
         {
@@ -71,7 +71,7 @@
       "customType": null,
       "companyName": "Homebrew Club",
       "companyWebsite": "https://homebrewclub.berrry.app/",
-      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyLogo": "/images/companies/homebrew-club.jpg",
       "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
     }
   ],

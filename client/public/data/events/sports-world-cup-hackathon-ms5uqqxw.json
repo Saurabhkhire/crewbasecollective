@@ -14,7 +14,7 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785315481268-lqv2l1p16m.png",
+    "coverImageUrl": "/images/covers/sports-world-cup-hackathon.png",
     "coverPageUrl": "",
     "lumaLink": null,
     "eventbriteLink": null,
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-30T09:00:43.928Z",
+    "updatedAt": "2026-07-30T21:29:17.517Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -63,7 +63,7 @@
       "id": "889a2a40-e29c-440e-b1a6-be2878b30e07",
       "companyName": "InsForge",
       "companyWebsite": "https://insforge.dev/",
-      "companyLogo": "/images/companies/1785211739551-lkj2ozofmy.png",
+      "companyLogo": "/images/companies/insforge.png",
       "companyDescription": "​InsForge is building agent-native cloud infrastructure for modern AI development. It brings together model gateway, compute, deployment, database, authentication, and more so AI coding agents can operate across the full development workflow.",
       "representatives": [
         {
@@ -78,7 +78,7 @@
       "id": "59635313-1e18-4cc4-a010-a8f2ef5f7272",
       "companyName": "Lyzr",
       "companyWebsite": "https://www.lyzr.ai/",
-      "companyLogo": "/images/companies/1785213855303-od1hbol7hl.jpg",
+      "companyLogo": "/images/companies/lyzr.jpg",
       "companyDescription": "Build production-grade, multi-agent AI workflows for sports analytics or coaching insights using a low-code agentic framework.",
       "representatives": []
     },
@@ -86,7 +86,7 @@
       "id": "e8b89a3d-841c-4700-bd43-39239ba53237",
       "companyName": "AIHouse",
       "companyWebsite": "https://www.aihouze.xyz/",
-      "companyLogo": "/images/companies/1785214106783-aaozmtkpwz.png",
+      "companyLogo": "/images/companies/aihouse.png",
       "companyDescription": "​AIHouse is the community layer powering this ecosystem. Built for founders, researchers, engineers, students, and AI enthusiasts, AI House creates a space where people consistently learn, share, collaborate, and grow together.",
       "representatives": []
     },
@@ -94,7 +94,7 @@
       "id": "35bf42c0-e584-4018-9a61-80a554e57d87",
       "companyName": "Qdrant",
       "companyWebsite": "https://qdrant.tech/",
-      "companyLogo": "/images/companies/1785213967203-32dt41o2s98.png",
+      "companyLogo": "/images/companies/qdrant.png",
       "companyDescription": "Power your app with high-performance vector search—perfect for multi-modal sports data, video retrieval, and biometrics.",
       "representatives": []
     },
@@ -102,7 +102,7 @@
       "id": "450174d8-aa61-45eb-bee5-3e75042bb8f8",
       "companyName": "Enkrypt AI",
       "companyWebsite": "https://www.enkryptai.com/",
-      "companyLogo": "/images/companies/1785214016121-qa2cw4l9azs.png",
+      "companyLogo": "/images/companies/enkrypt-ai.png",
       "companyDescription": "Secure your generative AI products and guard against data leaks, hallucinations, and adversarial attacks.",
       "representatives": []
     }
@@ -113,7 +113,7 @@
       "customType": null,
       "companyName": "Homebrew Club",
       "companyWebsite": "https://homebrewclub.berrry.app/",
-      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyLogo": "/images/companies/homebrew-club.jpg",
       "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
     }
   ],

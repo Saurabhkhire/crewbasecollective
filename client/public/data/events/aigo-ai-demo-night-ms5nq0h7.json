@@ -14,7 +14,7 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785303687104-uwourtmioek.png",
+    "coverImageUrl": "/images/covers/aigo-ai-demo-night.png",
     "coverPageUrl": "",
     "lumaLink": null,
     "eventbriteLink": null,
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T04:44:48.617Z",
-    "updatedAt": "2026-07-29T05:41:31.243Z",
+    "updatedAt": "2026-07-30T21:29:17.510Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -32,7 +32,7 @@
       "id": "674ad6b8-5ab8-47e6-9fb9-7cb20b6d1f27",
       "companyName": "AIGO AI",
       "companyWebsite": "https://aigo.ai/",
-      "companyLogo": "/images/companies/1785214390082-1ompbza0xii.jpg",
+      "companyLogo": "/images/companies/aigo-ai.jpg",
       "companyDescription": "Aigo is a Cognitive AI platform focused on building adaptive, self-learning AI systems that go beyond traditional large language models. Instead of relying on massive datasets and probabilistic generation, Aigo emphasizes continuous learning, reasoning, memory, and contextual understanding to create intelligent assistants for enterprise applications",
       "representatives": []
     }
@@ -43,7 +43,7 @@
       "customType": null,
       "companyName": "Homebrew Club",
       "companyWebsite": "https://homebrewclub.berrry.app/",
-      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyLogo": "/images/companies/homebrew-club.jpg",
       "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
     }
   ],

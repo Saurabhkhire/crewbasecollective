@@ -14,7 +14,7 @@
     "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785301524693-1jewnp7hw4n.png",
+    "coverImageUrl": "/images/covers/design-deploy-workshop.png",
     "coverPageUrl": "",
     "lumaLink": null,
     "eventbriteLink": null,
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:01:14.531Z",
-    "updatedAt": "2026-07-30T08:58:46.823Z",
+    "updatedAt": "2026-07-30T21:29:17.527Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -32,7 +32,7 @@
       "id": "51f23bc5-7459-46b5-9e08-a1ce3f8b31a0",
       "companyName": "InsForge",
       "companyWebsite": "https://insforge.dev/",
-      "companyLogo": "/images/companies/1785211739551-lkj2ozofmy.png",
+      "companyLogo": "/images/companies/insforge.png",
       "companyDescription": "​InsForge is building agent-native cloud infrastructure for modern AI development. It brings together model gateway, compute, deployment, database, authentication, and more so AI coding agents can operate across the full development workflow.",
       "representatives": [
         {
@@ -47,7 +47,7 @@
       "id": "05c4560e-d178-44d1-8c7c-95f2bb4835e4",
       "companyName": "Replit",
       "companyWebsite": "https://replit.com/",
-      "companyLogo": "/images/companies/1785210602454-dx8jzplit9.png",
+      "companyLogo": "/images/companies/replit.png",
       "companyDescription": "​Replit helps builders create, collaborate, and deploy software directly from the browser. At Wizard Hackathon, Replit gives participants credits to move faster from idea to working product.",
       "representatives": [
         {
@@ -68,7 +68,7 @@
       "id": "263e2cfe-8922-4f36-b2b1-045aa30c1ba3",
       "companyName": "Lovable",
       "companyWebsite": "https://lovable.dev/",
-      "companyLogo": "/images/companies/1785215321643-m6ltslhzfc.png",
+      "companyLogo": "/images/companies/lovable.png",
       "companyDescription": "Lovable is an AI-powered application development platform that enables users to build full-stack web applications using natural language. By describing an idea in plain English, developers and non-developers can generate production-ready applications with frontend, backend, database integration, and authentication—without starting from scratch.",
       "representatives": []
     },
@@ -76,7 +76,7 @@
       "id": "f4a5a12c-a2de-4904-b4c4-6b1dcc365590",
       "companyName": "Google AI Studio",
       "companyWebsite": "https://aistudio.google.com/",
-      "companyLogo": "/images/companies/1785215361028-iecfkvfgw9.jpg",
+      "companyLogo": "/images/companies/google-ai-studio.jpg",
       "companyDescription": "Google AI Studio is Google's web-based platform for building, testing, and deploying applications powered by Gemini AI models. It provides an intuitive environment for prompt engineering, model experimentation, and API integration, making it easy to prototype and integrate generative AI into applications.",
       "representatives": []
     }
@@ -87,7 +87,7 @@
       "customType": null,
       "companyName": "Homebrew Club",
       "companyWebsite": "https://homebrewclub.berrry.app/",
-      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyLogo": "/images/companies/homebrew-club.jpg",
       "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
     }
   ],

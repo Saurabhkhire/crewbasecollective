@@ -248,11 +248,11 @@ export default function AdminEvents() {
                 label="Cover Image"
                 imageUrl={form.coverImageUrl}
                 onImageUrl={(url) => setForm((prev) => ({ ...prev, coverImageUrl: url }))}
-                folder={eventImageFolder(form.name)}
+                folder="covers"
                 naming="named"
-                fileName="cover"
-                syncFolders={["covers"]}
-                syncNames={[sanitizeImageBasename(form.name)]}
+                fileName={form.name}
+                syncFolders={[eventImageFolder(form.name)]}
+                syncNames={["cover", sanitizeImageBasename(form.name)]}
                 syncLabel="cover"
               />
             </div>

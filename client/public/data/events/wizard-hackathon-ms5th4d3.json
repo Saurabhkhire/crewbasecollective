@@ -14,7 +14,7 @@
     "location": "Frontier Tower, 995 Market Street, San Francisco, CA 94103",
     "locationLat": null,
     "locationLng": null,
-    "coverImageUrl": "/images/covers/1785313352478-uybhqulahdg.png",
+    "coverImageUrl": "/images/covers/wizard-hackathon.png",
     "coverPageUrl": "",
     "lumaLink": null,
     "eventbriteLink": null,
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-30T09:09:46.678Z",
+    "updatedAt": "2026-07-30T21:29:17.512Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -57,7 +57,7 @@
       "id": "2f54340c-86c7-4fe3-8497-4bdbf2d0dc19",
       "companyName": "Nebius",
       "companyWebsite": "https://nebius.com/",
-      "companyLogo": "/images/companies/1785211513988-8tlzc2qqnhq.png",
+      "companyLogo": "/images/companies/nebius.png",
       "companyDescription": "​Nebius provides full-stack AI cloud infrastructure for developers, startups, enterprises, and research teams. Its platform helps teams build, train, and deploy AI products in a secure, high-performance, and cost-efficient environment.",
       "representatives": [
         {
@@ -72,7 +72,7 @@
       "id": "050e4280-56f0-4195-b1f5-06709948d78c",
       "companyName": "InsForge",
       "companyWebsite": "https://insforge.dev/",
-      "companyLogo": "/images/companies/1785211739551-lkj2ozofmy.png",
+      "companyLogo": "/images/companies/insforge.png",
       "companyDescription": "​InsForge is building agent-native cloud infrastructure for modern AI development. It brings together model gateway, compute, deployment, database, authentication, and more so AI coding agents can operate across the full development workflow.",
       "representatives": [
         {
@@ -99,7 +99,7 @@
       "id": "bf946d6e-129f-4d6a-9a21-b2fc7fa91136",
       "companyName": "You.com",
       "companyWebsite": "https://you.com/",
-      "companyLogo": "/images/companies/1785209932980-p8bizqeq4s8.png",
+      "companyLogo": "/images/companies/you-com.png",
       "companyDescription": "​You.com delivers leading Web Search APIs for AI systems. It powers applications that reason like experts and act through intelligent agents and workflows using real-time, citation-backed answers built on proprietary vertical and domain-specific web indices.",
       "representatives": [
         {
@@ -120,7 +120,7 @@
       "id": "120677ca-f90c-4b82-bbcf-f8ec9a9c84e9",
       "companyName": "Tavily",
       "companyWebsite": "https://www.tavily.com/",
-      "companyLogo": "/images/companies/1785213491420-hxrrbxy4ydv.png",
+      "companyLogo": "/images/companies/tavily.png",
       "companyDescription": "​Tavily gives builders powerful search and research infrastructure for AI applications. It helps teams create agents, tools, and workflows that can access relevant web information and reason with better context.",
       "representatives": [
         {
@@ -135,7 +135,7 @@
       "id": "6bfaddf9-c539-418c-848a-ef3537c959a9",
       "companyName": "Replit",
       "companyWebsite": "https://replit.com/",
-      "companyLogo": "/images/companies/1785210602454-dx8jzplit9.png",
+      "companyLogo": "/images/companies/replit.png",
       "companyDescription": "​Replit helps builders create, collaborate, and deploy software directly from the browser. At Wizard Hackathon, Replit gives participants credits to move faster from idea to working product.",
       "representatives": [
         {
@@ -150,7 +150,7 @@
       "id": "7727eb21-86ba-4dea-855d-8a41847e40f5",
       "companyName": "TRAE",
       "companyWebsite": "https://www.trae.ai/",
-      "companyLogo": "/images/companies/1785209332208-gyb68tkmu7n.jpg",
+      "companyLogo": "/images/companies/trae.jpg",
       "companyDescription": "Trae supports builders with AI-powered coding tools to help participants move faster while building their hackathon projects.",
       "representatives": [
         {
@@ -165,7 +165,7 @@
       "id": "eb862ba9-4437-40a8-8dc2-0487dfab3134",
       "companyName": "Growing Pies",
       "companyWebsite": "https://growingpies.ai/",
-      "companyLogo": "/images/companies/1785212050319-omg4gxox09h.jpg",
+      "companyLogo": "/images/companies/growing-pies.jpg",
       "companyDescription": "​Growing Pies is supporting builders at Wizard Hackathon with a dedicated winning prize and helping bring more energy, opportunity, and momentum to the builder community.",
       "representatives": [
         {
@@ -180,7 +180,7 @@
       "id": "31cf67ef-0d78-4de4-a5a6-58d66115c041",
       "companyName": "Homebrew Club",
       "companyWebsite": "https://homebrewclub.berrry.app/",
-      "companyLogo": "/images/companies/1785211931500-0xgj3yjuoanb.jpg",
+      "companyLogo": "/images/companies/homebrew-club.jpg",
       "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures.",
       "representatives": [
         {
@@ -195,7 +195,7 @@
       "id": "7ee1241e-d8d2-4f64-9f75-894da42f4685",
       "companyName": "Finchip AI",
       "companyWebsite": "https://finchip.ai/",
-      "companyLogo": "/images/companies/1785212159902-1n84dyel8sj.jpg",
+      "companyLogo": "/images/companies/finchip-ai.jpg",
       "companyDescription": "​FinChip helps turn AI skills into ownable digital assets that can be launched, discovered, used, and traded. For builders exploring agent capabilities, skill marketplaces, and programmable AI services, FinChip opens up a new way to think about software as something agents can own and invoke.",
       "representatives": [
         {
@@ -225,7 +225,7 @@
       "customType": null,
       "companyName": "Frontier Tower",
       "companyWebsite": "https://frontiertower.io/",
-      "companyLogo": "/images/companies/1785213449727-wcwud560ckg.jpg",
+      "companyLogo": "/images/companies/frontier-tower.jpg",
       "companyDescription": "Frontier Tower is a 16-floor innovation hub in San Francisco being transformed into a self-governed vertical village for frontier technologies and creative expression. It brings together leading researchers, builders, entrepreneurs, and artists working at the edge of human progress."
     },
     {
@@ -233,7 +233,7 @@
       "customType": null,
       "companyName": "Devnovate",
       "companyWebsite": "https://devnovate.co/",
-      "companyLogo": "/images/companies/1785222057323-b6nwi8hknnm.png",
+      "companyLogo": "/images/companies/devnovate.png",
       "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions."
     }
   ],

@@ -901,11 +901,11 @@ export default function AdminEventDetail() {
             label=""
             imageUrl={formStr(basicsForm.coverImageUrl) || null}
             onImageUrl={(url) => setBasicsForm((prev) => ({ ...prev, coverImageUrl: url }))}
-            folder={eventPhotoFolder}
+            folder="covers"
             naming="named"
-            fileName="cover"
-            syncFolders={["covers"]}
-            syncNames={[sanitizeImageBasename(eventDisplayName)]}
+            fileName={eventDisplayName}
+            syncFolders={[eventPhotoFolder]}
+            syncNames={["cover", sanitizeImageBasename(eventDisplayName)]}
             syncLabel="cover"
             disabled={savingBasics}
           />
