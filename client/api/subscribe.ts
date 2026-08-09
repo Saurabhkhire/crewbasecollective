@@ -96,8 +96,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
       res.status(500).json({
         error: "Could not save subscription. Please try again.",
-        status: result.status,
-        detail: result.body.slice(0, 300),
       });
       return;
     }
@@ -107,7 +105,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.error("[Subscribe]", err);
     res.status(500).json({
       error: "Could not save subscription. Please try again.",
-      detail: err instanceof Error ? err.message : String(err),
     });
   }
 }
