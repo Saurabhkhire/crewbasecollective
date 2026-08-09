@@ -232,6 +232,12 @@
           "name": "Frontier Tower",
           "logoUrl": "/images/companies/frontier-tower.jpg",
           "website": "https://frontiertower.io/"
+        },
+        {
+          "id": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+          "name": "Homebrew Club",
+          "logoUrl": "/images/companies/homebrew-club.jpg",
+          "website": "https://homebrewclub.berrry.app/"
         }
       ]
     },
@@ -259,6 +265,12 @@
       "name": "Frontier Tower",
       "logoUrl": "/images/companies/frontier-tower.jpg",
       "website": "https://frontiertower.io/"
+    },
+    {
+      "id": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
+      "name": "Homebrew Club",
+      "logoUrl": "/images/companies/homebrew-club.jpg",
+      "website": "https://homebrewclub.berrry.app/"
     }
   ],
   "communityPartners": [

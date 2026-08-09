@@ -1046,11 +1046,6 @@ function buildSponsorsPublic() {
     }
   }
 
-  // Sponsors win over partner listings for the same company
-  for (const id of sponsors.keys()) {
-    for (const map of partnersByType.values()) map.delete(id);
-  }
-
   const partnerTypeOrder = [
     "venue",
     "ventures",
