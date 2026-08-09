@@ -1,5 +1,13 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createClient } from "@supabase/supabase-js";
+import dns from "node:dns";
+
+// Avoid intermittent Undici "fetch failed" on Vercel when IPv6 is preferred
+try {
+  dns.setDefaultResultOrder("ipv4first");
+} catch {
+  /* older Node */
+}
 
 function isEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -31,8 +39,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return;
     }
 
-    const url = process.env.SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const url = (process.env.SUPABASE_URL || "").trim();
+    const key = (process.env.SUPABASE_SERVICE_ROLE_KEY || "").trim();
     if (!url || !key) {
       console.error(
         "[Subscribe] Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY"
@@ -44,33 +52,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return;
     }
 
-    const supabase = createClient(url, key);
+    const supabase = createClient(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+
     const { error } = await supabase.from("subscribers").upsert(
       { email },
       { onConflict: "email", ignoreDuplicates: true }
     );
 
     if (error) {
-      console.error("[Subscribe] Supabase error:", error.message, error.code, error);
+      console.error(
+        "[Subscribe] Supabase error:",
+        error.message,
+        error.code,
+        error
+      );
       if (error.code === "23505") {
         res.status(200).json({ success: true, stored: true });
         return;
       }
-      // Unique constraint missing / schema mismatch — try plain insert
-      const insert = await supabase.from("subscribers").insert({ email });
-      if (insert.error) {
-        if (insert.error.code === "23505") {
-          res.status(200).json({ success: true, stored: true });
-          return;
-        }
-        console.error("[Subscribe] Insert error:", insert.error.message, insert.error);
-        res.status(500).json({
-          error: "Could not save subscription. Please try again.",
-          detail: insert.error.message,
-        });
-        return;
-      }
-      res.status(200).json({ success: true, stored: true });
+      res.status(500).json({
+        error: "Could not save subscription. Please try again.",
+      });
       return;
     }
 
@@ -78,8 +82,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   } catch (err) {
     console.error("[Subscribe]", err);
     res.status(500).json({
-      error: "Internal server error",
-      detail: err instanceof Error ? err.message : String(err),
+      error: "Could not save subscription. Please try again.",
     });
   }
 }
