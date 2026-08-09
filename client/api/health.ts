@@ -1,12 +1,16 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { allowCors, handleOptions } from "../server-lib/http";
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
-  allowCors(res);
-  if (handleOptions(req, res)) return;
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") {
+    res.status(204).end();
+    return;
+  }
   if (req.method !== "GET") {
     res.status(405).json({ error: "Method not allowed" });
     return;
   }
-  res.json({ ok: true, mode: "api" });
+  res.status(200).json({ ok: true, mode: "api" });
 }
