@@ -51,20 +51,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
 
     if (error) {
-      console.error("[Subscribe] Supabase error:", error.message, error);
+      console.error("[Subscribe] Supabase error:", error.message, error.code, error);
       if (error.code === "23505") {
         res.status(200).json({ success: true, stored: true });
         return;
       }
-      res.status(500).json({
-        error: "Could not save subscription. Please try again.",
-      });
+      // Unique constraint missing / schema mismatch — try plain insert
+      const insert = await supabase.from("subscribers").insert({ email });
+      if (insert.error) {
+        if (insert.error.code === "23505") {
+          res.status(200).json({ success: true, stored: true });
+          return;
+        }
+        console.error("[Subscribe] Insert error:", insert.error.message, insert.error);
+        res.status(500).json({
+          error: "Could not save subscription. Please try again.",
+          detail: insert.error.message,
+        });
+        return;
+      }
+      res.status(200).json({ success: true, stored: true });
       return;
     }
 
     res.status(200).json({ success: true, stored: true });
   } catch (err) {
     console.error("[Subscribe]", err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({
+      error: "Internal server error",
+      detail: err instanceof Error ? err.message : String(err),
+    });
   }
 }
