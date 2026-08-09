@@ -16,13 +16,15 @@
     "locationLng": null,
     "coverImageUrl": "/images/covers/prompt-to-production-ai-builders-secure-code-and-skills-workshop.png",
     "coverPageUrl": "",
-    "lumaLink": "",
-    "eventbriteLink": "",
+    "lumaLink": null,
+    "eventbriteLink": null,
     "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:03:00.105Z",
-    "updatedAt": "2026-07-30T21:29:17.524Z"
+    "updatedAt": "2026-08-08T08:08:36.426Z",
+    "lumaLinks": [],
+    "eventbriteLinks": []
   },
   "tracks": [],
   "sponsors": [
@@ -31,14 +33,34 @@
       "companyId": "33646e72-dd9d-42e5-b978-4c6c5bae1d50",
       "personId": null,
       "sortOrder": 0,
-      "representatives": []
+      "representatives": [
+        {
+          "userId": "947a945f-84c7-4ef5-893d-33791fb876ed",
+          "status": "confirmed"
+        }
+      ],
+      "status": "confirmed"
     },
     {
       "id": "2e01f365-7ded-405d-91b4-3813c5ea48ba",
       "companyId": "15b62625-a629-406c-a14a-bd7c07e451b8",
       "personId": null,
       "sortOrder": 1,
-      "representatives": []
+      "representatives": [
+        {
+          "userId": "47b22c7f-d158-4ab3-b4e9-d60014f79d1e",
+          "status": "confirmed"
+        },
+        {
+          "userId": "5e741a93-4420-4cbe-b002-f65dc37328fb",
+          "status": "confirmed"
+        },
+        {
+          "userId": "89ae7b35-aef0-456e-8d9c-1b9f3d484fd1",
+          "status": "confirmed"
+        }
+      ],
+      "status": "confirmed"
     },
     {
       "id": "d9fd880c-5fa7-4c28-857a-d09ea52c61a2",
@@ -47,12 +69,15 @@
       "sortOrder": 2,
       "representatives": [
         {
-          "userId": "3ba0ec20-3861-40da-90c4-41a0e1eabc29"
+          "userId": "3ba0ec20-3861-40da-90c4-41a0e1eabc29",
+          "status": "confirmed"
         },
         {
-          "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c"
+          "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     }
   ],
   "partners": [
@@ -61,7 +86,9 @@
       "companyId": "a0d39611-427c-4b7d-b19e-2c2113b9f38c",
       "customName": null,
       "partnerType": "venue",
-      "customType": null
+      "customType": null,
+      "status": "confirmed",
+      "representatives": []
     }
   ],
   "prizes": [],
@@ -75,7 +102,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "173c306a-5b03-4bb3-a163-c64be6da3593",
@@ -83,15 +111,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 1
-    },
-    {
-      "id": "8afb10d8-b993-4fe8-94ac-f7c4797427f5",
-      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "sortOrder": 2
+      "sortOrder": 1,
+      "status": "confirmed"
     },
     {
       "id": "d0e2ec01-3c6a-4934-af5b-54c890d4ac33",
@@ -99,7 +120,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 3
+      "sortOrder": 3,
+      "status": "confirmed"
     },
     {
       "id": "b0c56d47-36fe-4821-9a9b-dde0840b4443",
@@ -107,7 +129,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 4
+      "sortOrder": 4,
+      "status": "confirmed"
     },
     {
       "id": "e1b041a2-836b-4186-8d89-f04c89ca0742",
@@ -115,7 +138,44 @@
       "hostType": "host",
       "customType": null,
       "role": null,
+      "sortOrder": 5,
+      "status": "confirmed"
+    },
+    {
+      "id": "137bb782-fb38-4323-8df0-c1810b2ef8c9",
+      "userId": "947a945f-84c7-4ef5-893d-33791fb876ed",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
       "sortOrder": 5
+    },
+    {
+      "id": "76743a4d-13b5-4ce3-a04a-07cff01bd198",
+      "userId": "47b22c7f-d158-4ab3-b4e9-d60014f79d1e",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 6
+    },
+    {
+      "id": "54efbee7-f79f-4e0e-85aa-6f2fe7f6f297",
+      "userId": "5e741a93-4420-4cbe-b002-f65dc37328fb",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 7
+    },
+    {
+      "id": "65607c24-fd60-4c07-9ad7-3f88522fbb88",
+      "userId": "89ae7b35-aef0-456e-8d9c-1b9f3d484fd1",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 8
     }
   ],
   "links": [],
@@ -145,5 +205,6 @@
       "sortOrder": 3
     }
   ],
-  "liveState": null
+  "liveState": null,
+  "staffRoles": []
 }

@@ -16,13 +16,15 @@
     "locationLng": null,
     "coverImageUrl": "/images/covers/build-your-ai-organization-workshop.png",
     "coverPageUrl": "",
-    "lumaLink": "",
-    "eventbriteLink": "",
+    "lumaLink": null,
+    "eventbriteLink": null,
     "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:05:23.050Z",
-    "updatedAt": "2026-07-30T21:29:17.518Z"
+    "updatedAt": "2026-08-07T09:15:07.878Z",
+    "lumaLinks": [],
+    "eventbriteLinks": []
   },
   "tracks": [],
   "sponsors": [
@@ -33,12 +35,15 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e"
+          "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
+          "status": "confirmed"
         },
         {
-          "userId": "58551e72-eca6-4e63-bb8e-466194849542"
+          "userId": "58551e72-eca6-4e63-bb8e-466194849542",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "0bac90a5-861b-4ec3-83d4-d8c51ee41ac2",
@@ -47,9 +52,11 @@
       "sortOrder": 1,
       "representatives": [
         {
-          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0"
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     }
   ],
   "partners": [
@@ -59,7 +66,9 @@
       "customName": null,
       "partnerType": "venue",
       "customType": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed",
+      "representatives": []
     }
   ],
   "prizes": [],
@@ -73,7 +82,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "0f6bc212-bfc0-40de-a078-ad244d9950e8",
@@ -81,15 +91,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 1
-    },
-    {
-      "id": "1c335185-ceae-4adb-9eec-69cfd6254d71",
-      "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "sortOrder": 2
+      "sortOrder": 1,
+      "status": "confirmed"
     },
     {
       "id": "27e8e01a-7891-4598-8378-d4552f60e752",
@@ -97,7 +100,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 3
+      "sortOrder": 3,
+      "status": "confirmed"
     },
     {
       "id": "3b2e40c0-c9fc-4ebd-aea9-6cae5e05dff3",
@@ -105,7 +109,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 4
+      "sortOrder": 4,
+      "status": "confirmed"
     },
     {
       "id": "1d9f0a05-5290-46c3-b735-04a2a7a7402b",
@@ -113,7 +118,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 5
+      "sortOrder": 5,
+      "status": "confirmed"
     },
     {
       "id": "8cd23308-ab2d-47b4-8a2b-1cd7dcde3414",
@@ -121,7 +127,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 6
+      "sortOrder": 6,
+      "status": "confirmed"
     },
     {
       "id": "7fd7b308-8feb-4335-b7a6-d8b625d23d2f",
@@ -129,7 +136,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 7
+      "sortOrder": 7,
+      "status": "confirmed"
     },
     {
       "id": "337a72d0-33ba-43fa-ade1-d51735f2249e",
@@ -137,7 +145,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 8
+      "sortOrder": 8,
+      "status": "confirmed"
     }
   ],
   "links": [],
@@ -179,5 +188,6 @@
       "sortOrder": 5
     }
   ],
-  "liveState": null
+  "liveState": null,
+  "staffRoles": []
 }

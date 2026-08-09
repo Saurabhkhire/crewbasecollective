@@ -65,7 +65,7 @@ export function SponsorDisplay({
             alt={`${title} logo`}
             className={cn(
               "mx-auto block w-full object-contain object-center",
-              compact ? "max-h-24" : "max-h-36 sm:max-h-40"
+              compact ? "max-h-24" : "h-36 sm:h-40"
             )}
             loading="lazy"
           />
@@ -74,7 +74,7 @@ export function SponsorDisplay({
         <div
           className={cn(
             "mt-4 flex w-full items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--panel)]",
-            compact ? "h-20" : "h-28 sm:h-32"
+            compact ? "h-20" : "h-36 sm:h-40"
           )}
         >
           <span className="text-2xl font-bold text-[var(--cyan)]">{title.charAt(0)}</span>

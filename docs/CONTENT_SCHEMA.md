@@ -81,8 +81,10 @@ crewbasecollective/
       "role": "participant",
       "title": "Founder",
       "phone": null,
+      "notes": null,
       "companyId": "uuid-or-null",
       "companyName": "Crewbase Collective",
+      "roles": [],
       "createdAt": "ISO-8601",
       "updatedAt": "ISO-8601"
     }
@@ -91,9 +93,8 @@ crewbasecollective/
 ```
 
 **Was Supabase table:** `users`  
-`role` values: `participant`, `speaker`, `judge`, `host`, `volunteer`, `sponsor_rep`, `organizer`, `other`
-
-Public roles on the site come from **event assignments** (judges, speakers, hosts, etc.), not only this field.
+`role` values: `participant`, `speaker`, `judge`, `host`, `volunteer`, `sponsor_rep`, `organizer`, `other`  
+`email`, `phone`, and `notes` are admin-only (not written to public `people.json`).
 
 ---
 
@@ -112,11 +113,15 @@ One JSON file per event. Top-level shape:
   "speakers": [],
   "judges": [],
   "hosts": [],
+  "associated": [],
+  "staffRoles": [],
   "links": [],
   "photos": [],
   "liveState": { "liveReassignmentAt": null }
 }
 ```
+
+`associated` are admin-only contacts and are **never** written to `client/public/data`. Partners may use `companyId: null` with `customName` + a representative for an individual (no company). Legacy `externals` are migrated into `associated` on load.
 
 #### `event` (basics)
 
@@ -148,12 +153,14 @@ One JSON file per event. Top-level shape:
 |----------|----------------------|--------|
 | `tracks` | `tracks` | Hackathon / pitch only |
 | `sponsors` | `event_sponsors` + `event_sponsor_representatives` | `representatives: [{ userId }]` |
-| `partners` | `event_partners` | `partnerType`: venue, technology, community, media, food, other, custom |
+| `partners` | `event_partners` | `partnerType`: venue, technology, community, media, food, other, custom. `companyId` may be null for an individual (`customName` + reps) |
 | `prizes` | `prizes` | `placement`: first, second, third, winning, custom |
 | `schedule` | `schedule_items` + `schedule_speakers` | Nested `speakers` per slot |
 | `speakers` | `event_speakers` | Standalone speaker timeline |
 | `judges` | `event_judges` | Hackathon / pitch only |
 | `hosts` | `event_hosts` | `hostType`: host, sponsor, venue_partner, volunteer, other |
+| `associated` | — | Admin-only associated people; never published. Legacy `externals` migrate here |
+| `staffRoles` | — | Legacy sub-role rows; visible ones may appear as public `team` |
 | `links` | `event_links` | |
 | `photos` | `event_photos` | `imageUrl` → `/images/events/{slug}/photos/...` |
 | `liveState` | `schedule_live_state` | Optional 1:1 per event |

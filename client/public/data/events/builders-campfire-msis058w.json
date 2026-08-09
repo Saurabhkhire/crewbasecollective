@@ -1,0 +1,131 @@
+{
+  "event": {
+    "id": "698b5b15-2256-4abb-95f4-758f4eb2a84d",
+    "slug": "builders-campfire-msis058w",
+    "name": "Builders Campfire",
+    "type": "mixer",
+    "description": "An intimate night for founders, engineers, and creators building the future\n\n​The best products are built when ambitious people come together.\n\n​Builder Campfire is a private gathering for founders, engineers, and creators to connect through real conversations, shared experiences, and the stories behind the things they build.\n\n​This is not another networking event.\n\n​No awkward introductions.\nNo endless pitches.\nNo collecting random LinkedIn connections.\n\n​Just a room full of builders sharing ideas, lessons, challenges, and opportunities.",
+    "theme": "",
+    "dayLabel": "Mon, Aug 17",
+    "eventDate": "2026-08-17",
+    "endDate": "2026-08-17",
+    "startTime": "18:00",
+    "endTime": "21:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "/images/covers/builders-campfire.png",
+    "coverPageUrl": "",
+    "lumaLinks": [
+      "https://luma.com/vsl63ftr"
+    ],
+    "eventbriteLinks": [],
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-07-31T09:47:07.256Z",
+    "updatedAt": "2026-08-08T05:36:57.102Z",
+    "lumaLink": "https://luma.com/vsl63ftr",
+    "eventbriteLink": null
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "88330b3a-9d19-49a7-bdb0-5ccf537652ba",
+      "companyName": "Kylon",
+      "companyWebsite": "https://kylon.io/",
+      "companyLogo": "/images/companies/kylon.png",
+      "companyDescription": "​Kylon is an AI agent team that runs your entire business.",
+      "representatives": [
+        {
+          "username": "Christina Bowllan",
+          "linkedin": "https://www.linkedin.com/in/christina-bowllan-074563177/",
+          "role": "Founding Team",
+          "companyName": "Kylon"
+        }
+      ]
+    },
+    {
+      "id": "a6689078-6ecf-4221-94b4-4d5a422012e1",
+      "companyName": "Cresca",
+      "companyWebsite": "https://cresca.ai/",
+      "companyLogo": "/images/companies/cresca.png",
+      "companyDescription": "Cresca is an AI-powered relationship memory tool that helps users capture, organize, and recall important details about the people they meet, making it easier to build and maintain meaningful connections.",
+      "representatives": []
+    }
+  ],
+  "partners": [],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "HiJenny"
+    },
+    {
+      "username": "Stella Xiao",
+      "linkedin": "https://www.linkedin.com/in/stella-xiao/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co Founder",
+      "companyName": "Satorial"
+    },
+    {
+      "username": "Kimson Doan",
+      "linkedin": "https://www.linkedin.com/in/kimsondoan/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Content Strategist",
+      "companyName": "Kataria Digital"
+    },
+    {
+      "username": "Robin Meister",
+      "linkedin": "https://www.linkedin.com/in/robinmeister/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Partnership Manager",
+      "companyName": "FutureHouse AI"
+    },
+    {
+      "username": "Ruomeng Sun",
+      "linkedin": "https://www.linkedin.com/in/ruomengsun/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "GTM",
+      "companyName": "Photon.codes"
+    },
+    {
+      "username": "Christina Bowllan",
+      "linkedin": "https://www.linkedin.com/in/christina-bowllan-074563177/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founding Team",
+      "companyName": "Kylon"
+    }
+  ],
+  "volunteers": [],
+  "team": [],
+  "links": [],
+  "photos": []
+}

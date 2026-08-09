@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-31T09:39:11.747Z",
+    "updatedAt": "2026-08-07T08:13:06.574Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -298,20 +298,31 @@
   ],
   "partners": [
     {
+      "id": "2505933f-7d56-4ea3-8aa2-a8363d9f851a",
       "partnerType": "venue",
       "customType": null,
       "companyName": "Amazon",
       "companyWebsite": "https://www.amazon.com/",
       "companyLogo": "/images/companies/amazon.png",
-      "companyDescription": "Amazon Web Services (AWS) is a leading cloud computing platform that provides on-demand infrastructure, storage, databases, AI services, and developer tools. It enables businesses and developers to build, deploy, and scale applications without managing physical servers."
+      "companyDescription": "Amazon Web Services (AWS) is a leading cloud computing platform that provides on-demand infrastructure, storage, databases, AI services, and developer tools. It enables businesses and developers to build, deploy, and scale applications without managing physical servers.",
+      "representatives": []
     },
     {
+      "id": "4744f687-f82d-42f2-bffe-b78af06fed0f",
       "partnerType": "community",
       "customType": null,
       "companyName": "Devnovate",
       "companyWebsite": "https://devnovate.co/",
       "companyLogo": "/images/companies/devnovate.png",
-      "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions."
+      "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions.",
+      "representatives": [
+        {
+          "username": "Aviral Bharadwaj",
+          "linkedin": "https://www.linkedin.com/in/aviral-bhardwaj/",
+          "role": "Founder",
+          "companyName": "Devnovate"
+        }
+      ]
     }
   ],
   "prizes": [
@@ -815,24 +826,6 @@
       "companyName": "Pacific Gas and Electric Company"
     },
     {
-      "username": "Elaine H",
-      "linkedin": "https://www.linkedin.com/in/elaine-hladik/",
-      "hostType": "volunteer",
-      "customType": null,
-      "role": null,
-      "title": "Founding Grwth",
-      "companyName": "Clera"
-    },
-    {
-      "username": "Wendy Wang",
-      "linkedin": "https://www.linkedin.com/in/wendianwang/",
-      "hostType": "volunteer",
-      "customType": null,
-      "role": null,
-      "title": "Computer Teaching Assistant",
-      "companyName": "Welsey College"
-    },
-    {
       "username": "Chelsey Huang",
       "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
       "hostType": "host",
@@ -849,15 +842,6 @@
       "role": null,
       "title": "GTM",
       "companyName": "Finchip AI"
-    },
-    {
-      "username": "Haruka Takamori",
-      "linkedin": "https://www.linkedin.com/in/haruka-takamori-morimori/",
-      "hostType": "volunteer",
-      "customType": null,
-      "role": null,
-      "title": "Co-Founder",
-      "companyName": "Svyal"
     },
     {
       "username": "Saurabh Khire",
@@ -878,15 +862,6 @@
       "companyName": "HiJenny"
     },
     {
-      "username": "Aviral Bharadwaj",
-      "linkedin": "https://www.linkedin.com/in/aviral-bhardwaj/",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "title": "Founder",
-      "companyName": "Devnovate"
-    },
-    {
       "username": "Amitabh Das",
       "linkedin": "https://www.linkedin.com/in/das-amitabh/",
       "hostType": "host",
@@ -905,6 +880,36 @@
       "companyName": "FutureHouse AI"
     }
   ],
+  "volunteers": [
+    {
+      "username": "Elaine H",
+      "linkedin": "https://www.linkedin.com/in/elaine-hladik/",
+      "hostType": "volunteer",
+      "customType": null,
+      "role": null,
+      "title": "Founding Grwth",
+      "companyName": "Clera"
+    },
+    {
+      "username": "Wendy Wang",
+      "linkedin": "https://www.linkedin.com/in/wendianwang/",
+      "hostType": "volunteer",
+      "customType": null,
+      "role": null,
+      "title": "Computer Teaching Assistant",
+      "companyName": "Welsey College"
+    },
+    {
+      "username": "Haruka Takamori",
+      "linkedin": "https://www.linkedin.com/in/haruka-takamori-morimori/",
+      "hostType": "volunteer",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Svyal"
+    }
+  ],
+  "team": [],
   "links": [
     {
       "id": "dc8a1cac-8deb-4c25-bf84-3b88745d94e1",

@@ -16,13 +16,15 @@
     "locationLng": null,
     "coverImageUrl": "/images/covers/applied-ai-intelligence-hackathon.png",
     "coverPageUrl": "",
-    "lumaLink": "",
-    "eventbriteLink": "",
+    "lumaLink": null,
+    "eventbriteLink": null,
     "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-30T21:29:17.516Z"
+    "updatedAt": "2026-08-08T08:17:13.796Z",
+    "lumaLinks": [],
+    "eventbriteLinks": []
   },
   "tracks": [
     {
@@ -70,9 +72,11 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "674351b1-5833-4a82-8871-c66201154e26"
+          "userId": "674351b1-5833-4a82-8871-c66201154e26",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "60538d7a-74bb-4e82-872f-c8cc4a6838fa",
@@ -81,12 +85,15 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "939c0411-0eae-40d6-a22a-6fc63e750374"
+          "userId": "939c0411-0eae-40d6-a22a-6fc63e750374",
+          "status": "confirmed"
         },
         {
-          "userId": "76666c01-c717-400b-9c66-2fdf6df8905d"
+          "userId": "76666c01-c717-400b-9c66-2fdf6df8905d",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "264c6130-f5f5-4774-b432-6395615c9355",
@@ -95,9 +102,11 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0"
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "081af4ad-833e-42d7-b32f-59e0545637c6",
@@ -106,12 +115,15 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "f481c0e0-c88f-4ecd-b329-e0ed512b4035"
+          "userId": "f481c0e0-c88f-4ecd-b329-e0ed512b4035",
+          "status": "confirmed"
         },
         {
-          "userId": "39c7927a-d6e1-4dff-ae5a-6b0de2904ff5"
+          "userId": "39c7927a-d6e1-4dff-ae5a-6b0de2904ff5",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "0d3d5ebb-ffca-41d3-8d5b-663f212c888b",
@@ -120,9 +132,11 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "49bc8e3c-debd-4579-a9be-6cd567058dd9"
+          "userId": "49bc8e3c-debd-4579-a9be-6cd567058dd9",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "50a0fcfc-74b7-47f2-a96f-c7a165fab564",
@@ -131,9 +145,11 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03"
+          "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "f7843622-ebf2-4995-8995-f05e2515356d",
@@ -142,9 +158,11 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "7abf0d6b-1aee-4860-b564-1ab69b9e2ed8"
+          "userId": "7abf0d6b-1aee-4860-b564-1ab69b9e2ed8",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "fc255264-8285-428e-bf05-f47c0904d931",
@@ -153,12 +171,15 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "d010c64f-9835-4a5e-a9bf-78003502b085"
+          "userId": "d010c64f-9835-4a5e-a9bf-78003502b085",
+          "status": "confirmed"
         },
         {
-          "userId": "e67ec570-5118-4654-978c-2a53bbdedcc6"
+          "userId": "e67ec570-5118-4654-978c-2a53bbdedcc6",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "ea507a73-48ab-4c71-bcc4-b7da45543fba",
@@ -167,9 +188,11 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "6c7ce050-8536-48aa-8697-e0225bf83981"
+          "userId": "6c7ce050-8536-48aa-8697-e0225bf83981",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "e4c19b85-5bce-4c32-8204-a44c400f3830",
@@ -178,9 +201,11 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "e4f59da5-9d7e-4678-9efd-83a0f8055453"
+          "userId": "e4f59da5-9d7e-4678-9efd-83a0f8055453",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     },
     {
       "id": "a9c85403-4742-4044-bd9c-cddbf227d1e6",
@@ -189,9 +214,11 @@
       "sortOrder": 0,
       "representatives": [
         {
-          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0"
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+          "status": "confirmed"
         }
-      ]
+      ],
+      "status": "confirmed"
     }
   ],
   "partners": [
@@ -200,15 +227,9 @@
       "companyId": "ce36b4a9-3b26-4b98-9dcf-1a885ecdaa52",
       "customName": null,
       "partnerType": "venue",
-      "customType": null
-    },
-    {
-      "id": "6ac73814-6375-44c6-89a5-7098c4b7ab77",
-      "companyId": "d2bc21c4-ae2c-4807-ba3d-61a337406c7a",
-      "customName": null,
-      "partnerType": "community",
       "customType": null,
-      "sortOrder": 1
+      "status": "confirmed",
+      "representatives": []
     }
   ],
   "prizes": [
@@ -533,7 +554,8 @@
       "endTime": "2026-05-31T17:10:00.000Z",
       "topic": "Nebius AI cloud and Tavily",
       "isSkipped": false,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "7e6d4330-4992-41fd-aab8-90b810cf7a12",
@@ -543,7 +565,8 @@
       "endTime": "2026-05-31T17:20:00.000Z",
       "topic": "AI-Powered DevOps Automation in Opsera",
       "isSkipped": false,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "7df2e535-bb0e-42c2-9c69-c5d6a873bd80",
@@ -553,7 +576,8 @@
       "endTime": "2026-05-31T17:30:00.000Z",
       "topic": "Agent-native backend in InsForge",
       "isSkipped": false,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "0aa801d6-4f8d-4947-994e-de419221a01d",
@@ -563,7 +587,8 @@
       "endTime": "2026-05-31T17:40:00.000Z",
       "topic": "Web Scraping & Automation in Apify",
       "isSkipped": false,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "b06ae38a-56ab-4332-8bd2-c52819d25bfc",
@@ -573,7 +598,8 @@
       "endTime": "2026-05-31T17:50:00.000Z",
       "topic": "Cloud Sandbox in Daytona",
       "isSkipped": false,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "e6478a21-0012-4e36-9b11-7c5b13533776",
@@ -583,7 +609,8 @@
       "endTime": "2026-05-31T18:00:00.000Z",
       "topic": "Rules, Tracks & Submission",
       "isSkipped": false,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     }
   ],
   "judges": [
@@ -591,91 +618,106 @@
       "id": "99538544-6a4f-41a4-8ff7-cd449e3cc744",
       "userId": "967ce10f-2d9b-4aba-a4c0-b2bc2f08665e",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "818ccf02-8874-4e00-8ecd-e9a62bed2aae",
       "userId": "2a98f550-94d7-441b-9b24-9859e5fb75c3",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "487b9a95-c8e4-475f-b21f-aa4a69238d96",
       "userId": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "2380b756-2df4-428b-b6f1-5cf7e53f5fae",
       "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "303fcf13-3a36-45b8-9251-dfec328ebffa",
       "userId": "13511e40-7954-49b4-b052-99c3fdb4c400",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "f121a9d3-3abd-4538-9429-b88e4f6bfd05",
       "userId": "d010c64f-9835-4a5e-a9bf-78003502b085",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "8d72743e-c9e7-4d08-bb45-255be9a7f6fc",
       "userId": "e67ec570-5118-4654-978c-2a53bbdedcc6",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "7d2c890f-1622-4da8-8361-0e9bde3ebd87",
       "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "276cfdc1-6525-4951-a2d8-80333f4bb595",
       "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "1eeed8b8-e823-4fce-b875-a16b8d7cc015",
       "userId": "49bc8e3c-debd-4579-a9be-6cd567058dd9",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "4002dac4-5773-4fe9-b32e-2588f621f163",
       "userId": "e4f59da5-9d7e-4678-9efd-83a0f8055453",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "55c640d4-bac9-40cb-aab1-2a6342d7a05b",
       "userId": "f481c0e0-c88f-4ecd-b329-e0ed512b4035",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "1eb32e26-60b5-4853-9ea7-8a688c5c3883",
       "userId": "39c7927a-d6e1-4dff-ae5a-6b0de2904ff5",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "5b17e235-bb00-43f0-bd26-de22a9d68f8b",
       "userId": "939c0411-0eae-40d6-a22a-6fc63e750374",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "c73ae819-9eb6-444c-a493-6f1f66b553f9",
       "userId": "76666c01-c717-400b-9c66-2fdf6df8905d",
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     }
   ],
   "hosts": [
@@ -685,7 +727,8 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 0
+      "sortOrder": 0,
+      "status": "confirmed"
     },
     {
       "id": "d7b0450a-cbc2-45db-a3c3-e100e6ca709a",
@@ -693,20 +736,14 @@
       "hostType": "host",
       "customType": null,
       "role": null,
-      "sortOrder": 0
-    },
-    {
-      "id": "b271f229-5fe2-4bbd-b46e-fe980b2a5583",
-      "userId": "e2af9075-633b-48b5-9f4e-ede03672bbb1",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "sortOrder": 2
+      "sortOrder": 0,
+      "status": "confirmed"
     }
   ],
   "links": [],
   "photos": [],
   "liveState": {
     "liveReassignmentAt": "2026-07-26T11:02:25.029Z"
-  }
+  },
+  "staffRoles": []
 }

@@ -1,13 +1,17 @@
 ﻿import { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Plus, Trash2, ArrowLeft, RefreshCw, Pencil } from "lucide-react";
+import { Plus, Trash2, ArrowLeft, RefreshCw, Pencil, Mail } from "lucide-react";
 import { SortableList } from "@/components/admin/SortableList";
 import { PasteImageField } from "@/components/admin/PasteImageField";
 import { LinkListField } from "@/components/admin/LinkListField";
+import { MultiFilterSelect, matchesAnyFilter } from "@/components/admin/MultiFilterSelect";
+import { SendEmailModal } from "@/components/admin/SendEmailModal";
 import { eventImageFolder, sanitizeImageBasename } from "@/lib/upload";
 import { normalizeEventLinks } from "@/lib/event-links";
 import { api } from "@/lib/api";
 import { EVENT_TYPE_LABELS, isCompetitionEvent } from "@/lib/utils";
+import { type PersonSubRole, EVENT_ADD_MAIN_ROLES, MAIN_ROLES_WITH_SUB_ROLES, parseMultiJson, stringifyMulti } from "@/lib/roles";
+import { buildEventPeopleGroups, EVENT_MAIN_ROLES } from "@/lib/event-people";
 import LocationPicker from "@/components/LocationPicker";
 
 type Tab =
@@ -20,8 +24,106 @@ type Tab =
   | "speakers"
   | "judges"
   | "hosts"
+  | "volunteers"
+  | "associated"
+  | "people"
   | "links"
   | "photos";
+
+type RoleStatus = "confirmed" | "maybe" | "no_response";
+
+const STATUS_OPTIONS: { value: RoleStatus; label: string }[] = [
+  { value: "confirmed", label: "Confirmed" },
+  { value: "maybe", label: "Maybe" },
+  { value: "no_response", label: "No response" },
+];
+
+const STATUS_BADGE: Record<RoleStatus, string> = {
+  confirmed: "bg-emerald-900/40 text-emerald-300",
+  maybe: "bg-amber-900/40 text-amber-300",
+  no_response: "bg-zinc-800 text-zinc-400",
+};
+
+function StatusBadge({ status }: { status?: string }) {
+  const s = (status === "maybe" || status === "no_response" ? status : "confirmed") as RoleStatus;
+  return (
+    <span className={`rounded-full px-2 py-0.5 text-xs ${STATUS_BADGE[s]}`}>
+      {STATUS_OPTIONS.find((o) => o.value === s)?.label}
+    </span>
+  );
+}
+
+function StatusSelect({
+  value,
+  onChange,
+  className = "",
+}: {
+  value: string | undefined;
+  onChange: (value: RoleStatus) => void;
+  className?: string;
+}) {
+  return (
+    <select
+      className={`input-field !w-auto min-w-[130px] ${className}`}
+      value={(value as RoleStatus) || "confirmed"}
+      onChange={(e) => onChange(e.target.value as RoleStatus)}
+    >
+      {STATUS_OPTIONS.map((o) => (
+        <option key={o.value} value={o.value}>
+          {o.label}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+interface Rep {
+  userId: string;
+  status: RoleStatus;
+}
+
+function parseReps(json: string | undefined): Rep[] {
+  if (!json) return [];
+  try {
+    const parsed = JSON.parse(json);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter((r) => r && typeof r.userId === "string")
+      .map((r) => ({ userId: r.userId, status: (r.status as RoleStatus) || "confirmed" }));
+  } catch {
+    return [];
+  }
+}
+
+function stringifyReps(reps: Rep[]): string {
+  return JSON.stringify(reps);
+}
+
+/** Link a person's name to LinkedIn, or a company's name to its website, when available. */
+function EntityLink({
+  name,
+  href,
+  className = "",
+}: {
+  name: string;
+  href?: string | null;
+  className?: string;
+}) {
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        onClick={(e) => e.stopPropagation()}
+        className={`text-brand-400 hover:underline ${className}`}
+      >
+        {name}
+      </a>
+    );
+  }
+  return <span className={className}>{name}</span>;
+}
 
 interface EventData {
   id: string;
@@ -46,6 +148,7 @@ interface EventData {
   eventbriteLink: string | null;
   groupLink: string | null;
   isPartnerEvent: boolean;
+  isPublished?: boolean;
 }
 
 type Item = { id: string; [key: string]: unknown };
@@ -60,6 +163,9 @@ interface SubData {
   speakers: Item[];
   judges: Item[];
   hosts: Item[];
+  volunteers: Item[];
+  associated: Item[];
+  staffRoles: Item[];
   links: Item[];
   photos: Item[];
 }
@@ -83,6 +189,9 @@ const entityMap: Record<Exclude<Tab, "basics">, string> = {
   speakers: "speaker",
   judges: "judge",
   hosts: "host",
+  volunteers: "host",
+  associated: "associated",
+  people: "staff_role",
   links: "link",
   photos: "photo",
 };
@@ -90,14 +199,20 @@ const entityMap: Record<Exclude<Tab, "basics">, string> = {
 const TAB_HELP: Record<Tab, string> = {
   basics: "Edit name, type, date, times, location, cover, registration and group links.",
   tracks: "Hackathon / pitch tracks — name and description.",
-  sponsors: "Select a company and representatives. Drag to reorder. Reps stay in sync with Judges.",
-  partners: "Select a company and partner type. Logo and description come from Companies.",
+  sponsors: "Select a company, representatives, and status. Drag to reorder. Reps stay in sync with Judges. Only confirmed sponsors/reps show publicly.",
+  partners:
+    "Company partners or a single individual (no company). Only confirmed partners/reps show publicly. Individuals appear on the event page by name.",
   prizes: "Select the sponsor first, edit the default prize name, placement and amount.",
   schedule: "Set default minutes. For multi-day events, start and end can be on different days. New slots chain from the previous end.",
-  speakers: "Set default minutes. For multi-day events, start and end can be on different days. New speakers chain from the previous end.",
-  judges: "Select judges (hackathon / pitch only). Drag to reorder.",
-  hosts: "Select a person, host type, and optional sub-role. Drag to reorder.",
-  links: "Extra external links shown on the event page.",
+  speakers: "Set default minutes. For multi-day events, start and end can be on different days. New speakers chain from the previous end. Only confirmed speakers show publicly.",
+  judges: "Select judges (hackathon / pitch only) and status. Drag to reorder. Only confirmed judges show publicly.",
+  hosts: "Select a person, host type, sub-role, and status. Drag to reorder. Only confirmed hosts show publicly.",
+  volunteers: "Select a volunteer and status. Drag to reorder. Only confirmed volunteers show publicly.",
+  associated:
+    "Admin-only associated people for this event. Assign optional sub-roles. Associated never appear on the public website.",
+  people:
+    "Add a person with one or more main roles. Sub-roles apply to host, volunteer, and associated. Associated is admin-only.",
+  links: "Extra links shown on the event page.",
   photos: "Drag the grip to reorder. Delete removes the file from the event folder too.",
 };
 
@@ -143,6 +258,7 @@ function basicsFromEvent(event: EventData) {
     eventbriteLinks: normalizeEventLinks(event.eventbriteLinks, event.eventbriteLink),
     groupLink: event.groupLink || "",
     isPartnerEvent: event.isPartnerEvent ? "true" : "false",
+    isPublished: event.isPublished !== false ? "true" : "false",
   };
 }
 
@@ -255,9 +371,20 @@ export default function AdminEventDetail() {
   const [data, setData] = useState<SubData | null>(null);
   const [tab, setTab] = useState<Tab>("basics");
   const [companies, setCompanies] = useState<
-    { id: string; name: string; information: string | null; logoUrl: string | null }[]
+    { id: string; name: string; information: string | null; logoUrl: string | null; website?: string | null }[]
   >([]);
-  const [people, setPeople] = useState<{ id: string; username: string }[]>([]);
+  const [people, setPeople] = useState<
+    { id: string; username: string; linkedin?: string | null; email?: string | null }[]
+  >([]);
+  const [subRoles, setSubRoles] = useState<PersonSubRole[]>([]);
+  const [eventMainRoleFilter, setEventMainRoleFilter] = useState<string[]>([]);
+  const [eventSubRoleFilter, setEventSubRoleFilter] = useState<string[]>([]);
+  const [eventStatusFilter, setEventStatusFilter] = useState<string[]>([]);
+  const [emailPerson, setEmailPerson] = useState<{
+    id: string;
+    username: string;
+    email: string | null;
+  } | null>(null);
   const [form, setForm] = useState<Record<string, string>>({});
   const [editId, setEditId] = useState<string | null>(null);
   const [basicsForm, setBasicsForm] = useState<Record<string, string | string[]>>({});
@@ -325,20 +452,36 @@ export default function AdminEventDetail() {
 
   const load = useCallback(async () => {
     if (!eventId) return;
-    const [allEvents, subData, companyRows, peopleRows] = await Promise.all([
+    const [allEvents, subData, companyRows, peopleRows, settings] = await Promise.all([
       api<EventData[]>("/api/admin/events"),
       api<SubData>(`/api/admin/events/${eventId}/detail`),
-      api<{ id: string; name: string; information: string | null; logoUrl: string | null }[]>(
-        "/api/admin/companies"
+      api<
+        { id: string; name: string; information: string | null; logoUrl: string | null; website?: string | null }[]
+      >("/api/admin/companies"),
+      api<{ id: string; username: string; linkedin?: string | null; email?: string | null }[]>(
+        "/api/admin/people"
       ),
-      api<{ id: string; username: string }[]>("/api/admin/people"),
+      api<{ subRoles: PersonSubRole[] }>("/api/admin/settings").catch(() => ({ subRoles: [] })),
     ]);
     const found = allEvents.find((e) => e.id === eventId) || null;
     setEvent(found);
     if (found) setBasicsForm(basicsFromEvent(found));
-    setData(subData);
+    setData({
+      ...subData,
+      volunteers: Array.isArray(subData.volunteers) ? subData.volunteers : [],
+      associated: Array.isArray(subData.associated) ? subData.associated : [],
+      staffRoles: Array.isArray(subData.staffRoles) ? subData.staffRoles : [],
+    });
     setCompanies(companyRows);
-    setPeople(peopleRows.map((u) => ({ id: u.id, username: u.username })));
+    setPeople(
+      peopleRows.map((u) => ({
+        id: u.id,
+        username: u.username,
+        linkedin: u.linkedin,
+        email: u.email ?? null,
+      }))
+    );
+    setSubRoles(Array.isArray(settings.subRoles) ? settings.subRoles : []);
   }, [eventId]);
 
   useEffect(() => {
@@ -348,17 +491,35 @@ export default function AdminEventDetail() {
   // Keep company / people dropdowns fresh on related tabs
   useEffect(() => {
     if (tab === "sponsors" || tab === "partners" || tab === "prizes") {
-      api<{ id: string; name: string; information: string | null; logoUrl: string | null }[]>(
-        "/api/admin/companies"
-      )
+      api<
+        { id: string; name: string; information: string | null; logoUrl: string | null; website?: string | null }[]
+      >("/api/admin/companies")
         .then((rows) => setCompanies(Array.isArray(rows) ? rows : []))
         .catch(() => {});
     }
-    if (tab === "speakers" || tab === "judges" || tab === "hosts" || tab === "sponsors") {
-      api<{ id: string; username: string }[]>("/api/admin/people")
+    if (
+      tab === "speakers" ||
+      tab === "judges" ||
+      tab === "hosts" ||
+      tab === "volunteers" ||
+      tab === "associated" ||
+      tab === "people" ||
+      tab === "sponsors" ||
+      tab === "partners"
+    ) {
+      api<{ id: string; username: string; linkedin?: string | null; email?: string | null }[]>(
+        "/api/admin/people"
+      )
         .then((rows) =>
           setPeople(
-            Array.isArray(rows) ? rows.map((u) => ({ id: u.id, username: u.username })) : []
+            Array.isArray(rows)
+              ? rows.map((u) => ({
+                  id: u.id,
+                  username: u.username,
+                  linkedin: u.linkedin,
+                  email: u.email ?? null,
+                }))
+              : []
           )
         )
         .catch(() => {});
@@ -388,8 +549,35 @@ export default function AdminEventDetail() {
     if (!event) return;
     const competition = isCompetitionEvent(event.type);
     const validTabs: Tab[] = competition
-      ? ["basics", "tracks", "sponsors", "partners", "prizes", "schedule", "speakers", "judges", "hosts", "links", "photos"]
-      : ["basics", "sponsors", "partners", "schedule", "speakers", "hosts", "links", "photos"];
+      ? [
+          "basics",
+          "tracks",
+          "sponsors",
+          "partners",
+          "prizes",
+          "schedule",
+          "speakers",
+          "judges",
+          "hosts",
+          "volunteers",
+          "associated",
+          "people",
+          "links",
+          "photos",
+        ]
+      : [
+          "basics",
+          "sponsors",
+          "partners",
+          "schedule",
+          "speakers",
+          "hosts",
+          "volunteers",
+          "associated",
+          "people",
+          "links",
+          "photos",
+        ];
     if (!validTabs.includes(tab)) {
       setTab(validTabs[0]);
     }
@@ -427,7 +615,7 @@ export default function AdminEventDetail() {
             .filter(Boolean),
           groupLink: basicsForm.groupLink || "",
           isPartnerEvent: basicsForm.isPartnerEvent === "true",
-          isPublished: true,
+          isPublished: basicsForm.isPublished === "true",
         }),
       });
       await load();
@@ -652,26 +840,40 @@ export default function AdminEventDetail() {
       return;
     }
     if (tab === "sponsors") {
+      const reps = Array.isArray(item.representatives)
+        ? (item.representatives as Item[]).map((r) => ({
+            userId: r.userId as string,
+            status: ((r.status as RoleStatus) || "confirmed") as RoleStatus,
+          }))
+        : [];
       setForm({
         companyId: (item.companyId as string) || "",
         logoUrl: (item.companyLogo as string) || "",
         description: (item.companyInformation as string) || "",
-        personIds: Array.isArray(item.representatives)
-          ? (item.representatives as Item[])
-              .map((r) => r.userId as string)
-              .filter(Boolean)
-              .join(",")
-          : "",
+        status: ((item.status as string) || "confirmed") as RoleStatus,
+        repsJson: stringifyReps(reps),
       });
       return;
     }
     if (tab === "partners") {
+      const reps = Array.isArray(item.representatives)
+        ? (item.representatives as Item[]).map((r) => ({
+            userId: r.userId as string,
+            status: ((r.status as RoleStatus) || "confirmed") as RoleStatus,
+          }))
+        : [];
+      const isIndividual = !(item.companyId as string);
       setForm({
+        partnerMode: isIndividual ? "individual" : "company",
         companyId: (item.companyId as string) || "",
+        customName: (item.customName as string) || "",
         logoUrl: (item.companyLogo as string) || "",
         description: (item.companyInformation as string) || "",
         partnerType: (item.partnerType as string) || "",
         customType: (item.customType as string) || "",
+        status: ((item.status as string) || "confirmed") as RoleStatus,
+        repsJson: stringifyReps(reps),
+        userId: isIndividual ? reps[0]?.userId || "" : "",
       });
       return;
     }
@@ -708,11 +910,15 @@ export default function AdminEventDetail() {
         startTime: timeInputFromIso(item.startTime),
         endTime: timeInputFromIso(item.endTime),
         topic: (item.topic as string) || "",
+        status: ((item.status as string) || "confirmed") as RoleStatus,
       });
       return;
     }
     if (tab === "judges") {
-      setForm({ userId: (item.userId as string) || "" });
+      setForm({
+        userId: (item.userId as string) || "",
+        status: ((item.status as string) || "confirmed") as RoleStatus,
+      });
       return;
     }
     if (tab === "hosts") {
@@ -721,6 +927,34 @@ export default function AdminEventDetail() {
         hostType: item.customType ? "custom" : ((item.hostType as string) || "host"),
         customType: (item.customType as string) || "",
         role: (item.role as string) || "",
+        status: ((item.status as string) || "confirmed") as RoleStatus,
+      });
+      return;
+    }
+    if (tab === "volunteers") {
+      setForm({
+        userId: (item.userId as string) || "",
+        role: (item.role as string) || "",
+        status: ((item.status as string) || "confirmed") as RoleStatus,
+      });
+      return;
+    }
+    if (tab === "associated") {
+      setForm({
+        userId: (item.userId as string) || "",
+        role: (item.role as string) || "",
+        status: ((item.status as string) || "confirmed") as RoleStatus,
+      });
+      return;
+    }
+    if (tab === "people") {
+      setForm({
+        userId: (item.userId as string) || "",
+        mainRolesJson: stringifyMulti((item.mainRoles as string[]) || []),
+        subRolesJson: stringifyMulti((item.subRoles as string[]) || []),
+        status: ((item.status as string) || "confirmed") as RoleStatus,
+        companyId: (item.companyId as string) || "",
+        partnerCompanyId: (item.partnerCompanyId as string) || "",
       });
       return;
     }
@@ -770,11 +1004,12 @@ export default function AdminEventDetail() {
     if (!eventId || tab === "basics") return;
     setError("");
     try {
+      const collection = tab === "volunteers" ? "hosts" : tab;
       await api(`/api/admin/events/${eventId}/detail`, {
         method: "POST",
         body: JSON.stringify({
           entity: "reorder",
-          data: { collection: tab, orderedIds },
+          data: { collection, orderedIds },
         }),
       });
       await load();
@@ -806,7 +1041,10 @@ export default function AdminEventDetail() {
     { key: "schedule", label: "Schedule", show: true },
     { key: "speakers", label: "Speakers", show: true },
     { key: "judges", label: "Judges", show: isCompetition },
-    { key: "hosts", label: "Hosts / Volunteers", show: true },
+    { key: "hosts", label: "Hosts", show: true },
+    { key: "volunteers", label: "Volunteers", show: true },
+    { key: "associated", label: "Associated", show: true },
+    { key: "people", label: "People", show: true },
     { key: "links", label: "Links", show: true },
     { key: "photos", label: "Photos", show: true },
   ];
@@ -934,7 +1172,7 @@ export default function AdminEventDetail() {
             onChange={(e) => setBasicsForm({ ...basicsForm, groupLink: e.target.value })}
           />
         </Field>
-        <div className="sm:col-span-2">
+        <div className="sm:col-span-2 flex flex-wrap gap-6">
           <label className="flex items-center gap-2 text-sm text-zinc-300">
             <input
               type="checkbox"
@@ -947,6 +1185,19 @@ export default function AdminEventDetail() {
               }
             />
             Partner Event
+          </label>
+          <label className="flex items-center gap-2 text-sm text-zinc-300">
+            <input
+              type="checkbox"
+              checked={basicsForm.isPublished === "true"}
+              onChange={(e) =>
+                setBasicsForm({
+                  ...basicsForm,
+                  isPublished: e.target.checked ? "true" : "false",
+                })
+              }
+            />
+            Show on Events page
           </label>
         </div>
       </div>
@@ -968,6 +1219,336 @@ export default function AdminEventDetail() {
 
   const actionLabel = (addLabel: string, saveLabel: string) =>
     editId ? saveLabel : addLabel;
+
+  const postEntity = async (entity: string, entityData: Record<string, unknown>) => {
+    await api(`/api/admin/events/${eventId}/detail`, {
+      method: "POST",
+      body: JSON.stringify({ entity, data: entityData }),
+    });
+  };
+
+  const putEntity = async (entity: string, entityId: string, entityData: Record<string, unknown>) => {
+    await api(`/api/admin/events/${eventId}/detail`, {
+      method: "PUT",
+      body: JSON.stringify({ entity, entityId, data: entityData }),
+    });
+  };
+
+  const deleteEntitySilent = async (entity: string, entityId: string) => {
+    await api(`/api/admin/events/${eventId}/detail`, {
+      method: "DELETE",
+      body: JSON.stringify({ entity, entityId }),
+    });
+  };
+
+  const randomSpeakerSlot = () => {
+    const day = event?.eventDate || new Date().toISOString().slice(0, 10);
+    const hour = 10 + Math.floor(Math.random() * 6);
+    const minute = Math.random() < 0.5 ? 0 : 30;
+    const startHm = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+    const endHm = formatHm(hour * 60 + minute + 15);
+    return {
+      eventDay: day,
+      startTime: dayTimeToIso(day, startHm),
+      endTime: dayTimeToIso(day, endHm),
+      topic: "Talk",
+    };
+  };
+
+  const saveEventPerson = async () => {
+    const userId = form.userId as string;
+    if (!userId || !data || !eventId) return;
+
+    const mainRoles = parseMultiJson(form.mainRolesJson);
+    const subRoleList = parseMultiJson(form.subRolesJson);
+    const subRoleJoined = subRoleList.join(", ") || null;
+    const status = (form.status as RoleStatus) || "confirmed";
+
+    if (mainRoles.length === 0) {
+      setError("Select at least one main role.");
+      return;
+    }
+    if (
+      (mainRoles.includes("sponsor representative") || mainRoles.includes("partner representative")) &&
+      !form.companyId &&
+      !form.partnerCompanyId
+    ) {
+      // check per role below
+    }
+    if (mainRoles.includes("sponsor representative") && !form.companyId) {
+      setError("Select a company for sponsor representative.");
+      return;
+    }
+    if (
+      mainRoles.includes("partner representative") &&
+      form.partnerNoCompany !== "true" &&
+      !(form.partnerCompanyId || form.companyId)
+    ) {
+      setError("Select a partner company, or choose Individual (no company).");
+      return;
+    }
+
+    setError("");
+    try {
+      const groups = buildEventPeopleGroups(data, people);
+      const existing = groups.find((g) => g.userId === userId);
+      const currentMains = new Set(
+        (existing?.mainRoles || []).filter((r) => r !== "other")
+      );
+      const desired = new Set(mainRoles);
+
+      if (existing) {
+        for (const a of existing.assignments) {
+          if (a.mainRole === "other" || desired.has(a.mainRole)) continue;
+          if (a.entity === "sponsor" || a.entity === "partner") {
+            const collection = a.entity === "sponsor" ? data.sponsors : data.partners;
+            const row = collection.find((x) => x.id === a.entityId);
+            if (row && Array.isArray(row.representatives)) {
+              const reps = (row.representatives as { userId: string; status?: string }[])
+                .filter((r) => r.userId !== userId)
+                .map((r) => ({
+                  userId: r.userId,
+                  status: (r.status as RoleStatus) || "confirmed",
+                }));
+              if (a.entity === "partner" && !row.companyId && reps.length === 0) {
+                await deleteEntitySilent(a.entity, a.entityId);
+              } else {
+                await putEntity(a.entity, a.entityId, {
+                  companyId: row.companyId,
+                  customName: row.customName || null,
+                  partnerType: row.partnerType,
+                  customType: row.customType || null,
+                  status: row.status || "confirmed",
+                  representatives: reps,
+                });
+              }
+            }
+          } else {
+            await deleteEntitySilent(a.entity, a.entityId);
+          }
+        }
+      }
+
+      for (const role of mainRoles) {
+        const alreadyHad = currentMains.has(role);
+        if (role === "judge") {
+          const existingJudge = data.judges.find((j) => j.userId === userId);
+          if (alreadyHad && existingJudge) {
+            await putEntity("judge", existingJudge.id as string, { userId, status });
+          } else if (!alreadyHad) {
+            await postEntity("judge", { userId, status });
+          }
+        } else if (role === "speaker") {
+          const existingSpeaker = data.speakers.find((s) => s.userId === userId);
+          if (alreadyHad && existingSpeaker) {
+            await putEntity("speaker", existingSpeaker.id as string, {
+              userId,
+              eventDay: existingSpeaker.eventDay || event.eventDate,
+              startTime: existingSpeaker.startTime,
+              endTime: existingSpeaker.endTime,
+              topic: existingSpeaker.topic || "Talk",
+              status,
+            });
+          } else if (!alreadyHad) {
+            const slot = randomSpeakerSlot();
+            await postEntity("speaker", { userId, status, ...slot });
+          }
+        } else if (role === "host") {
+          const existingHost = data.hosts.find(
+            (h) => h.userId === userId && h.hostType !== "volunteer"
+          );
+          if (alreadyHad && existingHost) {
+            await putEntity("host", existingHost.id as string, {
+              userId,
+              hostType: "host",
+              customType: null,
+              role: subRoleJoined,
+              status,
+            });
+          } else if (!alreadyHad) {
+            await postEntity("host", {
+              userId,
+              hostType: "host",
+              customType: null,
+              role: subRoleJoined,
+              status,
+            });
+          } else if (existingHost) {
+            await putEntity("host", existingHost.id as string, {
+              userId,
+              hostType: "host",
+              customType: null,
+              role: subRoleJoined,
+              status,
+            });
+          }
+        } else if (role === "volunteer") {
+          const existingVol =
+            data.volunteers.find((v) => v.userId === userId) ||
+            data.hosts.find((h) => h.userId === userId && h.hostType === "volunteer");
+          if (alreadyHad && existingVol) {
+            await putEntity("host", existingVol.id as string, {
+              userId,
+              hostType: "volunteer",
+              customType: null,
+              role: subRoleJoined,
+              status,
+            });
+          } else if (!alreadyHad) {
+            await postEntity("host", {
+              userId,
+              hostType: "volunteer",
+              customType: null,
+              role: subRoleJoined,
+              status,
+            });
+          } else if (existingVol) {
+            await putEntity("host", existingVol.id as string, {
+              userId,
+              hostType: "volunteer",
+              customType: null,
+              role: subRoleJoined,
+              status,
+            });
+          }
+        } else if (role === "sponsor representative") {
+          const companyId = form.companyId as string;
+          const existingSponsor = data.sponsors.find((s) => s.companyId === companyId);
+          if (existingSponsor) {
+            const reps = Array.isArray(existingSponsor.representatives)
+              ? (existingSponsor.representatives as { userId: string; status?: string }[])
+              : [];
+            const nextReps = reps.some((r) => r.userId === userId)
+              ? reps.map((r) =>
+                  r.userId === userId
+                    ? { userId, status }
+                    : { userId: r.userId, status: (r.status as RoleStatus) || "confirmed" }
+                )
+              : [
+                  ...reps.map((r) => ({
+                    userId: r.userId,
+                    status: (r.status as RoleStatus) || "confirmed",
+                  })),
+                  { userId, status },
+                ];
+            await putEntity("sponsor", existingSponsor.id as string, {
+              companyId,
+              status: existingSponsor.status || "confirmed",
+              representatives: nextReps,
+            });
+          } else {
+            await postEntity("sponsor", {
+              companyId,
+              status: "confirmed",
+              representatives: [{ userId, status }],
+            });
+          }
+        } else if (role === "partner representative") {
+          const individual = form.partnerNoCompany === "true";
+          const companyId = individual
+            ? null
+            : ((form.partnerCompanyId || form.companyId) as string);
+          if (individual) {
+            const person = people.find((p) => p.id === userId);
+            const existingPartner = data.partners.find(
+              (p) =>
+                !p.companyId &&
+                Array.isArray(p.representatives) &&
+                (p.representatives as { userId: string }[]).some((r) => r.userId === userId)
+            );
+            if (existingPartner) {
+              const reps = Array.isArray(existingPartner.representatives)
+                ? (existingPartner.representatives as { userId: string; status?: string }[])
+                : [];
+              const nextReps = reps.some((r) => r.userId === userId)
+                ? reps.map((r) =>
+                    r.userId === userId
+                      ? { userId, status }
+                      : { userId: r.userId, status: (r.status as RoleStatus) || "confirmed" }
+                  )
+                : [
+                    ...reps.map((r) => ({
+                      userId: r.userId,
+                      status: (r.status as RoleStatus) || "confirmed",
+                    })),
+                    { userId, status },
+                  ];
+              await putEntity("partner", existingPartner.id as string, {
+                companyId: null,
+                customName: (existingPartner.customName as string) || person?.username || null,
+                partnerType: existingPartner.partnerType || "other",
+                customType: existingPartner.customType || null,
+                status: existingPartner.status || "confirmed",
+                representatives: nextReps,
+              });
+            } else {
+              await postEntity("partner", {
+                companyId: null,
+                customName: person?.username || null,
+                partnerType: "other",
+                customType: null,
+                status: "confirmed",
+                representatives: [{ userId, status }],
+              });
+            }
+          } else {
+            const existingPartner = data.partners.find((p) => p.companyId === companyId);
+            if (existingPartner) {
+              const reps = Array.isArray(existingPartner.representatives)
+                ? (existingPartner.representatives as { userId: string; status?: string }[])
+                : [];
+              const nextReps = reps.some((r) => r.userId === userId)
+                ? reps.map((r) =>
+                    r.userId === userId
+                      ? { userId, status }
+                      : { userId: r.userId, status: (r.status as RoleStatus) || "confirmed" }
+                  )
+                : [
+                    ...reps.map((r) => ({
+                      userId: r.userId,
+                      status: (r.status as RoleStatus) || "confirmed",
+                    })),
+                    { userId, status },
+                  ];
+              await putEntity("partner", existingPartner.id as string, {
+                companyId,
+                customName: existingPartner.customName || null,
+                partnerType: existingPartner.partnerType || "other",
+                customType: existingPartner.customType || null,
+                status: existingPartner.status || "confirmed",
+                representatives: nextReps,
+              });
+            } else {
+              await postEntity("partner", {
+                companyId,
+                partnerType: "other",
+                customType: null,
+                status: "confirmed",
+                representatives: [{ userId, status }],
+              });
+            }
+          }
+        } else if (role === "associated") {
+          const existingAssociated = data.associated.find((a) => a.userId === userId);
+          if (alreadyHad && existingAssociated) {
+            await putEntity("associated", existingAssociated.id as string, {
+              userId,
+              role: subRoleJoined,
+              status,
+            });
+          } else if (!alreadyHad) {
+            await postEntity("associated", { userId, role: subRoleJoined, status });
+          }
+        }
+      }
+
+      setForm({});
+      setEditId(null);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to save person roles");
+    }
+  };
 
   const renderAddForm = () => {
     if (tab === "basics") return renderBasicsForm();
@@ -1070,52 +1651,74 @@ export default function AdminEventDetail() {
                 onChange={(e) => {
                   const id = e.target.value;
                   if (!id) return;
-                  const selected = (form.personIds || "").split(",").filter(Boolean);
-                  if (!selected.includes(id)) {
-                    setForm({ ...form, personIds: [...selected, id].join(",") });
+                  const reps = parseReps(form.repsJson);
+                  if (!reps.some((r) => r.userId === id)) {
+                    setForm({
+                      ...form,
+                      repsJson: stringifyReps([...reps, { userId: id, status: "confirmed" }]),
+                    });
                   }
                 }}
               >
                 <option value="">+ Add representative...</option>
                 {people
-                  .filter((p) => !(form.personIds || "").split(",").includes(p.id))
+                  .filter((p) => !parseReps(form.repsJson).some((r) => r.userId === p.id))
                   .map((p) => (
                     <option key={p.id} value={p.id}>{p.username}</option>
                   ))}
               </select>
-              {(form.personIds || "").split(",").filter(Boolean).length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  {(form.personIds || "")
-                    .split(",")
-                    .filter(Boolean)
-                    .map((id) => {
-                      const person = people.find((p) => p.id === id);
-                      return (
-                        <span
-                          key={id}
-                          className="inline-flex items-center gap-1 rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-200"
+              {parseReps(form.repsJson).length > 0 && (
+                <div className="mt-2 space-y-2">
+                  {parseReps(form.repsJson).map((rep) => {
+                    const person = people.find((p) => p.id === rep.userId);
+                    return (
+                      <div
+                        key={rep.userId}
+                        className="flex flex-wrap items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/60 px-2.5 py-1.5"
+                      >
+                        <EntityLink
+                          name={person?.username || "Unknown"}
+                          href={person?.linkedin}
+                          className="text-sm"
+                        />
+                        <StatusSelect
+                          value={rep.status}
+                          onChange={(status) => {
+                            setForm({
+                              ...form,
+                              repsJson: stringifyReps(
+                                parseReps(form.repsJson).map((r) =>
+                                  r.userId === rep.userId ? { ...r, status } : r
+                                )
+                              ),
+                            });
+                          }}
+                        />
+                        <button
+                          type="button"
+                          className="ml-auto text-zinc-500 hover:text-red-400"
+                          onClick={() =>
+                            setForm({
+                              ...form,
+                              repsJson: stringifyReps(
+                                parseReps(form.repsJson).filter((r) => r.userId !== rep.userId)
+                              ),
+                            })
+                          }
                         >
-                          {person?.username || "Unknown"}
-                          <button
-                            type="button"
-                            className="text-zinc-500 hover:text-red-400"
-                            onClick={() =>
-                              setForm({
-                                ...form,
-                                personIds: (form.personIds || "")
-                                  .split(",")
-                                  .filter((x) => x && x !== id)
-                                  .join(","),
-                              })
-                            }
-                          >
-                            ×
-                          </button>
-                        </span>
-                      );
-                    })}
+                          ×
+                        </button>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
+            </Field>
+            <Field label="Status">
+              <StatusSelect
+                value={form.status || "confirmed"}
+                onChange={(status) => setForm({ ...form, status })}
+              />
             </Field>
             <div className="flex items-end">
               <button
@@ -1123,7 +1726,8 @@ export default function AdminEventDetail() {
                 onClick={() =>
                   saveEntity("sponsor", {
                     companyId: form.companyId,
-                    personIds: (form.personIds || "").split(",").filter(Boolean),
+                    status: form.status || "confirmed",
+                    representatives: parseReps(form.repsJson),
                   })
                 }
                 disabled={!form.companyId}
@@ -1133,85 +1737,164 @@ export default function AdminEventDetail() {
             </div>
           </div>
         );
-      case "partners":
+      case "partners": {
+        const partnerMode = form.partnerMode === "individual" ? "individual" : "company";
+        const individualOk = Boolean(form.userId && form.partnerType);
+        const companyOk = Boolean(form.companyId && form.partnerType);
         return (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {editBanner("partner")}
-            <Field label="Partner company *">
-              <select
-                className="input-field"
-                value={form.companyId || ""}
-                onChange={(e) => {
-                  const company = companies.find((item) => item.id === e.target.value);
-                  setForm({
-                    ...form,
-                    companyId: e.target.value,
-                    description: company?.information || "",
-                    logoUrl: company?.logoUrl || "",
-                  });
-                }}
-              >
-                <option value="">Select company...</option>
-                {companies.map((c) => (
-                  <option key={c.id} value={c.id}>{c.name}</option>
-                ))}
-              </select>
-              <div className="mt-2 flex gap-2">
-                <input
-                  className="input-field flex-1"
-                  placeholder="Or type a new company name"
-                  value={form.newCompanyName || ""}
-                  onChange={(e) => setForm({ ...form, newCompanyName: e.target.value })}
-                />
+            <Field label="Partner as *" className="sm:col-span-2 lg:col-span-3">
+              <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
-                  className="btn-secondary shrink-0"
-                  disabled={!form.newCompanyName?.trim()}
-                  onClick={async () => {
-                    try {
-                      setError("");
-                      const created = await createCompanyQuick(form.newCompanyName || "");
-                      if (!created) return;
-                      setForm({
-                        ...form,
-                        companyId: created.id,
-                        description: created.information || "",
-                        logoUrl: created.logoUrl || "",
-                        newCompanyName: "",
-                      });
-                    } catch (err) {
-                      setError(err instanceof Error ? err.message : "Failed to create company");
-                    }
-                  }}
+                  className={`rounded-full px-3 py-1.5 text-xs ${
+                    partnerMode === "company"
+                      ? "bg-brand-700 text-white"
+                      : "bg-zinc-800 text-zinc-400 hover:text-zinc-200"
+                  }`}
+                  onClick={() =>
+                    setForm({
+                      ...form,
+                      partnerMode: "company",
+                      userId: "",
+                      customName: "",
+                    })
+                  }
                 >
-                  Create
+                  Company
+                </button>
+                <button
+                  type="button"
+                  className={`rounded-full px-3 py-1.5 text-xs ${
+                    partnerMode === "individual"
+                      ? "bg-brand-700 text-white"
+                      : "bg-zinc-800 text-zinc-400 hover:text-zinc-200"
+                  }`}
+                  onClick={() =>
+                    setForm({
+                      ...form,
+                      partnerMode: "individual",
+                      companyId: "",
+                      logoUrl: "",
+                      description: "",
+                      newCompanyName: "",
+                      repsJson: "[]",
+                    })
+                  }
+                >
+                  Individual (no company)
                 </button>
               </div>
-              {form.companyId && (
-                <div className="mt-2 flex items-start gap-3 rounded-lg border border-zinc-800 bg-zinc-900/60 p-2">
-                  {form.logoUrl ? (
-                    <img
-                      src={form.logoUrl}
-                      alt=""
-                      className="h-12 w-12 rounded object-contain bg-zinc-950"
-                    />
-                  ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded bg-zinc-800 text-xs text-zinc-500">
-                      No logo
-                    </div>
-                  )}
-                  <p className="text-xs text-zinc-400">
-                    {form.description ||
-                      "No description on this company yet — edit it under Admin → Companies."}
-                  </p>
-                </div>
-              )}
             </Field>
+            {partnerMode === "company" ? (
+              <Field label="Partner company *">
+                <select
+                  className="input-field"
+                  value={form.companyId || ""}
+                  onChange={(e) => {
+                    const company = companies.find((item) => item.id === e.target.value);
+                    setForm({
+                      ...form,
+                      companyId: e.target.value,
+                      description: company?.information || "",
+                      logoUrl: company?.logoUrl || "",
+                    });
+                  }}
+                >
+                  <option value="">Select company...</option>
+                  {companies.map((c) => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
+                </select>
+                <div className="mt-2 flex gap-2">
+                  <input
+                    className="input-field flex-1"
+                    placeholder="Or type a new company name"
+                    value={form.newCompanyName || ""}
+                    onChange={(e) => setForm({ ...form, newCompanyName: e.target.value })}
+                  />
+                  <button
+                    type="button"
+                    className="btn-secondary shrink-0"
+                    disabled={!form.newCompanyName?.trim()}
+                    onClick={async () => {
+                      try {
+                        setError("");
+                        const created = await createCompanyQuick(form.newCompanyName || "");
+                        if (!created) return;
+                        setForm({
+                          ...form,
+                          companyId: created.id,
+                          description: created.information || "",
+                          logoUrl: created.logoUrl || "",
+                          newCompanyName: "",
+                        });
+                      } catch (err) {
+                        setError(err instanceof Error ? err.message : "Failed to create company");
+                      }
+                    }}
+                  >
+                    Create
+                  </button>
+                </div>
+                {form.companyId && (
+                  <div className="mt-2 flex items-start gap-3 rounded-lg border border-zinc-800 bg-zinc-900/60 p-2">
+                    {form.logoUrl ? (
+                      <img
+                        src={form.logoUrl}
+                        alt=""
+                        className="h-12 w-12 rounded object-contain bg-zinc-950"
+                      />
+                    ) : (
+                      <div className="flex h-12 w-12 items-center justify-center rounded bg-zinc-800 text-xs text-zinc-500">
+                        No logo
+                      </div>
+                    )}
+                    <p className="text-xs text-zinc-400">
+                      {form.description ||
+                        "No description on this company yet — edit it under Admin → Companies."}
+                    </p>
+                  </div>
+                )}
+              </Field>
+            ) : (
+              <Field label="Person *">
+                <select
+                  className="input-field"
+                  value={form.userId || ""}
+                  onChange={(e) => {
+                    const person = people.find((p) => p.id === e.target.value);
+                    setForm({
+                      ...form,
+                      userId: e.target.value,
+                      customName: person?.username || "",
+                      repsJson: e.target.value
+                        ? stringifyReps([
+                            {
+                              userId: e.target.value,
+                              status: (form.status as RoleStatus) || "confirmed",
+                            },
+                          ])
+                        : "[]",
+                    });
+                  }}
+                >
+                  <option value="">Select from People...</option>
+                  {people.map((p) => (
+                    <option key={p.id} value={p.id}>{p.username}</option>
+                  ))}
+                </select>
+                <p className="mt-1 text-xs text-zinc-500">
+                  Listed as an individual partner — not representing a company.
+                </p>
+              </Field>
+            )}
             <Field label="Partner type *">
               <select className="input-field" value={form.partnerType || ""} onChange={(e) => setForm({ ...form, partnerType: e.target.value })}>
                 <option value="">Select...</option>
                 <option value="venue">Venue</option>
-                <option value="technology">Technology</option>
+                <option value="ventures">Ventures</option>
                 <option value="community">Community</option>
                 <option value="media">Media</option>
                 <option value="food">Food</option>
@@ -1224,23 +1907,134 @@ export default function AdminEventDetail() {
                 <input className="input-field" value={form.customType || ""} onChange={(e) => setForm({ ...form, customType: e.target.value })} />
               </Field>
             )}
+            {partnerMode === "company" && (
+              <Field label="Partner representatives">
+                <select
+                  className="input-field"
+                  value=""
+                  onChange={(e) => {
+                    const id = e.target.value;
+                    if (!id) return;
+                    const reps = parseReps(form.repsJson);
+                    if (!reps.some((r) => r.userId === id)) {
+                      setForm({
+                        ...form,
+                        repsJson: stringifyReps([...reps, { userId: id, status: "confirmed" }]),
+                      });
+                    }
+                  }}
+                >
+                  <option value="">+ Add representative...</option>
+                  {people
+                    .filter((p) => !parseReps(form.repsJson).some((r) => r.userId === p.id))
+                    .map((p) => (
+                      <option key={p.id} value={p.id}>{p.username}</option>
+                    ))}
+                </select>
+                {parseReps(form.repsJson).length > 0 && (
+                  <div className="mt-2 space-y-2">
+                    {parseReps(form.repsJson).map((rep) => {
+                      const person = people.find((p) => p.id === rep.userId);
+                      return (
+                        <div
+                          key={rep.userId}
+                          className="flex flex-wrap items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/60 px-2.5 py-1.5"
+                        >
+                          <EntityLink
+                            name={person?.username || "Unknown"}
+                            href={person?.linkedin}
+                            className="text-sm"
+                          />
+                          <StatusSelect
+                            value={rep.status}
+                            onChange={(status) => {
+                              setForm({
+                                ...form,
+                                repsJson: stringifyReps(
+                                  parseReps(form.repsJson).map((r) =>
+                                    r.userId === rep.userId ? { ...r, status } : r
+                                  )
+                                ),
+                              });
+                            }}
+                          />
+                          <button
+                            type="button"
+                            className="ml-auto text-zinc-500 hover:text-red-400"
+                            onClick={() =>
+                              setForm({
+                                ...form,
+                                repsJson: stringifyReps(
+                                  parseReps(form.repsJson).filter((r) => r.userId !== rep.userId)
+                                ),
+                              })
+                            }
+                          >
+                            ×
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </Field>
+            )}
+            <Field label="Status">
+              <StatusSelect
+                value={form.status || "confirmed"}
+                onChange={(status) => {
+                  if (partnerMode === "individual" && form.userId) {
+                    setForm({
+                      ...form,
+                      status,
+                      repsJson: stringifyReps([{ userId: form.userId, status }]),
+                    });
+                  } else {
+                    setForm({ ...form, status });
+                  }
+                }}
+              />
+            </Field>
             <div className="flex items-end">
               <button
                 className="btn-primary w-full"
-                onClick={() =>
-                  saveEntity("partner", {
-                    partnerType: form.partnerType,
-                    customType: form.customType || null,
-                    companyId: form.companyId,
-                  })
-                }
-                disabled={!form.partnerType || !form.companyId}
+                onClick={() => {
+                  if (partnerMode === "individual") {
+                    const person = people.find((p) => p.id === form.userId);
+                    void saveEntity("partner", {
+                      partnerType: form.partnerType,
+                      customType: form.customType || null,
+                      companyId: null,
+                      customName: form.customName || person?.username || null,
+                      status: form.status || "confirmed",
+                      representatives: form.userId
+                        ? [
+                            {
+                              userId: form.userId,
+                              status: (form.status as RoleStatus) || "confirmed",
+                            },
+                          ]
+                        : [],
+                    });
+                  } else {
+                    void saveEntity("partner", {
+                      partnerType: form.partnerType,
+                      customType: form.customType || null,
+                      companyId: form.companyId,
+                      customName: null,
+                      status: form.status || "confirmed",
+                      representatives: parseReps(form.repsJson),
+                    });
+                  }
+                }}
+                disabled={partnerMode === "individual" ? !individualOk : !companyOk}
               >
                 <Plus className="mr-1 h-4 w-4" /> {actionLabel("Add partner", "Save partner")}
               </button>
             </div>
           </div>
         );
+      }
       case "prizes":
         return (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -1552,6 +2346,12 @@ export default function AdminEventDetail() {
                   ))}
                 </select>
               </Field>
+              <Field label="Status">
+                <StatusSelect
+                  value={form.status || "confirmed"}
+                  onChange={(status) => setForm({ ...form, status })}
+                />
+              </Field>
               <div className="flex items-end">
                 <button
                   className="btn-primary w-full"
@@ -1562,6 +2362,7 @@ export default function AdminEventDetail() {
                       startTime: dayTimeToIso(startDay, form.startTime || ""),
                       endTime: dayTimeToIso(endDay, form.endTime || ""),
                       topic: form.topic,
+                      status: form.status || "confirmed",
                     })
                   }
                   disabled={!startDay || !endDay || !form.startTime || !form.endTime || !form.topic || !form.userId}
@@ -1578,7 +2379,7 @@ export default function AdminEventDetail() {
       }
       case "judges":
         return (
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-3">
             {editBanner("judge")}
             <Field label="Person *">
               <select className="input-field" value={form.userId || ""} onChange={(e) => setForm({ ...form, userId: e.target.value })}>
@@ -1588,8 +2389,23 @@ export default function AdminEventDetail() {
                 ))}
               </select>
             </Field>
+            <Field label="Status">
+              <StatusSelect
+                value={form.status || "confirmed"}
+                onChange={(status) => setForm({ ...form, status })}
+              />
+            </Field>
             <div className="flex items-end">
-              <button className="btn-primary w-full" onClick={() => saveEntity("judge", { userId: form.userId })} disabled={!form.userId}>
+              <button
+                className="btn-primary w-full"
+                onClick={() =>
+                  saveEntity("judge", {
+                    userId: form.userId,
+                    status: form.status || "confirmed",
+                  })
+                }
+                disabled={!form.userId}
+              >
                 <Plus className="mr-1 h-4 w-4" /> {actionLabel("Add judge", "Save judge")}
               </button>
             </div>
@@ -1612,7 +2428,7 @@ export default function AdminEventDetail() {
                 <option value="host">Host</option>
                 <option value="sponsor">Sponsor</option>
                 <option value="venue_partner">Venue Partner</option>
-                <option value="volunteer">Volunteer</option>
+                <option value="other">Other</option>
                 <option value="custom">Custom</option>
               </select>
             </Field>
@@ -1621,12 +2437,25 @@ export default function AdminEventDetail() {
                 <input className="input-field" value={form.customType || ""} onChange={(e) => setForm({ ...form, customType: e.target.value })} />
               </Field>
             )}
-            <Field label="Sub role / extra">
-              <input
+            <Field label="Sub-role">
+              <select
                 className="input-field"
-                placeholder="e.g. Emcee, Registration lead"
                 value={form.role || ""}
                 onChange={(e) => setForm({ ...form, role: e.target.value })}
+              >
+                <option value="">None</option>
+                {subRoles.map((sub) => (
+                  <option key={sub.key} value={sub.key}>
+                    {sub.key}
+                    {sub.visible ? "" : " (admin only)"}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Status">
+              <StatusSelect
+                value={form.status || "confirmed"}
+                onChange={(status) => setForm({ ...form, status })}
               />
             </Field>
             <div className="flex items-end">
@@ -1638,15 +2467,287 @@ export default function AdminEventDetail() {
                     hostType: form.hostType || "host",
                     customType: form.customType || null,
                     role: form.role || null,
+                    status: form.status || "confirmed",
                   })
                 }
                 disabled={!form.userId || (form.hostType === "custom" && !form.customType)}
               >
-                <Plus className="mr-1 h-4 w-4" /> {actionLabel("Add", "Save")}
+                <Plus className="mr-1 h-4 w-4" /> {actionLabel("Add host", "Save host")}
               </button>
             </div>
           </div>
         );
+      case "volunteers":
+        return (
+          <div className="grid gap-3 sm:grid-cols-3">
+            {editBanner("volunteer")}
+            <Field label="Person *">
+              <select className="input-field" value={form.userId || ""} onChange={(e) => setForm({ ...form, userId: e.target.value })}>
+                <option value="">Select from People...</option>
+                {people.map((p) => (
+                  <option key={p.id} value={p.id}>{p.username}</option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Sub-role">
+              <select
+                className="input-field"
+                value={form.role || ""}
+                onChange={(e) => setForm({ ...form, role: e.target.value })}
+              >
+                <option value="">None</option>
+                {subRoles.map((sub) => (
+                  <option key={sub.key} value={sub.key}>
+                    {sub.key}
+                    {sub.visible ? "" : " (admin only)"}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Status">
+              <StatusSelect
+                value={form.status || "confirmed"}
+                onChange={(status) => setForm({ ...form, status })}
+              />
+            </Field>
+            <div className="flex items-end">
+              <button
+                className="btn-primary w-full"
+                onClick={() =>
+                  saveEntity("host", {
+                    userId: form.userId,
+                    hostType: "volunteer",
+                    customType: null,
+                    role: form.role || null,
+                    status: form.status || "confirmed",
+                  })
+                }
+                disabled={!form.userId}
+              >
+                <Plus className="mr-1 h-4 w-4" /> {actionLabel("Add volunteer", "Save volunteer")}
+              </button>
+            </div>
+          </div>
+        );
+      case "associated":
+        return (
+          <div className="grid gap-3 sm:grid-cols-3">
+            {editBanner("associated")}
+            <Field label="Person *">
+              <select
+                className="input-field"
+                value={form.userId || ""}
+                onChange={(e) => setForm({ ...form, userId: e.target.value })}
+              >
+                <option value="">Select from People...</option>
+                {people.map((p) => (
+                  <option key={p.id} value={p.id}>{p.username}</option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Sub-role">
+              <select
+                className="input-field"
+                value={form.role || ""}
+                onChange={(e) => setForm({ ...form, role: e.target.value })}
+              >
+                <option value="">None</option>
+                {subRoles.map((sub) => (
+                  <option key={sub.key} value={sub.key}>
+                    {sub.key}
+                    {sub.visible ? "" : " (admin only)"}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Status">
+              <StatusSelect
+                value={form.status || "confirmed"}
+                onChange={(status) => setForm({ ...form, status })}
+              />
+            </Field>
+            <div className="flex items-end">
+              <button
+                className="btn-primary w-full"
+                onClick={() =>
+                  saveEntity("associated", {
+                    userId: form.userId,
+                    role: form.role || null,
+                    status: form.status || "confirmed",
+                  })
+                }
+                disabled={!form.userId}
+              >
+                <Plus className="mr-1 h-4 w-4" /> {actionLabel("Add associated", "Save associated")}
+              </button>
+            </div>
+            <p className="sm:col-span-3 text-xs text-zinc-500">
+              Associated people are admin-only and never published to the website.
+            </p>
+          </div>
+        );
+      case "people": {
+        const selectedMains = parseMultiJson(form.mainRolesJson);
+        const selectedSubs = parseMultiJson(form.subRolesJson);
+        const needsSubRoles = selectedMains.some((r) => MAIN_ROLES_WITH_SUB_ROLES.has(r));
+        const needsSponsorCompany = selectedMains.includes("sponsor representative");
+        const needsPartnerCompany = selectedMains.includes("partner representative");
+        const partnerIndividual = form.partnerNoCompany === "true";
+        const toggleMain = (role: string) => {
+          const next = selectedMains.includes(role)
+            ? selectedMains.filter((r) => r !== role)
+            : [...selectedMains, role];
+          setForm({
+            ...form,
+            mainRolesJson: stringifyMulti(next),
+            ...(!next.some((r) => MAIN_ROLES_WITH_SUB_ROLES.has(r))
+              ? { subRolesJson: "[]" }
+              : {}),
+            ...(!next.includes("partner representative")
+              ? { partnerNoCompany: "", partnerCompanyId: "" }
+              : {}),
+          });
+        };
+        const toggleSub = (sub: string) => {
+          const next = selectedSubs.includes(sub)
+            ? selectedSubs.filter((r) => r !== sub)
+            : [...selectedSubs, sub];
+          setForm({ ...form, subRolesJson: stringifyMulti(next) });
+        };
+        return (
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {editBanner("person")}
+            <Field label="Person *">
+              <select
+                className="input-field"
+                value={form.userId || ""}
+                onChange={(e) => setForm({ ...form, userId: e.target.value })}
+                disabled={Boolean(editId)}
+              >
+                <option value="">Select from People...</option>
+                {people.map((p) => (
+                  <option key={p.id} value={p.id}>{p.username}</option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Status">
+              <StatusSelect
+                value={form.status || "confirmed"}
+                onChange={(status) => setForm({ ...form, status })}
+              />
+            </Field>
+            <Field label="Main roles *" className="sm:col-span-2 lg:col-span-3">
+              <div className="flex flex-wrap gap-2 rounded-lg border border-zinc-800 bg-zinc-900/40 p-3">
+                {EVENT_ADD_MAIN_ROLES.map((role) => (
+                  <label
+                    key={role}
+                    className={`cursor-pointer rounded-full px-3 py-1.5 text-xs ${
+                      selectedMains.includes(role)
+                        ? "bg-brand-700 text-white"
+                        : "bg-zinc-800 text-zinc-400 hover:text-zinc-200"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="sr-only"
+                      checked={selectedMains.includes(role)}
+                      onChange={() => toggleMain(role)}
+                    />
+                    {role}
+                  </label>
+                ))}
+              </div>
+            </Field>
+            {needsSubRoles && (
+              <Field label="Sub-roles (host / volunteer / associated)" className="sm:col-span-2 lg:col-span-3">
+                <div className="flex flex-wrap gap-2 rounded-lg border border-zinc-800 bg-zinc-900/40 p-3">
+                  {subRoles.length === 0 && (
+                    <p className="text-xs text-zinc-500">Add sub-roles under Settings.</p>
+                  )}
+                  {subRoles.map((sub) => (
+                    <label
+                      key={sub.key}
+                      className={`cursor-pointer rounded-full px-3 py-1.5 text-xs ${
+                        selectedSubs.includes(sub.key)
+                          ? "bg-emerald-800 text-emerald-100"
+                          : "bg-zinc-800 text-zinc-400 hover:text-zinc-200"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        className="sr-only"
+                        checked={selectedSubs.includes(sub.key)}
+                        onChange={() => toggleSub(sub.key)}
+                      />
+                      {sub.key}
+                      {!sub.visible ? " (admin only)" : ""}
+                    </label>
+                  ))}
+                </div>
+              </Field>
+            )}
+            {needsSponsorCompany && (
+              <Field label="Sponsor company *">
+                <select
+                  className="input-field"
+                  value={form.companyId || ""}
+                  onChange={(e) => setForm({ ...form, companyId: e.target.value })}
+                >
+                  <option value="">Select company...</option>
+                  {companies.map((c) => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
+                </select>
+              </Field>
+            )}
+            {needsPartnerCompany && (
+              <Field label="Partner company" className="sm:col-span-2 lg:col-span-3">
+                <label className="mb-2 flex items-center gap-2 text-sm text-zinc-300">
+                  <input
+                    type="checkbox"
+                    checked={partnerIndividual}
+                    onChange={(e) =>
+                      setForm({
+                        ...form,
+                        partnerNoCompany: e.target.checked ? "true" : "",
+                        partnerCompanyId: e.target.checked ? "" : form.partnerCompanyId,
+                      })
+                    }
+                  />
+                  Individual — not representing any company
+                </label>
+                {!partnerIndividual && (
+                  <select
+                    className="input-field"
+                    value={form.partnerCompanyId || ""}
+                    onChange={(e) => setForm({ ...form, partnerCompanyId: e.target.value })}
+                  >
+                    <option value="">Select company...</option>
+                    {companies.map((c) => (
+                      <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                  </select>
+                )}
+              </Field>
+            )}
+            <div className="flex items-end sm:col-span-full">
+              <button
+                className="btn-primary"
+                onClick={() => void saveEventPerson()}
+                disabled={!form.userId || selectedMains.length === 0}
+              >
+                <Plus className="mr-1 h-4 w-4" />{" "}
+                {editId ? "Save person" : "Add person"}
+              </button>
+            </div>
+            <p className="sm:col-span-full text-xs text-zinc-500">
+              Selected roles are written to their sections (Judges, Speakers, Sponsors, etc.). Speakers
+              get a placeholder time slot you can edit under Speakers. Associated never appears on the
+              public site.
+            </p>
+          </div>
+        );
+      }
       case "links":
         return (
           <div className="grid gap-3 sm:grid-cols-3">
@@ -1703,7 +2804,200 @@ export default function AdminEventDetail() {
 
   const renderList = () => {
     if (tab === "basics") return null;
-    const rawItems = data[tab] || [];
+
+    if (tab === "people" && data) {
+      const allGroups = buildEventPeopleGroups(data, people);
+      const subRoleOptions = [
+        ...new Set(allGroups.flatMap((g) => g.subRoles)),
+      ].sort((a, b) => a.localeCompare(b));
+      const groups = allGroups.filter((g) => {
+        if (!matchesAnyFilter(eventMainRoleFilter, g.mainRoles)) return false;
+        if (!matchesAnyFilter(eventSubRoleFilter, g.subRoles)) return false;
+        if (!matchesAnyFilter(eventStatusFilter, g.statuses)) return false;
+        return true;
+      });
+      return (
+        <div>
+          <div className="mb-4 flex flex-wrap items-end gap-4">
+            <MultiFilterSelect
+              label="Filter by main role"
+              emptyLabel="All roles"
+              options={EVENT_MAIN_ROLES.map((role) => ({ value: role, label: role }))}
+              selected={eventMainRoleFilter}
+              onChange={setEventMainRoleFilter}
+            />
+            <MultiFilterSelect
+              label="Filter by sub-role"
+              emptyLabel="All sub-roles"
+              options={subRoleOptions.map((sub) => ({ value: sub, label: sub }))}
+              selected={eventSubRoleFilter}
+              onChange={setEventSubRoleFilter}
+            />
+            <MultiFilterSelect
+              label="Filter by status"
+              emptyLabel="All statuses"
+              minWidthClassName="min-w-[150px]"
+              options={STATUS_OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
+              selected={eventStatusFilter}
+              onChange={setEventStatusFilter}
+            />
+          </div>
+          {groups.length === 0 ? (
+            <p className="py-6 text-sm text-zinc-500">
+              {allGroups.length === 0
+                ? "No people on this event yet."
+                : "No people match these filters."}
+            </p>
+          ) : (
+            <ul className="divide-y divide-zinc-800 rounded-lg border border-zinc-800">
+              {groups.map((group) => {
+                const sponsorCo = group.assignments.find(
+                  (a) => a.mainRole === "sponsor representative"
+                );
+                const partnerCo = group.assignments.find(
+                  (a) => a.mainRole === "partner representative"
+                );
+                return (
+                  <li
+                    key={group.userId}
+                    className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 text-sm"
+                  >
+                    <div className="min-w-0 flex-1 space-y-1.5 text-zinc-200">
+                      <EntityLink
+                        name={group.username}
+                        href={group.linkedin}
+                        className="font-medium"
+                      />
+                      <div className="flex flex-wrap gap-1.5">
+                        {group.assignments
+                          .filter((a) => a.mainRole !== "other")
+                          .map((a) => (
+                            <span
+                              key={a.key}
+                              className="inline-flex items-center gap-1.5 rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300"
+                            >
+                              {a.mainRole}
+                              {a.subRole ? ` · ${a.subRole}` : ""}
+                              <StatusBadge status={a.status} />
+                            </span>
+                          ))}
+                        {group.assignments
+                          .filter((a) => a.mainRole === "other")
+                          .map((a) => (
+                            <span
+                              key={a.key}
+                              className="rounded-full bg-emerald-950/60 px-2 py-0.5 text-xs text-emerald-300"
+                            >
+                              {a.subRole || "other"}
+                            </span>
+                          ))}
+                      </div>
+                      {(sponsorCo?.companyName || partnerCo?.companyName) && (
+                        <p className="text-xs text-zinc-500">
+                          {[sponsorCo?.companyName, partnerCo?.companyName]
+                            .filter(Boolean)
+                            .join(" · ")}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const match = people.find((p) => p.id === group.userId);
+                          setEmailPerson({
+                            id: group.userId,
+                            username: group.username,
+                            email: match?.email || null,
+                          });
+                        }}
+                        className="inline-flex items-center gap-1 rounded-md border border-zinc-700 px-2 py-1 text-xs text-zinc-200 hover:border-brand-500 hover:text-brand-300"
+                        title="Send email"
+                      >
+                        <Mail className="h-3.5 w-3.5" />
+                        Send email
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditId(group.userId);
+                          setForm({
+                            userId: group.userId,
+                            mainRolesJson: stringifyMulti(group.mainRoles.filter((r) => r !== "other")),
+                            subRolesJson: stringifyMulti(group.subRoles),
+                            status: group.statuses[0] || "confirmed",
+                            companyId: sponsorCo?.companyId || "",
+                            partnerCompanyId: partnerCo?.companyId || "",
+                            partnerNoCompany:
+                              partnerCo && !partnerCo.companyId ? "true" : "",
+                          });
+                          setError("");
+                        }}
+                        className="text-brand-400 hover:text-brand-300"
+                        title="Edit roles"
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (!confirm(`Remove ${group.username} from all roles on this event?`)) return;
+                          setError("");
+                          try {
+                            for (const a of group.assignments) {
+                              if (a.entity === "sponsor" || a.entity === "partner") {
+                                const collection =
+                                  a.entity === "sponsor" ? data.sponsors : data.partners;
+                                const row = collection.find((x) => x.id === a.entityId);
+                                if (row && Array.isArray(row.representatives)) {
+                                  const reps = (
+                                    row.representatives as { userId: string; status?: string }[]
+                                  )
+                                    .filter((r) => r.userId !== group.userId)
+                                    .map((r) => ({
+                                      userId: r.userId,
+                                      status: (r.status as RoleStatus) || "confirmed",
+                                    }));
+                                  if (a.entity === "partner" && !row.companyId && reps.length === 0) {
+                                    await deleteEntitySilent(a.entity, a.entityId);
+                                  } else {
+                                    await putEntity(a.entity, a.entityId, {
+                                      companyId: row.companyId,
+                                      customName: row.customName || null,
+                                      partnerType: row.partnerType,
+                                      customType: row.customType || null,
+                                      status: row.status || "confirmed",
+                                      representatives: reps,
+                                    });
+                                  }
+                                }
+                              } else {
+                                await deleteEntitySilent(a.entity, a.entityId);
+                              }
+                            }
+                            await load();
+                          } catch (err) {
+                            setError(
+                              err instanceof Error ? err.message : "Failed to remove person"
+                            );
+                          }
+                        }}
+                        className="text-red-400 hover:text-red-300"
+                        title="Remove from event"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
+      );
+    }
+
+    const rawItems = (data[tab as keyof SubData] as Item[]) || [];
     const items = [...rawItems].sort(
       (a, b) => Number(a.sortOrder ?? 0) - Number(b.sortOrder ?? 0)
     );
@@ -1743,15 +3037,33 @@ export default function AdminEventDetail() {
                         />
                       ) : null}
                       <div>
-                        <p className="font-medium text-zinc-100">{item.companyName as string}</p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <EntityLink
+                            name={(item.companyName as string) || "Unknown"}
+                            href={
+                              (item.companyWebsite as string) ||
+                              companies.find((c) => c.id === item.companyId)?.website
+                            }
+                            className="font-medium"
+                          />
+                          <StatusBadge status={item.status as string} />
+                        </div>
                         {Array.isArray(item.representatives) &&
                           (item.representatives as Item[]).length > 0 && (
-                            <p className="text-zinc-400">
-                              Representatives:{" "}
-                              {(item.representatives as Item[])
-                                .map((representative) => representative.username as string)
-                                .join(", ")}
-                            </p>
+                            <div className="mt-1 space-y-1 text-zinc-400">
+                              {(item.representatives as Item[]).map((representative) => (
+                                <div
+                                  key={representative.userId as string}
+                                  className="flex flex-wrap items-center gap-2"
+                                >
+                                  <EntityLink
+                                    name={(representative.username as string) || "Unknown"}
+                                    href={representative.linkedin as string}
+                                  />
+                                  <StatusBadge status={representative.status as string} />
+                                </div>
+                              ))}
+                            </div>
                           )}
                         {!!(item.companyInformation as string) && (
                           <p className="mt-1 text-zinc-500">{item.companyInformation as string}</p>
@@ -1769,14 +3081,52 @@ export default function AdminEventDetail() {
                         />
                       ) : null}
                       <div>
-                        <p className="capitalize">
-                          {(item.partnerType as string)?.replace(/_/g, " ")}
-                          {(item.customType as string) ? ` (${item.customType as string})` : ""}
-                          {" — "}
-                          {(item.companyName as string) ||
-                            companies.find((c) => c.id === item.companyId)?.name ||
-                            "Partner"}
-                        </p>
+                        <div className="flex flex-wrap items-center gap-2 capitalize">
+                          <span>
+                            {(item.partnerType as string)?.replace(/_/g, " ")}
+                            {(item.customType as string) ? ` (${item.customType as string})` : ""}
+                            {" — "}
+                          </span>
+                          <EntityLink
+                            name={
+                              (item.companyName as string) ||
+                              (item.customName as string) ||
+                              companies.find((c) => c.id === item.companyId)?.name ||
+                              "Partner"
+                            }
+                            href={
+                              (item.companyWebsite as string) ||
+                              companies.find((c) => c.id === item.companyId)?.website ||
+                              (Array.isArray(item.representatives) &&
+                                ((item.representatives as Item[])[0]?.linkedin as string)) ||
+                              undefined
+                            }
+                            className="font-medium normal-case"
+                          />
+                          {!item.companyId && (
+                            <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs normal-case text-zinc-400">
+                              individual
+                            </span>
+                          )}
+                          <StatusBadge status={item.status as string} />
+                        </div>
+                        {Array.isArray(item.representatives) &&
+                          (item.representatives as Item[]).length > 0 && (
+                            <div className="mt-1 space-y-1 text-zinc-400">
+                              {(item.representatives as Item[]).map((representative) => (
+                                <div
+                                  key={representative.userId as string}
+                                  className="flex flex-wrap items-center gap-2"
+                                >
+                                  <EntityLink
+                                    name={(representative.username as string) || "Unknown"}
+                                    href={representative.linkedin as string}
+                                  />
+                                  <StatusBadge status={representative.status as string} />
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         {!!(item.companyInformation as string) && (
                           <p className="mt-1 text-zinc-500">{item.companyInformation as string}</p>
                         )}
@@ -1911,10 +3261,15 @@ export default function AdminEventDetail() {
                   )}
                   {tab === "speakers" && (
                     <div className="space-y-2">
-                      <p className={`font-medium ${item.isSkipped ? "text-zinc-500 line-through" : ""}`}>
-                        {item.username as string} — {item.topic as string}
+                      <div className={`flex flex-wrap items-center gap-2 font-medium ${item.isSkipped ? "text-zinc-500 line-through" : ""}`}>
+                        <EntityLink
+                          name={(item.username as string) || "Unknown"}
+                          href={item.linkedin as string}
+                        />
+                        <span>— {item.topic as string}</span>
+                        <StatusBadge status={item.status as string} />
                         {!!item.isSkipped && <span className="ml-2 text-xs no-underline">(skipped)</span>}
-                      </p>
+                      </div>
                       <div className="flex flex-wrap items-center gap-2 text-xs">
                         {isMultiDay && (
                           <label className="flex items-center gap-1 text-zinc-400">
@@ -2038,16 +3393,57 @@ export default function AdminEventDetail() {
                     </div>
                   )}
                   {tab === "judges" && (
-                    <span>{item.username as string}</span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <EntityLink
+                        name={(item.username as string) || "Unknown"}
+                        href={item.linkedin as string}
+                      />
+                      <StatusBadge status={item.status as string} />
+                    </div>
                   )}
                   {tab === "hosts" && (
-                    <span>
-                      {item.username as string} —{" "}
-                      {(item.customType as string) ||
-                        (item.hostType as string)?.replace(/_/g, " ")}
-                      {(item.role as string) ? ` · ${item.role as string}` : ""}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <EntityLink
+                        name={(item.username as string) || "Unknown"}
+                        href={item.linkedin as string}
+                      />
+                      <span className="text-zinc-400">
+                        —
+                        {(item.customType as string) ||
+                          (item.hostType as string)?.replace(/_/g, " ")}
+                        {(item.role as string) ? ` · ${item.role as string}` : ""}
+                      </span>
+                      <StatusBadge status={item.status as string} />
+                    </div>
                   )}
+                  {tab === "volunteers" && (
+                    <div className="flex flex-wrap items-center gap-2">
+                      <EntityLink
+                        name={(item.username as string) || "Unknown"}
+                        href={item.linkedin as string}
+                      />
+                      {(item.role as string) ? (
+                        <span className="text-zinc-400">— {item.role as string}</span>
+                      ) : null}
+                      <StatusBadge status={item.status as string} />
+                    </div>
+                  )}
+                  {tab === "associated" && (
+                    <div className="flex flex-wrap items-center gap-2">
+                      <EntityLink
+                        name={(item.username as string) || "Unknown"}
+                        href={item.linkedin as string}
+                      />
+                      {(item.role as string) ? (
+                        <span className="text-zinc-400">— {item.role as string}</span>
+                      ) : null}
+                      <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-400">
+                        admin only
+                      </span>
+                      <StatusBadge status={item.status as string} />
+                    </div>
+                  )}
+                  {tab === "people" && null}
                   {tab === "links" && (
                     <a href={item.url as string} target="_blank" rel="noreferrer" className="text-brand-400 hover:underline">
                       {item.label as string}
@@ -2127,7 +3523,11 @@ export default function AdminEventDetail() {
             {t.label}
             {t.key !== "basics" && (
               <span className="ml-1 text-xs text-zinc-600">
-                ({(data[t.key as keyof SubData] || []).length})
+                (
+                {t.key === "people"
+                  ? buildEventPeopleGroups(data, people).length
+                  : ((data[t.key as keyof SubData] as Item[]) || []).length}
+                )
               </span>
             )}
           </button>
@@ -2138,13 +3538,30 @@ export default function AdminEventDetail() {
       {tab === "sponsors" && eventSponsors.length === 0 && companies.length === 0 && (
         <p className="mt-2 text-sm text-amber-400">Add sponsor companies under Admin → Companies first.</p>
       )}
-      {(tab === "speakers" || tab === "judges" || tab === "hosts") && people.length === 0 && (
+      {(tab === "speakers" ||
+        tab === "judges" ||
+        tab === "hosts" ||
+        tab === "volunteers" ||
+        tab === "associated" ||
+        tab === "people" ||
+        tab === "partners") &&
+        people.length === 0 && (
         <p className="mt-2 text-sm text-amber-400">Add people under Admin → People first.</p>
       )}
 
       <div className="card mt-4">{renderAddForm()}</div>
       {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
       <div className="mt-4">{renderList()}</div>
+
+      {emailPerson && event && (
+        <SendEmailModal
+          person={emailPerson}
+          fixedEventId={event.id}
+          fixedEventType={event.type}
+          fixedEventName={event.name}
+          onClose={() => setEmailPerson(null)}
+        />
+      )}
     </div>
   );
 }

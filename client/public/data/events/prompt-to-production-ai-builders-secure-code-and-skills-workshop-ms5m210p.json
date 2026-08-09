@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-27T05:03:00.105Z",
-    "updatedAt": "2026-07-30T21:29:17.524Z",
+    "updatedAt": "2026-08-08T08:08:36.426Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -34,7 +34,14 @@
       "companyWebsite": "https://autonomlayer.com/",
       "companyLogo": "/images/companies/autonomlayer.png",
       "companyDescription": "​AutonomLayer is an autonomous AI software engineering platform that goes beyond traditional AI coding assistants. Instead of requiring continuous prompting, it independently plans work, generates and refines prompts, writes code, tests, debugs, reviews, and iterates until an application is production-ready.",
-      "representatives": []
+      "representatives": [
+        {
+          "username": "Ali Can Acar",
+          "linkedin": "https://www.linkedin.com/in/alicanacar/",
+          "role": "Founder",
+          "companyName": "AutonomLayer"
+        }
+      ]
     },
     {
       "id": "2e01f365-7ded-405d-91b4-3813c5ea48ba",
@@ -42,7 +49,26 @@
       "companyWebsite": "https://snyk.io/",
       "companyLogo": "/images/companies/synk.jpg",
       "companyDescription": "​Snyk helps developers build securely by automatically finding and fixing vulnerabilities in code, open-source dependencies, containers, and infrastructure. It's an essential part of modern software development, ensuring that AI-generated code is secure before it reaches production.",
-      "representatives": []
+      "representatives": [
+        {
+          "username": "Javier Garza",
+          "linkedin": "https://www.linkedin.com/in/jjgarza/",
+          "role": "Developer Advocate",
+          "companyName": "Synk"
+        },
+        {
+          "username": "Natalia Mendez",
+          "linkedin": "https://www.linkedin.com/in/natalia-mendez-0425a6212/",
+          "role": "Developer Relations and Events Intern",
+          "companyName": "Synk"
+        },
+        {
+          "username": "Emily Viscia",
+          "linkedin": "https://www.linkedin.com/in/emily-viscia-483043269/",
+          "role": "Developer and Events Intern",
+          "companyName": "Synk"
+        }
+      ]
     },
     {
       "id": "d9fd880c-5fa7-4c28-857a-d09ea52c61a2",
@@ -68,12 +94,14 @@
   ],
   "partners": [
     {
+      "id": "bf06fde9-0e43-4cc3-930a-3d4287e87fd1",
       "partnerType": "venue",
       "customType": null,
       "companyName": "Homebrew Club",
       "companyWebsite": "https://homebrewclub.berrry.app/",
       "companyLogo": "/images/companies/homebrew-club.jpg",
-      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures.",
+      "representatives": []
     }
   ],
   "prizes": [],
@@ -98,15 +126,6 @@
       "role": null,
       "title": "Software Engineer",
       "companyName": "HiJenny"
-    },
-    {
-      "username": "Abhi Vasanth",
-      "linkedin": "https://www.linkedin.com/in/abhinandanvasanthin/",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "title": "Senior Data Engineer",
-      "companyName": "Pacific Gas and Electric Company"
     },
     {
       "username": "Amitabh Das",
@@ -134,8 +153,46 @@
       "role": null,
       "title": "Co-Founder",
       "companyName": "Finchip AI"
+    },
+    {
+      "username": "Ali Can Acar",
+      "linkedin": "https://www.linkedin.com/in/alicanacar/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "AutonomLayer"
+    },
+    {
+      "username": "Javier Garza",
+      "linkedin": "https://www.linkedin.com/in/jjgarza/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Developer Advocate",
+      "companyName": "Synk"
+    },
+    {
+      "username": "Natalia Mendez",
+      "linkedin": "https://www.linkedin.com/in/natalia-mendez-0425a6212/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Developer Relations and Events Intern",
+      "companyName": "Synk"
+    },
+    {
+      "username": "Emily Viscia",
+      "linkedin": "https://www.linkedin.com/in/emily-viscia-483043269/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Developer and Events Intern",
+      "companyName": "Synk"
     }
   ],
+  "volunteers": [],
+  "team": [],
   "links": [],
   "photos": [
     {

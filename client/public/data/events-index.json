@@ -2,9 +2,9 @@
   "events": [
     {
       "id": "698b5b15-2256-4abb-95f4-758f4eb2a84d",
-      "slug": "builders-campfire-ms8rgmyh",
+      "slug": "builders-campfire-msis058w",
       "name": "Builders Campfire",
-      "type": "hackathon",
+      "type": "mixer",
       "description": "An intimate night for founders, engineers, and creators building the future\n\n​The best products are built when ambitious people come together.\n\n​Builder Campfire is a private gathering for founders, engineers, and creators to connect through real conversations, shared experiences, and the stories behind the things they build.\n\n​This is not another networking event.\n\n​No awkward introductions.\nNo endless pitches.\nNo collecting random LinkedIn connections.\n\n​Just a room full of builders sharing ideas, lessons, challenges, and opportunities.",
       "theme": "",
       "dayLabel": "Mon, Aug 17",
@@ -25,7 +25,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-31T09:47:07.256Z",
-      "updatedAt": "2026-07-31T09:49:30.811Z",
+      "updatedAt": "2026-08-08T05:36:57.102Z",
       "lumaLink": "https://luma.com/vsl63ftr",
       "eventbriteLink": null
     },
@@ -110,7 +110,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T05:05:23.050Z",
-      "updatedAt": "2026-07-30T21:29:17.518Z",
+      "updatedAt": "2026-08-07T09:15:07.878Z",
       "lumaLinks": [],
       "eventbriteLinks": []
     },
@@ -137,7 +137,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-27T05:03:00.105Z",
-      "updatedAt": "2026-07-30T21:29:17.524Z",
+      "updatedAt": "2026-08-08T08:08:36.426Z",
       "lumaLinks": [],
       "eventbriteLinks": []
     },
@@ -218,7 +218,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-07-31T09:39:11.747Z",
+      "updatedAt": "2026-08-07T08:13:06.574Z",
       "lumaLinks": [],
       "eventbriteLinks": []
     },
@@ -272,7 +272,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-07-30T21:29:17.512Z",
+      "updatedAt": "2026-08-08T08:17:40.902Z",
       "lumaLinks": [],
       "eventbriteLinks": []
     },
@@ -488,7 +488,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-07-30T21:29:17.516Z",
+      "updatedAt": "2026-08-08T08:17:13.796Z",
       "lumaLinks": [],
       "eventbriteLinks": []
     }

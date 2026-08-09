@@ -40,7 +40,7 @@ export const eventTypeEnum = pgEnum("event_type", [
 
 export const partnerTypeEnum = pgEnum("partner_type", [
   "venue",
-  "technology",
+  "ventures",
   "community",
   "media",
   "food",

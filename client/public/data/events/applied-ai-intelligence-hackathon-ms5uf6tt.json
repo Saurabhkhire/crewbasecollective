@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-30T21:29:17.516Z",
+    "updatedAt": "2026-08-08T08:17:13.796Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -251,20 +251,14 @@
   ],
   "partners": [
     {
+      "id": "03b7cc19-e27a-4d54-911d-34c8fb36b5fd",
       "partnerType": "venue",
       "customType": null,
       "companyName": "Frontier Tower",
       "companyWebsite": "https://frontiertower.io/",
       "companyLogo": "/images/companies/frontier-tower.jpg",
-      "companyDescription": "Frontier Tower is a 16-floor innovation hub in San Francisco being transformed into a self-governed vertical village for frontier technologies and creative expression. It brings together leading researchers, builders, entrepreneurs, and artists working at the edge of human progress."
-    },
-    {
-      "partnerType": "community",
-      "customType": null,
-      "companyName": "Devnovate",
-      "companyWebsite": "https://devnovate.co/",
-      "companyLogo": "/images/companies/devnovate.png",
-      "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions."
+      "companyDescription": "Frontier Tower is a 16-floor innovation hub in San Francisco being transformed into a self-governed vertical village for frontier technologies and creative expression. It brings together leading researchers, builders, entrepreneurs, and artists working at the edge of human progress.",
+      "representatives": []
     }
   ],
   "prizes": [
@@ -669,17 +663,10 @@
       "role": null,
       "title": "Founder",
       "companyName": "Crewbase Collective"
-    },
-    {
-      "username": "Aviral Bharadwaj",
-      "linkedin": "https://www.linkedin.com/in/aviral-bhardwaj/",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "title": "Founder",
-      "companyName": "Devnovate"
     }
   ],
+  "volunteers": [],
+  "team": [],
   "links": [],
   "photos": []
 }

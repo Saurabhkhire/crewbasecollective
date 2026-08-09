@@ -1,18 +1,174 @@
 import { useEffect, useMemo, useState } from "react";
-import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, ChevronDown } from "lucide-react";
 import { PasteImageField } from "@/components/admin/PasteImageField";
+import { MultiFilterSelect, matchesAnyFilter } from "@/components/admin/MultiFilterSelect";
 import { api } from "@/lib/api";
+import { PARTNER_TYPE_LABELS } from "@/lib/utils";
+
+type RoleStatus = "confirmed" | "maybe" | "no_response";
+
+const STATUS_LABELS: Record<RoleStatus, string> = {
+  confirmed: "Confirmed",
+  maybe: "Maybe",
+  no_response: "No response",
+};
+
+const STATUS_STYLES: Record<RoleStatus, string> = {
+  confirmed: "bg-emerald-900/40 text-emerald-200",
+  maybe: "bg-amber-900/40 text-amber-200",
+  no_response: "bg-zinc-800 text-zinc-400",
+};
+
+interface CompanyRepEvent {
+  eventId: string;
+  eventName: string;
+  status: RoleStatus;
+  kind: "sponsor" | "partner" | string;
+  partnerType: string | null;
+  eventPublished: boolean;
+}
+
+interface CompanyRep {
+  userId: string;
+  username: string;
+  linkedin: string | null;
+  events: CompanyRepEvent[] | string[];
+}
+
+interface CompanyInvolvement {
+  kind: "sponsor" | "partner";
+  partnerType: string | null;
+  eventId: string;
+  eventName: string;
+  eventPublished: boolean;
+  status: RoleStatus;
+}
 
 interface Company {
   id: string;
   name: string;
   logoUrl: string | null;
   website: string | null;
+  linkedin: string | null;
+  email: string | null;
   information: string | null;
   createdAt?: string;
+  kinds?: ("sponsor" | "partner")[];
+  partnerTypes?: string[];
+  representatives?: CompanyRep[];
+  involvements?: CompanyInvolvement[];
 }
 
-const empty = { name: "", logoUrl: "", website: "", information: "" };
+const empty = { name: "", logoUrl: "", website: "", linkedin: "", email: "", information: "" };
+
+const TYPE_FILTER_OPTIONS = [
+  { value: "sponsor", label: "Sponsor" },
+  { value: "venue", label: "Venue partner" },
+  { value: "ventures", label: "Ventures partner" },
+  { value: "community", label: "Community partner" },
+  { value: "media", label: "Media partner" },
+  { value: "food", label: "Food partner" },
+  { value: "other", label: "Other partner" },
+  { value: "custom", label: "Custom partner" },
+];
+
+function normalizeRepEvents(events: CompanyRep["events"]): CompanyRepEvent[] {
+  return (events || []).map((e) => {
+    if (typeof e === "string") {
+      return {
+        eventId: e,
+        eventName: e,
+        status: "confirmed" as RoleStatus,
+        kind: "sponsor",
+        partnerType: null,
+        eventPublished: true,
+      };
+    }
+    return {
+      ...e,
+      status: (e.status === "maybe" || e.status === "no_response" ? e.status : "confirmed") as RoleStatus,
+    };
+  });
+}
+
+function RepresentativeRow({
+  rep,
+  companyKind,
+}: {
+  rep: CompanyRep;
+  companyKind: "sponsor" | "partner" | "both";
+}) {
+  const [open, setOpen] = useState(false);
+  const events = normalizeRepEvents(rep.events);
+  const roleLabel =
+    companyKind === "partner"
+      ? "partner representative"
+      : companyKind === "sponsor"
+        ? "sponsor representative"
+        : "representative";
+
+  return (
+    <div className="rounded-lg border border-zinc-800/80 bg-zinc-900/40">
+      <button
+        type="button"
+        className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        <span className="flex min-w-0 flex-wrap items-center gap-2">
+          {rep.linkedin ? (
+            <a
+              href={rep.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-brand-400 hover:underline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {rep.username}
+            </a>
+          ) : (
+            <span className="font-medium text-zinc-200">{rep.username}</span>
+          )}
+          <span className="text-xs text-zinc-500">{roleLabel}</span>
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-zinc-500 transition ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      {open && (
+        <ul className="space-y-1 border-t border-zinc-800/80 px-3 py-2 text-xs text-zinc-400">
+          {events.length === 0 ? (
+            <li>No events listed.</li>
+          ) : (
+            events.map((ev) => (
+              <li
+                key={`${ev.eventId}-${ev.kind}-${ev.partnerType || ""}`}
+                className="flex flex-wrap items-center gap-2"
+              >
+                <span className="text-zinc-300">{ev.eventName}</span>
+                <span className="text-zinc-600">·</span>
+                <span>
+                  {ev.kind === "sponsor"
+                    ? "Sponsor"
+                    : PARTNER_TYPE_LABELS[ev.partnerType || ""] ||
+                      `${ev.partnerType || "partner"} partner`}
+                </span>
+                {!ev.eventPublished && (
+                  <span className="rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] uppercase text-zinc-500">
+                    unpublished
+                  </span>
+                )}
+                <span className={`rounded-full px-1.5 py-0.5 ${STATUS_STYLES[ev.status]}`}>
+                  {STATUS_LABELS[ev.status]}
+                </span>
+              </li>
+            ))
+          )}
+        </ul>
+      )}
+    </div>
+  );
+}
 
 export default function AdminCompanies() {
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -23,6 +179,8 @@ export default function AdminCompanies() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState<string[]>([]);
+  const [statusFilter, setStatusFilter] = useState<RoleStatus[]>([]);
 
   const load = async () => {
     setError("");
@@ -48,14 +206,48 @@ export default function AdminCompanies() {
       if (aTime !== bTime) return bTime - aTime;
       return a.name.localeCompare(b.name);
     });
-    if (!q) return list;
-    return list.filter(
-      (c) =>
-        c.name.toLowerCase().includes(q) ||
-        (c.website || "").toLowerCase().includes(q) ||
-        (c.information || "").toLowerCase().includes(q)
-    );
-  }, [companies, query]);
+
+    return list
+      .map((c) => {
+        let involvements = c.involvements || [];
+        let representatives = c.representatives || [];
+
+        if (statusFilter.length > 0) {
+          involvements = involvements.filter((inv) => statusFilter.includes(inv.status));
+          representatives = representatives
+            .map((rep) => {
+              const events = normalizeRepEvents(rep.events).filter((ev) =>
+                statusFilter.includes(ev.status)
+              );
+              return { ...rep, events };
+            })
+            .filter((rep) => normalizeRepEvents(rep.events).length > 0);
+        }
+
+        return { ...c, involvements, representatives };
+      })
+      .filter((c) => {
+        if (typeFilter.length > 0) {
+          const companyTypes = [
+            ...((c.kinds || []).includes("sponsor") ? ["sponsor"] : []),
+            ...(c.partnerTypes || []),
+          ];
+          if (!matchesAnyFilter(typeFilter, companyTypes)) return false;
+        }
+        if (statusFilter.length > 0) {
+          const hasMatch =
+            (c.involvements || []).length > 0 || (c.representatives || []).length > 0;
+          if (!hasMatch) return false;
+        }
+        if (!q) return true;
+        return (
+          c.name.toLowerCase().includes(q) ||
+          (c.website || "").toLowerCase().includes(q) ||
+          (c.information || "").toLowerCase().includes(q) ||
+          (c.representatives || []).some((r) => r.username.toLowerCase().includes(q))
+        );
+      });
+  }, [companies, query, typeFilter, statusFilter]);
 
   const save = async () => {
     const name = form.name.trim();
@@ -70,24 +262,19 @@ export default function AdminCompanies() {
         name,
         logoUrl: form.logoUrl.trim() || null,
         website: form.website.trim() || null,
+        linkedin: form.linkedin.trim() || null,
+        email: form.email.trim() || null,
         information: form.information.trim() || null,
       };
       if (editId) {
-        const updated = await api<Company>("/api/admin/companies", {
+        await api<Company>("/api/admin/companies", {
           method: "PUT",
           body: JSON.stringify({ id: editId, ...payload }),
         });
-        setCompanies((prev) =>
-          prev.map((c) => (c.id === editId ? { ...c, ...updated } : c))
-        );
       } else {
-        const created = await api<Company>("/api/admin/companies", {
+        await api<Company>("/api/admin/companies", {
           method: "POST",
           body: JSON.stringify(payload),
-        });
-        setCompanies((prev) => {
-          if (prev.some((c) => c.id === created.id)) return prev;
-          return [created, ...prev];
         });
       }
       setShowForm(false);
@@ -119,19 +306,31 @@ export default function AdminCompanies() {
       name: c.name,
       logoUrl: c.logoUrl || "",
       website: c.website || "",
+      linkedin: c.linkedin || "",
+      email: c.email || "",
       information: c.information || "",
     });
     setShowForm(true);
     setError("");
   };
 
+  const typeBadges = (c: Company) => {
+    const badges: string[] = [];
+    if ((c.kinds || []).includes("sponsor")) badges.push("Sponsor");
+    for (const t of c.partnerTypes || []) {
+      badges.push(PARTNER_TYPE_LABELS[t] || `${t} partner`);
+    }
+    return badges;
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100">Sponsor Companies</h1>
+          <h1 className="text-2xl font-bold text-zinc-100">Sponsors & Partners</h1>
           <p className="mt-1 text-sm text-zinc-400">
-            Catalog for event sponsors and partners. Newest appear first.
+            Catalog for organizations. Status is per event (shown under Events / each
+            representative&apos;s events). Only confirmed roles on published events appear publicly.
           </p>
         </div>
         <button
@@ -174,6 +373,24 @@ export default function AdminCompanies() {
                 placeholder="https://..."
                 value={form.website}
                 onChange={(e) => setForm({ ...form, website: e.target.value })}
+              />
+            </div>
+            <div>
+              <label className="label">LinkedIn</label>
+              <input
+                className="input-field"
+                placeholder="https://linkedin.com/company/..."
+                value={form.linkedin}
+                onChange={(e) => setForm({ ...form, linkedin: e.target.value })}
+              />
+            </div>
+            <div>
+              <label className="label">Email</label>
+              <input
+                type="email"
+                className="input-field"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
               />
             </div>
             <div className="sm:col-span-2">
@@ -228,43 +445,88 @@ export default function AdminCompanies() {
         </div>
       )}
 
-      <div className="relative mt-6 max-w-md">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-        <input
-          className="input-field pl-9"
-          placeholder="Search companies..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+      <div className="mt-6 flex flex-wrap items-end gap-4">
+        <div className="relative max-w-md flex-1">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+          <input
+            className="input-field pl-9"
+            placeholder="Search companies or representatives..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+        <MultiFilterSelect
+          label="Filter by type"
+          emptyLabel="All types"
+          options={TYPE_FILTER_OPTIONS}
+          selected={typeFilter}
+          onChange={setTypeFilter}
+        />
+        <MultiFilterSelect
+          label="Filter by status"
+          emptyLabel="All statuses"
+          minWidthClassName="min-w-[160px]"
+          options={(["confirmed", "maybe", "no_response"] as RoleStatus[]).map((s) => ({
+            value: s,
+            label: STATUS_LABELS[s],
+          }))}
+          selected={statusFilter}
+          onChange={(next) => setStatusFilter(next as RoleStatus[])}
         />
       </div>
 
-      <div className="mt-4 overflow-x-auto">
-        <table className="w-full text-left text-sm">
-          <thead className="border-b border-zinc-800 text-xs uppercase text-zinc-500">
-            <tr>
-              <th className="px-4 py-3">Logo</th>
-              <th className="px-4 py-3">Name</th>
-              <th className="px-4 py-3">Website</th>
-              <th className="px-4 py-3">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((c) => (
-              <tr key={c.id} className="border-b border-zinc-800/80 hover:bg-zinc-900/60">
-                <td className="px-4 py-3">
+      <div className="mt-4 space-y-3">
+        {filtered.map((c) => {
+          const badges = typeBadges(c);
+          const reps = c.representatives || [];
+          const involvements = c.involvements || [];
+          return (
+            <div key={c.id} className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="flex min-w-0 items-start gap-3">
                   {c.logoUrl ? (
-                    <img src={c.logoUrl} alt="" className="h-9 w-9 rounded object-contain" />
+                    <img
+                      src={c.logoUrl}
+                      alt=""
+                      className="h-12 w-12 shrink-0 rounded object-contain bg-zinc-900"
+                    />
                   ) : (
-                    <span className="text-zinc-600">—</span>
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-zinc-800 text-xs text-zinc-500">
+                      —
+                    </div>
                   )}
-                </td>
-                <td className="px-4 py-3 font-medium text-zinc-100">{c.name}</td>
-                <td className="px-4 py-3 text-zinc-400">{c.website || "—"}</td>
-                <td className="px-4 py-3">
+                  <div className="min-w-0">
+                    <p className="font-medium text-zinc-100">{c.name}</p>
+                    <div className="mt-1 flex flex-wrap gap-1.5">
+                      {badges.length === 0 && (
+                        <span className="text-xs text-zinc-600">Not on any event yet</span>
+                      )}
+                      {badges.map((b) => (
+                        <span
+                          key={b}
+                          className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300"
+                        >
+                          {b}
+                        </span>
+                      ))}
+                    </div>
+                    {c.website && (
+                      <a
+                        href={c.website}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-1 inline-block text-xs text-brand-400 hover:underline"
+                      >
+                        {c.website}
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <div className="flex shrink-0 items-center gap-2">
                   <button
                     type="button"
                     onClick={() => startEdit(c)}
-                    className="mr-2 text-brand-400 hover:text-brand-300"
+                    className="text-brand-400 hover:text-brand-300"
                   >
                     <Pencil className="h-4 w-4" />
                   </button>
@@ -275,32 +537,80 @@ export default function AdminCompanies() {
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
-                </td>
-              </tr>
-            ))}
-            {!loading && filtered.length === 0 && (
-              <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-zinc-500">
-                  {query.trim()
-                    ? "No companies match your search."
-                    : "No sponsor companies yet — click Add Company."}
-                </td>
-              </tr>
-            )}
-            {loading && (
-              <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-zinc-500">
-                  Loading companies...
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+                </div>
+              </div>
+
+              {involvements.length > 0 && (
+                <div className="mt-3 border-t border-zinc-800/80 pt-3">
+                  <p className="mb-1 text-xs font-medium uppercase tracking-wide text-zinc-500">
+                    Events
+                  </p>
+                  <div className="divide-y divide-zinc-800/80">
+                  {involvements.map((inv) => (
+                    <div
+                      key={`${inv.kind}-${inv.eventId}-${inv.partnerType || ""}`}
+                      className="flex flex-wrap items-center gap-2 py-2 text-sm text-zinc-300 first:pt-1 last:pb-0"
+                    >
+                      <span>
+                        {inv.kind === "sponsor"
+                          ? "Sponsor"
+                          : PARTNER_TYPE_LABELS[inv.partnerType || ""] ||
+                            `${inv.partnerType} partner`}
+                      </span>
+                      <span className="text-zinc-600">·</span>
+                      <span className="text-zinc-400">{inv.eventName}</span>
+                      {!inv.eventPublished && (
+                        <span className="rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] uppercase text-zinc-500">
+                          unpublished
+                        </span>
+                      )}
+                      <span className={`rounded-full px-2 py-0.5 text-xs ${STATUS_STYLES[inv.status]}`}>
+                        {STATUS_LABELS[inv.status]}
+                      </span>
+                    </div>
+                  ))}
+                  </div>
+                </div>
+              )}
+
+              {reps.length > 0 && (
+                <div className="mt-3 space-y-2 border-t border-zinc-800/80 pt-3">
+                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                    Representatives
+                  </p>
+                  {reps.map((rep) => (
+                    <RepresentativeRow
+                      key={rep.userId}
+                      rep={rep}
+                      companyKind={
+                        (c.kinds || []).includes("sponsor") && (c.kinds || []).includes("partner")
+                          ? "both"
+                          : (c.kinds || []).includes("partner")
+                            ? "partner"
+                            : "sponsor"
+                      }
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+        {!loading && filtered.length === 0 && (
+          <p className="py-8 text-center text-sm text-zinc-500">
+            {query.trim() || typeFilter.length || statusFilter.length
+              ? "No companies match your filters."
+              : "No sponsor companies yet — click Add Company."}
+          </p>
+        )}
+        {loading && <p className="py-8 text-center text-sm text-zinc-500">Loading companies...</p>}
       </div>
       {!loading && (
         <p className="mt-3 text-xs text-zinc-500">
           {filtered.length} shown
-          {query.trim() ? ` (of ${companies.length})` : ""}
+          {query.trim() || typeFilter.length || statusFilter.length
+            ? ` (of ${companies.length})`
+            : ""}
         </p>
       )}
     </div>

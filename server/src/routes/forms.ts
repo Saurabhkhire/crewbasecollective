@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { getSupabase } from "../supabase.js";
-import { buildRequestEmailHtml, sendNotificationEmail } from "../email.js";
+import { buildRequestEmailHtml, isSmtpConfigured, resolveSmtpConfig, sendNotificationEmail } from "../email.js";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -44,8 +44,10 @@ publicFormsRouter.post("/subscribe", async (req, res) => {
     const email = parsed.data.email.trim().toLowerCase();
     const supabase = getSupabase();
     if (!supabase) {
-      console.log("[Subscribe] Supabase not configured. Would save:", email);
-      res.json({ success: true, stored: false });
+      console.error("[Subscribe] Supabase not configured (SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY)");
+      res.status(503).json({
+        error: "Subscriptions are temporarily unavailable. Please try again later.",
+      });
       return;
     }
     const { error } = await supabase.from("subscribers").upsert(
@@ -53,13 +55,20 @@ publicFormsRouter.post("/subscribe", async (req, res) => {
       { onConflict: "email", ignoreDuplicates: true }
     );
     if (error) {
-      console.error(error);
-      res.status(500).json({ error: "Could not save subscription" });
+      console.error("[Subscribe] Supabase error:", error.message, error);
+      // Unique race: treat as success
+      if (error.code === "23505") {
+        res.json({ success: true, stored: true });
+        return;
+      }
+      res.status(500).json({
+        error: "Could not save subscription. Please try again.",
+      });
       return;
     }
     res.json({ success: true, stored: true });
   } catch (err) {
-    console.error(err);
+    console.error("[Subscribe]", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -96,7 +105,7 @@ const partnershipSchema = z.object({
   website: z.string().optional(),
   description: z.string().optional(),
   comments: z.string().optional(),
-  partnershipType: z.enum(["venue", "technology", "community", "media", "food", "other", "custom"]),
+  partnershipType: z.enum(["venue", "ventures", "community", "media", "food", "other", "custom"]),
   partnershipCustomType: z.string().optional(),
   eventIds: z.array(z.string()).min(1),
 });
@@ -182,8 +191,8 @@ publicFormsRouter.post("/requests", async (req, res) => {
     });
 
     if (!sent) {
-      const smtpConfigured =
-        process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS && process.env.NOTIFY_EMAIL;
+      const config = resolveSmtpConfig();
+      const smtpConfigured = isSmtpConfigured(config) && Boolean(config.notifyEmail);
       if (smtpConfigured) {
         res.status(500).json({ error: "Could not send request email" });
         return;

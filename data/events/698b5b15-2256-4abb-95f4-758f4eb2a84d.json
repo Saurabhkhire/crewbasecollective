@@ -1,9 +1,9 @@
 {
   "event": {
     "id": "698b5b15-2256-4abb-95f4-758f4eb2a84d",
-    "slug": "builders-campfire-ms8rgmyh",
+    "slug": "builders-campfire-msis058w",
     "name": "Builders Campfire",
-    "type": "hackathon",
+    "type": "mixer",
     "description": "An intimate night for founders, engineers, and creators building the future\n\n​The best products are built when ambitious people come together.\n\n​Builder Campfire is a private gathering for founders, engineers, and creators to connect through real conversations, shared experiences, and the stories behind the things they build.\n\n​This is not another networking event.\n\n​No awkward introductions.\nNo endless pitches.\nNo collecting random LinkedIn connections.\n\n​Just a room full of builders sharing ideas, lessons, challenges, and opportunities.",
     "theme": "",
     "dayLabel": "Mon, Aug 17",
@@ -24,19 +24,106 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-31T09:47:07.256Z",
-    "updatedAt": "2026-07-31T09:49:30.811Z",
+    "updatedAt": "2026-08-08T05:36:57.102Z",
     "lumaLink": "https://luma.com/vsl63ftr",
     "eventbriteLink": null
   },
   "tracks": [],
-  "sponsors": [],
+  "sponsors": [
+    {
+      "id": "88330b3a-9d19-49a7-bdb0-5ccf537652ba",
+      "companyId": "49e8e316-55ce-4198-91a7-3877900d8184",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "a6689078-6ecf-4221-94b4-4d5a422012e1",
+      "companyId": "427254d8-abb6-4f25-a63a-294a47df7f19",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 1,
+      "representatives": []
+    }
+  ],
   "partners": [],
   "prizes": [],
   "schedule": [],
   "speakers": [],
   "judges": [],
-  "hosts": [],
+  "hosts": [
+    {
+      "id": "35841cf2-a8c5-499a-bd8d-b2687b12c94e",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 0
+    },
+    {
+      "id": "72fb0f67-a522-40fc-9306-e90327ac1e06",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 1
+    },
+    {
+      "id": "3b9560b6-1024-4ffc-a637-2413a462536f",
+      "userId": "994608b0-11c4-4fb3-9238-521f3caf211f",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 2
+    },
+    {
+      "id": "455d6d54-fdb5-4146-9a7a-fcb00283505e",
+      "userId": "c22f56cc-f5ff-49c7-a8ca-6e4cc887d732",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 3
+    },
+    {
+      "id": "9fa1cbd5-4b07-462b-94d3-f3c9723b76e0",
+      "userId": "f018a7e1-c984-4ad5-b9d3-869bd6c63f5f",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 4
+    },
+    {
+      "id": "8324e799-b6a9-4947-919b-b48da2c1b953",
+      "userId": "0b3f9617-f260-4187-a555-062ab8689b40",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 5
+    },
+    {
+      "id": "ad96cf81-13cf-474b-bb4a-1898ad93b678",
+      "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 6
+    }
+  ],
   "links": [],
   "photos": [],
-  "liveState": null
+  "liveState": null,
+  "staffRoles": []
 }

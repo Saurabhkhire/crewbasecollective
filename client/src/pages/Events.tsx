@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { EventCard } from "@/components/EventCard";
 import { loadData } from "@/lib/api";
 import { partitionEventsBySchedule, EVENT_TYPE_LABELS } from "@/lib/utils";
@@ -49,6 +49,7 @@ export default function EventsPage() {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
+  const [showPartnerEvents, setShowPartnerEvents] = useState(true);
 
   useEffect(() => {
     loadData<{ events: EventRow[] }>("/data/events-index.json")
@@ -63,13 +64,24 @@ export default function EventsPage() {
       .finally(() => setLoaded(true));
   }, []);
 
-  const eventTypeOptions = Array.from(new Set(events.map((event) => event.type)))
-    .sort((a, b) => (EVENT_TYPE_LABELS[a] || a).localeCompare(EVENT_TYPE_LABELS[b] || b));
+  const filteredEvents = useMemo(() => {
+    return events.filter((event) => {
+      if (!showPartnerEvents && event.isPartnerEvent) return false;
+      if (typeFilter !== "all" && event.type !== typeFilter) return false;
+      return true;
+    });
+  }, [events, typeFilter, showPartnerEvents]);
 
-  const filteredEvents =
-    typeFilter === "all" ? events : events.filter((event) => event.type === typeFilter);
+  const eventTypeOptions = Array.from(
+    new Set(
+      events
+        .filter((event) => showPartnerEvents || !event.isPartnerEvent)
+        .map((event) => event.type)
+    )
+  ).sort((a, b) => (EVENT_TYPE_LABELS[a] || a).localeCompare(EVENT_TYPE_LABELS[b] || b));
 
   const { upcoming, past } = partitionEventsBySchedule(filteredEvents);
+  const hasActiveFilters = typeFilter !== "all" || !showPartnerEvents;
 
   return (
     <div className="mx-auto w-[90%] max-w-6xl pb-20 pt-[130px]">
@@ -78,23 +90,34 @@ export default function EventsPage() {
       <p className="section-subtitle">
         Hackathons, pitch competitions, workshops, mixers, and more.
       </p>
-      <div className="mt-6 flex items-center gap-3">
-        <label htmlFor="event-type-filter" className="text-sm font-medium text-[var(--muted)]">
-          Filter:
+      <div className="mt-6 flex flex-wrap items-center gap-4">
+        <div className="flex items-center gap-3">
+          <label htmlFor="event-type-filter" className="text-sm font-medium text-[var(--muted)]">
+            Type:
+          </label>
+          <select
+            id="event-type-filter"
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+            className="rounded-lg border border-[var(--border)] bg-[var(--panel)] px-3 py-2 text-sm text-white focus:border-[var(--cyan)] focus:outline-none"
+          >
+            <option value="all">All event types</option>
+            {eventTypeOptions.map((type) => (
+              <option key={type} value={type}>
+                {EVENT_TYPE_LABELS[type] || type}
+              </option>
+            ))}
+          </select>
+        </div>
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-[var(--muted)]">
+          <input
+            type="checkbox"
+            checked={showPartnerEvents}
+            onChange={(e) => setShowPartnerEvents(e.target.checked)}
+            className="rounded border-[var(--border)] text-[var(--cyan)] focus:ring-[var(--cyan)]"
+          />
+          Show partner events
         </label>
-        <select
-          id="event-type-filter"
-          value={typeFilter}
-          onChange={(e) => setTypeFilter(e.target.value)}
-          className="rounded-lg border border-[var(--border)] bg-[var(--panel)] px-3 py-2 text-sm text-white focus:border-[var(--cyan)] focus:outline-none"
-        >
-          <option value="all">All event types</option>
-          {eventTypeOptions.map((type) => (
-            <option key={type} value={type}>
-              {EVENT_TYPE_LABELS[type] || type}
-            </option>
-          ))}
-        </select>
       </div>
 
       {!loaded ? (
@@ -103,9 +126,9 @@ export default function EventsPage() {
         <p className="mt-12 text-[var(--muted)]">{error}</p>
       ) : upcoming.length === 0 && past.length === 0 ? (
         <p className="mt-12 text-[var(--muted)]">
-          {typeFilter === "all"
-            ? "No events published yet. Check back soon!"
-            : "No events match this type yet. Try another filter."}
+          {hasActiveFilters
+            ? "No events match these filters. Try another filter."
+            : "No events published yet. Check back soon!"}
         </p>
       ) : (
         <>

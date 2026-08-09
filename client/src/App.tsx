@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -8,6 +8,7 @@ import EventsPage from "@/pages/Events";
 import EventDetailPage from "@/pages/EventDetail";
 import SponsorsPage from "@/pages/Sponsors";
 import PeoplePage from "@/pages/People";
+import GetInvolvedPage from "@/pages/GetInvolved";
 import NotFoundPage from "@/pages/NotFound";
 
 function PublicLayout() {
@@ -35,6 +36,8 @@ export default function App() {
         <Route path="/events/:slug" element={<EventDetailPage />} />
         <Route path="/sponsors" element={<SponsorsPage />} />
         <Route path="/people" element={<PeoplePage />} />
+        <Route path="/join" element={<Navigate to="/get-involved" replace />} />
+        <Route path="/get-involved" element={<GetInvolvedPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

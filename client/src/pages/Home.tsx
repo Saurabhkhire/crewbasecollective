@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { EventCard } from "@/components/EventCard";
@@ -54,8 +54,16 @@ export default function HomePage() {
     loadData<{ people: unknown[] }>("/data/people.json")
       .then((data) => setPeopleCount(data.people?.length || 0))
       .catch(() => setPeopleCount(0));
-    loadData<{ sponsors: unknown[] }>("/data/sponsors.json")
-      .then((data) => setSponsorCount(data.sponsors?.length || 0))
+    loadData<{ sponsors?: unknown[]; venuePartners?: unknown[]; communityPartners?: unknown[] }>(
+      "/data/sponsors.json"
+    )
+      .then((data) =>
+        setSponsorCount(
+          (data.sponsors?.length || 0) +
+            (data.venuePartners?.length || 0) +
+            (data.communityPartners?.length || 0)
+        )
+      )
       .catch(() => setSponsorCount(0));
   }, []);
 

@@ -1,0 +1,79 @@
+{
+  "subRoles": [
+    {
+      "key": "marketing",
+      "visible": false
+    },
+    {
+      "key": "mc",
+      "visible": true
+    },
+    {
+      "key": "sponsor finder",
+      "visible": false
+    },
+    {
+      "key": "venue finder",
+      "visible": false
+    },
+    {
+      "key": "content creator",
+      "visible": true
+    },
+    {
+      "key": "photographer",
+      "visible": true
+    },
+    {
+      "key": "interviewer",
+      "visible": true
+    }
+  ],
+  "communityLinks": {
+    "whatsapp": "",
+    "discord": "https://discord.gg/3ptzZKgjud",
+    "x": "",
+    "lumaCalendar": "https://luma.com/calendar/cal-3A00RBKfF0vkoAd"
+  },
+  "smtp": {
+    "host": "",
+    "port": "587",
+    "user": "",
+    "pass": "",
+    "from": "Crewbase Collective <noreply@crewbasecollective.com>",
+    "notifyEmail": ""
+  },
+  "emailTemplates": {
+    "sponsorshipRequest": {
+      "subject": "Sponsorship opportunity — {{event_name}} | Crewbase Collective",
+      "body": "Hi {{person_name}},\n\nI'm reaching out from Crewbase Collective about sponsoring {{event_name}}.\n\nEvent details:\n• Date: {{event_date}}\n• Time: {{event_time}}\n• Place: {{event_place}}\n• Theme: {{theme}}\n• Tracks: {{tracks}}\n• Luma: {{luma_link}}\n• Sponsors: {{sponsor_names}}\n• Partners: {{partner_names}}\n\nWe've attached our pitch deck with packages and past outcomes. Would love to explore a partnership — reply to this email anytime.\n\nBest,\nCrewbase Collective"
+    },
+    "speakerInvite": {
+      "subject": "Speaker Invitation — {{event_name}}",
+      "body": "Hi {{person_name}},\n\nI hope you’re doing well.\n\nI’m pleased to invite you to join us as a Speaker for the {{event_name}}, a builder sprint bringing together founders, engineers, designers, and creators to transform bold ideas into working prototypes using AI, software, and design.\nThis hackathon is designed to bring together a diverse community of builders to experiment, create, and launch. Participants will spend the day developing innovative products and solutions, culminating in live demos evaluated by a panel of industry experts. Theme is {{theme}}\n{{tracks}}\n\nDay & Date: {{event_date}}\nTime: {{event_time}}\nLocation: {{event_place}}\nEvent Link: {{luma_link}}\n\nAs a speaker, you’ll have the opportunity to share your experience, insights, and perspective with a community of ambitious builders. Your talk or conversation can help participants think differently about building, technology, entrepreneurship, and the opportunities ahead.\n\nSponsors & Partners\nThe event is supported by an incredible group of sponsors {{sponsor_names}}, along with partners {{partner_names}}.\n\nGiven your background, experience, and expertise, we believe your perspective would be a valuable addition to our judging panel. We would be honored to have you join us and contribute to an exciting day of building, collaboration, and innovation.\n\nWe’ll share the session format, schedule, and all relevant logistics ahead of the event to ensure a smooth and enjoyable experience.\n\nThank you for considering our invitation. We hope to have you join us and look forward to welcoming you to the Bay Builders Hackathon.\n\nWarm regards,\n\nSaurabh Khire\nLead Organizer, {{event_name}}\nCrewBase Collective"
+    },
+    "judgeInvite": {
+      "subject": "Judge Invitation — {{event_name}}",
+      "body": "Hi {{person_name}},\n\nI hope you’re doing well.\n\nI’m pleased to invite you to join us as a Judge for the {{event_name}}, a builder sprint bringing together founders, engineers, designers, and creators to transform bold ideas into working prototypes using AI, software, and design.\nThis hackathon is designed to bring together a diverse community of builders to experiment, create, and launch. Participants will spend the day developing innovative products and solutions, culminating in live demos evaluated by a panel of industry experts. Theme is {{theme}}\n{{tracks}}\n\nDay & Date: {{event_date}}\nTime: {{event_time}}\nLocation: {{event_place}}\nEvent Link: {{luma_link}}\n\nAs a judge, you will evaluate projects based on key criteria including innovation, technical execution, product thinking, creativity, and the quality of the final demo.\nYou’ll have the opportunity to engage with participants, ask questions, and provide feedback on their ideas and implementations. Your perspective will play an important role in helping us recognize standout projects while giving builders meaningful feedback they can take forward.\n\nSponsors & Partners\nThe event is supported by an incredible group of sponsors {{sponsor_names}}, along with partners {{partner_names}}.\n\nGiven your background, experience, and expertise, we believe your perspective would be a valuable addition to our judging panel. We would be honored to have you join us and contribute to an exciting day of building, collaboration, and innovation.\n\nWe’ll share the judging rubric, schedule, and all relevant logistics ahead of the event to ensure a smooth and enjoyable experience.\n\nThank you for considering our invitation. We hope to have you join us and look forward to welcoming you to the Bay Builders Hackathon.\n\nWarm regards,\n\nSaurabh Khire\nLead Organizer, {{event_name}}\nCrewBase Collective"
+    },
+    "judgeSpeakerInvite": {
+      "subject": "Invitation to judge & speak — {{event_name}}",
+      "body": "Hi {{person_name}},\n\nI hope you’re doing well.\n\nI’m pleased to invite you to join us as a Judge & Speaker for the {{event_name}}, a builder sprint bringing together founders, engineers, designers, and creators to transform bold ideas into working prototypes using AI, software, and design.\nThis hackathon is designed to bring together a diverse community of builders to experiment, create, and launch. Participants will spend the day developing innovative products and solutions, culminating in live demos evaluated by a panel of industry experts. Theme is {{theme}}\n{{tracks}}\n\nDay & Date: {{event_date}}\nTime: {{event_time}}\nLocation: {{event_place}}\nEvent Link: {{luma_link}}\n\nAs a judge, you will evaluate projects based on key criteria including innovation, technical execution, product thinking, creativity, and the quality of the final demo.\nYou’ll have the opportunity to engage with participants, ask questions, and provide feedback on their ideas and implementations. Your perspective will play an important role in helping us recognize standout projects while giving builders meaningful feedback they can take forward.\nAs a speaker, you’ll have the opportunity to share your experience, insights, and perspective with a community of ambitious builders. Your talk or conversation can help participants think differently about building, technology, entrepreneurship, and the opportunities ahead.\n\nSponsors & Partners\nThe event is supported by an incredible group of sponsors {{sponsor_names}}, along with partners {{partner_names}}.\n\nGiven your background, experience, and expertise, we believe your perspective would be a valuable addition to our speaking and judging panel. We would be honored to have you join us and contribute to an exciting day of building, collaboration, and innovation.\n\nWe’ll share the judging rubric, schedule, and all relevant logistics ahead of the event to ensure a smooth and enjoyable experience.\n\nThank you for considering our invitation. We hope to have you join us and look forward to welcoming you to the Bay Builders Hackathon.\n\nWarm regards,\n\nSaurabh Khire\nLead Organizer, {{event_name}}\nCrewBase Collective"
+    },
+    "judgeCertification": {
+      "subject": "Thank you for judging — {{event_name}}",
+      "body": "Hi {{person_name}},\n\nThank you for judging at {{event_name}} — your time and thoughtful feedback helped our builders ship better work. We've attached a judging certificate for your contribution.\n\nSaurabh Khire\nLead Organizer, {{event_name}}\nCrewbase Collective",
+      "certificateText": "JUDGING CERTIFICATE\n\nPresented to\n{{person_name}}\n\n{{event_name}}\n\nDay & Date: {{event_date}}\nTime: {{event_time}}\nLocation: {{event_place}}\nEvent Link: {{luma_link}}\n\nThis certificate recognizes {{person_name}} for serving as an official judge at the {{event_name}}, a builder sprint bringing together founders, engineers, designers, and creators to build innovative products and working prototypes using AI, software, and design.\n\nAs a judge, {{person_name}} evaluated projects based on innovation, technical execution, product thinking, creativity, and demo quality, and provided valuable feedback and perspective to participating builders.\n\nWe sincerely appreciate your time, expertise, and contribution to the success of the event and to the broader community of builders, founders, and creators.\n\nSaurabh Khire\nLead Organizer, {{event_name}}\nCrewBase Collective"
+    },
+    "speakerCertification": {
+      "subject": "Thank you for speaking — {{event_name}}",
+      "body": "Hi {{person_name}},\n\nThank you for speaking at {{event_name}} — your talk inspired our community. We've attached a certificate of appreciation for your contribution.\n\nSaurabh Khire\nLead Organizer, {{event_name}}\nCrewbase Collective",
+      "certificateText": "SPEAKING CERTIFICATE\n\nPresented to\n{{person_name}}\n\n{{event_name}}\n\nDay & Date: {{event_date}}\nTime: {{event_time}}\nLocation: {{event_place}}\nEvent Link: {{luma_link}}\n\nThis certificate recognizes {{person_name}} for sharing their knowledge, experience, and perspective with the {{event_name}}.\n\nAs a speaker, {{person_name}} contributed valuable insights to a community of founders, engineers, designers, and creators, inspiring participants to explore new ideas, build boldly, and turn ambitious concepts into working products.\n\nSaurabh Khire\nLead Organizer, {{event_name}}\nCrewBase Collective"
+    },
+    "judgeSpeakerCertification": {
+      "subject": "Thank you for judging & speaking — {{event_name}}",
+      "body": "Hi {{person_name}},\n\nThank you for judging and speaking at {{event_name}} — your time, feedback, and talk helped our builders grow. We've attached a certificate of appreciation for your contribution.\n\nSaurabh Khire\nLead Organizer, {{event_name}}\nCrewbase Collective",
+      "certificateText": "JUDGING & SPEAKING CERTIFICATE\n\nPresented to\n{{person_name}}\n\n{{event_name}}\n\nDay & Date: {{event_date}}\nTime: {{event_time}}\nLocation: {{event_place}}\nEvent Link: {{luma_link}}\n\nThis certificate recognizes {{person_name}} for making a distinguished contribution to the {{event_name}} as both a speaker and judge.\n\nAs a speaker, {{person_name}} shared valuable knowledge, experience, and perspective with a community of founders, engineers, designers, and creators.\n\nAs a judge, {{person_name}} evaluated projects based on innovation, technical execution, product thinking, creativity, and demo quality, while providing thoughtful feedback and guidance to participating builders.\n\nWe sincerely appreciate your time, expertise, and commitment to supporting the next generation of builders and entrepreneurs. Your contribution played an important role in making the event a meaningful and impactful experience for the community.\n\nSaurabh Khire\nLead Organizer, {{event_name}}\nCrewBase Collective"
+    }
+  }
+}

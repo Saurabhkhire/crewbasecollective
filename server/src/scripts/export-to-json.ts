@@ -114,6 +114,7 @@ async function main() {
       logoUrl,
       website: c.website,
       linkedin: c.linkedin,
+      email: null,
       information: c.information,
       createdAt: iso(c.createdAt)!,
       updatedAt: iso(c.updatedAt)!,
@@ -132,8 +133,10 @@ async function main() {
     role: p.role,
     title: p.title,
     phone: p.phone,
+    notes: null,
     companyId: p.companyId,
     companyName: p.companyName,
+    roles: [],
     createdAt: iso(p.createdAt)!,
     updatedAt: iso(p.updatedAt)!,
   }));
@@ -191,8 +194,9 @@ async function main() {
         id: s.id,
         companyId: s.companyId,
         personId: s.personId,
+        status: "confirmed" as const,
         sortOrder: s.sortOrder,
-        representatives: reps.map((r) => ({ userId: r.userId })),
+        representatives: reps.map((r) => ({ userId: r.userId, status: "confirmed" as const })),
       });
     }
 
@@ -271,6 +275,8 @@ async function main() {
         customName: p.customName,
         partnerType: p.partnerType,
         customType: p.customType,
+        status: "confirmed" as const,
+        representatives: [],
       })),
       prizes: prizeRows.map((p) => ({
         id: p.id,
@@ -293,12 +299,14 @@ async function main() {
         endTime: iso(s.endTime),
         topic: s.topic,
         isSkipped: s.isSkipped,
+        status: "confirmed" as const,
         sortOrder: s.sortOrder,
       })),
       judges: judgeRows.map((j) => ({
         id: j.id,
         userId: j.userId,
         role: j.role,
+        status: "confirmed" as const,
         sortOrder: j.sortOrder,
       })),
       hosts: hostRows.map((h) => ({
@@ -307,8 +315,11 @@ async function main() {
         hostType: h.hostType,
         customType: h.customType,
         role: h.role,
+        status: "confirmed" as const,
         sortOrder: h.sortOrder,
       })),
+      staffRoles: [],
+      associated: [],
       links: linkRows.map((l) => ({
         id: l.id,
         label: l.label,

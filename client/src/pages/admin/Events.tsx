@@ -1,8 +1,9 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Plus, Trash2, Settings2 } from "lucide-react";
+import { Plus, Trash2, Settings2, Search } from "lucide-react";
 import { PasteImageField } from "@/components/admin/PasteImageField";
 import { LinkListField } from "@/components/admin/LinkListField";
+import { MultiFilterSelect, matchesAnyFilter } from "@/components/admin/MultiFilterSelect";
 import { api } from "@/lib/api";
 import { eventImageFolder, sanitizeImageBasename } from "@/lib/upload";
 import { EVENT_TYPE_LABELS } from "@/lib/utils";
@@ -29,6 +30,7 @@ interface EventRow {
   eventbriteLink: string | null;
   groupLink: string | null;
   isPartnerEvent: boolean;
+  isPublished?: boolean;
 }
 
 const EVENT_TYPES = [
@@ -68,6 +70,10 @@ export default function AdminEvents() {
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [query, setQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState<string[]>([]);
+  const [visibilityFilter, setVisibilityFilter] = useState<string[]>([]);
+  const [partnerFilter, setPartnerFilter] = useState<string[]>([]);
 
   const load = async () => {
     try {
@@ -82,6 +88,31 @@ export default function AdminEvents() {
   useEffect(() => {
     void load();
   }, []);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return events.filter((ev) => {
+      if (!matchesAnyFilter(typeFilter, [ev.type])) return false;
+      if (visibilityFilter.length > 0) {
+        const vis = ev.isPublished ? "published" : "unpublished";
+        if (!visibilityFilter.includes(vis)) return false;
+      }
+      if (partnerFilter.length > 0) {
+        const kind = ev.isPartnerEvent ? "partner" : "crewbase";
+        if (!partnerFilter.includes(kind)) return false;
+      }
+      if (!q) return true;
+      return (
+        ev.name.toLowerCase().includes(q) ||
+        (ev.location || "").toLowerCase().includes(q) ||
+        (EVENT_TYPE_LABELS[ev.type] || ev.type).toLowerCase().includes(q)
+      );
+    });
+  }, [events, query, typeFilter, visibilityFilter, partnerFilter]);
+
+  const hasFilters = Boolean(
+    query.trim() || typeFilter.length || visibilityFilter.length || partnerFilter.length
+  );
 
   const save = async () => {
     if (!form.name.trim() || !form.eventDate) {
@@ -303,7 +334,51 @@ export default function AdminEvents() {
         </div>
       )}
 
-      <div className="mt-6 overflow-x-auto">
+      <div className="mt-6 flex flex-wrap items-end gap-4">
+        <div className="relative max-w-md flex-1">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+          <input
+            className="input-field pl-9"
+            placeholder="Search events..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+        <MultiFilterSelect
+          label="Type"
+          emptyLabel="All types"
+          options={EVENT_TYPES.map((t) => ({
+            value: t,
+            label: EVENT_TYPE_LABELS[t] || t,
+          }))}
+          selected={typeFilter}
+          onChange={setTypeFilter}
+        />
+        <MultiFilterSelect
+          label="Visibility"
+          emptyLabel="All"
+          minWidthClassName="min-w-[140px]"
+          options={[
+            { value: "published", label: "On Events page" },
+            { value: "unpublished", label: "Hidden" },
+          ]}
+          selected={visibilityFilter}
+          onChange={setVisibilityFilter}
+        />
+        <MultiFilterSelect
+          label="Partner"
+          emptyLabel="All"
+          minWidthClassName="min-w-[140px]"
+          options={[
+            { value: "crewbase", label: "Crewbase" },
+            { value: "partner", label: "Partner event" },
+          ]}
+          selected={partnerFilter}
+          onChange={setPartnerFilter}
+        />
+      </div>
+
+      <div className="mt-4 overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead className="border-b border-zinc-800 text-xs uppercase text-zinc-500">
             <tr>
@@ -314,7 +389,7 @@ export default function AdminEvents() {
             </tr>
           </thead>
           <tbody>
-            {events.map((ev) => (
+            {filtered.map((ev) => (
               <tr key={ev.id} className="border-b border-zinc-800/80 hover:bg-zinc-900/60">
                 <td className="px-4 py-3 font-medium text-zinc-100">{ev.name}</td>
                 <td className="px-4 py-3 text-zinc-300">{EVENT_TYPE_LABELS[ev.type]}</td>
@@ -335,16 +410,22 @@ export default function AdminEvents() {
                 </td>
               </tr>
             ))}
-            {events.length === 0 && (
+            {filtered.length === 0 && (
               <tr>
                 <td colSpan={4} className="px-4 py-8 text-center text-zinc-500">
-                  No events yet
+                  {hasFilters ? "No events match your filters." : "No events yet"}
                 </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
+      {events.length > 0 && (
+        <p className="mt-3 text-xs text-zinc-500">
+          {filtered.length} shown
+          {hasFilters ? ` (of ${events.length})` : ""}
+        </p>
+      )}
     </div>
   );
 }

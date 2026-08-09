@@ -7,18 +7,29 @@ import {
   type EventRecord,
   type EventSponsor,
   type EventType,
+  FIXED_PERSON_ROLES,
   type PeopleFile,
   type Person,
+  type RoleStatus,
+  type SiteSettings,
+  type EmailTemplateDraft,
+  type SmtpSettings,
+  DEFAULT_SITE_SETTINGS,
+  DEFAULT_EMAIL_TEMPLATES,
+  DEFAULT_SMTP_SETTINGS,
   dayLabelFromDate,
   emptyEvent,
   isCompetitionEvent,
   newId,
   normalizeEventBasics,
   normalizeLinkList,
+  normalizeSubRoles,
   nowIso,
   slugify,
+  subRoleIsVisible,
 } from "./types.js";
 import { eventImageFolder } from "../image-names.js";
+import { isConfirmed, normalizeEventRecord, normalizePersonRecord } from "./normalize.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(__dirname, "../../../");
@@ -41,6 +52,8 @@ export type ReorderableCollection =
   | "speakers"
   | "judges"
   | "hosts"
+  | "associated"
+  | "staffRoles"
   | "links"
   | "photos";
 
@@ -59,6 +72,8 @@ export function reorderEventCollection(
     | "speakers"
     | "judges"
     | "hosts"
+    | "associated"
+    | "staffRoles"
     | "links"
     | "photos"
   >;
@@ -111,15 +126,32 @@ function peoplePath() {
   return path.join(DATA_DIR, "people.json");
 }
 
+function settingsPath() {
+  return path.join(DATA_DIR, "settings.json");
+}
+
 function eventPath(id: string) {
   return path.join(EVENTS_DIR, `${id}.json`);
+}
+
+function normalizeCompany(c: Company): Company {
+  return {
+    ...c,
+    linkedin: c.linkedin ?? null,
+    email: c.email ?? null,
+    information: c.information ?? null,
+  };
+}
+
+function normalizePerson(p: Person): Person {
+  return normalizePersonRecord(p);
 }
 
 // ─── Companies ───────────────────────────────────────────────────────────────
 
 export function listCompanies(): Company[] {
   ensureDirs();
-  return readJson<CompaniesFile>(companiesPath(), { companies: [] }).companies;
+  return readJson<CompaniesFile>(companiesPath(), { companies: [] }).companies.map(normalizeCompany);
 }
 
 export function saveCompanies(companies: Company[]) {
@@ -168,7 +200,7 @@ export function resolveExistingCompanyName(companyName?: string | null): {
 
 export function listPeople(): Person[] {
   ensureDirs();
-  return readJson<PeopleFile>(peoplePath(), { people: [] }).people;
+  return readJson<PeopleFile>(peoplePath(), { people: [] }).people.map(normalizePerson);
 }
 
 export function savePeople(people: Person[]) {
@@ -177,12 +209,23 @@ export function savePeople(people: Person[]) {
 }
 
 export function createPerson(
-  input: Omit<Person, "id" | "createdAt" | "updatedAt" | "role" | "companyId"> & {
+  input: Omit<Person, "id" | "createdAt" | "updatedAt" | "role"> & {
     companyName?: string | null;
+    companyId?: string | null;
+    roles?: Person["roles"];
   }
 ): Person {
   const people = listPeople();
-  const company = resolveExistingCompanyName(input.companyName);
+  let companyId = input.companyId ?? null;
+  let companyName = input.companyName ?? null;
+  if (companyId) {
+    const match = listCompanies().find((c) => c.id === companyId);
+    if (match) companyName = match.name;
+  } else if (companyName) {
+    const resolved = resolveExistingCompanyName(companyName);
+    companyId = resolved.companyId;
+    companyName = resolved.companyName;
+  }
   const ts = nowIso();
   const row: Person = {
     id: newId(),
@@ -192,8 +235,10 @@ export function createPerson(
     role: "participant",
     title: input.title ?? null,
     phone: input.phone ?? null,
-    companyId: company.companyId,
-    companyName: company.companyName,
+    notes: input.notes ?? null,
+    companyId,
+    companyName,
+    roles: Array.isArray(input.roles) ? input.roles : [],
     createdAt: ts,
     updatedAt: ts,
   };
@@ -206,21 +251,28 @@ export function updatePerson(id: string, patch: Partial<Person>): Person | null 
   const people = listPeople();
   const idx = people.findIndex((p) => p.id === id);
   if (idx < 0) return null;
-  let companyId = patch.companyId ?? people[idx].companyId;
+  let companyId = patch.companyId !== undefined ? patch.companyId : people[idx].companyId;
   let companyName = patch.companyName !== undefined ? patch.companyName : people[idx].companyName;
-  if (patch.companyName !== undefined) {
+  if (patch.companyId) {
+    const match = listCompanies().find((c) => c.id === patch.companyId);
+    if (match) {
+      companyId = match.id;
+      companyName = match.name;
+    }
+  } else if (patch.companyName !== undefined) {
     const resolved = resolveExistingCompanyName(patch.companyName);
     companyId = resolved.companyId;
     companyName = resolved.companyName;
   }
-  people[idx] = {
+  people[idx] = normalizePersonRecord({
     ...people[idx],
     ...patch,
     id,
     companyId,
     companyName,
+    roles: Array.isArray(patch.roles) ? patch.roles : people[idx].roles || [],
     updatedAt: nowIso(),
-  };
+  });
   savePeople(people);
   return people[idx];
 }
@@ -231,6 +283,300 @@ export function deletePerson(id: string): boolean {
   if (next.length === people.length) return false;
   savePeople(next);
   return true;
+}
+
+/** Main roles from event assignments + person directory roles. */
+export function mainRolesForPerson(
+  personId: string,
+  events?: EventRecord[],
+  personRecord?: Person | null
+): string[] {
+  const records = events ?? listEventRecords();
+  const roles = new Set<string>();
+  const person = personRecord ?? listPeople().find((p) => p.id === personId);
+  for (const r of person?.roles || []) {
+    if (r.role?.trim()) roles.add(r.role.trim());
+  }
+  for (const record of records) {
+    if (record.judges.some((j) => j.userId === personId)) roles.add("judge");
+    if (record.speakers.some((s) => s.userId === personId)) roles.add("speaker");
+    for (const h of record.hosts) {
+      if (h.userId !== personId) continue;
+      if (h.hostType === "volunteer") roles.add("volunteer");
+      else roles.add("host");
+    }
+    for (const s of record.sponsors) {
+      if (s.personId === personId) roles.add("sponsor representative");
+      else if (s.representatives?.some((r) => r.userId === personId)) {
+        roles.add("sponsor representative");
+      }
+    }
+    for (const p of record.partners) {
+      if (p.representatives?.some((r) => r.userId === personId)) {
+        roles.add("partner representative");
+      }
+    }
+    if (record.associated?.some((a) => a.userId === personId)) roles.add("associated");
+    if (record.staffRoles.some((sr) => sr.userId === personId)) roles.add("other");
+  }
+  return [...roles].sort((a, b) => a.localeCompare(b));
+}
+
+function splitSubRoleField(value: string | null | undefined): string[] {
+  if (!value?.trim()) return [];
+  return value
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+/** Sub-roles from host/volunteer/associated/staff assignments + person directory roles. */
+export function subRolesForPerson(
+  personId: string,
+  events?: EventRecord[],
+  personRecord?: Person | null
+): string[] {
+  const records = events ?? listEventRecords();
+  const roles = new Set<string>();
+  const person = personRecord ?? listPeople().find((p) => p.id === personId);
+  for (const r of person?.roles || []) {
+    for (const s of splitSubRoleField(r.subRole)) roles.add(s);
+  }
+  for (const record of records) {
+    for (const h of record.hosts) {
+      if (h.userId !== personId) continue;
+      for (const s of splitSubRoleField(h.role)) roles.add(s);
+    }
+    for (const a of record.associated || []) {
+      if (a.userId !== personId) continue;
+      for (const s of splitSubRoleField(a.role)) roles.add(s);
+    }
+    for (const sr of record.staffRoles) {
+      if (sr.userId !== personId) continue;
+      if (sr.roleKey?.trim()) roles.add(sr.roleKey.trim());
+    }
+  }
+  return [...roles].sort((a, b) => a.localeCompare(b));
+}
+
+/** Assignment statuses for a person across events. */
+export function statusesForPerson(personId: string, events?: EventRecord[]): RoleStatus[] {
+  const records = events ?? listEventRecords();
+  const statuses = new Set<RoleStatus>();
+  for (const record of records) {
+    for (const j of record.judges) {
+      if (j.userId === personId) statuses.add(j.status);
+    }
+    for (const s of record.speakers) {
+      if (s.userId === personId) statuses.add(s.status);
+    }
+    for (const h of record.hosts) {
+      if (h.userId === personId) statuses.add(h.status);
+    }
+    for (const s of record.sponsors) {
+      for (const r of s.representatives || []) {
+        if (r.userId === personId) statuses.add(r.status);
+      }
+      if (s.personId === personId) statuses.add(s.status);
+    }
+    for (const p of record.partners) {
+      for (const r of p.representatives || []) {
+        if (r.userId === personId) statuses.add(r.status);
+      }
+    }
+    for (const a of record.associated || []) {
+      if (a.userId === personId) statuses.add(a.status);
+    }
+    for (const sr of record.staffRoles) {
+      if (sr.userId === personId) statuses.add(sr.status);
+    }
+  }
+  return [...statuses];
+}
+
+export type PersonEventRole = {
+  mainRole: string;
+  subRole: string | null;
+  status: RoleStatus;
+  companyName?: string | null;
+};
+
+export type PersonEventInvolvement = {
+  eventId: string;
+  eventName: string;
+  eventDate: string;
+  eventPublished: boolean;
+  roles: PersonEventRole[];
+};
+
+/** Per-event role/status breakdown for a person (admin People expand). */
+export function eventInvolvementsForPerson(
+  personId: string,
+  events?: EventRecord[]
+): PersonEventInvolvement[] {
+  const records = events ?? listEventRecords();
+  const companies = companyMap();
+  const out: PersonEventInvolvement[] = [];
+
+  for (const record of records) {
+    const roles: PersonEventRole[] = [];
+
+    for (const j of record.judges) {
+      if (j.userId !== personId) continue;
+      roles.push({ mainRole: "judge", subRole: null, status: j.status });
+    }
+    for (const s of record.speakers) {
+      if (s.userId !== personId) continue;
+      roles.push({ mainRole: "speaker", subRole: null, status: s.status });
+    }
+    for (const h of record.hosts) {
+      if (h.userId !== personId) continue;
+      roles.push({
+        mainRole: h.hostType === "volunteer" ? "volunteer" : "host",
+        subRole: h.role?.trim() || null,
+        status: h.status,
+      });
+    }
+    for (const a of record.associated || []) {
+      if (a.userId !== personId) continue;
+      roles.push({
+        mainRole: "associated",
+        subRole: a.role?.trim() || null,
+        status: a.status,
+      });
+    }
+    for (const s of record.sponsors) {
+      const companyName = companies.get(s.companyId)?.name || null;
+      if (s.personId === personId) {
+        roles.push({
+          mainRole: "sponsor representative",
+          subRole: null,
+          status: s.status,
+          companyName,
+        });
+      }
+      for (const r of s.representatives || []) {
+        if (r.userId !== personId) continue;
+        roles.push({
+          mainRole: "sponsor representative",
+          subRole: null,
+          status: r.status,
+          companyName,
+        });
+      }
+    }
+    for (const p of record.partners) {
+      if (!(p.representatives || []).some((r) => r.userId === personId)) continue;
+      const companyName =
+        (p.companyId ? companies.get(p.companyId)?.name : null) || p.customName || null;
+      for (const r of p.representatives || []) {
+        if (r.userId !== personId) continue;
+        roles.push({
+          mainRole: "partner representative",
+          subRole: null,
+          status: r.status,
+          companyName,
+        });
+      }
+    }
+    for (const sr of record.staffRoles) {
+      if (sr.userId !== personId) continue;
+      roles.push({
+        mainRole: "other",
+        subRole: sr.roleKey?.trim() || null,
+        status: sr.status,
+      });
+    }
+
+    if (roles.length === 0) continue;
+    out.push({
+      eventId: record.event.id,
+      eventName: record.event.name,
+      eventDate: record.event.eventDate,
+      eventPublished: record.event.isPublished,
+      roles,
+    });
+  }
+
+  return out.sort((a, b) => b.eventDate.localeCompare(a.eventDate) || a.eventName.localeCompare(b.eventName));
+}
+
+export type CompanyRepSummary = {
+  userId: string;
+  username: string;
+  linkedin: string | null;
+  status: RoleStatus;
+  eventName: string;
+};
+
+export type CompanyInvolvement = {
+  kind: "sponsor" | "partner";
+  partnerType: string | null;
+  eventId: string;
+  eventName: string;
+  eventPublished: boolean;
+  status: RoleStatus;
+  representatives: CompanyRepSummary[];
+};
+
+/** Event involvements for a company (sponsors + partners), including unpublished. */
+export function involvementsForCompany(
+  companyId: string,
+  events?: EventRecord[]
+): CompanyInvolvement[] {
+  const records = events ?? listEventRecords();
+  const people = personMap();
+  const out: CompanyInvolvement[] = [];
+
+  for (const record of records) {
+    for (const s of record.sponsors) {
+      if (s.companyId !== companyId) continue;
+      const reps = (s.representatives || []).map((r) => ({
+        userId: r.userId,
+        username: people.get(r.userId)?.username || "Unknown",
+        linkedin: people.get(r.userId)?.linkedin || null,
+        status: r.status,
+        eventName: record.event.name,
+      }));
+      if (s.personId && !reps.some((r) => r.userId === s.personId)) {
+        reps.push({
+          userId: s.personId,
+          username: people.get(s.personId)?.username || "Unknown",
+          linkedin: people.get(s.personId)?.linkedin || null,
+          status: s.status,
+          eventName: record.event.name,
+        });
+      }
+      out.push({
+        kind: "sponsor",
+        partnerType: null,
+        eventId: record.event.id,
+        eventName: record.event.name,
+        eventPublished: record.event.isPublished,
+        status: s.status,
+        representatives: reps,
+      });
+    }
+    for (const p of record.partners) {
+      if (p.companyId !== companyId) continue;
+      out.push({
+        kind: "partner",
+        partnerType: p.partnerType || "other",
+        eventId: record.event.id,
+        eventName: record.event.name,
+        eventPublished: record.event.isPublished,
+        status: p.status,
+        representatives: (p.representatives || []).map((r) => ({
+          userId: r.userId,
+          username: people.get(r.userId)?.username || "Unknown",
+          linkedin: people.get(r.userId)?.linkedin || null,
+          status: r.status,
+          eventName: record.event.name,
+        })),
+      });
+    }
+  }
+  return out;
 }
 
 // ─── Events ──────────────────────────────────────────────────────────────────
@@ -245,7 +591,7 @@ export function listEventRecords(): EventRecord[] {
       const record = readJson<EventRecord>(path.join(EVENTS_DIR, f), null as unknown as EventRecord);
       if (!record) return record;
       record.event = normalizeEventBasics(record.event);
-      return record;
+      return normalizeEventRecord(record);
     })
     .filter(Boolean)
     .sort((a, b) => (a.event.eventDate < b.event.eventDate ? 1 : -1));
@@ -257,7 +603,7 @@ export function getEventRecord(id: string): EventRecord | null {
   const record = readJson<EventRecord>(file, null as unknown as EventRecord);
   if (!record) return null;
   record.event = normalizeEventBasics(record.event);
-  return record;
+  return normalizeEventRecord(record);
 }
 
 export function saveEventRecord(record: EventRecord) {
@@ -316,7 +662,7 @@ export function updateEventBasics(
   if (patch.eventDate || patch.endDate !== undefined) {
     next.dayLabel = dayLabelFromDate(next.eventDate, next.endDate);
   }
-  next.isPublished = true;
+  next.isPublished = patch.isPublished !== undefined ? Boolean(patch.isPublished) : next.isPublished;
   record.event = normalizeEventBasics(next);
   saveEventRecord(record);
   return record;
@@ -338,13 +684,24 @@ function getSponsorRepUserIds(sponsors: EventSponsor[]): Set<string> {
   return ids;
 }
 
-export function syncSponsorRepJudges(record: EventRecord, added: string[], removedCandidates: string[]) {
+export function syncSponsorRepJudges(
+  record: EventRecord,
+  added: string[],
+  removedCandidates: string[],
+  statusByUserId?: Map<string, RoleStatus>
+) {
   if (!isCompetitionEvent(record.event.type)) return;
   const stillReps = getSponsorRepUserIds(record.sponsors);
   const existing = new Set(record.judges.map((j) => j.userId));
   for (const userId of added) {
     if (!existing.has(userId)) {
-      record.judges.push({ id: newId(), userId, role: null, sortOrder: record.judges.length });
+      record.judges.push({
+        id: newId(),
+        userId,
+        role: null,
+        status: statusByUserId?.get(userId) ?? "confirmed",
+        sortOrder: record.judges.length,
+      });
       existing.add(userId);
     }
   }
@@ -373,21 +730,24 @@ export function buildPublicEventDetail(record: EventRecord) {
   const people = personMap();
   const companies = companyMap();
   const { event } = record;
+  const settings = getSiteSettings();
 
-  const sponsors = sortByOrder(record.sponsors).map((sponsor) => {
+  const sponsors = sortByOrder(record.sponsors.filter((s) => isConfirmed(s.status))).map((sponsor) => {
     const company = companies.get(sponsor.companyId);
     const reps = [
-      ...(sponsor.representatives || []).map((r) => {
-        const person = people.get(r.userId);
-        return person
-          ? {
-              username: person.username,
-              linkedin: person.linkedin,
-              role: person.title,
-              companyName: displayCompany(person, companies) || company?.name || null,
-            }
-          : null;
-      }),
+      ...(sponsor.representatives || [])
+        .filter((r) => isConfirmed(r.status))
+        .map((r) => {
+          const person = people.get(r.userId);
+          return person
+            ? {
+                username: person.username,
+                linkedin: person.linkedin,
+                role: person.title,
+                companyName: displayCompany(person, companies) || company?.name || null,
+              }
+            : null;
+        }),
       ...(sponsor.personId && people.get(sponsor.personId)
         ? [
             {
@@ -423,15 +783,36 @@ export function buildPublicEventDetail(record: EventRecord) {
     };
   });
 
-  const partners = sortByOrder(record.partners).map((p) => {
+  const partners = sortByOrder(record.partners.filter((p) => isConfirmed(p.status))).map((p) => {
     const company = p.companyId ? companies.get(p.companyId) : null;
+    const representatives = (p.representatives || [])
+      .filter((r) => isConfirmed(r.status))
+      .map((r) => {
+        const person = people.get(r.userId);
+        return person
+          ? {
+              username: person.username,
+              linkedin: person.linkedin,
+              role: person.title,
+              companyName: displayCompany(person, companies) || company?.name || null,
+            }
+          : null;
+      })
+      .filter(Boolean) as {
+      username: string;
+      linkedin: string | null;
+      role: string | null;
+      companyName: string | null;
+    }[];
     return {
+      id: p.id,
       partnerType: p.partnerType,
       customType: p.customType,
-      companyName: company?.name || p.customName || null,
+      companyName: company?.name || p.customName || representatives[0]?.username || null,
       companyWebsite: company?.website || null,
       companyLogo: company?.logoUrl || null,
       companyDescription: company?.information || null,
+      representatives,
     };
   });
 
@@ -463,7 +844,7 @@ export function buildPublicEventDetail(record: EventRecord) {
     }));
 
   const speakers = record.speakers
-    .filter((s) => !s.isSkipped)
+    .filter((s) => !s.isSkipped && isConfirmed(s.status))
     .sort(
       (a, b) =>
         (a.startTime || "").localeCompare(b.startTime || "") ||
@@ -484,7 +865,7 @@ export function buildPublicEventDetail(record: EventRecord) {
     });
 
   const judges = isCompetitionEvent(event.type)
-    ? sortByOrder(record.judges).map((j) => {
+    ? sortByOrder(record.judges.filter((j) => isConfirmed(j.status))).map((j) => {
         const person = people.get(j.userId);
         return {
           username: person?.username || "Unknown",
@@ -496,18 +877,35 @@ export function buildPublicEventDetail(record: EventRecord) {
       })
     : [];
 
-  const hosts = sortByOrder(record.hosts).map((h) => {
+  const confirmedHosts = sortByOrder(record.hosts.filter((h) => isConfirmed(h.status)));
+  const toPublicHost = (h: (typeof confirmedHosts)[number]) => {
     const person = people.get(h.userId);
+    const subRole = h.role?.trim() || null;
     return {
       username: person?.username || "Unknown",
       linkedin: person?.linkedin || null,
       hostType: h.hostType,
       customType: h.customType,
-      role: h.role,
+      role: subRole && subRoleIsVisible(subRole, settings.subRoles) ? subRole : null,
       title: person?.title || null,
       companyName: person ? displayCompany(person, companies) : null,
     };
-  });
+  };
+  const hosts = confirmedHosts.filter((h) => h.hostType !== "volunteer").map(toPublicHost);
+  const volunteers = confirmedHosts.filter((h) => h.hostType === "volunteer").map(toPublicHost);
+
+  const team = sortByOrder(record.staffRoles)
+    .filter((s) => isConfirmed(s.status) && subRoleIsVisible(s.roleKey, settings.subRoles))
+    .map((s) => {
+      const person = people.get(s.userId);
+      return {
+        username: person?.username || "Unknown",
+        linkedin: person?.linkedin || null,
+        subRole: s.roleKey,
+        title: person?.title || null,
+        companyName: person ? displayCompany(person, companies) : null,
+      };
+    });
 
   return {
     event,
@@ -519,69 +917,321 @@ export function buildPublicEventDetail(record: EventRecord) {
     speakers,
     judges,
     hosts,
+    volunteers,
+    team,
     links: record.links,
     photos: record.photos,
   };
 }
 
+type EventRef = {
+  eventName: string;
+  slug: string;
+  eventDate: string;
+  companyName?: string | null;
+};
+
 function buildPeoplePublic() {
   const companies = companyMap();
   const events = listEventRecords().filter((e) => e.event.isPublished);
 
-  return listPeople().map((person) => {
-    const judged: { eventName: string; slug: string; eventDate: string }[] = [];
-    const spoke: { eventName: string; slug: string; eventDate: string }[] = [];
-    const sponsored: { eventName: string; slug: string; eventDate: string }[] = [];
-    const hosted: { eventName: string; slug: string; eventDate: string }[] = [];
-    const partnered: { eventName: string; slug: string; eventDate: string }[] = [];
-    const volunteered: { eventName: string; slug: string; eventDate: string }[] = [];
+  return listPeople()
+    .map((person) => {
+      const judged: EventRef[] = [];
+      const spoke: EventRef[] = [];
+      const sponsored: EventRef[] = [];
+      const hosted: EventRef[] = [];
+      const partnered: EventRef[] = [];
+      const volunteered: EventRef[] = [];
 
-    for (const record of events) {
-      const ref = {
-        eventName: record.event.name,
-        slug: record.event.slug,
-        eventDate: record.event.eventDate,
-      };
-      if (record.judges.some((j) => j.userId === person.id)) judged.push(ref);
-      if (record.speakers.some((s) => s.userId === person.id)) spoke.push(ref);
-      for (const item of record.schedule) {
-        if (item.speakers?.some((s) => s.userId === person.id) && !spoke.some((s) => s.slug === ref.slug)) {
-          spoke.push(ref);
+      for (const record of events) {
+        const ref: EventRef = {
+          eventName: record.event.name,
+          slug: record.event.slug,
+          eventDate: record.event.eventDate,
+        };
+        if (record.judges.some((j) => j.userId === person.id && isConfirmed(j.status))) judged.push(ref);
+        if (record.speakers.some((s) => s.userId === person.id && isConfirmed(s.status))) spoke.push(ref);
+        for (const s of record.sponsors) {
+          if (!isConfirmed(s.status)) continue;
+          const isRep =
+            s.personId === person.id ||
+            s.representatives?.some((r) => r.userId === person.id && isConfirmed(r.status));
+          if (!isRep) continue;
+          const company = companies.get(s.companyId);
+          sponsored.push({
+            ...ref,
+            companyName: company?.name || null,
+          });
+        }
+        for (const p of record.partners) {
+          if (!isConfirmed(p.status)) continue;
+          const isRep = p.representatives?.some(
+            (r) => r.userId === person.id && isConfirmed(r.status)
+          );
+          if (!isRep) continue;
+          const company = p.companyId ? companies.get(p.companyId) : null;
+          partnered.push({
+            ...ref,
+            companyName: company?.name || p.customName || null,
+          });
+        }
+        for (const h of record.hosts) {
+          if (h.userId !== person.id || !isConfirmed(h.status)) continue;
+          if (h.hostType === "volunteer") volunteered.push(ref);
+          else if (h.hostType === "venue_partner") partnered.push(ref);
+          else hosted.push(ref);
         }
       }
-      if (
-        record.sponsors.some(
-          (s) =>
-            s.personId === person.id ||
-            s.representatives?.some((r) => r.userId === person.id)
-        )
-      ) {
-        sponsored.push(ref);
-      }
-      for (const h of record.hosts) {
-        if (h.userId !== person.id) continue;
-        if (h.hostType === "volunteer") volunteered.push(ref);
-        else if (h.hostType === "venue_partner") partnered.push(ref);
-        else hosted.push(ref);
-      }
-    }
 
-    return {
-      id: person.id,
-      username: person.username,
-      email: person.email,
-      linkedin: person.linkedin,
-      role: person.role,
-      title: person.title,
-      companyName: displayCompany(person, companies),
-      judged,
-      spoke,
-      sponsored,
-      hosted,
-      partnered,
-      volunteered,
-    };
+      return {
+        id: person.id,
+        username: person.username,
+        linkedin: person.linkedin,
+        title: person.title,
+        companyName: displayCompany(person, companies),
+        judged,
+        spoke,
+        sponsored,
+        hosted,
+        partnered,
+        volunteered,
+      };
+    })
+    .filter(
+      (p) =>
+        p.judged.length > 0 ||
+        p.spoke.length > 0 ||
+        p.sponsored.length > 0 ||
+        p.hosted.length > 0 ||
+        p.partnered.length > 0 ||
+        p.volunteered.length > 0
+    );
+}
+
+function buildSponsorsPublic() {
+  const events = listEventRecords().filter((e) => e.event.isPublished);
+  const companies = companyMap();
+
+  type PublicCompany = {
+    id: string;
+    name: string;
+    logoUrl: string | null;
+    website: string | null;
+  };
+
+  const sponsors = new Map<string, PublicCompany>();
+  const partnersByType = new Map<string, Map<string, PublicCompany>>();
+
+  const toPublic = (c: Company): PublicCompany => ({
+    id: c.id,
+    name: c.name,
+    logoUrl: c.logoUrl,
+    website: c.website,
   });
+
+  for (const record of events) {
+    for (const s of record.sponsors) {
+      if (!isConfirmed(s.status)) continue;
+      const c = companies.get(s.companyId);
+      if (c) sponsors.set(c.id, toPublic(c));
+    }
+    for (const p of record.partners) {
+      if (!isConfirmed(p.status) || !p.companyId) continue;
+      const c = companies.get(p.companyId);
+      if (!c) continue;
+      const typeKey = p.partnerType || "other";
+      if (!partnersByType.has(typeKey)) partnersByType.set(typeKey, new Map());
+      partnersByType.get(typeKey)!.set(c.id, toPublic(c));
+    }
+  }
+
+  // Sponsors win over partner listings for the same company
+  for (const id of sponsors.keys()) {
+    for (const map of partnersByType.values()) map.delete(id);
+  }
+
+  const partnerTypeOrder = [
+    "venue",
+    "ventures",
+    "community",
+    "media",
+    "food",
+    "other",
+    "custom",
+  ];
+
+  const partners = partnerTypeOrder
+    .filter((type) => (partnersByType.get(type)?.size || 0) > 0)
+    .map((type) => ({
+      partnerType: type,
+      companies: [...(partnersByType.get(type)?.values() || [])].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      ),
+    }));
+
+  // Any unexpected types
+  for (const [type, map] of partnersByType) {
+    if (partnerTypeOrder.includes(type) || map.size === 0) continue;
+    partners.push({
+      partnerType: type,
+      companies: [...map.values()].sort((a, b) => a.name.localeCompare(b.name)),
+    });
+  }
+
+  return {
+    sponsors: [...sponsors.values()].sort((a, b) => a.name.localeCompare(b.name)),
+    partners,
+    // Legacy keys for older clients
+    venuePartners: partners.find((p) => p.partnerType === "venue")?.companies || [],
+    communityPartners: partners
+      .filter((p) => p.partnerType !== "venue")
+      .flatMap((p) => p.companies),
+  };
+}
+
+function normalizeEmailTemplates(
+  raw: Partial<SiteSettings["emailTemplates"]> | undefined
+): SiteSettings["emailTemplates"] {
+  const certKeys = new Set([
+    "judgeCertification",
+    "speakerCertification",
+    "judgeSpeakerCertification",
+  ] as const);
+
+  const pick = (
+    key: keyof typeof DEFAULT_EMAIL_TEMPLATES,
+    value: { subject?: string; body?: string; certificateText?: string } | undefined
+  ): EmailTemplateDraft => {
+    const def = DEFAULT_EMAIL_TEMPLATES[key];
+    const draft: EmailTemplateDraft = {
+      subject: (value?.subject ?? def.subject).trim() || def.subject,
+      body: (value?.body ?? def.body).trim() || def.body,
+    };
+    if ((certKeys as Set<string>).has(key)) {
+      draft.certificateText =
+        (value?.certificateText ?? def.certificateText ?? "").trim() ||
+        def.certificateText ||
+        "";
+    }
+    return draft;
+  };
+  return {
+    sponsorshipRequest: pick("sponsorshipRequest", raw?.sponsorshipRequest),
+    speakerInvite: pick("speakerInvite", raw?.speakerInvite),
+    judgeInvite: pick("judgeInvite", raw?.judgeInvite),
+    judgeSpeakerInvite: pick("judgeSpeakerInvite", raw?.judgeSpeakerInvite),
+    judgeCertification: pick("judgeCertification", raw?.judgeCertification),
+    speakerCertification: pick("speakerCertification", raw?.speakerCertification),
+    judgeSpeakerCertification: pick(
+      "judgeSpeakerCertification",
+      raw?.judgeSpeakerCertification
+    ),
+  };
+}
+
+function normalizeSmtp(raw: Partial<SmtpSettings> | undefined, previous?: SmtpSettings): SmtpSettings {
+  const base = previous || DEFAULT_SMTP_SETTINGS;
+  const nextPass =
+    raw?.pass !== undefined && String(raw.pass).trim() !== ""
+      ? String(raw.pass).trim()
+      : base.pass;
+  return {
+    host: (raw?.host ?? base.host).trim(),
+    port: String(raw?.port ?? base.port ?? "587").trim() || "587",
+    user: (raw?.user ?? base.user).trim(),
+    pass: nextPass,
+    from:
+      (raw?.from ?? base.from).trim() ||
+      "Crewbase Collective <noreply@crewbasecollective.com>",
+    notifyEmail: (raw?.notifyEmail ?? base.notifyEmail).trim(),
+  };
+}
+
+export function getSiteSettings(): SiteSettings {
+  ensureDirs();
+  const raw = readJson<
+    Partial<SiteSettings> & { personRoles?: string[]; personTags?: string[] }
+  >(settingsPath(), {});
+
+  const communityLinks = {
+    ...DEFAULT_SITE_SETTINGS.communityLinks,
+    ...(raw.communityLinks || {}),
+  };
+  const emailTemplates = normalizeEmailTemplates(raw.emailTemplates);
+  const smtp = normalizeSmtp(raw.smtp);
+
+  if (Array.isArray(raw.subRoles) && raw.subRoles.length) {
+    return {
+      subRoles: normalizeSubRoles(raw.subRoles),
+      communityLinks,
+      smtp,
+      emailTemplates,
+    };
+  }
+
+  const legacy = Array.isArray(raw.personRoles)
+    ? raw.personRoles
+    : Array.isArray(raw.personTags)
+      ? raw.personTags
+      : [];
+  const migratedSubRoles = legacy
+    .map((item) => String(item).trim())
+    .filter((key) => key && !isFixedPersonRole(key))
+    .map((key) => ({
+      key,
+      visible: !NON_VISIBLE_SUB_ROLE_KEYS.has(key.toLowerCase()),
+    }));
+
+  return {
+    subRoles: migratedSubRoles.length ? migratedSubRoles : [...DEFAULT_SITE_SETTINGS.subRoles],
+    communityLinks,
+    smtp,
+    emailTemplates,
+  };
+}
+
+function isFixedPersonRole(value: string): boolean {
+  const t = value.trim().toLowerCase();
+  return FIXED_PERSON_ROLES.some((r) => r.toLowerCase() === t);
+}
+
+const NON_VISIBLE_SUB_ROLE_KEYS = new Set(
+  DEFAULT_SITE_SETTINGS.subRoles.filter((s) => !s.visible).map((s) => s.key.toLowerCase())
+);
+
+export function saveSiteSettings(patch: Partial<SiteSettings>): SiteSettings {
+  const current = getSiteSettings();
+  const next: SiteSettings = {
+    subRoles: patch.subRoles ? normalizeSubRoles(patch.subRoles) : current.subRoles,
+    communityLinks: {
+      ...current.communityLinks,
+      ...(patch.communityLinks || {}),
+    },
+    smtp: patch.smtp ? normalizeSmtp(patch.smtp, current.smtp) : current.smtp,
+    emailTemplates: patch.emailTemplates
+      ? normalizeEmailTemplates(patch.emailTemplates)
+      : current.emailTemplates,
+  };
+  writeJson(settingsPath(), next);
+  return next;
+}
+
+/** Public-safe settings payload (SMTP password redacted). */
+export function publicAdminSettings() {
+  const settings = getSiteSettings();
+  return {
+    ...settings,
+    smtp: {
+      host: settings.smtp.host,
+      port: settings.smtp.port,
+      user: settings.smtp.user,
+      pass: "",
+      from: settings.smtp.from,
+      notifyEmail: settings.smtp.notifyEmail,
+    },
+    smtpPasswordSet: Boolean(settings.smtp.pass),
+  };
 }
 
 function copyImagesToPublic() {
@@ -614,7 +1264,6 @@ export function buildDerivedData() {
 
   const eventsOut = path.join(PUBLIC_DATA_DIR, "events");
   fs.mkdirSync(eventsOut, { recursive: true });
-  // clear old derived event files
   for (const f of fs.readdirSync(eventsOut)) {
     if (f.endsWith(".json")) fs.unlinkSync(path.join(eventsOut, f));
   }
@@ -622,20 +1271,13 @@ export function buildDerivedData() {
     writeJson(path.join(eventsOut, `${record.event.slug}.json`), buildPublicEventDetail(record));
   }
 
-  writeJson(path.join(PUBLIC_DATA_DIR, "sponsors.json"), {
-    sponsors: listCompanies().map((c) => ({
-      id: c.id,
-      name: c.name,
-      logoUrl: c.logoUrl,
-      website: c.website,
-      linkedin: c.linkedin,
-      information: c.information,
-    })),
-  });
+  writeJson(path.join(PUBLIC_DATA_DIR, "sponsors.json"), buildSponsorsPublic());
 
   writeJson(path.join(PUBLIC_DATA_DIR, "people.json"), {
     people: buildPeoplePublic(),
   });
+
+  writeJson(path.join(PUBLIC_DATA_DIR, "community-links.json"), getSiteSettings().communityLinks);
 
   copyImagesToPublic();
 }
@@ -651,6 +1293,8 @@ export function adminEventDetail(record: EventRecord) {
         eventSponsorId: sponsor.id,
         userId: r.userId,
         username: people.get(r.userId)?.username || "Unknown",
+        linkedin: people.get(r.userId)?.linkedin || null,
+        status: r.status,
       })),
       ...(sponsor.personId
         ? [
@@ -658,6 +1302,8 @@ export function adminEventDetail(record: EventRecord) {
               eventSponsorId: sponsor.id,
               userId: sponsor.personId,
               username: people.get(sponsor.personId)?.username || "Unknown",
+              linkedin: people.get(sponsor.personId)?.linkedin || null,
+              status: "confirmed" as const,
             },
           ]
         : []),
@@ -669,8 +1315,10 @@ export function adminEventDetail(record: EventRecord) {
       id: sponsor.id,
       companyId: sponsor.companyId,
       personId: sponsor.personId,
+      status: sponsor.status,
       sortOrder: sponsor.sortOrder,
       companyName: company?.name || null,
+      companyWebsite: company?.website || null,
       companyLogo: company?.logoUrl || null,
       companyInformation: company?.information || null,
       personName: sponsor.personId ? people.get(sponsor.personId)?.username || null : null,
@@ -680,11 +1328,23 @@ export function adminEventDetail(record: EventRecord) {
 
   const partners = sortByOrder(record.partners).map((p) => {
     const company = p.companyId ? companies.get(p.companyId) : null;
+    const representatives = (p.representatives || []).map((r) => ({
+      userId: r.userId,
+      username: people.get(r.userId)?.username || "Unknown",
+      linkedin: people.get(r.userId)?.linkedin || null,
+      status: r.status,
+    }));
+    const fallbackName =
+      p.customName ||
+      representatives[0]?.username ||
+      null;
     return {
       ...p,
+      representatives,
       eventId: record.event.id,
       createdAt: record.event.createdAt,
-      companyName: company?.name || null,
+      companyName: company?.name || fallbackName,
+      companyWebsite: company?.website || null,
       companyLogo: company?.logoUrl || null,
       companyInformation: company?.information || null,
     };
@@ -693,16 +1353,33 @@ export function adminEventDetail(record: EventRecord) {
   const speakers = sortByOrder(record.speakers).map((s) => ({
     ...s,
     username: people.get(s.userId)?.username || "Unknown",
+    linkedin: people.get(s.userId)?.linkedin || null,
   }));
 
   const judges = sortByOrder(record.judges).map((j) => ({
     ...j,
     username: people.get(j.userId)?.username || "Unknown",
+    linkedin: people.get(j.userId)?.linkedin || null,
   }));
 
-  const hosts = sortByOrder(record.hosts).map((h) => ({
+  const allHosts = sortByOrder(record.hosts).map((h) => ({
     ...h,
     username: people.get(h.userId)?.username || "Unknown",
+    linkedin: people.get(h.userId)?.linkedin || null,
+  }));
+  const hosts = allHosts.filter((h) => h.hostType !== "volunteer");
+  const volunteers = allHosts.filter((h) => h.hostType === "volunteer");
+
+  const associated = sortByOrder(record.associated || []).map((a) => ({
+    ...a,
+    username: people.get(a.userId)?.username || "Unknown",
+    linkedin: people.get(a.userId)?.linkedin || null,
+  }));
+
+  const staffRoles = sortByOrder(record.staffRoles).map((r) => ({
+    ...r,
+    username: people.get(r.userId)?.username || "Unknown",
+    linkedin: people.get(r.userId)?.linkedin || null,
   }));
 
   const schedule = sortByOrder(record.schedule).map((item) => ({
@@ -723,6 +1400,9 @@ export function adminEventDetail(record: EventRecord) {
     speakers,
     judges,
     hosts,
+    volunteers,
+    associated,
+    staffRoles,
     links: sortByOrder(record.links),
     photos: sortByOrder(record.photos),
     liveState: record.liveState,

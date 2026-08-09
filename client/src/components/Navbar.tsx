@@ -1,14 +1,15 @@
-﻿import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/BrandLogo";
 
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/events", label: "Events" },
-  { href: "/sponsors", label: "Sponsors" },
+  { href: "/sponsors", label: "Sponsors & Partners" },
   { href: "/people", label: "Community" },
+  { href: "/get-involved", label: "Get Involved" },
 ];
 
 export function Navbar() {
@@ -37,7 +38,7 @@ export function Navbar() {
               to={link.href}
               className={cn(
                 "text-[13px] uppercase tracking-[0.4px] transition",
-                pathname === link.href
+                pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href))
                   ? "text-[var(--cyan)]"
                   : "text-[#d8e1e8] hover:text-[var(--cyan)]"
               )}
@@ -45,9 +46,6 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link to="/events" className="btn-outline-pill gap-1.5">
-            Explore Events <ArrowRight size={14} />
-          </Link>
         </div>
 
         <button
@@ -68,19 +66,14 @@ export function Navbar() {
               onClick={() => setOpen(false)}
               className={cn(
                 "block py-3 text-[13px] uppercase tracking-[0.4px]",
-                pathname === link.href ? "text-[var(--cyan)]" : "text-[#d8e1e8]"
+                pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href))
+                  ? "text-[var(--cyan)]"
+                  : "text-[#d8e1e8]"
               )}
             >
               {link.label}
             </Link>
           ))}
-          <Link
-            to="/events"
-            onClick={() => setOpen(false)}
-            className="btn-outline-pill mt-3 inline-flex"
-          >
-            Explore Events <ArrowRight size={14} />
-          </Link>
         </div>
       )}
     </header>

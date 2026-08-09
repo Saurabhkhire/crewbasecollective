@@ -11,7 +11,8 @@
       "companyId": null,
       "companyName": "Crewbase Collective",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
@@ -24,7 +25,8 @@
       "companyId": "126c51c7-58af-4afb-a963-7ebb6c70df26",
       "companyName": "Nebius",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
@@ -37,7 +39,8 @@
       "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
       "companyName": "InsForge",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "7d7cae25-6b4b-40f4-a43d-68d6a33f1888",
@@ -50,7 +53,8 @@
       "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
       "companyName": "InsForge",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "50bd11f2-553a-4155-bacb-f9bb484163b1",
@@ -63,7 +67,8 @@
       "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
       "companyName": "InsForge",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "7f036918-17f4-4402-a977-6d93745eaad1",
@@ -76,7 +81,8 @@
       "companyId": null,
       "companyName": "Dragons and Angels Fund",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "967ce10f-2d9b-4aba-a4c0-b2bc2f08665e",
@@ -89,7 +95,8 @@
       "companyId": null,
       "companyName": "AI Builders",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "10d0005c-ca54-4047-ae5b-61a9e6553aef",
@@ -102,7 +109,8 @@
       "companyId": "f8d0ad39-c8ad-4daf-a653-ec12d80cc222",
       "companyName": "Amazon",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "c716e34b-4658-4229-971d-337dafd266ad",
@@ -115,7 +123,8 @@
       "companyId": null,
       "companyName": "META",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "241daa56-01c2-4360-bd89-9ce28b538eb8",
@@ -128,7 +137,8 @@
       "companyId": null,
       "companyName": "NVDIA",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "f919531a-c213-4c13-91d1-9f82f7e7f0cd",
@@ -141,7 +151,8 @@
       "companyId": null,
       "companyName": "Chime",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "13511e40-7954-49b4-b052-99c3fdb4c400",
@@ -154,7 +165,8 @@
       "companyId": null,
       "companyName": "Google Deepmind",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "01f599b9-aba3-4925-a14e-b2a6ac5278b2",
@@ -167,7 +179,8 @@
       "companyId": null,
       "companyName": "Pacific Gas and Electric Company",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
@@ -180,7 +193,8 @@
       "companyId": null,
       "companyName": "HiJenny",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "cc853936-97be-4466-aa48-ef2df44199e3",
@@ -193,7 +207,8 @@
       "companyId": null,
       "companyName": "Abaka AI",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "9df2ae20-42b2-4402-817c-e86584b16a53",
@@ -206,7 +221,8 @@
       "companyId": null,
       "companyName": "Microsoft",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "2f59f73a-bf58-415b-a57c-6032b2d403f4",
@@ -219,7 +235,8 @@
       "companyId": null,
       "companyName": "Instagram",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "70ee12c4-b8b1-4e2f-8222-94be68325a31",
@@ -232,7 +249,8 @@
       "companyId": null,
       "companyName": "WayLine",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "e4cd14e9-fc89-434b-bd7e-f61ec32df501",
@@ -245,7 +263,8 @@
       "companyId": null,
       "companyName": "NuPath AI",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "a6f949f8-76ce-4ab5-9b56-7e5734cbcf7f",
@@ -258,7 +277,8 @@
       "companyId": null,
       "companyName": "Gameer",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "469b38c7-fdd4-4dca-aac6-324b2465ee30",
@@ -271,7 +291,8 @@
       "companyId": null,
       "companyName": "Attrilo",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "1c4e8541-8a18-4ee6-9fe8-a9c59b5ef2e7",
@@ -284,7 +305,8 @@
       "companyId": null,
       "companyName": "Clera",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "16de374b-2c62-47b3-aa5e-f2168a2fdcbc",
@@ -297,7 +319,8 @@
       "companyId": null,
       "companyName": "Argide",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "ba049bb6-5502-4d46-81dd-cb0d9a079c0d",
@@ -310,7 +333,8 @@
       "companyId": null,
       "companyName": "Learning Layer Labs",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "e79c5014-59c9-4f6c-90e8-1d8a0fc2f7c7",
@@ -323,7 +347,8 @@
       "companyId": null,
       "companyName": "WildLife Agency LLC",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "0b3f9617-f260-4187-a555-062ab8689b40",
@@ -336,7 +361,8 @@
       "companyId": null,
       "companyName": "Photon.codes",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "2ebe8a14-50a7-4576-bc2c-c1ca508814ee",
@@ -349,7 +375,8 @@
       "companyId": "9f585aad-9eb6-40b1-be59-22e36cc9bc8c",
       "companyName": "HydraDB",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "a036fe7c-a768-4261-a08d-6bdb458a505c",
@@ -362,7 +389,8 @@
       "companyId": null,
       "companyName": "Stealth",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "829cfa46-5d04-4a3e-900a-3c8e86133ef5",
@@ -375,7 +403,8 @@
       "companyId": null,
       "companyName": "Agi Corp",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "3c95a6ff-9bb1-45de-b010-ca066adfb8c2",
@@ -388,7 +417,8 @@
       "companyId": null,
       "companyName": "Svyal",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "27810087-f831-49ab-a042-5450121608fd",
@@ -401,7 +431,8 @@
       "companyId": null,
       "companyName": "Welsey College",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "bb06d11d-5b27-48db-9f30-a81b30cbe339",
@@ -414,7 +445,8 @@
       "companyId": null,
       "companyName": "Clera",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
@@ -427,7 +459,8 @@
       "companyId": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
       "companyName": "Finchip AI",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "3ba0ec20-3861-40da-90c4-41a0e1eabc29",
@@ -440,7 +473,8 @@
       "companyId": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
       "companyName": "Finchip AI",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "bcb420be-2b7d-40ac-b640-a61bb0194148",
@@ -453,7 +487,8 @@
       "companyId": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
       "companyName": "Finchip AI",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "9623f78c-9180-4594-ba43-9dc70f073d6f",
@@ -466,7 +501,8 @@
       "companyId": "e2361fb1-6445-4e2e-b7ac-ac010b70f5ed",
       "companyName": "Cognee",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "fe33565d-c604-4e00-a041-810631800cfe",
@@ -479,7 +515,8 @@
       "companyId": "aeeb497e-4490-41cc-a99b-fabafb9de69d",
       "companyName": "BAND",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "58551e72-eca6-4e63-bb8e-466194849542",
@@ -492,7 +529,8 @@
       "companyId": "49e8e316-55ce-4198-91a7-3877900d8184",
       "companyName": "Kylon",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
@@ -505,7 +543,8 @@
       "companyId": "49e8e316-55ce-4198-91a7-3877900d8184",
       "companyName": "Kylon",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "e7bbfc41-2193-436f-bce6-a67804dfabc0",
@@ -518,7 +557,8 @@
       "companyId": "23f6d519-7c66-4576-a18d-fc4128c70b84",
       "companyName": "GrowthMasters",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "5bc4a584-3ae5-4950-805e-d7dec6195dd1",
@@ -531,7 +571,8 @@
       "companyId": "23f6d519-7c66-4576-a18d-fc4128c70b84",
       "companyName": "GrowthMasters",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
@@ -544,7 +585,8 @@
       "companyId": "754d2277-26cc-4416-9d3b-e0779870877e",
       "companyName": "Agent OS",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T23:01:16.661Z"
+      "updatedAt": "2026-07-26T23:01:16.661Z",
+      "roles": []
     },
     {
       "id": "7abf0d6b-1aee-4860-b564-1ab69b9e2ed8",
@@ -557,7 +599,8 @@
       "companyId": "0fe2c0cc-b4e1-40f6-b905-fddb942e685f",
       "companyName": "Replit",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "e7cb1995-2c06-4bc3-9540-1851d883b428",
@@ -570,7 +613,8 @@
       "companyId": null,
       "companyName": "Mason",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "6c7ce050-8536-48aa-8697-e0225bf83981",
@@ -583,7 +627,8 @@
       "companyId": "a8b947e6-4514-4a1d-bbce-32e6adbcd8b0",
       "companyName": "Brain2",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "2a98f550-94d7-441b-9b24-9859e5fb75c3",
@@ -596,7 +641,8 @@
       "companyId": null,
       "companyName": "Venture Foragers",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "674351b1-5833-4a82-8871-c66201154e26",
@@ -609,7 +655,8 @@
       "companyId": "5c222f24-ce35-4cf8-8aa5-c4538eb07aed",
       "companyName": "Tigris Data",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "d010c64f-9835-4a5e-a9bf-78003502b085",
@@ -622,7 +669,8 @@
       "companyId": "46c4776b-4ebc-4a29-b36b-c941e0084327",
       "companyName": "Retriver AI",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "939c0411-0eae-40d6-a22a-6fc63e750374",
@@ -635,7 +683,8 @@
       "companyId": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
       "companyName": "Apify",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "e4f59da5-9d7e-4678-9efd-83a0f8055453",
@@ -648,7 +697,8 @@
       "companyId": "3a75ca05-cfc5-4fdd-9136-88c565183e34",
       "companyName": "Kalibr",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "e67ec570-5118-4654-978c-2a53bbdedcc6",
@@ -661,7 +711,8 @@
       "companyId": "46c4776b-4ebc-4a29-b36b-c941e0084327",
       "companyName": "Retriver AI",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "49bc8e3c-debd-4579-a9be-6cd567058dd9",
@@ -674,7 +725,8 @@
       "companyId": "89e11f70-e77f-4a35-9e2d-c446a62a420e",
       "companyName": "Render",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:48:32.429Z"
+      "updatedAt": "2026-07-26T10:48:32.429Z",
+      "roles": []
     },
     {
       "id": "e2af9075-633b-48b5-9f4e-ede03672bbb1",
@@ -687,7 +739,8 @@
       "companyId": null,
       "companyName": "Devnovate",
       "createdAt": "2026-07-26T10:48:32.429Z",
-      "updatedAt": "2026-07-26T10:49:00.573Z"
+      "updatedAt": "2026-07-26T10:49:00.573Z",
+      "roles": []
     },
     {
       "id": "76666c01-c717-400b-9c66-2fdf6df8905d",
@@ -700,7 +753,8 @@
       "companyId": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
       "companyName": "Apify",
       "createdAt": "2026-07-26T22:01:46.324Z",
-      "updatedAt": "2026-07-26T22:01:46.324Z"
+      "updatedAt": "2026-07-26T22:01:46.324Z",
+      "roles": []
     },
     {
       "id": "f481c0e0-c88f-4ecd-b329-e0ed512b4035",
@@ -713,7 +767,8 @@
       "companyId": "bdeab284-92c8-4cd6-a583-d6b97ac3cc17",
       "companyName": "Daytona",
       "createdAt": "2026-07-26T22:01:04.956Z",
-      "updatedAt": "2026-07-26T22:02:32.403Z"
+      "updatedAt": "2026-07-26T22:02:32.403Z",
+      "roles": []
     },
     {
       "id": "39c7927a-d6e1-4dff-ae5a-6b0de2904ff5",
@@ -726,7 +781,8 @@
       "companyId": "bdeab284-92c8-4cd6-a583-d6b97ac3cc17",
       "companyName": "Daytona",
       "createdAt": "2026-07-26T22:03:15.718Z",
-      "updatedAt": "2026-07-26T22:03:15.718Z"
+      "updatedAt": "2026-07-26T22:03:15.718Z",
+      "roles": []
     },
     {
       "id": "c8d7e836-bbd7-4ae8-8fca-15af3d3bfb50",
@@ -739,7 +795,8 @@
       "companyId": "31e1f1f1-28e5-471e-a44c-2e9c5625f890",
       "companyName": "You.com",
       "createdAt": "2026-07-26T23:25:09.653Z",
-      "updatedAt": "2026-07-26T23:25:09.653Z"
+      "updatedAt": "2026-07-26T23:25:09.653Z",
+      "roles": []
     },
     {
       "id": "71fda600-99d7-423c-a98b-bf83055beaf1",
@@ -752,7 +809,8 @@
       "companyId": "31e1f1f1-28e5-471e-a44c-2e9c5625f890",
       "companyName": "You.com",
       "createdAt": "2026-07-26T23:27:56.900Z",
-      "updatedAt": "2026-07-26T23:27:56.900Z"
+      "updatedAt": "2026-07-26T23:27:56.900Z",
+      "roles": []
     },
     {
       "id": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
@@ -765,7 +823,8 @@
       "companyId": "54bdc2ff-ae28-41ed-9947-3e1568c30ee3",
       "companyName": "RocketRide",
       "createdAt": "2026-07-26T23:29:59.275Z",
-      "updatedAt": "2026-07-26T23:29:59.275Z"
+      "updatedAt": "2026-07-26T23:29:59.275Z",
+      "roles": []
     },
     {
       "id": "92b04cf1-8ccf-49e8-b0c8-9a3544b44ae5",
@@ -778,12 +837,13 @@
       "companyId": "76f43e64-cf39-4c3d-93da-7322286df630",
       "companyName": "Growing Pies",
       "createdAt": "2026-07-26T23:31:26.459Z",
-      "updatedAt": "2026-07-26T23:31:26.459Z"
+      "updatedAt": "2026-07-26T23:31:26.459Z",
+      "roles": []
     },
     {
       "id": "f018a7e1-c984-4ad5-b9d3-869bd6c63f5f",
       "username": "Robin Meister",
-      "email": null,
+      "email": "robinmeister4@gmail.com",
       "linkedin": "https://www.linkedin.com/in/robinmeister/",
       "role": "participant",
       "title": "Partnership Manager",
@@ -791,7 +851,8 @@
       "companyId": null,
       "companyName": "FutureHouse AI",
       "createdAt": "2026-07-26T23:32:25.925Z",
-      "updatedAt": "2026-07-26T23:32:25.925Z"
+      "updatedAt": "2026-08-08T08:02:20.756Z",
+      "roles": []
     },
     {
       "id": "4a6df53d-5019-43ad-a19e-10e208e26e7b",
@@ -804,7 +865,8 @@
       "companyId": "ab49b4d3-4304-4eb7-95d3-d6e3eb34e29b",
       "companyName": "TRAE",
       "createdAt": "2026-07-27T02:42:10.862Z",
-      "updatedAt": "2026-07-27T02:42:10.862Z"
+      "updatedAt": "2026-07-27T02:42:10.862Z",
+      "roles": []
     },
     {
       "id": "4082d0c7-8de9-40f4-b80b-1bc657231853",
@@ -817,7 +879,8 @@
       "companyId": null,
       "companyName": "Space ID",
       "createdAt": "2026-07-27T03:58:09.288Z",
-      "updatedAt": "2026-07-29T09:56:37.288Z"
+      "updatedAt": "2026-07-29T09:56:37.288Z",
+      "roles": []
     },
     {
       "id": "1e6aa577-f0fb-408e-9e9d-4039d69fc7e4",
@@ -830,12 +893,13 @@
       "companyId": null,
       "companyName": "Hi Tuto",
       "createdAt": "2026-07-27T04:21:49.362Z",
-      "updatedAt": "2026-07-27T04:21:49.362Z"
+      "updatedAt": "2026-07-27T04:21:49.362Z",
+      "roles": []
     },
     {
       "id": "5e741a93-4420-4cbe-b002-f65dc37328fb",
       "username": "Natalia Mendez",
-      "email": null,
+      "email": "natalia.mendez@snyk.io",
       "linkedin": "https://www.linkedin.com/in/natalia-mendez-0425a6212/",
       "role": "participant",
       "title": "Developer Relations and Events Intern",
@@ -843,12 +907,13 @@
       "companyId": "15b62625-a629-406c-a14a-bd7c07e451b8",
       "companyName": "Synk",
       "createdAt": "2026-07-29T10:56:51.342Z",
-      "updatedAt": "2026-07-29T10:56:51.342Z"
+      "updatedAt": "2026-08-08T08:04:42.195Z",
+      "roles": []
     },
     {
       "id": "47b22c7f-d158-4ab3-b4e9-d60014f79d1e",
       "username": "Javier Garza",
-      "email": null,
+      "email": "javier.garza@snyk.io",
       "linkedin": "https://www.linkedin.com/in/jjgarza/",
       "role": "participant",
       "title": "Developer Advocate",
@@ -856,7 +921,134 @@
       "companyId": "15b62625-a629-406c-a14a-bd7c07e451b8",
       "companyName": "Synk",
       "createdAt": "2026-07-29T10:59:03.109Z",
-      "updatedAt": "2026-07-29T10:59:03.109Z"
+      "updatedAt": "2026-08-08T08:04:27.789Z",
+      "roles": []
+    },
+    {
+      "id": "947a945f-84c7-4ef5-893d-33791fb876ed",
+      "username": "Ali Can Acar",
+      "email": "thealicanacar@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/alicanacar/",
+      "role": "participant",
+      "title": "Founder",
+      "phone": null,
+      "companyId": "33646e72-dd9d-42e5-b978-4c6c5bae1d50",
+      "companyName": "AutonomLayer",
+      "roles": [],
+      "createdAt": "2026-08-07T09:14:09.583Z",
+      "updatedAt": "2026-08-08T08:04:02.454Z"
+    },
+    {
+      "id": "6438d8f1-d2a9-4d7b-88dc-f4e8d5317f46",
+      "username": "Karishma Mandal",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/karishma-mandal/",
+      "role": "participant",
+      "title": "Founder",
+      "phone": null,
+      "companyId": "891f7ff9-9fb5-48b9-8ac5-6a666aa11cb3",
+      "companyName": "O1 Assist",
+      "roles": [],
+      "createdAt": "2026-08-07T09:17:48.934Z",
+      "updatedAt": "2026-08-07T09:17:48.934Z"
+    },
+    {
+      "id": "382c0465-b450-4da9-9854-0aca784994cf",
+      "username": "Srini Pagidyala",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/srinipagidyala/",
+      "role": "participant",
+      "title": "Co Founder",
+      "phone": null,
+      "companyId": "e0044788-b9ef-4038-8078-367cbf8235cf",
+      "companyName": "AIGO AI",
+      "roles": [],
+      "createdAt": "2026-08-07T09:20:36.693Z",
+      "updatedAt": "2026-08-07T09:20:36.693Z"
+    },
+    {
+      "id": "c22f56cc-f5ff-49c7-a8ca-6e4cc887d732",
+      "username": "Kimson Doan",
+      "email": "kimson.n.doan@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/kimsondoan/",
+      "role": "participant",
+      "title": "Content Strategist",
+      "phone": null,
+      "companyId": null,
+      "companyName": "Kataria Digital",
+      "roles": [],
+      "createdAt": "2026-08-08T04:55:12.852Z",
+      "updatedAt": "2026-08-08T07:44:31.488Z"
+    },
+    {
+      "id": "994608b0-11c4-4fb3-9238-521f3caf211f",
+      "username": "Stella Xiao",
+      "email": "stellaxiaor@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/stella-xiao/",
+      "role": "participant",
+      "title": "Co Founder",
+      "phone": null,
+      "companyId": null,
+      "companyName": "Satorial",
+      "roles": [],
+      "createdAt": "2026-08-08T05:34:11.991Z",
+      "updatedAt": "2026-08-08T07:56:20.160Z"
+    },
+    {
+      "id": "89ae7b35-aef0-456e-8d9c-1b9f3d484fd1",
+      "username": "Emily Viscia",
+      "email": "emily.viscia@snyk.io",
+      "linkedin": "https://www.linkedin.com/in/emily-viscia-483043269/",
+      "role": "participant",
+      "title": "Developer and Events Intern",
+      "phone": null,
+      "companyId": "15b62625-a629-406c-a14a-bd7c07e451b8",
+      "companyName": "Synk",
+      "roles": [],
+      "createdAt": "2026-08-08T08:08:13.786Z",
+      "updatedAt": "2026-08-08T08:08:13.786Z"
+    },
+    {
+      "id": "ecfab5f3-8219-46a2-a4fa-d6c078cf48af",
+      "username": "Selina Bian",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/yingxuan-selina-bian/",
+      "role": "participant",
+      "title": "GTM",
+      "phone": null,
+      "companyId": null,
+      "companyName": "Stealth",
+      "roles": [],
+      "createdAt": "2026-08-08T18:51:32.090Z",
+      "updatedAt": "2026-08-08T18:51:32.090Z"
+    },
+    {
+      "id": "89b81242-0acc-4515-8012-f5e2f8aed95e",
+      "username": "Alice Lan",
+      "email": "aslan@ucsd.edu",
+      "linkedin": "https://www.linkedin.com/in/alice-lan06/",
+      "role": "participant",
+      "title": "GTM Intern",
+      "phone": null,
+      "companyId": null,
+      "companyName": "Agent Web",
+      "roles": [],
+      "createdAt": "2026-08-08T18:53:08.849Z",
+      "updatedAt": "2026-08-08T18:53:08.849Z"
+    },
+    {
+      "id": "7ea0a691-6075-4087-872f-6a37e17ce638",
+      "username": "Lena Mrowka",
+      "email": null,
+      "linkedin": "https://www.linkedin.com/in/lena-mrowka/",
+      "role": "participant",
+      "title": "Content Marketing",
+      "phone": null,
+      "companyId": null,
+      "companyName": "Self Employed",
+      "roles": [],
+      "createdAt": "2026-08-08T18:56:31.463Z",
+      "updatedAt": "2026-08-08T18:56:31.463Z"
     }
   ]
 }

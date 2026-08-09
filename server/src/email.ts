@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import { getSiteSettings } from "./data/repository.js";
+import { readBrandLogoBuffer } from "./pdfs.js";
 
 interface EmailOptions {
   subject: string;
@@ -6,42 +8,103 @@ interface EmailOptions {
   text?: string;
 }
 
-function getTransporter() {
-  const host = process.env.SMTP_HOST;
-  const port = parseInt(process.env.SMTP_PORT || "587", 10);
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+export type EmailAttachment = {
+  filename: string;
+  content: Buffer;
+  contentType?: string;
+  /** Inline CID for logos embedded in HTML (e.g. crewbase-logo). */
+  cid?: string;
+  contentDisposition?: "inline" | "attachment";
+};
 
-  if (!host || !user || !pass) {
+export const CREWBASE_LOGO_CID = "crewbase-logo";
+
+export type ResolvedSmtpConfig = {
+  host: string;
+  port: number;
+  user: string;
+  pass: string;
+  from: string;
+  notifyEmail: string;
+};
+
+/** Settings SMTP first, then env fallbacks. */
+export function resolveSmtpConfig(): ResolvedSmtpConfig {
+  const smtp = getSiteSettings().smtp;
+  const host = smtp.host || process.env.SMTP_HOST || "";
+  const port = parseInt(smtp.port || process.env.SMTP_PORT || "587", 10);
+  const user = smtp.user || process.env.SMTP_USER || "";
+  const pass = smtp.pass || process.env.SMTP_PASS || "";
+  const from =
+    smtp.from ||
+    process.env.SMTP_FROM ||
+    "Crewbase Collective <noreply@crewbasecollective.com>";
+  const notifyEmail = smtp.notifyEmail || process.env.NOTIFY_EMAIL || "";
+  return { host, port, user, pass, from, notifyEmail };
+}
+
+export function isSmtpConfigured(config = resolveSmtpConfig()): boolean {
+  return Boolean(config.host && config.user && config.pass);
+}
+
+function getTransporter() {
+  const config = resolveSmtpConfig();
+  if (!isSmtpConfigured(config)) {
     return null;
   }
 
   return nodemailer.createTransport({
-    host,
-    port,
-    secure: port === 465,
-    auth: { user, pass },
+    host: config.host,
+    port: config.port,
+    secure: config.port === 465,
+    auth: { user: config.user, pass: config.pass },
   });
 }
 
 export async function sendNotificationEmail(options: EmailOptions): Promise<boolean> {
-  const transporter = getTransporter();
-  const to = process.env.NOTIFY_EMAIL;
-  const from = process.env.SMTP_FROM || "Crewbase Collective <noreply@crewbasecollective.com>";
+  const config = resolveSmtpConfig();
+  return sendOutboundEmail({
+    to: config.notifyEmail,
+    subject: options.subject,
+    html: options.html,
+    text: options.text,
+  });
+}
 
-  if (!transporter || !to) {
-    console.log("[Email] SMTP not configured. Would send:", options.subject);
+export async function sendOutboundEmail(options: {
+  to: string;
+  subject: string;
+  html: string;
+  text?: string;
+  attachments?: EmailAttachment[];
+}): Promise<boolean> {
+  const transporter = getTransporter();
+  const config = resolveSmtpConfig();
+  if (!transporter || !options.to) {
+    console.log("[Email] SMTP not configured. Would send:", options.subject, "→", options.to);
     console.log(options.text || options.html);
+    if (options.attachments?.length) {
+      console.log(
+        "[Email] Attachments:",
+        options.attachments.map((a) => `${a.filename} (${a.content.length} bytes)`).join(", ")
+      );
+    }
     return false;
   }
-
   try {
     await transporter.sendMail({
-      from,
-      to,
+      from: config.from,
+      to: options.to,
       subject: options.subject,
       html: options.html,
       text: options.text,
+      attachments: options.attachments?.map((a) => ({
+        filename: a.filename,
+        content: a.content,
+        contentType: a.contentType,
+        cid: a.cid,
+        contentDisposition: a.contentDisposition || (a.cid ? "inline" : "attachment"),
+      })),
     });
     return true;
   } catch (err) {
@@ -50,12 +113,66 @@ export async function sendNotificationEmail(options: EmailOptions): Promise<bool
   }
 }
 
-function escapeHtml(value: string): string {
+export function escapeHtml(value: string): string {
   return value
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+/** Replace {{placeholders}} in a template string. Missing values become empty. */
+export function applyEmailPlaceholders(
+  template: string,
+  values: Record<string, string>
+): string {
+  return template.replace(/\{\{\s*([a-z0-9_]+)\s*\}\}/gi, (_, key: string) => {
+    const v = values[key.toLowerCase()];
+    return v !== undefined ? v : "";
+  });
+}
+
+export function brandLogoInlineAttachment(): EmailAttachment | null {
+  const logo = readBrandLogoBuffer();
+  if (!logo) return null;
+  return {
+    filename: logo.filename,
+    content: logo.content,
+    contentType: logo.contentType,
+    cid: CREWBASE_LOGO_CID,
+    contentDisposition: "inline",
+  };
+}
+
+/** Plain-text body → HTML email, optionally with Crewbase logo footer. */
+export function textBodyToHtml(
+  body: string,
+  options?: { includeLogo?: boolean }
+): string {
+  const paragraphs = body
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean)
+    .map((block) => {
+      const lines = escapeHtml(block).replace(/\n/g, "<br/>");
+      return `<p style="margin:0 0 14px;line-height:1.55;color:#111827">${lines}</p>`;
+    })
+    .join("");
+
+  const logoFooter = options?.includeLogo
+    ? `
+      <div style="margin-top:28px;padding-top:20px;border-top:1px solid #e5e7eb;text-align:center">
+        <img src="cid:${CREWBASE_LOGO_CID}" alt="Crewbase Collective" width="160" style="display:inline-block;max-width:160px;height:auto;border:0" />
+        <p style="margin:10px 0 0;font-size:12px;color:#6b7280">Crewbase Collective</p>
+      </div>`
+    : "";
+
+  return `
+    <div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto;color:#111827">
+      ${paragraphs}
+      ${logoFooter}
+    </div>
+  `;
 }
 
 export function buildRequestEmailHtml(data: Record<string, string | string[] | undefined>): string {
@@ -80,3 +197,17 @@ export function buildRequestEmailHtml(data: Record<string, string | string[] | u
     </div>
   `;
 }
+
+export const EMAIL_PLACEHOLDERS = [
+  { key: "person_name", label: "Person name" },
+  { key: "event_name", label: "Event name" },
+  { key: "event_date", label: "Event date" },
+  { key: "event_date_clause", label: "Event date clause (on …)" },
+  { key: "event_time", label: "Event time" },
+  { key: "event_place", label: "Event place" },
+  { key: "luma_link", label: "Luma page link" },
+  { key: "sponsor_names", label: "All sponsor names" },
+  { key: "partner_names", label: "All partner names" },
+  { key: "theme", label: "Theme" },
+  { key: "tracks", label: "Tracks" },
+] as const;

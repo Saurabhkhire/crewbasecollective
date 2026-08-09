@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   Calendar,
@@ -72,6 +72,12 @@ interface EventDetail {
     companyWebsite: string | null;
     companyLogo: string | null;
     companyDescription: string | null;
+    representatives?: {
+      username: string;
+      linkedin: string | null;
+      role?: string | null;
+      companyName?: string | null;
+    }[];
   }[];
   prizes: {
     placement: string;
@@ -111,6 +117,22 @@ interface EventDetail {
     hostType: string;
     customType: string | null;
     role: string | null;
+    title?: string | null;
+    companyName?: string | null;
+  }[];
+  volunteers?: {
+    username: string;
+    linkedin: string | null;
+    hostType: string;
+    customType: string | null;
+    role: string | null;
+    title?: string | null;
+    companyName?: string | null;
+  }[];
+  team?: {
+    username: string;
+    linkedin: string | null;
+    subRole: string;
     title?: string | null;
     companyName?: string | null;
   }[];
@@ -405,6 +427,51 @@ function groupByDay<T extends { startTime: string | null }>(
     }));
 }
 
+function normalizeLookup(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[%20+]+/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+async function resolveEventSlug(rawSlug: string): Promise<string | null> {
+  const candidates = [
+    rawSlug,
+    decodeURIComponent(rawSlug),
+    rawSlug.replace(/ /g, "-"),
+    decodeURIComponent(rawSlug).replace(/ /g, "-"),
+  ];
+  const uniqueCandidates = [...new Set(candidates.filter(Boolean))];
+
+  for (const candidate of uniqueCandidates) {
+    try {
+      await loadData<EventDetail>(`/data/events/${encodeURIComponent(candidate)}.json`);
+      return candidate;
+    } catch {
+      // try next
+    }
+  }
+
+  try {
+    const index = await loadData<{ events: { slug: string; name: string }[] }>(
+      "/data/events-index.json"
+    );
+    const events = index.events || [];
+    const needle = normalizeLookup(decodeURIComponent(rawSlug));
+    const match =
+      events.find((e) => e.slug === rawSlug) ||
+      events.find((e) => e.slug === decodeURIComponent(rawSlug)) ||
+      events.find((e) => normalizeLookup(e.slug) === needle) ||
+      events.find((e) => normalizeLookup(e.name) === needle) ||
+      events.find((e) => normalizeLookup(e.name).includes(needle) || needle.includes(normalizeLookup(e.name)));
+    return match?.slug || null;
+  } catch {
+    return null;
+  }
+}
+
 export default function EventDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const [data, setData] = useState<EventDetail | null>(null);
@@ -417,16 +484,25 @@ export default function EventDetailPage() {
     setNotFound(false);
     setData(null);
 
-    loadData<EventDetail>(`/data/events/${encodeURIComponent(slug)}.json`)
-      .then((json) => {
+    void (async () => {
+      const resolved = await resolveEventSlug(slug);
+      if (cancelled) return;
+      if (!resolved) {
+        setNotFound(true);
+        return;
+      }
+      try {
+        const json = await loadData<EventDetail>(
+          `/data/events/${encodeURIComponent(resolved)}.json`
+        );
         if (!cancelled) {
           setData(json);
           setNotFound(false);
         }
-      })
-      .catch(() => {
+      } catch {
         if (!cancelled) setNotFound(true);
-      });
+      }
+    })();
 
     return () => {
       cancelled = true;
@@ -483,6 +559,31 @@ export default function EventDetailPage() {
     return reps;
   }, [data]);
 
+  const partnerReps = useMemo(() => {
+    if (!data) return [];
+    const seen = new Set<string>();
+    const reps: {
+      username: string;
+      linkedin: string | null;
+      role: string | null;
+      companyName: string;
+    }[] = [];
+    for (const partner of data.partners) {
+      for (const rep of partner.representatives || []) {
+        const key = rep.username.toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        reps.push({
+          username: rep.username,
+          linkedin: rep.linkedin,
+          role: rep.role || null,
+          companyName: rep.companyName || partner.companyName || "",
+        });
+      }
+    }
+    return reps;
+  }, [data]);
+
   if (notFound) {
     return (
       <div className="mx-auto w-[90%] max-w-6xl px-4 py-24 pt-[130px] text-center">
@@ -502,13 +603,16 @@ export default function EventDetailPage() {
     );
   }
 
-  const { event, tracks, sponsors, partners, prizes, speakers, judges, hosts, links, photos } =
+  const { event, tracks, sponsors, partners, prizes, speakers, judges, hosts, links, photos, team } =
     data;
 
   const venuePartners = partners.filter((p) => p.partnerType === "venue");
   const otherPartners = partners.filter((p) => p.partnerType !== "venue");
   const regularHosts = hosts.filter((h) => h.hostType !== "volunteer");
-  const volunteers = hosts.filter((h) => h.hostType === "volunteer");
+  const volunteers =
+    data.volunteers && data.volunteers.length > 0
+      ? data.volunteers
+      : hosts.filter((h) => h.hostType === "volunteer");
 
   const fullDateLine =
     event.endDate && event.endDate !== event.eventDate
@@ -685,14 +789,13 @@ export default function EventDetailPage() {
                 {sponsors.map((s) => (
                   <div
                     key={s.id}
-                    className="rounded-xl border border-[var(--border)] bg-[rgba(2,7,13,0.45)] p-4"
+                    className="rounded-xl border border-[var(--border)] bg-[rgba(2,7,13,0.45)] p-4 min-h-[240px]"
                   >
                     <SponsorDisplay
                       name={s.companyName}
                       website={s.companyWebsite}
                       logo={s.companyLogo}
                       description={s.companyDescription}
-                      compact
                     />
                   </div>
                 ))}
@@ -713,7 +816,6 @@ export default function EventDetailPage() {
                       website={p.companyWebsite}
                       logo={p.companyLogo}
                       description={p.companyDescription}
-                      compact
                     />
                   </div>
                 ))}
@@ -739,7 +841,6 @@ export default function EventDetailPage() {
                           ? p.customType
                           : PARTNER_TYPE_LABELS[p.partnerType] || p.partnerType
                       }
-                      compact
                     />
                   </div>
                 ))}
@@ -896,6 +997,21 @@ export default function EventDetailPage() {
             </EventBand>
           )}
 
+          {partnerReps.length > 0 && (
+            <EventBand title="Partner Representatives" icon={Handshake} tone="people">
+              <ul>
+                {partnerReps.map((r, i) => (
+                  <PersonRow
+                    key={i}
+                    name={r.username}
+                    linkedin={r.linkedin}
+                    meta={roleAtCompany(r.role, r.companyName)}
+                  />
+                ))}
+              </ul>
+            </EventBand>
+          )}
+
           {regularHosts.length > 0 && (
             <EventBand title="Hosts" icon={Users} tone="people">
               <ul>
@@ -920,6 +1036,21 @@ export default function EventDetailPage() {
                     name={h.username}
                     linkedin={h.linkedin}
                     meta={roleAtCompany(h.role || h.title, h.companyName)}
+                  />
+                ))}
+              </ul>
+            </EventBand>
+          )}
+
+          {(team?.length ?? 0) > 0 && (
+            <EventBand title="Team" icon={Users} tone="people">
+              <ul>
+                {team!.map((member, i) => (
+                  <PersonRow
+                    key={i}
+                    name={member.username}
+                    linkedin={member.linkedin}
+                    meta={roleAtCompany(member.subRole || member.title, member.companyName)}
                   />
                 ))}
               </ul>

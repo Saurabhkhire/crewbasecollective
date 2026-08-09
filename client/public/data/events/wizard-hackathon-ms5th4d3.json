@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-07-30T21:29:17.512Z",
+    "updatedAt": "2026-08-08T08:17:40.902Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -221,20 +221,31 @@
   ],
   "partners": [
     {
+      "id": "f5792a13-8633-48cc-b99e-1963738ddecf",
       "partnerType": "venue",
       "customType": null,
       "companyName": "Frontier Tower",
       "companyWebsite": "https://frontiertower.io/",
       "companyLogo": "/images/companies/frontier-tower.jpg",
-      "companyDescription": "Frontier Tower is a 16-floor innovation hub in San Francisco being transformed into a self-governed vertical village for frontier technologies and creative expression. It brings together leading researchers, builders, entrepreneurs, and artists working at the edge of human progress."
+      "companyDescription": "Frontier Tower is a 16-floor innovation hub in San Francisco being transformed into a self-governed vertical village for frontier technologies and creative expression. It brings together leading researchers, builders, entrepreneurs, and artists working at the edge of human progress.",
+      "representatives": []
     },
     {
+      "id": "84570472-8153-4bef-b673-2c8667e4ad4c",
       "partnerType": "community",
       "customType": null,
       "companyName": "Devnovate",
       "companyWebsite": "https://devnovate.co/",
       "companyLogo": "/images/companies/devnovate.png",
-      "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions."
+      "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions.",
+      "representatives": [
+        {
+          "username": "Aviral Bharadwaj",
+          "linkedin": "https://www.linkedin.com/in/aviral-bhardwaj/",
+          "role": "Founder",
+          "companyName": "Devnovate"
+        }
+      ]
     }
   ],
   "prizes": [
@@ -601,15 +612,6 @@
       "companyName": "Pacific Gas and Electric Company"
     },
     {
-      "username": "Wendy Wang",
-      "linkedin": "https://www.linkedin.com/in/wendianwang/",
-      "hostType": "volunteer",
-      "customType": null,
-      "role": null,
-      "title": "Computer Teaching Assistant",
-      "companyName": "Welsey College"
-    },
-    {
       "username": "Chelsey Huang",
       "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
       "hostType": "host",
@@ -664,6 +666,18 @@
       "companyName": "Agent OS"
     }
   ],
+  "volunteers": [
+    {
+      "username": "Wendy Wang",
+      "linkedin": "https://www.linkedin.com/in/wendianwang/",
+      "hostType": "volunteer",
+      "customType": null,
+      "role": null,
+      "title": "Computer Teaching Assistant",
+      "companyName": "Welsey College"
+    }
+  ],
+  "team": [],
   "links": [],
   "photos": [
     {

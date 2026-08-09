@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { externalUrl, formatDateShort } from "@/lib/utils";
@@ -7,14 +7,13 @@ export interface EventRef {
   eventName: string;
   slug: string;
   eventDate: string;
+  companyName?: string | null;
 }
 
 export interface Person {
   id: string;
   username: string;
-  email: string | null;
   linkedin: string | null;
-  role: string;
   title: string | null;
   companyName: string | null;
   judged: EventRef[];
@@ -157,13 +156,18 @@ function PersonCardDetailed({
                   </div>
                   <ul className="space-y-1.5">
                     {stat.events.map((item) => (
-                      <li key={`${stat.key}-${item.slug}-${item.eventDate}`}>
+                      <li key={`${stat.key}-${item.slug}-${item.eventDate}-${item.companyName || ""}`}>
                         <Link
                           to={`/events/${item.slug}`}
                           className="text-sm text-[var(--cyan2)] hover:underline"
                         >
                           {item.eventName}
                         </Link>
+                        {stat.key === "sponsored" && item.companyName ? (
+                          <span className="ml-2 text-xs text-[var(--muted)]">
+                            · {item.companyName}
+                          </span>
+                        ) : null}
                         {item.eventDate && (
                           <span className="ml-2 text-xs text-[var(--muted)]">
                             {formatDateShort(item.eventDate)}

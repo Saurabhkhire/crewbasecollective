@@ -1,20 +1,13 @@
-﻿import { Link, Outlet, useLocation } from "react-router-dom";
-import {
-  LayoutDashboard,
-  Calendar,
-  Building2,
-  Users,
-  Inbox,
-} from "lucide-react";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import { Calendar, Building2, Users, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/BrandLogo";
 
 const adminLinks = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/events", label: "Events", icon: Calendar },
-  { href: "/admin/companies", label: "Companies", icon: Building2 },
+  { href: "/admin/companies", label: "Sponsors & Partners", icon: Building2 },
   { href: "/admin/people", label: "People", icon: Users },
-  { href: "/admin/requests", label: "Requests", icon: Inbox },
+  { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 export default function AdminLayout() {
@@ -34,7 +27,7 @@ export default function AdminLayout() {
               to={link.href}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition",
-                pathname === link.href || (link.href !== "/admin" && pathname.startsWith(link.href))
+                pathname === link.href || pathname.startsWith(link.href + "/")
                   ? "bg-brand-800 text-white"
                   : "text-brand-200 hover:bg-brand-900 hover:text-white"
               )}
@@ -57,7 +50,7 @@ export default function AdminLayout() {
                 to={link.href}
                 className={cn(
                   "whitespace-nowrap rounded-full px-3 py-1 text-xs font-medium",
-                  pathname === link.href
+                  pathname === link.href || pathname.startsWith(link.href + "/")
                     ? "bg-brand-600 text-white"
                     : "bg-zinc-800 text-zinc-400"
                 )}

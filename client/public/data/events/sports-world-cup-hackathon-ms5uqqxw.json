@@ -109,12 +109,14 @@
   ],
   "partners": [
     {
+      "id": "d666884b-8bdd-49a7-9bad-4b61b7a86af1",
       "partnerType": "venue",
       "customType": null,
       "companyName": "Homebrew Club",
       "companyWebsite": "https://homebrewclub.berrry.app/",
       "companyLogo": "/images/companies/homebrew-club.jpg",
-      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures."
+      "companyDescription": "Homebrew Club is a modern co-working space designed for founders, creators, freelancers, and professionals looking for a productive environment to work, collaborate, and build. It provides flexible workspaces, a vibrant community, and resources that help individuals and teams grow their ideas into successful ventures.",
+      "representatives": []
     }
   ],
   "prizes": [
@@ -208,6 +210,8 @@
       "companyName": "HiJenny"
     }
   ],
+  "volunteers": [],
+  "team": [],
   "links": [],
   "photos": [
     {

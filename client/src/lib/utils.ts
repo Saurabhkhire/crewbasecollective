@@ -163,7 +163,7 @@ export const PRIZE_PLACEMENT_LABELS: Record<string, string> = {
 
 export const PARTNER_TYPE_LABELS: Record<string, string> = {
   venue: "Venue Partner",
-  technology: "Technology Partner",
+  ventures: "Ventures Partner",
   community: "Community Partner",
   media: "Media Partner",
   food: "Food Partner",

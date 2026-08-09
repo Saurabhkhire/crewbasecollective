@@ -285,7 +285,7 @@ export function RequestForms({ events: eventsProp = [] }: { events?: EventOption
               >
                 <option value="">Select...</option>
                 <option value="venue">Venue Partnership</option>
-                <option value="technology">Technology Partner</option>
+                <option value="ventures">Ventures Partner</option>
                 <option value="community">Community Partner</option>
                 <option value="media">Media Partner</option>
                 <option value="food">Food Partner</option>
