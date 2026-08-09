@@ -1,16 +1,52 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { createClient } from "@supabase/supabase-js";
-import dns from "node:dns";
-
-// Avoid intermittent Undici "fetch failed" on Vercel when IPv6 is preferred
-try {
-  dns.setDefaultResultOrder("ipv4first");
-} catch {
-  /* older Node */
-}
+import https from "node:https";
 
 function isEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function cleanEnv(value: string | undefined): string {
+  return (value || "").trim().replace(/^["']|["']$/g, "");
+}
+
+/** Upsert subscriber via Supabase REST (avoids undici fetch failures on Vercel). */
+function upsertSubscriber(
+  baseUrl: string,
+  serviceKey: string,
+  email: string
+): Promise<{ ok: boolean; status: number; body: string }> {
+  const endpoint = new URL("/rest/v1/subscribers", baseUrl);
+  const payload = JSON.stringify({ email });
+
+  return new Promise((resolve, reject) => {
+    const req = https.request(
+      endpoint,
+      {
+        method: "POST",
+        headers: {
+          apikey: serviceKey,
+          Authorization: `Bearer ${serviceKey}`,
+          "Content-Type": "application/json",
+          Prefer: "resolution=ignore-duplicates,return=minimal",
+          "Content-Length": Buffer.byteLength(payload),
+        },
+      },
+      (res) => {
+        const chunks: Buffer[] = [];
+        res.on("data", (c) => chunks.push(c));
+        res.on("end", () => {
+          resolve({
+            ok: (res.statusCode || 500) < 300,
+            status: res.statusCode || 500,
+            body: Buffer.concat(chunks).toString("utf8"),
+          });
+        });
+      }
+    );
+    req.on("error", reject);
+    req.write(payload);
+    req.end();
+  });
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -39,12 +75,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return;
     }
 
-    const url = (process.env.SUPABASE_URL || "").trim();
-    const key = (process.env.SUPABASE_SERVICE_ROLE_KEY || "").trim();
-    if (!url || !key) {
-      console.error(
-        "[Subscribe] Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY"
-      );
+    const url = cleanEnv(process.env.SUPABASE_URL);
+    const key = cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY);
+    if (!url || !key || !url.startsWith("http")) {
+      console.error("[Subscribe] Missing or invalid Supabase env");
       res.status(503).json({
         error:
           "Subscriptions are temporarily unavailable. Please try again later.",
@@ -52,23 +86,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return;
     }
 
-    const supabase = createClient(url, key, {
-      auth: { persistSession: false, autoRefreshToken: false },
-    });
-
-    const { error } = await supabase.from("subscribers").upsert(
-      { email },
-      { onConflict: "email", ignoreDuplicates: true }
-    );
-
-    if (error) {
-      console.error(
-        "[Subscribe] Supabase error:",
-        error.message,
-        error.code,
-        error
-      );
-      if (error.code === "23505") {
+    const result = await upsertSubscriber(url, key, email);
+    if (!result.ok) {
+      console.error("[Subscribe] Supabase REST error:", result.status, result.body);
+      // Unique violation still counts as success for the visitor
+      if (result.status === 409) {
         res.status(200).json({ success: true, stored: true });
         return;
       }
