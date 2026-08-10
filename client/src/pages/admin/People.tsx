@@ -10,7 +10,10 @@ import {
   type PersonSubRole,
   parseMultiJson,
   stringifyMulti,
+  splitSubRoles,
+  joinSubRoles,
 } from "@/lib/roles";
+import { SubRoleMultiSelect } from "@/components/admin/SubRoleMultiSelect";
 
 type RoleStatus = "confirmed" | "maybe" | "no_response";
 
@@ -326,7 +329,7 @@ export default function AdminPeople() {
 
   const applyAddRoles = () => {
     if (addRoles.length === 0) return;
-    const subJoined = addNeedsSubRoles ? addSubs.join(", ") || null : null;
+    const subJoined = addNeedsSubRoles ? joinSubRoles(addSubs) : null;
     const next = [...directoryRoles];
     for (const role of addRoles) {
       if (lockedRoles.has(role) && directoryRoles.some((r) => r.role === role)) continue;
@@ -525,13 +528,19 @@ export default function AdminPeople() {
               <p className="mt-1 text-xs text-zinc-500">None yet — add roles below.</p>
             ) : (
               <div className="mt-2 space-y-2">
-                {directoryRoles.map((r) => (
+                {directoryRoles.map((r) => {
+                  const roleSubs = splitSubRoles(r.subRole);
+                  const canHaveSubs = MAIN_ROLES_WITH_SUB_ROLES.has(r.role);
+                  return (
                   <div
                     key={r.role}
-                    className="flex flex-wrap items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm"
+                    className="space-y-2 rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm"
                   >
+                    <div className="flex flex-wrap items-center gap-2">
                     <span className="font-medium text-zinc-200">{r.role}</span>
-                    {r.subRole ? <span className="text-zinc-400">· {r.subRole}</span> : null}
+                    {!canHaveSubs && r.subRole ? (
+                      <span className="text-zinc-400">· {r.subRole}</span>
+                    ) : null}
                     <span className={`rounded-full px-2 py-0.5 text-xs ${STATUS_STYLES[r.status]}`}>
                       {STATUS_LABELS[r.status]}
                     </span>
@@ -570,8 +579,31 @@ export default function AdminPeople() {
                     >
                       ×
                     </button>
+                    </div>
+                    {canHaveSubs && (
+                      <div>
+                        <p className="mb-1 text-xs text-zinc-500">Sub-roles</p>
+                        <SubRoleMultiSelect
+                          options={subRoles}
+                          selected={roleSubs}
+                          onChange={(next) =>
+                            setForm({
+                              ...form,
+                              rolesJson: JSON.stringify(
+                                directoryRoles.map((x) =>
+                                  x.role === r.role
+                                    ? { ...x, subRole: joinSubRoles(next) }
+                                    : x
+                                )
+                              ),
+                            })
+                          }
+                        />
+                      </div>
+                    )}
                   </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
@@ -623,35 +655,13 @@ export default function AdminPeople() {
             {addNeedsSubRoles && (
               <div>
                 <p className="mb-2 text-xs text-zinc-400">Sub-roles</p>
-                <div className="flex flex-wrap gap-2">
-                  {subRoles.map((sub) => {
-                    const selected = addSubs.includes(sub.key);
-                    return (
-                      <label
-                        key={sub.key}
-                        className={`cursor-pointer rounded-full px-3 py-1.5 text-xs ${
-                          selected
-                            ? "bg-emerald-800 text-emerald-100"
-                            : "bg-zinc-800 text-zinc-400 hover:text-zinc-200"
-                        }`}
-                      >
-                        <input
-                          type="checkbox"
-                          className="sr-only"
-                          checked={selected}
-                          onChange={() => {
-                            const next = selected
-                              ? addSubs.filter((s) => s !== sub.key)
-                              : [...addSubs, sub.key];
-                            setForm({ ...form, addSubRolesJson: stringifyMulti(next) });
-                          }}
-                        />
-                        {sub.key}
-                        {!sub.visible ? " (admin only)" : ""}
-                      </label>
-                    );
-                  })}
-                </div>
+                <SubRoleMultiSelect
+                  options={subRoles}
+                  selected={addSubs}
+                  onChange={(next) =>
+                    setForm({ ...form, addSubRolesJson: stringifyMulti(next) })
+                  }
+                />
               </div>
             )}
             <div className="flex flex-wrap items-end gap-3">

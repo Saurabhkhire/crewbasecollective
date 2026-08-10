@@ -172,6 +172,7 @@ function RepresentativeRow({
 
 export default function AdminCompanies() {
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [events, setEvents] = useState<{ id: string; name: string }[]>([]);
   const [form, setForm] = useState(empty);
   const [editId, setEditId] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -181,12 +182,24 @@ export default function AdminCompanies() {
   const [query, setQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<string[]>([]);
   const [statusFilter, setStatusFilter] = useState<RoleStatus[]>([]);
+  const [sponsorshipFilter, setSponsorshipFilter] = useState<
+    "both" | "sponsored" | "not_sponsored"
+  >("both");
+  const [sponsorshipEventId, setSponsorshipEventId] = useState("");
 
   const load = async () => {
     setError("");
     try {
-      const rows = await api<Company[]>("/api/admin/companies");
+      const [rows, eventRows] = await Promise.all([
+        api<Company[]>("/api/admin/companies"),
+        api<{ id: string; name: string }[]>("/api/admin/events").catch(() => []),
+      ]);
       setCompanies(Array.isArray(rows) ? rows : []);
+      setEvents(
+        Array.isArray(eventRows)
+          ? [...eventRows].sort((a, b) => a.name.localeCompare(b.name))
+          : []
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load companies");
     } finally {
@@ -198,6 +211,21 @@ export default function AdminCompanies() {
     void load();
   }, []);
 
+  const eventOptions = useMemo(() => {
+    if (events.length > 0) {
+      return events.map((ev) => ({ id: ev.id, name: ev.name }));
+    }
+    const map = new Map<string, string>();
+    for (const c of companies) {
+      for (const inv of c.involvements || []) {
+        if (inv.eventId) map.set(inv.eventId, inv.eventName || inv.eventId);
+      }
+    }
+    return [...map.entries()]
+      .map(([id, name]) => ({ id, name }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [companies, events]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     const list = [...companies].sort((a, b) => {
@@ -206,6 +234,13 @@ export default function AdminCompanies() {
       if (aTime !== bTime) return bTime - aTime;
       return a.name.localeCompare(b.name);
     });
+
+    const hasSponsored = (c: Company) =>
+      (c.involvements || []).some(
+        (inv) =>
+          inv.kind === "sponsor" &&
+          (!sponsorshipEventId || inv.eventId === sponsorshipEventId)
+      );
 
     return list
       .map((c) => {
@@ -239,6 +274,8 @@ export default function AdminCompanies() {
             (c.involvements || []).length > 0 || (c.representatives || []).length > 0;
           if (!hasMatch) return false;
         }
+        if (sponsorshipFilter === "sponsored" && !hasSponsored(c)) return false;
+        if (sponsorshipFilter === "not_sponsored" && hasSponsored(c)) return false;
         if (!q) return true;
         return (
           c.name.toLowerCase().includes(q) ||
@@ -247,7 +284,7 @@ export default function AdminCompanies() {
           (c.representatives || []).some((r) => r.username.toLowerCase().includes(q))
         );
       });
-  }, [companies, query, typeFilter, statusFilter]);
+  }, [companies, query, typeFilter, statusFilter, sponsorshipFilter, sponsorshipEventId]);
 
   const save = async () => {
     const name = form.name.trim();
@@ -473,6 +510,37 @@ export default function AdminCompanies() {
           selected={statusFilter}
           onChange={(next) => setStatusFilter(next as RoleStatus[])}
         />
+        <div className="min-w-[180px]">
+          <label className="label">Event (sponsorship)</label>
+          <select
+            className="input-field"
+            value={sponsorshipEventId}
+            onChange={(e) => setSponsorshipEventId(e.target.value)}
+          >
+            <option value="">Any event</option>
+            {eventOptions.map((ev) => (
+              <option key={ev.id} value={ev.id}>
+                {ev.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="min-w-[180px]">
+          <label className="label">Sponsorship</label>
+          <select
+            className="input-field"
+            value={sponsorshipFilter}
+            onChange={(e) =>
+              setSponsorshipFilter(
+                e.target.value as "both" | "sponsored" | "not_sponsored"
+              )
+            }
+          >
+            <option value="both">Both</option>
+            <option value="sponsored">Sponsored</option>
+            <option value="not_sponsored">Did not sponsor</option>
+          </select>
+        </div>
       </div>
 
       <div className="mt-4 space-y-3">
@@ -598,7 +666,11 @@ export default function AdminCompanies() {
         })}
         {!loading && filtered.length === 0 && (
           <p className="py-8 text-center text-sm text-zinc-500">
-            {query.trim() || typeFilter.length || statusFilter.length
+            {query.trim() ||
+            typeFilter.length ||
+            statusFilter.length ||
+            sponsorshipFilter !== "both" ||
+            sponsorshipEventId
               ? "No companies match your filters."
               : "No sponsor companies yet — click Add Company."}
           </p>
@@ -608,7 +680,11 @@ export default function AdminCompanies() {
       {!loading && (
         <p className="mt-3 text-xs text-zinc-500">
           {filtered.length} shown
-          {query.trim() || typeFilter.length || statusFilter.length
+          {query.trim() ||
+          typeFilter.length ||
+          statusFilter.length ||
+          sponsorshipFilter !== "both" ||
+          sponsorshipEventId
             ? ` (of ${companies.length})`
             : ""}
         </p>

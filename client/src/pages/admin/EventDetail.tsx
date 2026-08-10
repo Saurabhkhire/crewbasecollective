@@ -10,7 +10,8 @@ import { eventImageFolder, sanitizeImageBasename } from "@/lib/upload";
 import { normalizeEventLinks } from "@/lib/event-links";
 import { api } from "@/lib/api";
 import { EVENT_TYPE_LABELS, isCompetitionEvent } from "@/lib/utils";
-import { type PersonSubRole, EVENT_ADD_MAIN_ROLES, MAIN_ROLES_WITH_SUB_ROLES, parseMultiJson, stringifyMulti } from "@/lib/roles";
+import { type PersonSubRole, EVENT_ADD_MAIN_ROLES, MAIN_ROLES_WITH_SUB_ROLES, parseMultiJson, stringifyMulti, splitSubRoles, joinSubRoles } from "@/lib/roles";
+import { SubRoleMultiSelect } from "@/components/admin/SubRoleMultiSelect";
 import { buildEventPeopleGroups, EVENT_MAIN_ROLES } from "@/lib/event-people";
 import LocationPicker from "@/components/LocationPicker";
 
@@ -926,7 +927,7 @@ export default function AdminEventDetail() {
         userId: (item.userId as string) || "",
         hostType: item.customType ? "custom" : ((item.hostType as string) || "host"),
         customType: (item.customType as string) || "",
-        role: (item.role as string) || "",
+        subRolesJson: stringifyMulti(splitSubRoles((item.role as string) || "")),
         status: ((item.status as string) || "confirmed") as RoleStatus,
       });
       return;
@@ -934,7 +935,7 @@ export default function AdminEventDetail() {
     if (tab === "volunteers") {
       setForm({
         userId: (item.userId as string) || "",
-        role: (item.role as string) || "",
+        subRolesJson: stringifyMulti(splitSubRoles((item.role as string) || "")),
         status: ((item.status as string) || "confirmed") as RoleStatus,
       });
       return;
@@ -942,7 +943,7 @@ export default function AdminEventDetail() {
     if (tab === "associated") {
       setForm({
         userId: (item.userId as string) || "",
-        role: (item.role as string) || "",
+        subRolesJson: stringifyMulti(splitSubRoles((item.role as string) || "")),
         status: ((item.status as string) || "confirmed") as RoleStatus,
       });
       return;
@@ -1261,7 +1262,7 @@ export default function AdminEventDetail() {
 
     const mainRoles = parseMultiJson(form.mainRolesJson);
     const subRoleList = parseMultiJson(form.subRolesJson);
-    const subRoleJoined = subRoleList.join(", ") || null;
+    const subRoleJoined = joinSubRoles(subRoleList);
     const status = (form.status as RoleStatus) || "confirmed";
 
     if (mainRoles.length === 0) {
@@ -2411,7 +2412,8 @@ export default function AdminEventDetail() {
             </div>
           </div>
         );
-      case "hosts":
+      case "hosts": {
+        const selectedSubs = parseMultiJson(form.subRolesJson);
         return (
           <div className="grid gap-3 sm:grid-cols-3">
             {editBanner("host")}
@@ -2437,20 +2439,12 @@ export default function AdminEventDetail() {
                 <input className="input-field" value={form.customType || ""} onChange={(e) => setForm({ ...form, customType: e.target.value })} />
               </Field>
             )}
-            <Field label="Sub-role">
-              <select
-                className="input-field"
-                value={form.role || ""}
-                onChange={(e) => setForm({ ...form, role: e.target.value })}
-              >
-                <option value="">None</option>
-                {subRoles.map((sub) => (
-                  <option key={sub.key} value={sub.key}>
-                    {sub.key}
-                    {sub.visible ? "" : " (admin only)"}
-                  </option>
-                ))}
-              </select>
+            <Field label="Sub-roles" className="sm:col-span-3">
+              <SubRoleMultiSelect
+                options={subRoles}
+                selected={selectedSubs}
+                onChange={(next) => setForm({ ...form, subRolesJson: stringifyMulti(next) })}
+              />
             </Field>
             <Field label="Status">
               <StatusSelect
@@ -2466,7 +2460,7 @@ export default function AdminEventDetail() {
                     userId: form.userId,
                     hostType: form.hostType || "host",
                     customType: form.customType || null,
-                    role: form.role || null,
+                    role: joinSubRoles(selectedSubs),
                     status: form.status || "confirmed",
                   })
                 }
@@ -2477,7 +2471,9 @@ export default function AdminEventDetail() {
             </div>
           </div>
         );
-      case "volunteers":
+      }
+      case "volunteers": {
+        const selectedSubs = parseMultiJson(form.subRolesJson);
         return (
           <div className="grid gap-3 sm:grid-cols-3">
             {editBanner("volunteer")}
@@ -2489,20 +2485,12 @@ export default function AdminEventDetail() {
                 ))}
               </select>
             </Field>
-            <Field label="Sub-role">
-              <select
-                className="input-field"
-                value={form.role || ""}
-                onChange={(e) => setForm({ ...form, role: e.target.value })}
-              >
-                <option value="">None</option>
-                {subRoles.map((sub) => (
-                  <option key={sub.key} value={sub.key}>
-                    {sub.key}
-                    {sub.visible ? "" : " (admin only)"}
-                  </option>
-                ))}
-              </select>
+            <Field label="Sub-roles" className="sm:col-span-3">
+              <SubRoleMultiSelect
+                options={subRoles}
+                selected={selectedSubs}
+                onChange={(next) => setForm({ ...form, subRolesJson: stringifyMulti(next) })}
+              />
             </Field>
             <Field label="Status">
               <StatusSelect
@@ -2518,7 +2506,7 @@ export default function AdminEventDetail() {
                     userId: form.userId,
                     hostType: "volunteer",
                     customType: null,
-                    role: form.role || null,
+                    role: joinSubRoles(selectedSubs),
                     status: form.status || "confirmed",
                   })
                 }
@@ -2529,7 +2517,9 @@ export default function AdminEventDetail() {
             </div>
           </div>
         );
-      case "associated":
+      }
+      case "associated": {
+        const selectedSubs = parseMultiJson(form.subRolesJson);
         return (
           <div className="grid gap-3 sm:grid-cols-3">
             {editBanner("associated")}
@@ -2545,20 +2535,12 @@ export default function AdminEventDetail() {
                 ))}
               </select>
             </Field>
-            <Field label="Sub-role">
-              <select
-                className="input-field"
-                value={form.role || ""}
-                onChange={(e) => setForm({ ...form, role: e.target.value })}
-              >
-                <option value="">None</option>
-                {subRoles.map((sub) => (
-                  <option key={sub.key} value={sub.key}>
-                    {sub.key}
-                    {sub.visible ? "" : " (admin only)"}
-                  </option>
-                ))}
-              </select>
+            <Field label="Sub-roles" className="sm:col-span-3">
+              <SubRoleMultiSelect
+                options={subRoles}
+                selected={selectedSubs}
+                onChange={(next) => setForm({ ...form, subRolesJson: stringifyMulti(next) })}
+              />
             </Field>
             <Field label="Status">
               <StatusSelect
@@ -2572,7 +2554,7 @@ export default function AdminEventDetail() {
                 onClick={() =>
                   saveEntity("associated", {
                     userId: form.userId,
-                    role: form.role || null,
+                    role: joinSubRoles(selectedSubs),
                     status: form.status || "confirmed",
                   })
                 }
@@ -2586,6 +2568,7 @@ export default function AdminEventDetail() {
             </p>
           </div>
         );
+      }
       case "people": {
         const selectedMains = parseMultiJson(form.mainRolesJson);
         const selectedSubs = parseMultiJson(form.subRolesJson);
@@ -2607,12 +2590,6 @@ export default function AdminEventDetail() {
               ? { partnerNoCompany: "", partnerCompanyId: "" }
               : {}),
           });
-        };
-        const toggleSub = (sub: string) => {
-          const next = selectedSubs.includes(sub)
-            ? selectedSubs.filter((r) => r !== sub)
-            : [...selectedSubs, sub];
-          setForm({ ...form, subRolesJson: stringifyMulti(next) });
         };
         return (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -2660,30 +2637,11 @@ export default function AdminEventDetail() {
             </Field>
             {needsSubRoles && (
               <Field label="Sub-roles (host / volunteer / associated)" className="sm:col-span-2 lg:col-span-3">
-                <div className="flex flex-wrap gap-2 rounded-lg border border-zinc-800 bg-zinc-900/40 p-3">
-                  {subRoles.length === 0 && (
-                    <p className="text-xs text-zinc-500">Add sub-roles under Settings.</p>
-                  )}
-                  {subRoles.map((sub) => (
-                    <label
-                      key={sub.key}
-                      className={`cursor-pointer rounded-full px-3 py-1.5 text-xs ${
-                        selectedSubs.includes(sub.key)
-                          ? "bg-emerald-800 text-emerald-100"
-                          : "bg-zinc-800 text-zinc-400 hover:text-zinc-200"
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        className="sr-only"
-                        checked={selectedSubs.includes(sub.key)}
-                        onChange={() => toggleSub(sub.key)}
-                      />
-                      {sub.key}
-                      {!sub.visible ? " (admin only)" : ""}
-                    </label>
-                  ))}
-                </div>
+                <SubRoleMultiSelect
+                  options={subRoles}
+                  selected={selectedSubs}
+                  onChange={(next) => setForm({ ...form, subRolesJson: stringifyMulti(next) })}
+                />
               </Field>
             )}
             {needsSponsorCompany && (

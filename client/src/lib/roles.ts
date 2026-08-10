@@ -55,3 +55,21 @@ export function parseMultiJson(json: string | undefined): string[] {
 export function stringifyMulti(values: string[]): string {
   return JSON.stringify([...new Set(values.map((v) => v.trim()).filter(Boolean))]);
 }
+
+/** Split comma-separated sub-role storage into individual keys. */
+export function splitSubRoles(value: string | null | undefined): string[] {
+  if (!value?.trim()) return [];
+  return [
+    ...new Set(
+      value
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+    ),
+  ];
+}
+
+export function joinSubRoles(values: string[]): string | null {
+  const joined = [...new Set(values.map((v) => v.trim()).filter(Boolean))].join(", ");
+  return joined || null;
+}
