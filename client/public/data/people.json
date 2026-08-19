@@ -1511,7 +1511,14 @@
           "eventDate": "2026-07-13"
         }
       ],
-      "sponsored": [],
+      "sponsored": [
+        {
+          "eventName": "Bay Builders Hackathon",
+          "slug": "bay-builders-hackathon-ms5sgpk3",
+          "eventDate": "2026-07-13",
+          "companyName": "Agent OS"
+        }
+      ],
       "hosted": [
         {
           "eventName": "Build your AI Organization Workshop",

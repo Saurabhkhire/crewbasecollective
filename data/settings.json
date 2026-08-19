@@ -36,12 +36,21 @@
     "lumaCalendar": "https://luma.com/calendar/cal-3A00RBKfF0vkoAd"
   },
   "smtp": {
-    "host": "",
+    "provider": "gmail",
+    "host": "smtp.gmail.com",
     "port": "587",
     "user": "",
     "pass": "",
-    "from": "Crewbase Collective <noreply@crewbasecollective.com>",
-    "notifyEmail": ""
+    "from": "Crewbase Collective <events@crewbasecollective.com>",
+    "notifyEmail": "",
+    "gmail": {
+      "user": "",
+      "pass": ""
+    },
+    "brevo": {
+      "user": "",
+      "pass": ""
+    }
   },
   "emailTemplates": {
     "sponsorshipRequest": {

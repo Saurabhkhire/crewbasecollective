@@ -170,13 +170,45 @@ export interface EmailTemplateDraft {
   certificateText?: string;
 }
 
+export type SmtpProvider = "gmail" | "brevo";
+
+export const SMTP_PROVIDER_PRESETS: Record<
+  SmtpProvider,
+  { host: string; port: string; label: string }
+> = {
+  gmail: { host: "smtp.gmail.com", port: "587", label: "Gmail" },
+  brevo: { host: "smtp-relay.brevo.com", port: "587", label: "Brevo" },
+};
+
+export function inferSmtpProvider(host: string | undefined | null): SmtpProvider {
+  const h = (host || "").toLowerCase();
+  if (h.includes("brevo") || h.includes("sendinblue")) return "brevo";
+  return "gmail";
+}
+
+export function parseSmtpProvider(value: unknown): SmtpProvider | null {
+  const v = String(value || "").trim().toLowerCase();
+  if (v === "gmail" || v === "brevo") return v;
+  return null;
+}
+
+export interface SmtpAccount {
+  user: string;
+  pass: string;
+}
+
 export interface SmtpSettings {
+  /** Which configured provider actually sends mail. */
+  provider: SmtpProvider;
   host: string;
   port: string;
+  /** Active login (mirrors gmail or brevo based on provider). */
   user: string;
   pass: string;
   from: string;
   notifyEmail: string;
+  gmail: SmtpAccount;
+  brevo: SmtpAccount;
 }
 
 export interface SiteSettings {
@@ -314,12 +346,15 @@ Crewbase Collective`,
 };
 
 export const DEFAULT_SMTP_SETTINGS: SmtpSettings = {
-  host: "",
-  port: "587",
+  provider: "gmail",
+  host: SMTP_PROVIDER_PRESETS.gmail.host,
+  port: SMTP_PROVIDER_PRESETS.gmail.port,
   user: "",
   pass: "",
-  from: "Crewbase Collective <noreply@crewbasecollective.com>",
+  from: "Crewbase Collective <events@crewbasecollective.com>",
   notifyEmail: "",
+  gmail: { user: "", pass: "" },
+  brevo: { user: "", pass: "" },
 };
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
@@ -330,7 +365,11 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
     x: "",
     lumaCalendar: "https://luma.com/calendar/cal-3A00RBKfF0vkoAd",
   },
-  smtp: { ...DEFAULT_SMTP_SETTINGS },
+  smtp: {
+    ...DEFAULT_SMTP_SETTINGS,
+    gmail: { ...DEFAULT_SMTP_SETTINGS.gmail },
+    brevo: { ...DEFAULT_SMTP_SETTINGS.brevo },
+  },
   emailTemplates: {
     sponsorshipRequest: { ...DEFAULT_EMAIL_TEMPLATES.sponsorshipRequest },
     speakerInvite: { ...DEFAULT_EMAIL_TEMPLATES.speakerInvite },

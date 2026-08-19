@@ -1,6 +1,12 @@
 {
   "sponsors": [
     {
+      "id": "754d2277-26cc-4416-9d3b-e0779870877e",
+      "name": "Agent OS",
+      "logoUrl": "/images/companies/agent-os.jpg",
+      "website": "https://app.theagentos.space/"
+    },
+    {
       "id": "e0044788-b9ef-4038-8078-367cbf8235cf",
       "name": "AIGO AI",
       "logoUrl": "/images/companies/aigo-ai.jpg",

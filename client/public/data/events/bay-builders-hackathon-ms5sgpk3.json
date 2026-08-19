@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-08-07T08:13:06.574Z",
+    "updatedAt": "2026-08-17T10:15:43.175Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -292,6 +292,21 @@
           "linkedin": "https://www.linkedin.com/in/saurabhkhire",
           "role": "Founder",
           "companyName": "Crewbase Collective"
+        }
+      ]
+    },
+    {
+      "id": "7cd20ab7-4621-43b8-b0d2-a57c714e237b",
+      "companyName": "Agent OS",
+      "companyWebsite": "https://app.theagentos.space/",
+      "companyLogo": "/images/companies/agent-os.jpg",
+      "companyDescription": "​AgentOS is an operating system for AI agents, built around runtime, observability, security, and evals. It helps teams build agents that are easier to trace, monitor, test, and deploy with more confidence.",
+      "representatives": [
+        {
+          "username": "Amitabh Das",
+          "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+          "role": "Founder",
+          "companyName": "Agent OS"
         }
       ]
     }
@@ -813,6 +828,13 @@
       "role": null,
       "title": "Heat of GTM and Relations",
       "companyName": "Space ID"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
     }
   ],
   "hosts": [

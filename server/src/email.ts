@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { getSiteSettings } from "./data/repository.js";
+import { SMTP_PROVIDER_PRESETS, inferSmtpProvider, parseSmtpProvider } from "./data/types.js";
 import { readBrandLogoBuffer } from "./pdfs.js";
 
 interface EmailOptions {
@@ -28,19 +29,79 @@ export type ResolvedSmtpConfig = {
   notifyEmail: string;
 };
 
-/** Settings SMTP first, then env fallbacks. */
+function envSmtpProvider(): "gmail" | "brevo" | null {
+  return parseSmtpProvider(process.env.SMTP_PROVIDER);
+}
+
+function extractEmailAddress(value: string): string {
+  const angle = value.match(/<([^>]+)>/);
+  return (angle ? angle[1] : value).trim().toLowerCase();
+}
+
+function fromAddressForMailbox(from: string, user: string): string {
+  const mailbox = user.trim();
+  if (!mailbox) return from;
+  if (extractEmailAddress(from) === mailbox.toLowerCase()) return from;
+  const nameMatch = from.match(/^(.*)</);
+  const name = (nameMatch ? nameMatch[1] : from).trim().replace(/^"|"$/g, "") ||
+    "Crewbase Collective";
+  if (!from.includes("<") && from.includes("@")) {
+    return `Crewbase Collective <${mailbox}>`;
+  }
+  return `${name} <${mailbox}>`;
+}
+
+/** Settings SMTP first, then env fallbacks. Host/port come from Gmail or Brevo. */
 export function resolveSmtpConfig(): ResolvedSmtpConfig {
   const smtp = getSiteSettings().smtp;
-  const host = smtp.host || process.env.SMTP_HOST || "";
-  const port = parseInt(smtp.port || process.env.SMTP_PORT || "587", 10);
-  const user = smtp.user || process.env.SMTP_USER || "";
-  const pass = smtp.pass || process.env.SMTP_PASS || "";
-  const from =
+  const provider =
+    parseSmtpProvider(smtp.provider) ||
+    envSmtpProvider() ||
+    inferSmtpProvider(smtp.host || process.env.SMTP_HOST);
+  const preset = SMTP_PROVIDER_PRESETS[provider];
+  const account =
+    provider === "brevo"
+      ? {
+          user:
+            smtp.brevo?.user ||
+            process.env.BREVO_SMTP_USER ||
+            process.env.SMTP_USER ||
+            "",
+          pass:
+            smtp.brevo?.pass ||
+            process.env.BREVO_SMTP_KEY ||
+            process.env.SMTP_PASS ||
+            "",
+        }
+      : {
+          user:
+            smtp.gmail?.user ||
+            process.env.GMAIL_SMTP_USER ||
+            process.env.SMTP_USER ||
+            "",
+          pass:
+            smtp.gmail?.pass ||
+            process.env.GMAIL_SMTP_PASS ||
+            process.env.SMTP_PASS ||
+            "",
+        };
+  const host = preset.host;
+  const port = parseInt(preset.port, 10);
+  const fromRaw =
     smtp.from ||
     process.env.SMTP_FROM ||
-    "Crewbase Collective <noreply@crewbasecollective.com>";
+    "Crewbase Collective <events@crewbasecollective.com>";
+  const from =
+    provider === "gmail" ? fromAddressForMailbox(fromRaw, account.user) : fromRaw;
   const notifyEmail = smtp.notifyEmail || process.env.NOTIFY_EMAIL || "";
-  return { host, port, user, pass, from, notifyEmail };
+  return {
+    host,
+    port,
+    user: account.user,
+    pass: account.pass,
+    from,
+    notifyEmail,
+  };
 }
 
 export function isSmtpConfigured(config = resolveSmtpConfig()): boolean {
@@ -57,18 +118,20 @@ function getTransporter() {
     host: config.host,
     port: config.port,
     secure: config.port === 465,
+    requireTLS: config.port === 587,
     auth: { user: config.user, pass: config.pass },
   });
 }
 
 export async function sendNotificationEmail(options: EmailOptions): Promise<boolean> {
   const config = resolveSmtpConfig();
-  return sendOutboundEmail({
+  const result = await sendOutboundEmail({
     to: config.notifyEmail,
     subject: options.subject,
     html: options.html,
     text: options.text,
   });
+  return result.ok;
 }
 
 export async function sendOutboundEmail(options: {
@@ -77,19 +140,18 @@ export async function sendOutboundEmail(options: {
   html: string;
   text?: string;
   attachments?: EmailAttachment[];
-}): Promise<boolean> {
+}): Promise<{ ok: boolean; error?: string }> {
   const transporter = getTransporter();
   const config = resolveSmtpConfig();
-  if (!transporter || !options.to) {
+  if (!transporter) {
     console.log("[Email] SMTP not configured. Would send:", options.subject, "→", options.to);
-    console.log(options.text || options.html);
-    if (options.attachments?.length) {
-      console.log(
-        "[Email] Attachments:",
-        options.attachments.map((a) => `${a.filename} (${a.content.length} bytes)`).join(", ")
-      );
-    }
-    return false;
+    return {
+      ok: false,
+      error: "SMTP is not configured. Add Gmail or Brevo in CMS Settings (or server/.env).",
+    };
+  }
+  if (!options.to) {
+    return { ok: false, error: "Missing recipient email." };
   }
   try {
     await transporter.sendMail({
@@ -106,10 +168,11 @@ export async function sendOutboundEmail(options: {
         contentDisposition: a.contentDisposition || (a.cid ? "inline" : "attachment"),
       })),
     });
-    return true;
+    return { ok: true };
   } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
     console.error("[Email] Failed to send:", err);
-    return false;
+    return { ok: false, error: message };
   }
 }
 

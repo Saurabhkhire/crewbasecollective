@@ -14,9 +14,13 @@ import {
   type SiteSettings,
   type EmailTemplateDraft,
   type SmtpSettings,
+  type SmtpAccount,
   DEFAULT_SITE_SETTINGS,
   DEFAULT_EMAIL_TEMPLATES,
   DEFAULT_SMTP_SETTINGS,
+  SMTP_PROVIDER_PRESETS,
+  inferSmtpProvider,
+  parseSmtpProvider,
   dayLabelFromDate,
   emptyEvent,
   isCompetitionEvent,
@@ -1125,21 +1129,112 @@ function normalizeEmailTemplates(
   };
 }
 
+function normalizeSmtpAccount(
+  raw: Partial<SmtpAccount> | undefined,
+  previous?: SmtpAccount
+): SmtpAccount {
+  const base = previous || { user: "", pass: "" };
+  return {
+    user: (raw?.user ?? base.user).trim(),
+    pass: raw?.pass === undefined ? base.pass : String(raw.pass).trim(),
+  };
+}
+
+function isLegacyZohoSmtp(raw?: Partial<SmtpSettings>): boolean {
+  const provider = String(raw?.provider || "").toLowerCase();
+  const host = String(raw?.host || "").toLowerCase();
+  return provider === "zoho" || host.includes("zoho");
+}
+
+function envSmtpAccount(kind: "gmail" | "brevo"): SmtpAccount {
+  if (kind === "brevo") {
+    return {
+      user: (process.env.BREVO_SMTP_USER || "").trim(),
+      pass: (process.env.BREVO_SMTP_KEY || process.env.BREVO_SMTP_PASS || "").trim(),
+    };
+  }
+  return {
+    user: (process.env.GMAIL_SMTP_USER || "").trim(),
+    pass: (process.env.GMAIL_SMTP_PASS || "").trim(),
+  };
+}
+
+function fillEmptyAccount(account: SmtpAccount, fallback: SmtpAccount): SmtpAccount {
+  return {
+    user: account.user || fallback.user,
+    pass: account.pass || fallback.pass,
+  };
+}
+
 function normalizeSmtp(raw: Partial<SmtpSettings> | undefined, previous?: SmtpSettings): SmtpSettings {
   const base = previous || DEFAULT_SMTP_SETTINGS;
-  const nextPass =
-    raw?.pass !== undefined && String(raw.pass).trim() !== ""
-      ? String(raw.pass).trim()
-      : base.pass;
+  const zohoLeftover = isLegacyZohoSmtp(raw) && !raw?.gmail && !raw?.brevo;
+  const provider =
+    parseSmtpProvider(raw?.provider) ||
+    (zohoLeftover ? parseSmtpProvider(process.env.SMTP_PROVIDER) || "gmail" : null) ||
+    inferSmtpProvider(raw?.host ?? base.host);
+
+  const legacyUser = (raw?.user ?? "").trim();
+  const legacyPass =
+    raw?.pass === undefined ? undefined : String(raw.pass).trim();
+
+  let gmail = normalizeSmtpAccount(raw?.gmail, base.gmail);
+  let brevo = normalizeSmtpAccount(raw?.brevo, base.brevo);
+
+  // Older single user/pass blob → the selected account (never copy Zoho leftovers).
+  if (!zohoLeftover && !raw?.gmail && !raw?.brevo && (legacyUser || legacyPass !== undefined)) {
+    const target = provider === "brevo" ? "brevo" : "gmail";
+    const merged = {
+      user: legacyUser || (target === "brevo" ? brevo.user : gmail.user),
+      pass: legacyPass !== undefined ? legacyPass : (target === "brevo" ? brevo.pass : gmail.pass),
+    };
+    if (target === "brevo") brevo = merged;
+    else gmail = merged;
+  }
+
+  const preset = SMTP_PROVIDER_PRESETS[provider];
+  const active = provider === "brevo" ? brevo : gmail;
   return {
-    host: (raw?.host ?? base.host).trim(),
-    port: String(raw?.port ?? base.port ?? "587").trim() || "587",
-    user: (raw?.user ?? base.user).trim(),
-    pass: nextPass,
+    provider,
+    host: preset.host,
+    port: preset.port,
+    user: active.user,
+    pass: active.pass,
     from:
       (raw?.from ?? base.from).trim() ||
-      "Crewbase Collective <noreply@crewbasecollective.com>",
+      "Crewbase Collective <events@crewbasecollective.com>",
     notifyEmail: (raw?.notifyEmail ?? base.notifyEmail).trim(),
+    gmail,
+    brevo,
+  };
+}
+
+/** Empty Settings fields pick up matching server/.env values (same names as the form). */
+function smtpWithEnvFallbacks(smtp: SmtpSettings): SmtpSettings {
+  const envProvider = parseSmtpProvider(process.env.SMTP_PROVIDER);
+  const provider = parseSmtpProvider(smtp.provider) || envProvider || "gmail";
+  const envActiveUser = (process.env.SMTP_USER || "").trim();
+  const envActivePass = (process.env.SMTP_PASS || "").trim();
+  const gmail = fillEmptyAccount(smtp.gmail, {
+    ...envSmtpAccount("gmail"),
+    ...(provider === "gmail" ? { user: envSmtpAccount("gmail").user || envActiveUser, pass: envSmtpAccount("gmail").pass || envActivePass } : {}),
+  });
+  const brevo = fillEmptyAccount(smtp.brevo, {
+    ...envSmtpAccount("brevo"),
+    ...(provider === "brevo" ? { user: envSmtpAccount("brevo").user || envActiveUser, pass: envSmtpAccount("brevo").pass || envActivePass } : {}),
+  });
+  const preset = SMTP_PROVIDER_PRESETS[provider];
+  const active = provider === "brevo" ? brevo : gmail;
+  return {
+    provider,
+    host: preset.host,
+    port: preset.port,
+    user: active.user,
+    pass: active.pass,
+    from: smtp.from || (process.env.SMTP_FROM || "").trim() || smtp.from,
+    notifyEmail: smtp.notifyEmail || (process.env.NOTIFY_EMAIL || "").trim(),
+    gmail,
+    brevo,
   };
 }
 
@@ -1154,7 +1249,7 @@ export function getSiteSettings(): SiteSettings {
     ...(raw.communityLinks || {}),
   };
   const emailTemplates = normalizeEmailTemplates(raw.emailTemplates);
-  const smtp = normalizeSmtp(raw.smtp);
+  const smtp = smtpWithEnvFallbacks(normalizeSmtp(raw.smtp));
 
   if (Array.isArray(raw.subRoles) && raw.subRoles.length) {
     return {
@@ -1212,18 +1307,21 @@ export function saveSiteSettings(patch: Partial<SiteSettings>): SiteSettings {
   return next;
 }
 
-/** Public-safe settings payload (SMTP password redacted). */
+/** CMS-only settings payload. SMTP password is included so it can be viewed/edited locally. */
 export function publicAdminSettings() {
   const settings = getSiteSettings();
   return {
     ...settings,
     smtp: {
+      provider: settings.smtp.provider,
       host: settings.smtp.host,
       port: settings.smtp.port,
       user: settings.smtp.user,
-      pass: "",
+      pass: settings.smtp.pass,
       from: settings.smtp.from,
       notifyEmail: settings.smtp.notifyEmail,
+      gmail: settings.smtp.gmail,
+      brevo: settings.smtp.brevo,
     },
     smtpPasswordSet: Boolean(settings.smtp.pass),
   };

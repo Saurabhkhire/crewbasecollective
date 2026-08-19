@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": false,
     "createdAt": "2026-08-08T18:11:21.051Z",
-    "updatedAt": "2026-08-10T01:21:30.143Z",
+    "updatedAt": "2026-08-19T21:24:04.584Z",
     "lumaLink": null,
     "eventbriteLink": null
   },
@@ -32,26 +32,9 @@
       "id": "a7158592-ab36-4687-a977-6a0782dc2973",
       "companyId": "022d2a85-fa0d-429e-8f54-a09f06b98542",
       "personId": null,
-      "status": "maybe",
+      "status": "confirmed",
       "sortOrder": 0,
       "representatives": []
-    },
-    {
-      "id": "fedbec73-2ea7-47fa-b1d7-e60de4e7dde3",
-      "companyId": "49e8e316-55ce-4198-91a7-3877900d8184",
-      "personId": null,
-      "status": "maybe",
-      "sortOrder": 1,
-      "representatives": [
-        {
-          "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
-          "status": "maybe"
-        },
-        {
-          "userId": "58551e72-eca6-4e63-bb8e-466194849542",
-          "status": "maybe"
-        }
-      ]
     },
     {
       "id": "8333c0b7-09a0-415d-9dc3-1c6a5c088560",
@@ -101,27 +84,6 @@
   "speakers": [],
   "judges": [
     {
-      "id": "afee8ac4-79fa-4595-8590-46a173b42348",
-      "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
-      "role": null,
-      "status": "maybe",
-      "sortOrder": 0
-    },
-    {
-      "id": "15801112-b5e1-4dcc-a74d-f79c9deb368c",
-      "userId": "58551e72-eca6-4e63-bb8e-466194849542",
-      "role": null,
-      "status": "maybe",
-      "sortOrder": 1
-    },
-    {
-      "id": "d5e5f6a0-7516-4a73-9592-3d75a234dd4e",
-      "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
-      "role": null,
-      "status": "confirmed",
-      "sortOrder": 2
-    },
-    {
       "id": "6d027a68-8eba-4a2c-b388-9471409c51d7",
       "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
       "role": null,
@@ -133,6 +95,13 @@
       "userId": "bcb420be-2b7d-40ac-b640-a61bb0194148",
       "role": null,
       "status": "maybe",
+      "sortOrder": 4
+    },
+    {
+      "id": "c02a947d-d102-4d49-9ba9-59f3e426d496",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "role": null,
+      "status": "confirmed",
       "sortOrder": 4
     }
   ],
@@ -217,6 +186,24 @@
       "role": null,
       "status": "confirmed",
       "sortOrder": 8
+    },
+    {
+      "id": "95b3cd2c-5ae0-42b8-9e28-05a53bb004a3",
+      "userId": "f018a7e1-c984-4ad5-b9d3-869bd6c63f5f",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 9
+    },
+    {
+      "id": "96644b3b-2f3e-4040-878a-c3631ac33131",
+      "userId": "89b81242-0acc-4515-8012-f5e2f8aed95e",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 10
     }
   ],
   "staffRoles": [],

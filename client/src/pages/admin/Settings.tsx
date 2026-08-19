@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Eye, EyeOff } from "lucide-react";
 import { api } from "@/lib/api";
 import { type PersonSubRole } from "@/lib/roles";
 
@@ -18,12 +18,15 @@ interface SiteSettings {
     lumaCalendar: string;
   };
   smtp: {
+    provider?: "gmail" | "brevo";
     host: string;
     port: string;
     user: string;
     pass: string;
     from: string;
     notifyEmail: string;
+    gmail?: { user: string; pass: string };
+    brevo?: { user: string; pass: string };
   };
   smtpPasswordSet?: boolean;
   emailTemplates: {
@@ -37,6 +40,89 @@ interface SiteSettings {
   };
   emailPlaceholders?: { key: string; label: string }[];
   hasPitchDeck?: boolean;
+}
+
+const SMTP_PRESETS = {
+  gmail: {
+    host: "smtp.gmail.com",
+    port: "587",
+    label: "Gmail",
+    env: "SMTP_PROVIDER=gmail",
+    hint: "Google App Password (not your normal Gmail password). Google Account → Security → 2-Step Verification → App passwords. Maps to GMAIL_SMTP_USER / GMAIL_SMTP_PASS.",
+  },
+  brevo: {
+    host: "smtp-relay.brevo.com",
+    port: "587",
+    label: "Brevo",
+    env: "SMTP_PROVIDER=brevo",
+    hint: "Brevo → SMTP & API → SMTP. Use the SMTP login + SMTP key (not the REST API key). Verify the From address as a sender. Maps to BREVO_SMTP_USER / BREVO_SMTP_KEY.",
+  },
+} as const;
+
+type SmtpProvider = keyof typeof SMTP_PRESETS;
+
+function parseProvider(value?: string, host?: string): SmtpProvider {
+  if (value === "gmail" || value === "brevo") return value;
+  const h = (host || "").toLowerCase();
+  if (h.includes("brevo") || h.includes("sendinblue")) return "brevo";
+  return "gmail";
+}
+
+function smtpFromSettings(smtp: SiteSettings["smtp"] | undefined) {
+  const provider = parseProvider(smtp?.provider, smtp?.host);
+  return {
+    provider,
+    from: smtp?.from || "",
+    notifyEmail: smtp?.notifyEmail || "",
+    gmail: {
+      user: smtp?.gmail?.user || (provider === "gmail" ? smtp?.user || "" : ""),
+      pass: smtp?.gmail?.pass || (provider === "gmail" ? smtp?.pass || "" : ""),
+    },
+    brevo: {
+      user: smtp?.brevo?.user || (provider === "brevo" ? smtp?.user || "" : ""),
+      pass: smtp?.brevo?.pass || (provider === "brevo" ? smtp?.pass || "" : ""),
+    },
+  };
+}
+
+function SecretField({
+  label,
+  value,
+  onChange,
+  placeholder,
+  show,
+  onToggle,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+  show: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div>
+      <label className="label">{label}</label>
+      <div className="relative">
+        <input
+          type={show ? "text" : "password"}
+          className="input-field pr-10"
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          autoComplete="off"
+        />
+        <button
+          type="button"
+          className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-zinc-500 hover:text-zinc-200"
+          onClick={onToggle}
+          aria-label={show ? "Hide password" : "Show password"}
+        >
+          {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+        </button>
+      </div>
+    </div>
+  );
 }
 
 const emptyDraft = (): EmailTemplateDraft => ({
@@ -226,15 +312,9 @@ export default function AdminSettings() {
     x: "",
     lumaCalendar: "",
   });
-  const [smtp, setSmtp] = useState({
-    host: "",
-    port: "587",
-    user: "",
-    pass: "",
-    from: "",
-    notifyEmail: "",
-  });
-  const [smtpPasswordSet, setSmtpPasswordSet] = useState(false);
+  const [smtp, setSmtp] = useState(smtpFromSettings(undefined));
+  const [showGmailPass, setShowGmailPass] = useState(false);
+  const [showBrevoPass, setShowBrevoPass] = useState(false);
   const [emailTemplates, setEmailTemplates] = useState<SiteSettings["emailTemplates"]>({
     sponsorshipRequest: emptyDraft(),
     speakerInvite: emptyDraft(),
@@ -266,15 +346,7 @@ export default function AdminSettings() {
           x: settings.communityLinks?.x || "",
           lumaCalendar: settings.communityLinks?.lumaCalendar || "",
         });
-        setSmtp({
-          host: settings.smtp?.host || "",
-          port: settings.smtp?.port || "587",
-          user: settings.smtp?.user || "",
-          pass: "",
-          from: settings.smtp?.from || "",
-          notifyEmail: settings.smtp?.notifyEmail || "",
-        });
-        setSmtpPasswordSet(Boolean(settings.smtpPasswordSet));
+        setSmtp(smtpFromSettings(settings.smtp));
         if (settings.emailTemplates) {
           setEmailTemplates({
             sponsorshipRequest: {
@@ -347,15 +419,7 @@ export default function AdminSettings() {
         lumaCalendar: updated.communityLinks?.lumaCalendar || "",
       });
       if (updated.emailTemplates) setEmailTemplates(updated.emailTemplates);
-      setSmtp({
-        host: updated.smtp?.host || "",
-        port: updated.smtp?.port || "587",
-        user: updated.smtp?.user || "",
-        pass: "",
-        from: updated.smtp?.from || "",
-        notifyEmail: updated.smtp?.notifyEmail || "",
-      });
-      setSmtpPasswordSet(Boolean(updated.smtpPasswordSet));
+      setSmtp(smtpFromSettings(updated.smtp));
       setHasPitchDeck(Boolean(updated.hasPitchDeck));
       setSuccess("Settings saved.");
     } catch (err) {
@@ -517,61 +581,112 @@ export default function AdminSettings() {
       <div className="card mt-6 space-y-4">
         <h2 className="font-semibold text-zinc-100">Email SMTP</h2>
         <p className="text-sm text-zinc-400">
-          Used for People → Send email and request-form notifications. Leave password blank when
-          saving to keep the current password
-          {smtpPasswordSet ? " (already set)." : "."} Env vars still work as fallback.
+          Configure Gmail and Brevo, then choose which one sends People emails and
+          request-form notifications. These fields match{" "}
+          <code className="text-zinc-300">server/.env</code> (
+          <code className="text-zinc-300">SMTP_PROVIDER</code>,{" "}
+          <code className="text-zinc-300">GMAIL_SMTP_*</code>,{" "}
+          <code className="text-zinc-300">BREVO_SMTP_*</code>,{" "}
+          <code className="text-zinc-300">SMTP_FROM</code>,{" "}
+          <code className="text-zinc-300">NOTIFY_EMAIL</code>
+          ). Empty Settings fields fall back to env.
         </p>
+        <div>
+          <p className="label">Send with (SMTP_PROVIDER)</p>
+          <div className="mt-1 grid gap-2 sm:grid-cols-2">
+            {(Object.keys(SMTP_PRESETS) as SmtpProvider[]).map((key) => {
+              const preset = SMTP_PRESETS[key];
+              const selected = smtp.provider === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  className={`rounded-xl border px-4 py-3 text-left transition ${
+                    selected
+                      ? "border-brand-500 bg-brand-950/50 ring-1 ring-brand-500"
+                      : "border-zinc-800 bg-zinc-950/40 hover:border-zinc-600"
+                  }`}
+                  onClick={() => setSmtp({ ...smtp, provider: key })}
+                >
+                  <span className="block font-medium text-zinc-100">{preset.label}</span>
+                  <span className="mt-0.5 block text-xs text-zinc-500">
+                    {preset.env} · {preset.host}:{preset.port}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <p className="mt-2 text-xs text-zinc-500">{SMTP_PRESETS[smtp.provider].hint}</p>
+        </div>
+
+        <div className="space-y-3 rounded-xl border border-zinc-800 p-4">
+          <h3 className="text-sm font-medium text-zinc-200">Gmail (GMAIL_SMTP_USER / GMAIL_SMTP_PASS)</h3>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="label">Gmail address</label>
+              <input
+                className="input-field"
+                placeholder="you@gmail.com"
+                value={smtp.gmail.user}
+                onChange={(e) =>
+                  setSmtp({ ...smtp, gmail: { ...smtp.gmail, user: e.target.value } })
+                }
+                autoComplete="off"
+              />
+            </div>
+            <SecretField
+              label="App password"
+              placeholder="Google App Password"
+              value={smtp.gmail.pass}
+              onChange={(pass) => setSmtp({ ...smtp, gmail: { ...smtp.gmail, pass } })}
+              show={showGmailPass}
+              onToggle={() => setShowGmailPass((v) => !v)}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-3 rounded-xl border border-zinc-800 p-4">
+          <h3 className="text-sm font-medium text-zinc-200">Brevo (BREVO_SMTP_USER / BREVO_SMTP_KEY)</h3>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="label">SMTP login</label>
+              <input
+                className="input-field"
+                placeholder="SMTP login from Brevo"
+                value={smtp.brevo.user}
+                onChange={(e) =>
+                  setSmtp({ ...smtp, brevo: { ...smtp.brevo, user: e.target.value } })
+                }
+                autoComplete="off"
+              />
+            </div>
+            <SecretField
+              label="SMTP key"
+              placeholder="Brevo SMTP key"
+              value={smtp.brevo.pass}
+              onChange={(pass) => setSmtp({ ...smtp, brevo: { ...smtp.brevo, pass } })}
+              show={showBrevoPass}
+              onToggle={() => setShowBrevoPass((v) => !v)}
+            />
+          </div>
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label className="label">SMTP host</label>
-            <input
-              className="input-field"
-              placeholder="smtp.gmail.com"
-              value={smtp.host}
-              onChange={(e) => setSmtp({ ...smtp, host: e.target.value })}
-            />
-          </div>
-          <div>
-            <label className="label">Port</label>
-            <input
-              className="input-field"
-              placeholder="587"
-              value={smtp.port}
-              onChange={(e) => setSmtp({ ...smtp, port: e.target.value })}
-            />
-          </div>
-          <div>
-            <label className="label">Username</label>
-            <input
-              className="input-field"
-              placeholder="you@email.com"
-              value={smtp.user}
-              onChange={(e) => setSmtp({ ...smtp, user: e.target.value })}
-              autoComplete="off"
-            />
-          </div>
-          <div>
-            <label className="label">Password / app password</label>
-            <input
-              type="password"
-              className="input-field"
-              placeholder={smtpPasswordSet ? "•••••••• (leave blank to keep)" : "App password"}
-              value={smtp.pass}
-              onChange={(e) => setSmtp({ ...smtp, pass: e.target.value })}
-              autoComplete="new-password"
-            />
-          </div>
           <div className="sm:col-span-2">
-            <label className="label">From</label>
+            <label className="label">From (SMTP_FROM)</label>
             <input
               className="input-field"
-              placeholder="Crewbase Collective <noreply@crewbasecollective.com>"
+              placeholder="Crewbase Collective &lt;events@yourdomain.com&gt;"
               value={smtp.from}
               onChange={(e) => setSmtp({ ...smtp, from: e.target.value })}
             />
+            <p className="mt-1 text-xs text-zinc-500">
+              Gmail rewrites this to match the Gmail mailbox. Brevo sends as this address — verify
+              it as a sender in Brevo.
+            </p>
           </div>
           <div className="sm:col-span-2">
-            <label className="label">Notify email (request forms)</label>
+            <label className="label">Notify email (NOTIFY_EMAIL)</label>
             <input
               type="email"
               className="input-field"

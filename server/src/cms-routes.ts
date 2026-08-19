@@ -1332,9 +1332,9 @@ cmsRouter.post("/emails/send", async (req, res) => {
       html: textBodyToHtml(body, { includeLogo }),
       attachments,
     });
-    if (!sent) {
+    if (!sent.ok) {
       res.status(500).json({
-        error: "Could not send email — check SMTP settings in server/.env",
+        error: sent.error || "Could not send email — check SMTP settings.",
       });
       return;
     }

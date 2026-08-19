@@ -37,18 +37,73 @@ function buildRequestEmailHtml(
   `;
 }
 
+const SMTP_PRESETS = {
+  gmail: { host: "smtp.gmail.com", port: "587" },
+  brevo: { host: "smtp-relay.brevo.com", port: "587" },
+} as const;
+
+function parseSmtpProvider(value: string | undefined): "gmail" | "brevo" {
+  const raw = (value || "").trim().toLowerCase();
+  if (raw === "brevo" || raw === "sendinblue") return "brevo";
+  return "gmail";
+}
+
+function extractEmailAddress(value: string): string {
+  const angle = value.match(/<([^>]+)>/);
+  return (angle ? angle[1] : value).trim().toLowerCase();
+}
+
+function fromAddressForMailbox(from: string, user: string): string {
+  const mailbox = user.trim();
+  if (!mailbox) return from;
+  if (extractEmailAddress(from) === mailbox.toLowerCase()) return from;
+  const nameMatch = from.match(/^(.*)</);
+  const name =
+    (nameMatch ? nameMatch[1] : from).trim().replace(/^"|"$/g, "") ||
+    "Crewbase Collective";
+  if (!from.includes("<") && from.includes("@")) {
+    return `Crewbase Collective <${mailbox}>`;
+  }
+  return `${name} <${mailbox}>`;
+}
+
+function envSmtp() {
+  const provider = parseSmtpProvider(process.env.SMTP_PROVIDER);
+  const preset = SMTP_PRESETS[provider];
+  const user =
+    provider === "brevo"
+      ? (process.env.BREVO_SMTP_USER || process.env.SMTP_USER || "").trim()
+      : (process.env.GMAIL_SMTP_USER || process.env.SMTP_USER || "").trim();
+  const pass =
+    provider === "brevo"
+      ? (
+          process.env.BREVO_SMTP_KEY ||
+          process.env.BREVO_SMTP_PASS ||
+          process.env.SMTP_PASS ||
+          ""
+        ).trim()
+      : (process.env.GMAIL_SMTP_PASS || process.env.SMTP_PASS || "").trim();
+  const fromRaw =
+    (process.env.SMTP_FROM || "").trim() ||
+    "Crewbase Collective <events@crewbasecollective.com>";
+  const from =
+    provider === "gmail" ? fromAddressForMailbox(fromRaw, user) : fromRaw;
+  const to = (process.env.NOTIFY_EMAIL || "").trim();
+  return {
+    host: preset.host,
+    port: parseInt(preset.port, 10),
+    user,
+    pass,
+    from,
+    to,
+  };
+}
+
 async function sendNotificationEmail(options: {
   subject: string;
   html: string;
 }): Promise<boolean> {
-  const host = process.env.SMTP_HOST || "";
-  const port = parseInt(process.env.SMTP_PORT || "587", 10);
-  const user = process.env.SMTP_USER || "";
-  const pass = process.env.SMTP_PASS || "";
-  const from =
-    process.env.SMTP_FROM ||
-    "Crewbase Collective <noreply@crewbasecollective.com>";
-  const to = process.env.NOTIFY_EMAIL || "";
+  const { host, port, user, pass, from, to } = envSmtp();
 
   if (!host || !user || !pass || !to) {
     console.log("[Email] SMTP not configured. Would send:", options.subject);
@@ -60,6 +115,7 @@ async function sendNotificationEmail(options: {
       host,
       port,
       secure: port === 465,
+      requireTLS: port === 587,
       auth: { user, pass },
     });
     await transporter.sendMail({
@@ -76,12 +132,8 @@ async function sendNotificationEmail(options: {
 }
 
 function isSmtpConfigured(): boolean {
-  return Boolean(
-    process.env.SMTP_HOST &&
-      process.env.SMTP_USER &&
-      process.env.SMTP_PASS &&
-      process.env.NOTIFY_EMAIL
-  );
+  const { host, user, pass, to } = envSmtp();
+  return Boolean(host && user && pass && to);
 }
 
 async function loadEventsIndex(): Promise<{ id: string; name: string }[]> {

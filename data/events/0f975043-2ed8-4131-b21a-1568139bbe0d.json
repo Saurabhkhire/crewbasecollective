@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-07-26T10:48:32.629Z",
-    "updatedAt": "2026-08-08T08:17:40.902Z",
+    "updatedAt": "2026-08-17T10:16:11.700Z",
     "lumaLinks": [],
     "eventbriteLinks": []
   },
@@ -609,6 +609,13 @@
       "role": null,
       "sortOrder": 0,
       "status": "confirmed"
+    },
+    {
+      "id": "14bc0aa9-3c76-46b2-a49a-a17815f0422f",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 26
     }
   ],
   "hosts": [
@@ -737,5 +744,7 @@
     }
   ],
   "liveState": null,
-  "staffRoles": []
+  "staffRoles": [],
+  "externals": [],
+  "associated": []
 }

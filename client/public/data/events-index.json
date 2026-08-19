@@ -30,64 +30,6 @@
       "eventbriteLink": null
     },
     {
-      "id": "04de7a5c-a577-4ca9-913c-54fd3f30f740",
-      "slug": "memory-meets-motion-hackathon-ms5umvi3",
-      "name": "Memory meets Motion Hackathon",
-      "type": "hackathon",
-      "description": "Get all the details on Luma page: https://luma.com/iu9svaun\n\nThis event is hosted by Devnovate",
-      "theme": "",
-      "dayLabel": "Mon, Aug 3",
-      "eventDate": "2026-08-03",
-      "endDate": "2026-08-03",
-      "startTime": "08:30",
-      "endTime": "15:30",
-      "location": "Frontier Tower, 995 Market Street, San Francisco, CA 94103",
-      "locationLat": null,
-      "locationLng": null,
-      "coverImageUrl": "/images/covers/memory-meets-motion-hackathon.png",
-      "coverPageUrl": "",
-      "lumaLink": "https://luma.com/iu9svaun",
-      "eventbriteLink": null,
-      "groupLink": "",
-      "isPartnerEvent": true,
-      "isPublished": true,
-      "createdAt": "2026-07-28T09:42:17.422Z",
-      "updatedAt": "2026-07-30T21:29:17.508Z",
-      "lumaLinks": [
-        "https://luma.com/iu9svaun"
-      ],
-      "eventbriteLinks": []
-    },
-    {
-      "id": "63d2fbe8-9251-4bf2-a21a-c5761a414a45",
-      "slug": "agents-you-love-2-hackathon-ms5un2d2",
-      "name": "Agents You Love 2 Hackathon",
-      "type": "hackathon",
-      "description": "Get all the details on Luma page: https://luma.com/agents-you-love-2-hackathon\n\nThis event is hosted by Devnovate",
-      "theme": "Agents you Love",
-      "dayLabel": "Tue, Jul 28",
-      "eventDate": "2026-07-28",
-      "endDate": "2026-07-28",
-      "startTime": "08:30",
-      "endTime": "18:30",
-      "location": "Frontier Tower, 995 Market Street, San Francisco, CA 94103",
-      "locationLat": null,
-      "locationLng": null,
-      "coverImageUrl": "/images/covers/agents-you-love-2-hackathon.png",
-      "coverPageUrl": "",
-      "lumaLink": "https://luma.com/agents-you-love-2-hackathon",
-      "eventbriteLink": null,
-      "groupLink": "",
-      "isPartnerEvent": true,
-      "isPublished": true,
-      "createdAt": "2026-07-28T09:36:59.991Z",
-      "updatedAt": "2026-07-30T21:29:17.520Z",
-      "lumaLinks": [
-        "https://luma.com/agents-you-love-2-hackathon"
-      ],
-      "eventbriteLinks": []
-    },
-    {
       "id": "5dc60e5c-3be8-4f42-8b28-de48fa1f1a7a",
       "slug": "build-your-ai-organization-workshop-ms5lzd54",
       "name": "Build your AI Organization Workshop",
@@ -218,7 +160,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-08-07T08:13:06.574Z",
+      "updatedAt": "2026-08-17T10:15:43.175Z",
       "lumaLinks": [],
       "eventbriteLinks": []
     },
@@ -272,7 +214,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-08-08T08:17:40.902Z",
+      "updatedAt": "2026-08-17T10:16:11.700Z",
       "lumaLinks": [],
       "eventbriteLinks": []
     },
@@ -488,7 +430,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-07-26T10:48:32.629Z",
-      "updatedAt": "2026-08-08T08:17:13.796Z",
+      "updatedAt": "2026-08-17T10:16:27.793Z",
       "lumaLinks": [],
       "eventbriteLinks": []
     }
