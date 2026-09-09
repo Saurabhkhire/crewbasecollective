@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Emergent title partner with OpenAI community partner and Google and Nebius contributing partners</title>
+  <desc id="desc">Illustrative logo-placement mockup. Emergent is largest, OpenAI is featured as the community partner, and Google and Nebius appear smaller as contributing partners.</desc>
+  <rect width="1600" height="1000" fill="#F6F4EF"/>
+  <text x="80" y="70" fill="#1C2942" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="3">SPONSORSHIP LOGO PLACEMENT MOCKUP</text>
+  <text x="1520" y="70" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="22" text-anchor="end" letter-spacing="2">CREWBASE COLLECTIVE</text>
+
+  <rect x="70" y="115" width="1460" height="290" rx="24" fill="#172A4D"/>
+  <text x="120" y="170" fill="#E9BC55" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" letter-spacing="2">FOOD &amp; HOSPITALITY TITLE PARTNER</text>
+  <text x="800" y="275" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="88" font-weight="800" text-anchor="middle" letter-spacing="5">EMERGENT</text>
+  <text x="800" y="320" fill="#DDE5F3" font-family="Arial, Helvetica, sans-serif" font-size="23" text-anchor="middle" letter-spacing="1">OFFICIAL FOOD &amp; HOSPITALITY PARTNER</text>
+  <text x="800" y="370" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="19" text-anchor="middle">Largest logo  •  Headline food signage  •  Event page  •  Opening and closing slides</text>
+
+  <text x="80" y="480" fill="#1C2942" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" letter-spacing="1">COMMUNITY PARTNER</text>
+  <rect x="80" y="515" width="1440" height="185" rx="20" fill="#FFFFFF" stroke="#D7DCE5" stroke-width="2"/>
+  <circle cx="650" cy="607" r="38" fill="#111111"/>
+  <text x="650" y="620" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle">AI</text>
+  <text x="720" y="625" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="700" letter-spacing="-2">OpenAI</text>
+  <text x="800" y="672" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="17" text-anchor="middle">Featured logo  •  Website  •  Sponsor slide  •  Selected signage  •  Recap</text>
+
+  <text x="80" y="765" fill="#1C2942" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" letter-spacing="1">CONTRIBUTING PARTNERS</text>
+  <text x="1520" y="765" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="end">Smaller, equal logos within this tier</text>
+
+  <rect x="80" y="800" width="690" height="105" rx="16" fill="#FFFFFF" stroke="#D7DCE5" stroke-width="2"/>
+  <text x="425" y="870" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="700" text-anchor="middle">
+    <tspan fill="#4285F4">G</tspan><tspan fill="#DB4437">o</tspan><tspan fill="#F4B400">o</tspan><tspan fill="#4285F4">g</tspan><tspan fill="#0F9D58">l</tspan><tspan fill="#DB4437">e</tspan>
+  </text>
+  <rect x="830" y="800" width="690" height="105" rx="16" fill="#FFFFFF" stroke="#D7DCE5" stroke-width="2"/>
+  <text x="1175" y="870" fill="#EF6C3D" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="700" text-anchor="middle" letter-spacing="2">NEBIUS</text>
+  <text x="800" y="965" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle">Illustrative layout only — replace text wordmarks with approved official logo files.</text>
+</svg>

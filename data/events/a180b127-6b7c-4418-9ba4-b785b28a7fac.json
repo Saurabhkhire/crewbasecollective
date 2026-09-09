@@ -1,0 +1,64 @@
+{
+  "event": {
+    "id": "a180b127-6b7c-4418-9ba4-b785b28a7fac",
+    "slug": "founders-gathering-mtsfqypq",
+    "name": "Founders Gathering",
+    "type": "mixer",
+    "description": "​Join us for an intimate gathering of founders for meaningful conversations, thoughtful discussions, and genuine connections.\n\n​This is a space to meet other builders, exchange ideas, share experiences, and have conversations that go beyond the usual networking.",
+    "theme": "",
+    "dayLabel": "Thu, Sep 10",
+    "eventDate": "2026-09-10",
+    "endDate": "2026-09-10",
+    "startTime": "13:00",
+    "endTime": "16:00",
+    "location": "Sports Basement Outdoor & Camping, 1590, Bryant Street, Mission, San Francisco, California, 94103, United States",
+    "locationLat": "37.7670976",
+    "locationLng": "-122.4111318",
+    "coverImageUrl": "/images/covers/founders-gathering.png",
+    "coverPageUrl": "",
+    "lumaLinks": [
+      "https://luma.com/pekknf3f"
+    ],
+    "eventbriteLinks": [],
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-09-05T14:38:56.072Z",
+    "updatedAt": "2026-09-08T08:56:43.093Z",
+    "lumaLink": "https://luma.com/pekknf3f",
+    "eventbriteLink": null
+  },
+  "tracks": [],
+  "sponsors": [],
+  "partners": [],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [
+    {
+      "id": "105a7382-9e70-4db7-a3b5-ceeee6db182b",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 0
+    },
+    {
+      "id": "85e3c87b-b8f2-4113-8189-d7ad30dd1c8e",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 1
+    }
+  ],
+  "associated": [],
+  "staffRoles": [],
+  "links": [],
+  "photos": [],
+  "liveState": null,
+  "externals": []
+}

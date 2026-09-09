@@ -1,0 +1,83 @@
+{
+  "event": {
+    "id": "8c536634-e8c6-4acd-8c26-833682f61aba",
+    "slug": "vibe-coder-vampires-night-mtohxm6h",
+    "name": "Vibe Coder Vampires Night",
+    "type": "workshop",
+    "description": "​What is a Vibe Coding Vampire? It's a Vibe Coder that is so in love with BUILDING that they just keep going late late into the night sometime into the next day! Addicted to BUILDING and SHIPPING faster than they've ever been able to before thanks to the power of AI CODING!",
+    "theme": "",
+    "dayLabel": "Fri, Sep 25",
+    "eventDate": "2026-09-25",
+    "endDate": "2026-09-25",
+    "startTime": "18:00",
+    "endTime": "21:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "",
+    "coverPageUrl": "",
+    "lumaLinks": [
+      "https://luma.com/4e5vzc1l"
+    ],
+    "eventbriteLinks": [],
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-09-05T14:46:47.945Z",
+    "updatedAt": "2026-09-09T10:46:50.149Z",
+    "lumaLink": "https://luma.com/4e5vzc1l",
+    "eventbriteLink": null
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "af43003f-5c06-493c-8a99-843f09b003d5",
+      "companyId": "e4a5ea7f-981a-4268-b7bd-0c820029e613",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "e4c98c71-6202-403c-8642-ee0a92ddb1f0",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "37b7456d-9255-4b23-b266-7ff5d5fffb7b",
+      "companyId": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 1,
+      "representatives": []
+    }
+  ],
+  "partners": [
+    {
+      "id": "69bb3f47-15bb-4abc-8dd9-5ee3295ee9ba",
+      "companyId": "b1c21c33-32ca-4c25-b326-93dfe3310579",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "2ebe8a14-50a7-4576-bc2c-c1ca508814ee",
+          "status": "confirmed"
+        }
+      ]
+    }
+  ],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [],
+  "associated": [],
+  "staffRoles": [],
+  "links": [],
+  "photos": [],
+  "liveState": null,
+  "externals": []
+}

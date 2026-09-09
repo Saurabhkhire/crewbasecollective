@@ -1,0 +1,636 @@
+{
+  "event": {
+    "id": "ad840a50-5bdd-4a19-b8bb-56cb39c93f17",
+    "slug": "buildfest-demos-and-challenges-mtohuhxj",
+    "name": "BuildFest: Demos and Challenges",
+    "type": "demo",
+    "description": "​What if you could see 10 AI tools in action, try them yourself, and use them to solve real problems — all in one session?\n\n​Buildfest: Demos and Challenges is a demo day, hands-on event where sponsors will show you what their tools can do, and then give you a small challenge to solve.\n​No long workshops. No hours of setup. ​You’ll see → try → build → solve. Whether you're a developer, student, founder, designer, researcher, or just curious about AI, you can jump in at your level.\n\n​Event Format\n\n​You’ll start with a set of 10 sample datasets covering different real-world problems. You can choose one of them to work with, or bring your own dataset and problem.\n\n​Pick a problem\n\n​You can work on problems like: Build a system that creates study plans for students, Help shoppers find the right product based on their needs, Automate information extraction and processing from invoices, Build an AI travel planner, Summarize notes and extract important actions, Match candidates to jobs and help recruiters screen applications, Analyze restaurant data and identify inventory/demand problems, Build an AI system that answers common customer questions, Turn a simple idea into a structured content workflow, Find and evaluate promising problems and ideas or choose your own problem and build something that matters to you.\n\n​How It Works\n\n​Each sponsor will have a short demo + challenge.\nFirst, they'll show you their product in action and explain what it does, why it is useful, and how you can use it.\n​Then you'll get a small challenge where you can try the tool yourself.\nYou don't need to use every tool. Use whichever sponsor tools make sense for your problem — one, several, or all of them.\nThe goal is to understand how each tool can be used and then combine the right tools to solve a problem.",
+    "theme": "",
+    "dayLabel": "Thu, Sep 10",
+    "eventDate": "2026-09-10",
+    "endDate": "2026-09-10",
+    "startTime": "16:00",
+    "endTime": "19:00",
+    "location": "Sports Basement Outdoor & Camping, 1590, Bryant Street, Mission, San Francisco, California, 94103, United States",
+    "locationLat": "37.7670976",
+    "locationLng": "-122.4111318",
+    "coverImageUrl": "",
+    "coverPageUrl": "",
+    "lumaLinks": [
+      "https://luma.com/5agzmgqu"
+    ],
+    "eventbriteLinks": [],
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-09-05T14:44:22.471Z",
+    "updatedAt": "2026-09-09T10:44:45.406Z",
+    "lumaLink": "https://luma.com/5agzmgqu",
+    "eventbriteLink": null
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "05ee9b86-4433-4c43-9803-a907a6405b2b",
+      "companyId": "49e8e316-55ce-4198-91a7-3877900d8184",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+          "status": "confirmed"
+        },
+        {
+          "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "96800e4e-29a5-447d-b28a-f5630ff4ca4c",
+      "companyId": "83c7b5bb-86f7-4280-97dd-a148e30452b6",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 1,
+      "representatives": [
+        {
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "f35f1f26-2c6b-4c8c-aee1-39b6295b952d",
+      "companyId": "b77957bf-462e-476b-8842-48575b8c20a5",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 2,
+      "representatives": [
+        {
+          "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "c535df0c-9563-4c33-9b2c-4ecb2cb46f2b",
+      "companyId": "061608b2-af67-4a39-9670-631831c950e5",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 3,
+      "representatives": [
+        {
+          "userId": "a0e5bad4-947c-4169-8c72-7cc7206a7870",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "0c63cc7f-0b8d-4a65-9747-e0cfe3d7fd08",
+      "companyId": "54bdc2ff-ae28-41ed-9947-3e1568c30ee3",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 4,
+      "representatives": [
+        {
+          "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "862ad805-820a-46d0-b147-aa087cf4d2ea",
+      "companyId": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 5,
+      "representatives": [
+        {
+          "userId": "bcb420be-2b7d-40ac-b640-a61bb0194148",
+          "status": "confirmed"
+        },
+        {
+          "userId": "cc853936-97be-4466-aa48-ef2df44199e3",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "125208c0-de83-439c-9ea9-4067a77418d4",
+      "companyId": "e4a5ea7f-981a-4268-b7bd-0c820029e613",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 6,
+      "representatives": [
+        {
+          "userId": "e4c98c71-6202-403c-8642-ee0a92ddb1f0",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "ef643a7e-957a-4e18-a182-a2639a42e8d3",
+      "companyId": "018ab7de-2007-4e09-b96e-a6e46dcc823b",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 7,
+      "representatives": [
+        {
+          "userId": "9ab3236d-008f-4547-ba2f-cc42b43c74d2",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "723fe4bb-a2ac-4ea9-9d87-860a5b5c8861",
+      "companyId": "6338ed35-07f7-4254-90d9-aa15030d5562",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 8,
+      "representatives": [
+        {
+          "userId": "f018a7e1-c984-4ad5-b9d3-869bd6c63f5f",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "c3098abd-a313-4cc0-91ec-621843c4f61f",
+      "companyId": "75909d20-420b-49e7-baad-8cba3eb3b980",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 9,
+      "representatives": [
+        {
+          "userId": "c4da02a5-b89a-4d64-873a-1ed9a67f33ef",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "7e842c9c-083a-4a85-811a-f4b6fb22a729",
+      "companyId": "126c51c7-58af-4afb-a963-7ebb6c70df26",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 10,
+      "representatives": [
+        {
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "95729269-d7c2-4534-9c2a-43fecddd6519",
+      "companyId": "bee5c2fe-c6c9-4d7f-b81d-14e477752a8d",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 11,
+      "representatives": [
+        {
+          "userId": "3beab1c8-0b4f-412f-b387-ca3305558114",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "7670c385-bab7-4159-85a7-7b108d530ec0",
+      "companyId": "2fdf69d7-58cd-4674-9c56-5fd91c8cd9d8",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 12,
+      "representatives": [
+        {
+          "userId": "501267ae-fd25-4999-a3ab-33d53ca48df4",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "fd289d82-532d-4dad-a95a-922104ded9dd",
+      "companyId": "bd108cda-ee55-45a3-a02d-411a5b3aa58e",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 13,
+      "representatives": [
+        {
+          "userId": "d064f858-0926-433e-be80-57492fdfc7b0",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "c2c29f86-614f-407d-8e27-45594b826469",
+      "companyId": "4eb2d7db-061b-4537-8ce5-0cd339cee4ce",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 14,
+      "representatives": [
+        {
+          "userId": "4adac916-2caf-43dc-9f5a-e211c4297876",
+          "status": "confirmed"
+        }
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "id": "e77bbaee-e85e-4225-81c9-75c236109477",
+      "companyId": "9d045baa-eaff-4021-9156-4e1ba51fa72d",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "b3565ada-8d9c-4b5a-8535-3f775711aadc",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "2069c10f-f148-47ed-8edc-74e2aa86a56c",
+      "companyId": "1073f0d0-7e77-4dda-9a67-a75da7abc420",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 1,
+      "representatives": [
+        {
+          "userId": "7cb32278-5075-4c6c-a7b4-10ba36d40e4a",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "bfb30746-88c4-47eb-9172-3285f82be325",
+      "companyId": "639dff36-56e2-4c49-8708-c6e6572a2319",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 2,
+      "representatives": [
+        {
+          "userId": "6d4f7208-29cf-4c48-bfe1-251f043a891c",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "ab38dd32-b544-4244-be18-9b5c97a2dbc9",
+      "companyId": "882365e2-3fe6-4f5b-895c-3a9b7e92148e",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 3,
+      "representatives": [
+        {
+          "userId": "b939a155-68e5-4bd1-9136-a0f8813a423e",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "198a94ab-2fd8-4325-a4e8-4197c1b556b3",
+      "companyId": "fa911e79-0010-4203-8bda-640a4b06dfa6",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 4,
+      "representatives": [
+        {
+          "userId": "00d224c5-5b6f-41af-9927-5f6e5529fb2d",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "049e2b23-2662-45ad-b9a1-c207dda648fb",
+      "companyId": "a613145a-9734-4a22-9873-f71f1d8be1c8",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 5,
+      "representatives": [
+        {
+          "userId": "86cd7615-f0ca-4141-9ce6-6bd901f0acd2",
+          "status": "confirmed"
+        }
+      ]
+    }
+  ],
+  "prizes": [],
+  "schedule": [
+    {
+      "id": "b7b31af1-e9ff-4bc1-974b-b2683a433d07",
+      "startTime": "2026-09-10T23:00:00.000Z",
+      "endTime": "2026-09-10T23:30:00.000Z",
+      "topic": "Welcome and Introductions",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "77cfd53b-a938-4b72-9691-6f6cc1a9b3db",
+      "startTime": "2026-09-10T23:30:00.000Z",
+      "endTime": "2026-09-11T01:40:00.000Z",
+      "topic": "Demos",
+      "sortOrder": 1,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "fb1aa173-5a8d-4b8a-a959-6d9355013f00",
+      "startTime": "2026-09-11T01:40:00.000Z",
+      "endTime": "2026-09-11T02:00:00.000Z",
+      "topic": "Networking",
+      "sortOrder": 2,
+      "isSkipped": false,
+      "speakers": []
+    }
+  ],
+  "speakers": [
+    {
+      "id": "473e9f10-65b0-4657-b602-b82347170c20",
+      "userId": "13511e40-7954-49b4-b052-99c3fdb4c400",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:30:00.000Z",
+      "endTime": "2026-09-10T23:35:00.000Z",
+      "topic": "Introduction and Physical AI Room",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 0
+    },
+    {
+      "id": "0a439665-6b3e-4598-ae44-f9ff0e50a451",
+      "userId": "b3565ada-8d9c-4b5a-8535-3f775711aadc",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:35:00.000Z",
+      "endTime": "2026-09-10T23:40:00.000Z",
+      "topic": "How organizers can create better events using BuilderBase",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 1
+    },
+    {
+      "id": "14a07cfd-d283-4edb-bcf1-14a7f97a15ec",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:40:00.000Z",
+      "endTime": "2026-09-10T23:45:00.000Z",
+      "topic": "Create AI Agents team using Kylon",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 2
+    },
+    {
+      "id": "aa01dfa7-6aea-4d3d-8c9e-ce51a419afc0",
+      "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:45:00.000Z",
+      "endTime": "2026-09-10T23:55:00.000Z",
+      "topic": "Run code and AI workloads reliably in sandboxes or cloud compute using runners using Tenki",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 3
+    },
+    {
+      "id": "6597e3ab-3f68-4c53-9c76-085e0a7903cb",
+      "userId": "e4c98c71-6202-403c-8642-ee0a92ddb1f0",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:55:00.000Z",
+      "endTime": "2026-09-11T00:05:00.000Z",
+      "topic": "Access hundreds of AI models through one API and compare their results, speed, and cost using Flatkey",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 4
+    },
+    {
+      "id": "608fe3d8-3d25-4f1c-ab1e-f7ff59c15115",
+      "userId": "bcb420be-2b7d-40ac-b640-a61bb0194148",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:05:00.000Z",
+      "endTime": "2026-09-11T00:15:00.000Z",
+      "topic": "Give AI agents reusable skills to perform specific tasks more reliably using Finchip",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 5
+    },
+    {
+      "id": "d16392c0-3ec6-48e4-ba38-3506379dca85",
+      "userId": "a0e5bad4-947c-4169-8c72-7cc7206a7870",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:15:00.000Z",
+      "endTime": "2026-09-11T00:25:00.000Z",
+      "topic": "Figure out what to build with AI, what to automate, and where humans add the most value with Ask the W",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 6
+    },
+    {
+      "id": "48151380-7714-49ce-a443-a246d546640e",
+      "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:25:00.000Z",
+      "endTime": "2026-09-11T00:35:00.000Z",
+      "topic": "Build AI and data pipelines directly in your IDE, from raw data to structured output with RocketRide",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 7
+    },
+    {
+      "id": "e87f6bc8-14ff-492c-95bf-abfd69e7d0d5",
+      "userId": "c4da02a5-b89a-4d64-873a-1ed9a67f33ef",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:35:00.000Z",
+      "endTime": "2026-09-11T00:45:00.000Z",
+      "topic": "Discover and recommend products using context like fit, color, material, reviews, and images in Sartorial",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 8
+    },
+    {
+      "id": "d3ec1a6b-a60d-4b76-953b-d2e2107faf45",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:45:00.000Z",
+      "endTime": "2026-09-11T00:55:00.000Z",
+      "topic": "Package and run code anywhere with WebAssembly using Wasmer",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 9
+    },
+    {
+      "id": "78611a8a-ed0b-44c3-9475-fdd3bc383862",
+      "userId": "9ab3236d-008f-4547-ba2f-cc42b43c74d2",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:55:00.000Z",
+      "endTime": "2026-09-11T01:05:00.000Z",
+      "topic": "Turn team conversations and questions into actionable results with AI with PromptQL",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 10
+    },
+    {
+      "id": "976cede8-3e39-42a7-9a30-4beca40cc94e",
+      "userId": "f018a7e1-c984-4ad5-b9d3-869bd6c63f5f",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:05:00.000Z",
+      "endTime": "2026-09-11T01:15:00.000Z",
+      "topic": "Move money across borders by connecting global payments, financial accounts, and digital asset rails",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 11
+    },
+    {
+      "id": "06d4aae3-8464-4eb8-af18-2ba9d3bdbdf4",
+      "userId": "501267ae-fd25-4999-a3ab-33d53ca48df4",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:15:00.000Z",
+      "endTime": "2026-09-11T01:25:00.000Z",
+      "topic": "Bring people and AI agents together to collaborate on work-in-progress and learn from each other with Lore",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 12
+    },
+    {
+      "id": "6b38d8df-2414-45f7-bbbd-30d487b15ee0",
+      "userId": "4adac916-2caf-43dc-9f5a-e211c4297876",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:25:00.000Z",
+      "endTime": "2026-09-11T01:30:00.000Z",
+      "topic": "Give AI agents reliable, real-time access to the web across 195+ countries with Massive",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 13
+    },
+    {
+      "id": "f90ee891-3572-4885-93ee-09eb9013f0f8",
+      "userId": "d064f858-0926-433e-be80-57492fdfc7b0",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:30:00.000Z",
+      "endTime": "2026-09-11T01:35:00.000Z",
+      "topic": "Help AI agents discover, evaluate, and use your APIs, CLIs, and MCPs more effectively. in LightSage",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 14
+    },
+    {
+      "id": "253e1793-3c3d-4a9f-bb2e-55c14a5d463a",
+      "userId": "00d224c5-5b6f-41af-9927-5f6e5529fb2d",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:35:00.000Z",
+      "endTime": "2026-09-11T01:40:00.000Z",
+      "topic": "Match right people using BridgeUs",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 15
+    }
+  ],
+  "judges": [],
+  "hosts": [
+    {
+      "id": "b09e35fc-bffd-4f38-9c0b-166a056032cc",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 0
+    },
+    {
+      "id": "42c5c073-379a-4d85-b586-16058fcc8f1c",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 1
+    },
+    {
+      "id": "1528ce7a-2d9e-4932-864b-883691c43396",
+      "userId": "b3565ada-8d9c-4b5a-8535-3f775711aadc",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 2
+    },
+    {
+      "id": "6d2ee6b8-175e-46ef-bd49-6c62a9d7d61b",
+      "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 3
+    },
+    {
+      "id": "8075261b-29ce-401a-8745-0ba13358075f",
+      "userId": "501267ae-fd25-4999-a3ab-33d53ca48df4",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 4
+    },
+    {
+      "id": "e8ce6d69-2f57-47ec-8a2a-ea6e9c69a96d",
+      "userId": "3beab1c8-0b4f-412f-b387-ca3305558114",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 5
+    },
+    {
+      "id": "544a903a-2447-4e15-bb93-c37f44d62203",
+      "userId": "00d224c5-5b6f-41af-9927-5f6e5529fb2d",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 6
+    },
+    {
+      "id": "889bd0a1-ccaa-42f3-a766-bcafe9fdcd25",
+      "userId": "6d4f7208-29cf-4c48-bfe1-251f043a891c",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 7
+    },
+    {
+      "id": "34ce8c05-23ce-4b4d-b570-8ee141e4b08f",
+      "userId": "7cb32278-5075-4c6c-a7b4-10ba36d40e4a",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 8
+    },
+    {
+      "id": "303e1b4c-e6bb-4e03-839e-3c3b4236b412",
+      "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 9
+    }
+  ],
+  "associated": [],
+  "staffRoles": [],
+  "links": [],
+  "photos": [],
+  "liveState": null,
+  "externals": []
+}

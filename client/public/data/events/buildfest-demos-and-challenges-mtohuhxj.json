@@ -1,0 +1,658 @@
+{
+  "event": {
+    "id": "ad840a50-5bdd-4a19-b8bb-56cb39c93f17",
+    "slug": "buildfest-demos-and-challenges-mtohuhxj",
+    "name": "BuildFest: Demos and Challenges",
+    "type": "demo",
+    "description": "​What if you could see 10 AI tools in action, try them yourself, and use them to solve real problems — all in one session?\n\n​Buildfest: Demos and Challenges is a demo day, hands-on event where sponsors will show you what their tools can do, and then give you a small challenge to solve.\n​No long workshops. No hours of setup. ​You’ll see → try → build → solve. Whether you're a developer, student, founder, designer, researcher, or just curious about AI, you can jump in at your level.\n\n​Event Format\n\n​You’ll start with a set of 10 sample datasets covering different real-world problems. You can choose one of them to work with, or bring your own dataset and problem.\n\n​Pick a problem\n\n​You can work on problems like: Build a system that creates study plans for students, Help shoppers find the right product based on their needs, Automate information extraction and processing from invoices, Build an AI travel planner, Summarize notes and extract important actions, Match candidates to jobs and help recruiters screen applications, Analyze restaurant data and identify inventory/demand problems, Build an AI system that answers common customer questions, Turn a simple idea into a structured content workflow, Find and evaluate promising problems and ideas or choose your own problem and build something that matters to you.\n\n​How It Works\n\n​Each sponsor will have a short demo + challenge.\nFirst, they'll show you their product in action and explain what it does, why it is useful, and how you can use it.\n​Then you'll get a small challenge where you can try the tool yourself.\nYou don't need to use every tool. Use whichever sponsor tools make sense for your problem — one, several, or all of them.\nThe goal is to understand how each tool can be used and then combine the right tools to solve a problem.",
+    "theme": "",
+    "dayLabel": "Thu, Sep 10",
+    "eventDate": "2026-09-10",
+    "endDate": "2026-09-10",
+    "startTime": "16:00",
+    "endTime": "19:00",
+    "location": "Sports Basement Outdoor & Camping, 1590, Bryant Street, Mission, San Francisco, California, 94103, United States",
+    "locationLat": "37.7670976",
+    "locationLng": "-122.4111318",
+    "coverImageUrl": "",
+    "coverPageUrl": "",
+    "lumaLinks": [
+      "https://luma.com/5agzmgqu"
+    ],
+    "eventbriteLinks": [],
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-09-05T14:44:22.471Z",
+    "updatedAt": "2026-09-09T10:44:45.406Z",
+    "lumaLink": "https://luma.com/5agzmgqu",
+    "eventbriteLink": null
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "05ee9b86-4433-4c43-9803-a907a6405b2b",
+      "companyName": "Kylon",
+      "companyWebsite": "https://kylon.io/",
+      "companyLogo": "/images/companies/kylon.png",
+      "companyDescription": "​Kylon is an AI agent team that runs your entire business.",
+      "representatives": [
+        {
+          "username": "Saurabh Khire",
+          "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+          "role": "Founder",
+          "companyName": "Crewbase Collective"
+        },
+        {
+          "username": "Christina Bowllan",
+          "linkedin": "https://www.linkedin.com/in/christina-bowllan-074563177/",
+          "role": "Founding Team",
+          "companyName": "Kylon"
+        }
+      ]
+    },
+    {
+      "id": "96800e4e-29a5-447d-b28a-f5630ff4ca4c",
+      "companyName": "Tenki",
+      "companyWebsite": "https://tenki.cloud/",
+      "companyLogo": "/images/companies/tenki.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Colin Lowenberg",
+          "linkedin": "https://www.linkedin.com/in/wifi/",
+          "role": "DevRel",
+          "companyName": "Nebius"
+        }
+      ]
+    },
+    {
+      "id": "f35f1f26-2c6b-4c8c-aee1-39b6295b952d",
+      "companyName": "Wasmer",
+      "companyWebsite": "https://wasmer.io/",
+      "companyLogo": "/images/companies/wasmer.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Ayush Ojha",
+          "linkedin": "https://www.linkedin.com/in/ayushozha/",
+          "role": "Devrel",
+          "companyName": "Wasmer"
+        }
+      ]
+    },
+    {
+      "id": "c535df0c-9563-4c33-9b2c-4ecb2cb46f2b",
+      "companyName": "Ask the W",
+      "companyWebsite": "https://askthew.com/",
+      "companyLogo": "/images/companies/ask-the-w.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Yezhisai Murugesan",
+          "linkedin": "https://www.linkedin.com/in/yezhisaim/",
+          "role": "Founder",
+          "companyName": "Ask the W"
+        }
+      ]
+    },
+    {
+      "id": "0c63cc7f-0b8d-4a65-9747-e0cfe3d7fd08",
+      "companyName": "RocketRide",
+      "companyWebsite": "https://cloud.rocketride.ai/",
+      "companyLogo": "/images/companies/rocketride.jpg",
+      "companyDescription": "RocketRide is an open-source AI workflow platform that enables developers to build, debug, and deploy AI applications without ever leaving their IDE. Its powerful meta-harness streamlines the entire development lifecycle, making it easy to create, test, and optimize AI workflows in one place.",
+      "representatives": [
+        {
+          "username": "Mansi More",
+          "linkedin": "https://www.linkedin.com/in/mansimore9/",
+          "role": "AI Growth Engineer",
+          "companyName": "RocketRide"
+        }
+      ]
+    },
+    {
+      "id": "862ad805-820a-46d0-b147-aa087cf4d2ea",
+      "companyName": "Finchip AI",
+      "companyWebsite": "https://finchip.ai/",
+      "companyLogo": "/images/companies/finchip-ai.jpg",
+      "companyDescription": "​FinChip helps turn AI skills into ownable digital assets that can be launched, discovered, used, and traded. For builders exploring agent capabilities, skill marketplaces, and programmable AI services, FinChip opens up a new way to think about software as something agents can own and invoke.",
+      "representatives": [
+        {
+          "username": "Gary Yang",
+          "linkedin": "https://www.linkedin.com/in/gary-yangge/",
+          "role": "Founding Partner",
+          "companyName": "Finchip AI"
+        },
+        {
+          "username": "Martina Beg",
+          "linkedin": "https://www.linkedin.com/in/martinabeg/",
+          "role": "GTM Lead",
+          "companyName": "Abaka AI"
+        }
+      ]
+    },
+    {
+      "id": "125208c0-de83-439c-9ea9-4067a77418d4",
+      "companyName": "Flatkey",
+      "companyWebsite": "https://flatkey.ai/",
+      "companyLogo": "/images/companies/flatkey.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Sofia Kao",
+          "linkedin": "https://www.linkedin.com/in/sofia-kao/",
+          "role": "Co-Founder",
+          "companyName": "Flatkey"
+        }
+      ]
+    },
+    {
+      "id": "ef643a7e-957a-4e18-a182-a2639a42e8d3",
+      "companyName": "PromptQL",
+      "companyWebsite": "https://promptql.io/",
+      "companyLogo": "/images/companies/promptql.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Jakob Prince",
+          "linkedin": "https://www.linkedin.com/in/jakobprince/",
+          "role": "AI Strategist",
+          "companyName": "PromptQL"
+        }
+      ]
+    },
+    {
+      "id": "723fe4bb-a2ac-4ea9-9d87-860a5b5c8861",
+      "companyName": "Unlimit",
+      "companyWebsite": "https://www.unlimit.com/",
+      "companyLogo": "/images/companies/unlimit.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Robin Meister",
+          "linkedin": "https://www.linkedin.com/in/robinmeister/",
+          "role": "Partnership Manager",
+          "companyName": "Unlimit"
+        }
+      ]
+    },
+    {
+      "id": "c3098abd-a313-4cc0-91ec-621843c4f61f",
+      "companyName": "Sartorial",
+      "companyWebsite": "https://www.sartori.al/",
+      "companyLogo": "/images/companies/sar.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Sumit Jadgale",
+          "linkedin": "https://www.linkedin.com/in/sumitjagdale/",
+          "role": "Founder",
+          "companyName": "Sartorial"
+        }
+      ]
+    },
+    {
+      "id": "7e842c9c-083a-4a85-811a-f4b6fb22a729",
+      "companyName": "Nebius",
+      "companyWebsite": "https://nebius.com/",
+      "companyLogo": "/images/companies/nebius.png",
+      "companyDescription": "​Nebius provides full-stack AI cloud infrastructure for developers, startups, enterprises, and research teams. Its platform helps teams build, train, and deploy AI products in a secure, high-performance, and cost-efficient environment.",
+      "representatives": [
+        {
+          "username": "Colin Lowenberg",
+          "linkedin": "https://www.linkedin.com/in/wifi/",
+          "role": "DevRel",
+          "companyName": "Nebius"
+        }
+      ]
+    },
+    {
+      "id": "95729269-d7c2-4534-9c2a-43fecddd6519",
+      "companyName": "AdaL",
+      "companyWebsite": "https://adalagent.ai/",
+      "companyLogo": "/images/companies/adal.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Aria Shi",
+          "linkedin": "https://www.linkedin.com/in/aria-ailearning/",
+          "role": "Head of GTM",
+          "companyName": "AdaL"
+        }
+      ]
+    },
+    {
+      "id": "7670c385-bab7-4159-85a7-7b108d530ec0",
+      "companyName": "Lore",
+      "companyWebsite": "https://lore.link/",
+      "companyLogo": "/images/companies/lore.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Kaia Colban",
+          "linkedin": "https://www.linkedin.com/in/kaia-colban-13a415a2/",
+          "role": "CPO",
+          "companyName": "Lore"
+        }
+      ]
+    },
+    {
+      "id": "fd289d82-532d-4dad-a95a-922104ded9dd",
+      "companyName": "LightSage",
+      "companyWebsite": "https://lightsage.com/",
+      "companyLogo": "/images/companies/lightsage.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Sean Er",
+          "linkedin": "https://www.linkedin.com/in/seaner/",
+          "role": "Co Founder & CTO",
+          "companyName": "LightSage"
+        }
+      ]
+    },
+    {
+      "id": "c2c29f86-614f-407d-8e27-45594b826469",
+      "companyName": "Massive",
+      "companyWebsite": "https://www.joinmassive.com/",
+      "companyLogo": "/images/companies/massive.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Jason Gellman",
+          "linkedin": "https://www.linkedin.com/in/jason-gellman/",
+          "role": "Partnerships and GTM",
+          "companyName": "Massive"
+        }
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "id": "e77bbaee-e85e-4225-81c9-75c236109477",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Builder Base",
+      "companyWebsite": "https://builderbase.com/",
+      "companyLogo": "/images/companies/builder-base.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Sean Chiu",
+          "linkedin": "https://www.linkedin.com/in/seanchiuai/",
+          "role": "Head of Ambassedor",
+          "companyName": "Builder Base"
+        }
+      ]
+    },
+    {
+      "id": "2069c10f-f148-47ed-8edc-74e2aa86a56c",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Articuler AI",
+      "companyWebsite": "https://www.articuler.ai/",
+      "companyLogo": "/images/companies/articuler-ai.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Gary Li",
+          "linkedin": "https://www.linkedin.com/in/yungang-gary-li/",
+          "role": "Head of Growth",
+          "companyName": "Articuler AI"
+        }
+      ]
+    },
+    {
+      "id": "bfb30746-88c4-47eb-9172-3285f82be325",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "NerdConf",
+      "companyWebsite": "https://www.nerdconf.com/",
+      "companyLogo": "/images/companies/nerdconf.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Alex Marin",
+          "linkedin": "https://www.linkedin.com/in/alex-marin-83b369113/",
+          "role": "Founder",
+          "companyName": "NerdConf"
+        }
+      ]
+    },
+    {
+      "id": "ab38dd32-b544-4244-be18-9b5c97a2dbc9",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "AIHouse",
+      "companyWebsite": "https://www.aihouze.xyz/",
+      "companyLogo": "/images/companies/aihouse.png",
+      "companyDescription": "​AIHouse is the community layer powering this ecosystem. Built for founders, researchers, engineers, students, and AI enthusiasts, AI House creates a space where people consistently learn, share, collaborate, and grow together.",
+      "representatives": [
+        {
+          "username": "Deepak Chawla",
+          "linkedin": "https://www.linkedin.com/in/deepakchawla1307/",
+          "role": "Founder",
+          "companyName": "AIHouse"
+        }
+      ]
+    },
+    {
+      "id": "198a94ab-2fd8-4325-a4e8-4197c1b556b3",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "BridgeUS",
+      "companyWebsite": "https://bridgeus.co",
+      "companyLogo": "/images/companies/bridgeus.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Vin Wanfan",
+          "linkedin": "https://www.linkedin.com/in/vinwanfan/",
+          "role": "Founder",
+          "companyName": "BridgeUS"
+        }
+      ]
+    },
+    {
+      "id": "049e2b23-2662-45ad-b9a1-c207dda648fb",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "We Are Developers",
+      "companyWebsite": "https://www.wearedevelopers.com/",
+      "companyLogo": "/images/companies/we-are-developers.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Josh Shulman",
+          "linkedin": "https://www.linkedin.com/in/jdshulman/",
+          "role": "Product Marketing Manager",
+          "companyName": "We Are Developers"
+        }
+      ]
+    }
+  ],
+  "prizes": [],
+  "schedule": [
+    {
+      "id": "b7b31af1-e9ff-4bc1-974b-b2683a433d07",
+      "startTime": "2026-09-10T23:00:00.000Z",
+      "endTime": "2026-09-10T23:30:00.000Z",
+      "topic": "Welcome and Introductions",
+      "speakers": []
+    },
+    {
+      "id": "77cfd53b-a938-4b72-9691-6f6cc1a9b3db",
+      "startTime": "2026-09-10T23:30:00.000Z",
+      "endTime": "2026-09-11T01:40:00.000Z",
+      "topic": "Demos",
+      "speakers": []
+    },
+    {
+      "id": "fb1aa173-5a8d-4b8a-a959-6d9355013f00",
+      "startTime": "2026-09-11T01:40:00.000Z",
+      "endTime": "2026-09-11T02:00:00.000Z",
+      "topic": "Networking",
+      "speakers": []
+    }
+  ],
+  "speakers": [
+    {
+      "username": "Vince Kohli",
+      "linkedin": "https://www.linkedin.com/in/vincekohli/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:30:00.000Z",
+      "endTime": "2026-09-10T23:35:00.000Z",
+      "topic": "Introduction and Physical AI Room",
+      "title": "Strategic Advisor",
+      "companyName": "Google Deepmind"
+    },
+    {
+      "username": "Sean Chiu",
+      "linkedin": "https://www.linkedin.com/in/seanchiuai/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:35:00.000Z",
+      "endTime": "2026-09-10T23:40:00.000Z",
+      "topic": "How organizers can create better events using BuilderBase",
+      "title": "Head of Ambassedor",
+      "companyName": "Builder Base"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:40:00.000Z",
+      "endTime": "2026-09-10T23:45:00.000Z",
+      "topic": "Create AI Agents team using Kylon",
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Colin Lowenberg",
+      "linkedin": "https://www.linkedin.com/in/wifi/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:45:00.000Z",
+      "endTime": "2026-09-10T23:55:00.000Z",
+      "topic": "Run code and AI workloads reliably in sandboxes or cloud compute using runners using Tenki",
+      "title": "DevRel",
+      "companyName": "Nebius"
+    },
+    {
+      "username": "Sofia Kao",
+      "linkedin": "https://www.linkedin.com/in/sofia-kao/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-10T23:55:00.000Z",
+      "endTime": "2026-09-11T00:05:00.000Z",
+      "topic": "Access hundreds of AI models through one API and compare their results, speed, and cost using Flatkey",
+      "title": "Co-Founder",
+      "companyName": "Flatkey"
+    },
+    {
+      "username": "Gary Yang",
+      "linkedin": "https://www.linkedin.com/in/gary-yangge/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:05:00.000Z",
+      "endTime": "2026-09-11T00:15:00.000Z",
+      "topic": "Give AI agents reusable skills to perform specific tasks more reliably using Finchip",
+      "title": "Founding Partner",
+      "companyName": "Finchip AI"
+    },
+    {
+      "username": "Yezhisai Murugesan",
+      "linkedin": "https://www.linkedin.com/in/yezhisaim/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:15:00.000Z",
+      "endTime": "2026-09-11T00:25:00.000Z",
+      "topic": "Figure out what to build with AI, what to automate, and where humans add the most value with Ask the W",
+      "title": "Founder",
+      "companyName": "Ask the W"
+    },
+    {
+      "username": "Mansi More",
+      "linkedin": "https://www.linkedin.com/in/mansimore9/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:25:00.000Z",
+      "endTime": "2026-09-11T00:35:00.000Z",
+      "topic": "Build AI and data pipelines directly in your IDE, from raw data to structured output with RocketRide",
+      "title": "AI Growth Engineer",
+      "companyName": "RocketRide"
+    },
+    {
+      "username": "Sumit Jadgale",
+      "linkedin": "https://www.linkedin.com/in/sumitjagdale/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:35:00.000Z",
+      "endTime": "2026-09-11T00:45:00.000Z",
+      "topic": "Discover and recommend products using context like fit, color, material, reviews, and images in Sartorial",
+      "title": "Founder",
+      "companyName": "Sartorial"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:45:00.000Z",
+      "endTime": "2026-09-11T00:55:00.000Z",
+      "topic": "Package and run code anywhere with WebAssembly using Wasmer",
+      "title": "Devrel",
+      "companyName": "Wasmer"
+    },
+    {
+      "username": "Jakob Prince",
+      "linkedin": "https://www.linkedin.com/in/jakobprince/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T00:55:00.000Z",
+      "endTime": "2026-09-11T01:05:00.000Z",
+      "topic": "Turn team conversations and questions into actionable results with AI with PromptQL",
+      "title": "AI Strategist",
+      "companyName": "PromptQL"
+    },
+    {
+      "username": "Robin Meister",
+      "linkedin": "https://www.linkedin.com/in/robinmeister/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:05:00.000Z",
+      "endTime": "2026-09-11T01:15:00.000Z",
+      "topic": "Move money across borders by connecting global payments, financial accounts, and digital asset rails",
+      "title": "Partnership Manager",
+      "companyName": "Unlimit"
+    },
+    {
+      "username": "Kaia Colban",
+      "linkedin": "https://www.linkedin.com/in/kaia-colban-13a415a2/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:15:00.000Z",
+      "endTime": "2026-09-11T01:25:00.000Z",
+      "topic": "Bring people and AI agents together to collaborate on work-in-progress and learn from each other with Lore",
+      "title": "CPO",
+      "companyName": "Lore"
+    },
+    {
+      "username": "Jason Gellman",
+      "linkedin": "https://www.linkedin.com/in/jason-gellman/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:25:00.000Z",
+      "endTime": "2026-09-11T01:30:00.000Z",
+      "topic": "Give AI agents reliable, real-time access to the web across 195+ countries with Massive",
+      "title": "Partnerships and GTM",
+      "companyName": "Massive"
+    },
+    {
+      "username": "Sean Er",
+      "linkedin": "https://www.linkedin.com/in/seaner/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:30:00.000Z",
+      "endTime": "2026-09-11T01:35:00.000Z",
+      "topic": "Help AI agents discover, evaluate, and use your APIs, CLIs, and MCPs more effectively. in LightSage",
+      "title": "Co Founder & CTO",
+      "companyName": "LightSage"
+    },
+    {
+      "username": "Vin Wanfan",
+      "linkedin": "https://www.linkedin.com/in/vinwanfan/",
+      "eventDay": "2026-09-10",
+      "startTime": "2026-09-11T01:35:00.000Z",
+      "endTime": "2026-09-11T01:40:00.000Z",
+      "topic": "Match right people using BridgeUs",
+      "title": "Founder",
+      "companyName": "BridgeUS"
+    }
+  ],
+  "judges": [],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Ayush Ojha",
+      "linkedin": "https://www.linkedin.com/in/ayushozha/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Devrel",
+      "companyName": "Wasmer"
+    },
+    {
+      "username": "Sean Chiu",
+      "linkedin": "https://www.linkedin.com/in/seanchiuai/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Head of Ambassedor",
+      "companyName": "Builder Base"
+    },
+    {
+      "username": "Mansi More",
+      "linkedin": "https://www.linkedin.com/in/mansimore9/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "AI Growth Engineer",
+      "companyName": "RocketRide"
+    },
+    {
+      "username": "Kaia Colban",
+      "linkedin": "https://www.linkedin.com/in/kaia-colban-13a415a2/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "CPO",
+      "companyName": "Lore"
+    },
+    {
+      "username": "Aria Shi",
+      "linkedin": "https://www.linkedin.com/in/aria-ailearning/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Head of GTM",
+      "companyName": "AdaL"
+    },
+    {
+      "username": "Vin Wanfan",
+      "linkedin": "https://www.linkedin.com/in/vinwanfan/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "BridgeUS"
+    },
+    {
+      "username": "Alex Marin",
+      "linkedin": "https://www.linkedin.com/in/alex-marin-83b369113/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "NerdConf"
+    },
+    {
+      "username": "Gary Li",
+      "linkedin": "https://www.linkedin.com/in/yungang-gary-li/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Head of Growth",
+      "companyName": "Articuler AI"
+    },
+    {
+      "username": "Colin Lowenberg",
+      "linkedin": "https://www.linkedin.com/in/wifi/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "DevRel",
+      "companyName": "Nebius"
+    }
+  ],
+  "volunteers": [],
+  "team": [],
+  "links": [],
+  "photos": []
+}

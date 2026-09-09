@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Emergent title partner with OpenAI and Google community partners</title>
+  <desc id="desc">Illustrative logo-placement mockup. Emergent has the largest logo as Food and Hospitality Title Partner. OpenAI and Google appear as equal community partners below.</desc>
+  <rect width="1600" height="1000" fill="#F6F4EF"/>
+  <text x="80" y="70" fill="#1C2942" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="3">SPONSORSHIP LOGO PLACEMENT MOCKUP</text>
+  <text x="1520" y="70" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="22" text-anchor="end" letter-spacing="2">CREWBASE COLLECTIVE</text>
+
+  <rect x="70" y="115" width="1460" height="315" rx="24" fill="#172A4D"/>
+  <text x="120" y="170" fill="#E9BC55" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" letter-spacing="2">FOOD &amp; HOSPITALITY TITLE PARTNER</text>
+  <text x="800" y="285" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="88" font-weight="800" text-anchor="middle" letter-spacing="5">EMERGENT</text>
+  <text x="800" y="330" fill="#DDE5F3" font-family="Arial, Helvetica, sans-serif" font-size="23" text-anchor="middle" letter-spacing="1">OFFICIAL FOOD &amp; HOSPITALITY PARTNER</text>
+  <line x1="245" y1="370" x2="1355" y2="370" stroke="#E9BC55" stroke-width="3"/>
+  <text x="800" y="405" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="19" text-anchor="middle">Largest logo  •  First sponsor position  •  Food-area signage  •  Event page  •  Opening and closing slides</text>
+
+  <text x="80" y="510" fill="#1C2942" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" letter-spacing="1">COMMUNITY PARTNERS</text>
+  <text x="1520" y="510" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="end">Equal visibility within this tier</text>
+
+  <rect x="80" y="555" width="690" height="260" rx="20" fill="#FFFFFF" stroke="#D7DCE5" stroke-width="2"/>
+  <text x="120" y="605" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2">COMMUNITY PARTNER</text>
+  <circle cx="188" cy="700" r="40" fill="#111111"/>
+  <text x="188" y="713" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="middle">AI</text>
+  <text x="255" y="718" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700" letter-spacing="-2">OpenAI</text>
+  <text x="120" y="775" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="18">Website  •  Sponsor slide  •  Standard signage  •  Recap</text>
+
+  <rect x="830" y="555" width="690" height="260" rx="20" fill="#FFFFFF" stroke="#D7DCE5" stroke-width="2"/>
+  <text x="870" y="605" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="2">COMMUNITY PARTNER</text>
+  <text x="1165" y="718" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="700" text-anchor="middle">
+    <tspan fill="#4285F4">G</tspan><tspan fill="#DB4437">o</tspan><tspan fill="#F4B400">o</tspan><tspan fill="#4285F4">g</tspan><tspan fill="#0F9D58">l</tspan><tspan fill="#DB4437">e</tspan>
+  </text>
+  <text x="870" y="775" fill="#667085" font-family="Arial, Helvetica, sans-serif" font-size="18">Website  •  Sponsor slide  •  Standard signage  •  Recap</text>
+
+  <rect x="80" y="875" width="1440" height="70" rx="16" fill="#E9BC55"/>
+  <text x="800" y="918" fill="#172A4D" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle">Illustrative layout only — replace text wordmarks with approved official logo files.</text>
+</svg>

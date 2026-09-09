@@ -1,29 +1,31 @@
 {
   "event": {
     "id": "14a0bff1-6051-45ed-8946-cb39a4d84782",
-    "slug": "ai-native-yc-startup-hackathon-mskpoe56",
-    "name": "AI-Native YC Startup Hackathon",
+    "slug": "build-your-co-founder-hackathon-mtoiapl0",
+    "name": "Build your Co Founder Hackathon",
     "type": "hackathon",
-    "description": "",
-    "theme": "Create an AI YC Startup",
-    "dayLabel": "Fri, Sep 25",
-    "eventDate": "2026-09-25",
-    "endDate": "2026-09-25",
+    "description": "​Build Your AI Co-Founder is a hackathon where you build and ship a company with a founding team of 2–4 co-founders, combining humans and AI.\n\n​Every team must have at least one human and one AI co-founder. You decide the rest—including who takes which role, what you build, and how your founding team works together.\n\n​AI co-founders can take any role: CEO, CTO, Product, Marketing, Sales, Research, or anything your company needs.\n\n​The goal is to experience what it means to build a real company with AI as part of the founding team—from idea to execution to a shipped product.",
+    "theme": "Build your Co Founder Hackathon",
+    "dayLabel": "Sat, Sep 26",
+    "eventDate": "2026-09-26",
+    "endDate": "2026-09-26",
     "startTime": "09:00",
     "endTime": "20:00",
-    "location": "",
+    "location": "255 California St #550, San Francisco, CA 94111",
     "locationLat": null,
     "locationLng": null,
     "coverImageUrl": "",
     "coverPageUrl": "",
-    "lumaLinks": [],
+    "lumaLinks": [
+      "https://luma.com/zr87gmkt"
+    ],
     "eventbriteLinks": [],
     "groupLink": "",
     "isPartnerEvent": false,
     "isPublished": false,
     "createdAt": "2026-08-08T18:11:21.051Z",
-    "updatedAt": "2026-08-19T21:24:04.584Z",
-    "lumaLink": null,
+    "updatedAt": "2026-09-05T14:58:01.312Z",
+    "lumaLink": "https://luma.com/zr87gmkt",
     "eventbriteLink": null
   },
   "tracks": [],
@@ -34,7 +36,12 @@
       "personId": null,
       "status": "confirmed",
       "sortOrder": 0,
-      "representatives": []
+      "representatives": [
+        {
+          "userId": "ee4c8de1-6e01-408c-8c39-26ea7b0ea220",
+          "status": "confirmed"
+        }
+      ]
     },
     {
       "id": "8333c0b7-09a0-415d-9dc3-1c6a5c088560",
@@ -50,19 +57,15 @@
       ]
     },
     {
-      "id": "09ab5115-f8b9-43c1-9ade-0067ca2e6a53",
-      "companyId": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
+      "id": "bbce1ce2-cbac-4b61-9ce4-fa20dfda7719",
+      "companyId": "83c7b5bb-86f7-4280-97dd-a148e30452b6",
       "personId": null,
-      "status": "maybe",
+      "status": "confirmed",
       "sortOrder": 3,
       "representatives": [
         {
-          "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
-          "status": "maybe"
-        },
-        {
-          "userId": "bcb420be-2b7d-40ac-b640-a61bb0194148",
-          "status": "maybe"
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+          "status": "confirmed"
         }
       ]
     }
@@ -74,9 +77,14 @@
       "customName": null,
       "partnerType": "venue",
       "customType": null,
-      "status": "maybe",
+      "status": "confirmed",
       "sortOrder": 0,
-      "representatives": []
+      "representatives": [
+        {
+          "userId": "ee4c8de1-6e01-408c-8c39-26ea7b0ea220",
+          "status": "confirmed"
+        }
+      ]
     }
   ],
   "prizes": [],
@@ -84,25 +92,74 @@
   "speakers": [],
   "judges": [
     {
-      "id": "6d027a68-8eba-4a2c-b388-9471409c51d7",
-      "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
-      "role": null,
-      "status": "maybe",
-      "sortOrder": 3
-    },
-    {
-      "id": "cd7af539-1f51-4eeb-a5ff-a883740f46c0",
-      "userId": "bcb420be-2b7d-40ac-b640-a61bb0194148",
-      "role": null,
-      "status": "maybe",
-      "sortOrder": 4
-    },
-    {
       "id": "c02a947d-d102-4d49-9ba9-59f3e426d496",
       "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
       "role": null,
       "status": "confirmed",
       "sortOrder": 4
+    },
+    {
+      "id": "ec52afc5-b2c4-46fd-8184-f29f9595a41f",
+      "userId": "13511e40-7954-49b4-b052-99c3fdb4c400",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 8
+    },
+    {
+      "id": "7e2006b3-c5d0-48cb-b3e2-0c91e0cecf9b",
+      "userId": "c4da02a5-b89a-4d64-873a-1ed9a67f33ef",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 9
+    },
+    {
+      "id": "0663f1e3-b3f0-401e-bd7e-095152a6a677",
+      "userId": "9df2ae20-42b2-4402-817c-e86584b16a53",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 10
+    },
+    {
+      "id": "069859ca-1ade-4479-a847-e30ad7511429",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 11
+    },
+    {
+      "id": "2ed61663-a925-493f-9974-d76848a47eef",
+      "userId": "a6f949f8-76ce-4ab5-9b56-7e5734cbcf7f",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 11
+    },
+    {
+      "id": "59d00621-391d-4480-b34a-9f30247d10c0",
+      "userId": "967ce10f-2d9b-4aba-a4c0-b2bc2f08665e",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 12
+    },
+    {
+      "id": "bdc7b603-fe4d-49bc-86a4-32e763f92166",
+      "userId": "815240df-a781-491e-a9e3-83b3f56828d7",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 13
+    },
+    {
+      "id": "8d60b046-faf2-4e19-b5c7-5f3759786fbd",
+      "userId": "0ff4ed95-6d09-4448-95f7-005a1bc03b5e",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 14
+    },
+    {
+      "id": "6406cacb-a67b-433b-adf7-52af580b714d",
+      "userId": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 9
     }
   ],
   "hosts": [
@@ -161,24 +218,6 @@
       "sortOrder": 5
     },
     {
-      "id": "57d1fe19-59ac-47f5-be83-8f2be81787c4",
-      "userId": "a036fe7c-a768-4261-a08d-6bdb458a505c",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "status": "confirmed",
-      "sortOrder": 6
-    },
-    {
-      "id": "cded275e-68cd-4d12-a449-26ec207bebd4",
-      "userId": "96ec51bb-8b7e-4d78-8203-27ddce7b2a31",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "status": "confirmed",
-      "sortOrder": 7
-    },
-    {
       "id": "19ad40a6-c36c-47db-b63d-dc1d24016708",
       "userId": "93cb02eb-2a7c-4542-947c-de0bbc13cb24",
       "hostType": "host",
@@ -186,24 +225,6 @@
       "role": null,
       "status": "confirmed",
       "sortOrder": 8
-    },
-    {
-      "id": "95b3cd2c-5ae0-42b8-9e28-05a53bb004a3",
-      "userId": "f018a7e1-c984-4ad5-b9d3-869bd6c63f5f",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "status": "confirmed",
-      "sortOrder": 9
-    },
-    {
-      "id": "96644b3b-2f3e-4040-878a-c3631ac33131",
-      "userId": "89b81242-0acc-4515-8012-f5e2f8aed95e",
-      "hostType": "host",
-      "customType": null,
-      "role": null,
-      "status": "confirmed",
-      "sortOrder": 10
     }
   ],
   "staffRoles": [],

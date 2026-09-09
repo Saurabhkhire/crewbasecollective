@@ -461,6 +461,226 @@
       "id": "022d2a85-fa0d-429e-8f54-a09f06b98542",
       "createdAt": "2026-08-09T10:00:32.629Z",
       "updatedAt": "2026-08-09T10:02:13.580Z"
+    },
+    {
+      "name": "AdaL",
+      "logoUrl": "/images/companies/adal.jpg",
+      "website": "https://adalagent.ai/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "bee5c2fe-c6c9-4d7f-b81d-14e477752a8d",
+      "createdAt": "2026-08-22T01:21:36.440Z",
+      "updatedAt": "2026-08-22T01:21:36.440Z"
+    },
+    {
+      "name": "Sartorial",
+      "logoUrl": "/images/companies/sar.png",
+      "website": "https://www.sartori.al/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "75909d20-420b-49e7-baad-8cba3eb3b980",
+      "createdAt": "2026-08-22T01:23:57.227Z",
+      "updatedAt": "2026-09-06T06:57:55.310Z"
+    },
+    {
+      "name": "Tenki",
+      "logoUrl": "/images/companies/tenki.jpg",
+      "website": "https://tenki.cloud/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "83c7b5bb-86f7-4280-97dd-a148e30452b6",
+      "createdAt": "2026-08-22T01:32:48.562Z",
+      "updatedAt": "2026-08-22T01:32:48.562Z"
+    },
+    {
+      "name": "San Francisco General Intelligence Laboratory",
+      "logoUrl": "/images/companies/san-francisco-general-intelligence-laboratory.png",
+      "website": "https://www.sfgil.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "6fa21351-a0c1-454f-aefe-0fcc13915f86",
+      "createdAt": "2026-08-22T07:39:33.365Z",
+      "updatedAt": "2026-08-22T07:39:33.365Z"
+    },
+    {
+      "name": "Ask the W",
+      "logoUrl": "/images/companies/ask-the-w.png",
+      "website": "https://askthew.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "061608b2-af67-4a39-9670-631831c950e5",
+      "createdAt": "2026-09-06T06:58:45.977Z",
+      "updatedAt": "2026-09-06T07:58:33.916Z"
+    },
+    {
+      "name": "Wasmer",
+      "logoUrl": "/images/companies/wasmer.jpg",
+      "website": "https://wasmer.io/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "b77957bf-462e-476b-8842-48575b8c20a5",
+      "createdAt": "2026-09-06T07:58:24.875Z",
+      "updatedAt": "2026-09-06T07:58:24.875Z"
+    },
+    {
+      "name": "Flatkey",
+      "logoUrl": "/images/companies/flatkey.jpg",
+      "website": "https://flatkey.ai/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "e4a5ea7f-981a-4268-b7bd-0c820029e613",
+      "createdAt": "2026-09-06T08:25:19.850Z",
+      "updatedAt": "2026-09-06T08:25:19.850Z"
+    },
+    {
+      "name": "Unlimit",
+      "logoUrl": "/images/companies/unlimit.jpg",
+      "website": "https://www.unlimit.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "6338ed35-07f7-4254-90d9-aa15030d5562",
+      "createdAt": "2026-09-06T08:27:43.379Z",
+      "updatedAt": "2026-09-06T08:28:06.415Z"
+    },
+    {
+      "name": "PromptQL",
+      "logoUrl": "/images/companies/promptql.png",
+      "website": "https://promptql.io/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "018ab7de-2007-4e09-b96e-a6e46dcc823b",
+      "createdAt": "2026-09-06T08:30:15.942Z",
+      "updatedAt": "2026-09-06T08:30:15.942Z"
+    },
+    {
+      "name": "Builder Base",
+      "logoUrl": "/images/companies/builder-base.jpg",
+      "website": "https://builderbase.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "9d045baa-eaff-4021-9156-4e1ba51fa72d",
+      "createdAt": "2026-09-06T08:43:27.618Z",
+      "updatedAt": "2026-09-06T08:43:27.618Z"
+    },
+    {
+      "name": "NerdConf",
+      "logoUrl": "/images/companies/nerdconf.jpg",
+      "website": "https://www.nerdconf.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "639dff36-56e2-4c49-8708-c6e6572a2319",
+      "createdAt": "2026-09-06T09:21:13.571Z",
+      "updatedAt": "2026-09-06T09:21:13.571Z"
+    },
+    {
+      "name": "Articuler AI",
+      "logoUrl": "/images/companies/articuler-ai.png",
+      "website": "https://www.articuler.ai/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "1073f0d0-7e77-4dda-9a67-a75da7abc420",
+      "createdAt": "2026-09-06T09:23:23.427Z",
+      "updatedAt": "2026-09-06T09:23:23.427Z"
+    },
+    {
+      "name": "BridgeUS",
+      "logoUrl": "/images/companies/bridgeus.png",
+      "website": "https://bridgeus.co",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "fa911e79-0010-4203-8bda-640a4b06dfa6",
+      "createdAt": "2026-09-06T09:25:28.989Z",
+      "updatedAt": "2026-09-09T10:23:51.012Z"
+    },
+    {
+      "name": "BuildClub",
+      "logoUrl": "/images/companies/buildclub.png",
+      "website": "https://buildclub.ai/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "17165d13-cf13-47a8-b4e4-fe98da9079bc",
+      "createdAt": "2026-09-06T09:27:56.035Z",
+      "updatedAt": "2026-09-06T09:27:56.035Z"
+    },
+    {
+      "name": "N8N",
+      "logoUrl": "/images/companies/n8n.png",
+      "website": "https://n8n.io",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "27dae401-4225-4729-8060-479381908f16",
+      "createdAt": "2026-09-06T09:28:47.114Z",
+      "updatedAt": "2026-09-06T09:28:47.114Z"
+    },
+    {
+      "name": "Lunatechs",
+      "logoUrl": "/images/companies/lunatechs.jpg",
+      "website": "https://lunatechs.social/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "b1c21c33-32ca-4c25-b326-93dfe3310579",
+      "createdAt": "2026-09-06T09:31:42.476Z",
+      "updatedAt": "2026-09-06T09:31:42.476Z"
+    },
+    {
+      "name": "We Are Developers",
+      "logoUrl": "/images/companies/we-are-developers.jpg",
+      "website": "https://www.wearedevelopers.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "a613145a-9734-4a22-9873-f71f1d8be1c8",
+      "createdAt": "2026-09-09T09:02:15.143Z",
+      "updatedAt": "2026-09-09T09:02:15.143Z"
+    },
+    {
+      "name": "LightSage",
+      "logoUrl": "/images/companies/lightsage.png",
+      "website": "https://lightsage.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "bd108cda-ee55-45a3-a02d-411a5b3aa58e",
+      "createdAt": "2026-09-09T09:20:12.821Z",
+      "updatedAt": "2026-09-09T09:20:12.821Z"
+    },
+    {
+      "name": "Massive",
+      "logoUrl": "/images/companies/massive.jpg",
+      "website": "https://www.joinmassive.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "4eb2d7db-061b-4537-8ce5-0cd339cee4ce",
+      "createdAt": "2026-09-09T09:21:15.191Z",
+      "updatedAt": "2026-09-09T09:21:15.191Z"
+    },
+    {
+      "name": "Lore",
+      "logoUrl": "/images/companies/lore.png",
+      "website": "https://lore.link/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "2fdf69d7-58cd-4674-9c56-5fd91c8cd9d8",
+      "createdAt": "2026-09-09T09:34:46.366Z",
+      "updatedAt": "2026-09-09T09:34:55.909Z"
     }
   ]
 }

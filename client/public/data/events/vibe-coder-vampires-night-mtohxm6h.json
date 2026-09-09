@@ -1,0 +1,85 @@
+{
+  "event": {
+    "id": "8c536634-e8c6-4acd-8c26-833682f61aba",
+    "slug": "vibe-coder-vampires-night-mtohxm6h",
+    "name": "Vibe Coder Vampires Night",
+    "type": "workshop",
+    "description": "​What is a Vibe Coding Vampire? It's a Vibe Coder that is so in love with BUILDING that they just keep going late late into the night sometime into the next day! Addicted to BUILDING and SHIPPING faster than they've ever been able to before thanks to the power of AI CODING!",
+    "theme": "",
+    "dayLabel": "Fri, Sep 25",
+    "eventDate": "2026-09-25",
+    "endDate": "2026-09-25",
+    "startTime": "18:00",
+    "endTime": "21:00",
+    "location": "Homebrew Club, 111 Maiden Ln #540, San Francisco, CA 94108",
+    "locationLat": null,
+    "locationLng": null,
+    "coverImageUrl": "",
+    "coverPageUrl": "",
+    "lumaLinks": [
+      "https://luma.com/4e5vzc1l"
+    ],
+    "eventbriteLinks": [],
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-09-05T14:46:47.945Z",
+    "updatedAt": "2026-09-09T10:46:50.149Z",
+    "lumaLink": "https://luma.com/4e5vzc1l",
+    "eventbriteLink": null
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "af43003f-5c06-493c-8a99-843f09b003d5",
+      "companyName": "Flatkey",
+      "companyWebsite": "https://flatkey.ai/",
+      "companyLogo": "/images/companies/flatkey.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Sofia Kao",
+          "linkedin": "https://www.linkedin.com/in/sofia-kao/",
+          "role": "Co-Founder",
+          "companyName": "Flatkey"
+        }
+      ]
+    },
+    {
+      "id": "37b7456d-9255-4b23-b266-7ff5d5fffb7b",
+      "companyName": "Finchip AI",
+      "companyWebsite": "https://finchip.ai/",
+      "companyLogo": "/images/companies/finchip-ai.jpg",
+      "companyDescription": "​FinChip helps turn AI skills into ownable digital assets that can be launched, discovered, used, and traded. For builders exploring agent capabilities, skill marketplaces, and programmable AI services, FinChip opens up a new way to think about software as something agents can own and invoke.",
+      "representatives": []
+    }
+  ],
+  "partners": [
+    {
+      "id": "69bb3f47-15bb-4abc-8dd9-5ee3295ee9ba",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Lunatechs",
+      "companyWebsite": "https://lunatechs.social/",
+      "companyLogo": "/images/companies/lunatechs.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Harnoor Singh",
+          "linkedin": "https://www.linkedin.com/in/iharnoor/",
+          "role": "DevRel",
+          "companyName": "HydraDB"
+        }
+      ]
+    }
+  ],
+  "prizes": [],
+  "schedule": [],
+  "speakers": [],
+  "judges": [],
+  "hosts": [],
+  "volunteers": [],
+  "team": [],
+  "links": [],
+  "photos": []
+}

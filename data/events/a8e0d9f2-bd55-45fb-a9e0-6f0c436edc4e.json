@@ -22,17 +22,154 @@
     "isPartnerEvent": false,
     "isPublished": false,
     "createdAt": "2026-08-18T21:55:33.302Z",
-    "updatedAt": "2026-08-19T21:49:47.891Z",
+    "updatedAt": "2026-09-05T14:59:46.999Z",
     "lumaLink": null,
     "eventbriteLink": null
   },
   "tracks": [],
-  "sponsors": [],
+  "sponsors": [
+    {
+      "id": "5cdb8ab9-6d02-4360-b653-c0f6cfea0203",
+      "companyId": "49e8e316-55ce-4198-91a7-3877900d8184",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "be5bfc3e-b008-4877-9fff-5c30c234b458",
+      "companyId": "126c51c7-58af-4afb-a963-7ebb6c70df26",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 1,
+      "representatives": [
+        {
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "24a0c048-dd14-439b-be74-d9717e347c23",
+      "companyId": "83c7b5bb-86f7-4280-97dd-a148e30452b6",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 2,
+      "representatives": [
+        {
+          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "48f929cb-928a-4191-90ab-457cec218c8f",
+      "companyId": "e5b483d9-122c-4d16-9b3f-0a73c7520b03",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 3,
+      "representatives": [
+        {
+          "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "fefe0b80-8602-46fc-864a-cd15a495d1d2",
+      "companyId": "54bdc2ff-ae28-41ed-9947-3e1568c30ee3",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 4,
+      "representatives": [
+        {
+          "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+          "status": "confirmed"
+        }
+      ]
+    }
+  ],
   "partners": [],
   "prizes": [],
   "schedule": [],
   "speakers": [],
-  "judges": [],
+  "judges": [
+    {
+      "id": "523da1a6-3f05-4b10-bc49-e66b176a322b",
+      "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 0
+    },
+    {
+      "id": "6c7a5b84-3f29-4160-88d2-5fa1e6532b44",
+      "userId": "c4da02a5-b89a-4d64-873a-1ed9a67f33ef",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 2
+    },
+    {
+      "id": "065db734-667d-4ee7-b62c-c4012fc7eb8e",
+      "userId": "13511e40-7954-49b4-b052-99c3fdb4c400",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 3
+    },
+    {
+      "id": "fef519ac-d57e-41a9-9264-06f7969d45bc",
+      "userId": "967ce10f-2d9b-4aba-a4c0-b2bc2f08665e",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 4
+    },
+    {
+      "id": "9b1931ba-d461-46d5-97b7-e6010c6288f0",
+      "userId": "9df2ae20-42b2-4402-817c-e86584b16a53",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 5
+    },
+    {
+      "id": "cceeb631-586c-414a-9c35-8045e5a67e19",
+      "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 6
+    },
+    {
+      "id": "1e59e6f6-512f-459d-a95a-04dd5401fb31",
+      "userId": "a6f949f8-76ce-4ab5-9b56-7e5734cbcf7f",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 7
+    },
+    {
+      "id": "19a85772-ded6-4866-838e-61c44af33ce8",
+      "userId": "815240df-a781-491e-a9e3-83b3f56828d7",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 8
+    },
+    {
+      "id": "611391cf-dee7-4ff4-a62c-0f3f900d77ef",
+      "userId": "c2ffd60e-ae2f-4289-8e22-c92df4076a50",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 9
+    },
+    {
+      "id": "646fb761-3b2a-460a-a622-01a49c7aa1be",
+      "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 9
+    }
+  ],
   "hosts": [],
   "associated": [],
   "staffRoles": [],

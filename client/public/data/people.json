@@ -30,6 +30,11 @@
       ],
       "spoke": [
         {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        },
+        {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
@@ -46,6 +51,12 @@
         }
       ],
       "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Kylon"
+        },
         {
           "eventName": "Design & Deploy Workshop",
           "slug": "design-deploy-workshop-ms5mfqce",
@@ -66,6 +77,16 @@
         }
       ],
       "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        },
+        {
+          "eventName": "Founders Gathering",
+          "slug": "founders-gathering-mtsfqypq",
+          "eventDate": "2026-09-10"
+        },
         {
           "eventName": "Builders Campfire",
           "slug": "builders-campfire-msis058w",
@@ -180,6 +201,11 @@
       ],
       "spoke": [
         {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        },
+        {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
@@ -196,6 +222,18 @@
         }
       ],
       "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Tenki"
+        },
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Nebius"
+        },
         {
           "eventName": "Build your AI Organization Workshop",
           "slug": "build-your-ai-organization-workshop-ms5lzd54",
@@ -240,6 +278,11 @@
         }
       ],
       "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        },
         {
           "eventName": "Build your AI Organization Workshop",
           "slug": "build-your-ai-organization-workshop-ms5lzd54",
@@ -568,7 +611,13 @@
           "eventDate": "2026-05-31"
         }
       ],
-      "spoke": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
       "sponsored": [],
       "hosted": [],
       "partnered": [],
@@ -673,8 +722,8 @@
       "id": "c9427e44-23c3-41b4-892c-bc9ceeeb11df",
       "username": "Ayush Ojha",
       "linkedin": "https://www.linkedin.com/in/ayushozha/",
-      "title": "Software Engineer",
-      "companyName": "HiJenny",
+      "title": "Devrel",
+      "companyName": "Wasmer",
       "judged": [
         {
           "eventName": "Bay Builders Hackathon",
@@ -689,13 +738,35 @@
       ],
       "spoke": [
         {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        },
+        {
           "eventName": "Wizard Hackathon",
           "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
-      "sponsored": [],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Wasmer"
+        }
+      ],
       "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        },
+        {
+          "eventName": "Founders Gathering",
+          "slug": "founders-gathering-mtsfqypq",
+          "eventDate": "2026-09-10"
+        },
         {
           "eventName": "Builders Campfire",
           "slug": "builders-campfire-msis058w",
@@ -772,6 +843,26 @@
           "eventDate": "2026-06-17"
         }
       ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "cc853936-97be-4466-aa48-ef2df44199e3",
+      "username": "Martina Beg",
+      "linkedin": "https://www.linkedin.com/in/martinabeg/",
+      "title": "GTM Lead",
+      "companyName": "Abaka AI",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Finchip AI"
+        }
+      ],
+      "hosted": [],
       "partnered": [],
       "volunteered": []
     },
@@ -1045,7 +1136,14 @@
         }
       ],
       "hosted": [],
-      "partnered": [],
+      "partnered": [
+        {
+          "eventName": "Vibe Coder Vampires Night",
+          "slug": "vibe-coder-vampires-night-mtohxm6h",
+          "eventDate": "2026-09-25",
+          "companyName": "Lunatechs"
+        }
+      ],
       "volunteered": []
     },
     {
@@ -1267,12 +1365,23 @@
       ],
       "spoke": [
         {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        },
+        {
           "eventName": "Wizard Hackathon",
           "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Finchip AI"
+        },
         {
           "eventName": "Wizard Hackathon",
           "slug": "wizard-hackathon-ms5th4d3",
@@ -1389,6 +1498,12 @@
       ],
       "spoke": [],
       "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Kylon"
+        },
         {
           "eventName": "Builders Campfire",
           "slug": "builders-campfire-msis058w",
@@ -2037,6 +2152,11 @@
       "judged": [],
       "spoke": [
         {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        },
+        {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
@@ -2044,13 +2164,25 @@
       ],
       "sponsored": [
         {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "RocketRide"
+        },
+        {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13",
           "companyName": "RocketRide"
         }
       ],
-      "hosted": [],
+      "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
       "partnered": [],
       "volunteered": []
     },
@@ -2085,10 +2217,23 @@
       "username": "Robin Meister",
       "linkedin": "https://www.linkedin.com/in/robinmeister/",
       "title": "Partnership Manager",
-      "companyName": "FutureHouse AI",
+      "companyName": "Unlimit",
       "judged": [],
-      "spoke": [],
-      "sponsored": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Unlimit"
+        }
+      ],
       "hosted": [
         {
           "eventName": "Builders Campfire",
@@ -2354,6 +2499,382 @@
           "eventDate": "2026-07-23"
         }
       ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "c4da02a5-b89a-4d64-873a-1ed9a67f33ef",
+      "username": "Sumit Jadgale",
+      "linkedin": "https://www.linkedin.com/in/sumitjagdale/",
+      "title": "Founder",
+      "companyName": "Sartorial",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Sartorial"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "3beab1c8-0b4f-412f-b387-ca3305558114",
+      "username": "Aria Shi",
+      "linkedin": "https://www.linkedin.com/in/aria-ailearning/",
+      "title": "Head of GTM",
+      "companyName": "AdaL",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "AdaL"
+        }
+      ],
+      "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "b3565ada-8d9c-4b5a-8535-3f775711aadc",
+      "username": "Sean Chiu",
+      "linkedin": "https://www.linkedin.com/in/seanchiuai/",
+      "title": "Head of Ambassedor",
+      "companyName": "Builder Base",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "partnered": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Builder Base"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "b939a155-68e5-4bd1-9136-a0f8813a423e",
+      "username": "Deepak Chawla",
+      "linkedin": "https://www.linkedin.com/in/deepakchawla1307/",
+      "title": "Founder",
+      "companyName": "AIHouse",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "AIHouse"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "7cb32278-5075-4c6c-a7b4-10ba36d40e4a",
+      "username": "Gary Li",
+      "linkedin": "https://www.linkedin.com/in/yungang-gary-li/",
+      "title": "Head of Growth",
+      "companyName": "Articuler AI",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "partnered": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Articuler AI"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "00d224c5-5b6f-41af-9927-5f6e5529fb2d",
+      "username": "Vin Wanfan",
+      "linkedin": "https://www.linkedin.com/in/vinwanfan/",
+      "title": "Founder",
+      "companyName": "BridgeUS",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "partnered": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "BridgeUS"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "6d4f7208-29cf-4c48-bfe1-251f043a891c",
+      "username": "Alex Marin",
+      "linkedin": "https://www.linkedin.com/in/alex-marin-83b369113/",
+      "title": "Founder",
+      "companyName": "NerdConf",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "partnered": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "NerdConf"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "a0e5bad4-947c-4169-8c72-7cc7206a7870",
+      "username": "Yezhisai Murugesan",
+      "linkedin": "https://www.linkedin.com/in/yezhisaim/",
+      "title": "Founder",
+      "companyName": "Ask the W",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Ask the W"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e4c98c71-6202-403c-8642-ee0a92ddb1f0",
+      "username": "Sofia Kao",
+      "linkedin": "https://www.linkedin.com/in/sofia-kao/",
+      "title": "Co-Founder",
+      "companyName": "Flatkey",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Vibe Coder Vampires Night",
+          "slug": "vibe-coder-vampires-night-mtohxm6h",
+          "eventDate": "2026-09-25",
+          "companyName": "Flatkey"
+        },
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Flatkey"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "9ab3236d-008f-4547-ba2f-cc42b43c74d2",
+      "username": "Jakob Prince",
+      "linkedin": "https://www.linkedin.com/in/jakobprince/",
+      "title": "AI Strategist",
+      "companyName": "PromptQL",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "PromptQL"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "501267ae-fd25-4999-a3ab-33d53ca48df4",
+      "username": "Kaia Colban",
+      "linkedin": "https://www.linkedin.com/in/kaia-colban-13a415a2/",
+      "title": "CPO",
+      "companyName": "Lore",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Lore"
+        }
+      ],
+      "hosted": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "86cd7615-f0ca-4141-9ce6-6bd901f0acd2",
+      "username": "Josh Shulman",
+      "linkedin": "https://www.linkedin.com/in/jdshulman/",
+      "title": "Product Marketing Manager",
+      "companyName": "We Are Developers",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "We Are Developers"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "4adac916-2caf-43dc-9f5a-e211c4297876",
+      "username": "Jason Gellman",
+      "linkedin": "https://www.linkedin.com/in/jason-gellman/",
+      "title": "Partnerships and GTM",
+      "companyName": "Massive",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "Massive"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "d064f858-0926-433e-be80-57492fdfc7b0",
+      "username": "Sean Er",
+      "linkedin": "https://www.linkedin.com/in/seaner/",
+      "title": "Co Founder & CTO",
+      "companyName": "LightSage",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "BuildFest: Demos and Challenges",
+          "slug": "buildfest-demos-and-challenges-mtohuhxj",
+          "eventDate": "2026-09-10",
+          "companyName": "LightSage"
+        }
+      ],
+      "hosted": [],
       "partnered": [],
       "volunteered": []
     }

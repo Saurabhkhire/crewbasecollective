@@ -1,6 +1,12 @@
 {
   "sponsors": [
     {
+      "id": "bee5c2fe-c6c9-4d7f-b81d-14e477752a8d",
+      "name": "AdaL",
+      "logoUrl": "/images/companies/adal.jpg",
+      "website": "https://adalagent.ai/"
+    },
+    {
       "id": "754d2277-26cc-4416-9d3b-e0779870877e",
       "name": "Agent OS",
       "logoUrl": "/images/companies/agent-os.jpg",
@@ -23,6 +29,12 @@
       "name": "Apify",
       "logoUrl": "/images/companies/apify.png",
       "website": "https://apify.com/"
+    },
+    {
+      "id": "061608b2-af67-4a39-9670-631831c950e5",
+      "name": "Ask the W",
+      "logoUrl": "/images/companies/ask-the-w.png",
+      "website": "https://askthew.com/"
     },
     {
       "id": "33646e72-dd9d-42e5-b978-4c6c5bae1d50",
@@ -71,6 +83,12 @@
       "name": "Finchip AI",
       "logoUrl": "/images/companies/finchip-ai.jpg",
       "website": "https://finchip.ai/"
+    },
+    {
+      "id": "e4a5ea7f-981a-4268-b7bd-0c820029e613",
+      "name": "Flatkey",
+      "logoUrl": "/images/companies/flatkey.jpg",
+      "website": "https://flatkey.ai/"
     },
     {
       "id": "b2a8b6b8-b12c-4cf0-92fe-554491f86636",
@@ -127,6 +145,18 @@
       "website": "https://kylon.io/"
     },
     {
+      "id": "bd108cda-ee55-45a3-a02d-411a5b3aa58e",
+      "name": "LightSage",
+      "logoUrl": "/images/companies/lightsage.png",
+      "website": "https://lightsage.com/"
+    },
+    {
+      "id": "2fdf69d7-58cd-4674-9c56-5fd91c8cd9d8",
+      "name": "Lore",
+      "logoUrl": "/images/companies/lore.png",
+      "website": "https://lore.link/"
+    },
+    {
       "id": "7f91461b-467d-47c6-b188-2c847d298a2b",
       "name": "Lovable",
       "logoUrl": "/images/companies/lovable.png",
@@ -137,6 +167,12 @@
       "name": "Lyzr",
       "logoUrl": "/images/companies/lyzr.jpg",
       "website": "https://www.lyzr.ai/"
+    },
+    {
+      "id": "4eb2d7db-061b-4537-8ce5-0cd339cee4ce",
+      "name": "Massive",
+      "logoUrl": "/images/companies/massive.jpg",
+      "website": "https://www.joinmassive.com/"
     },
     {
       "id": "126c51c7-58af-4afb-a963-7ebb6c70df26",
@@ -161,6 +197,12 @@
       "name": "Opsera",
       "logoUrl": "/images/companies/opsera.png",
       "website": "https://opsera.ai/"
+    },
+    {
+      "id": "018ab7de-2007-4e09-b96e-a6e46dcc823b",
+      "name": "PromptQL",
+      "logoUrl": "/images/companies/promptql.png",
+      "website": "https://promptql.io/"
     },
     {
       "id": "0638ff79-676f-4bca-946c-ad4f8d447d9f",
@@ -193,6 +235,12 @@
       "website": "https://cloud.rocketride.ai/"
     },
     {
+      "id": "75909d20-420b-49e7-baad-8cba3eb3b980",
+      "name": "Sartorial",
+      "logoUrl": "/images/companies/sar.png",
+      "website": "https://www.sartori.al/"
+    },
+    {
       "id": "15b62625-a629-406c-a14a-bd7c07e451b8",
       "name": "Synk",
       "logoUrl": "/images/companies/synk.jpg",
@@ -205,6 +253,12 @@
       "website": "https://www.tavily.com/"
     },
     {
+      "id": "83c7b5bb-86f7-4280-97dd-a148e30452b6",
+      "name": "Tenki",
+      "logoUrl": "/images/companies/tenki.jpg",
+      "website": "https://tenki.cloud/"
+    },
+    {
       "id": "5c222f24-ce35-4cf8-8aa5-c4538eb07aed",
       "name": "Tigris Data",
       "logoUrl": "/images/companies/tigris-data.png",
@@ -215,6 +269,18 @@
       "name": "TRAE",
       "logoUrl": "/images/companies/trae.jpg",
       "website": "https://www.trae.ai/"
+    },
+    {
+      "id": "6338ed35-07f7-4254-90d9-aa15030d5562",
+      "name": "Unlimit",
+      "logoUrl": "/images/companies/unlimit.jpg",
+      "website": "https://www.unlimit.com/"
+    },
+    {
+      "id": "b77957bf-462e-476b-8842-48575b8c20a5",
+      "name": "Wasmer",
+      "logoUrl": "/images/companies/wasmer.jpg",
+      "website": "https://wasmer.io/"
     },
     {
       "id": "31e1f1f1-28e5-471e-a44c-2e9c5625f890",
@@ -251,10 +317,52 @@
       "partnerType": "community",
       "companies": [
         {
+          "id": "882365e2-3fe6-4f5b-895c-3a9b7e92148e",
+          "name": "AIHouse",
+          "logoUrl": "/images/companies/aihouse.png",
+          "website": "https://www.aihouze.xyz/"
+        },
+        {
+          "id": "1073f0d0-7e77-4dda-9a67-a75da7abc420",
+          "name": "Articuler AI",
+          "logoUrl": "/images/companies/articuler-ai.png",
+          "website": "https://www.articuler.ai/"
+        },
+        {
+          "id": "fa911e79-0010-4203-8bda-640a4b06dfa6",
+          "name": "BridgeUS",
+          "logoUrl": "/images/companies/bridgeus.png",
+          "website": "https://bridgeus.co"
+        },
+        {
+          "id": "9d045baa-eaff-4021-9156-4e1ba51fa72d",
+          "name": "Builder Base",
+          "logoUrl": "/images/companies/builder-base.jpg",
+          "website": "https://builderbase.com/"
+        },
+        {
           "id": "d2bc21c4-ae2c-4807-ba3d-61a337406c7a",
           "name": "Devnovate",
           "logoUrl": "/images/companies/devnovate.png",
           "website": "https://devnovate.co/"
+        },
+        {
+          "id": "b1c21c33-32ca-4c25-b326-93dfe3310579",
+          "name": "Lunatechs",
+          "logoUrl": "/images/companies/lunatechs.jpg",
+          "website": "https://lunatechs.social/"
+        },
+        {
+          "id": "639dff36-56e2-4c49-8708-c6e6572a2319",
+          "name": "NerdConf",
+          "logoUrl": "/images/companies/nerdconf.jpg",
+          "website": "https://www.nerdconf.com/"
+        },
+        {
+          "id": "a613145a-9734-4a22-9873-f71f1d8be1c8",
+          "name": "We Are Developers",
+          "logoUrl": "/images/companies/we-are-developers.jpg",
+          "website": "https://www.wearedevelopers.com/"
         }
       ]
     }
@@ -281,10 +389,52 @@
   ],
   "communityPartners": [
     {
+      "id": "882365e2-3fe6-4f5b-895c-3a9b7e92148e",
+      "name": "AIHouse",
+      "logoUrl": "/images/companies/aihouse.png",
+      "website": "https://www.aihouze.xyz/"
+    },
+    {
+      "id": "1073f0d0-7e77-4dda-9a67-a75da7abc420",
+      "name": "Articuler AI",
+      "logoUrl": "/images/companies/articuler-ai.png",
+      "website": "https://www.articuler.ai/"
+    },
+    {
+      "id": "fa911e79-0010-4203-8bda-640a4b06dfa6",
+      "name": "BridgeUS",
+      "logoUrl": "/images/companies/bridgeus.png",
+      "website": "https://bridgeus.co"
+    },
+    {
+      "id": "9d045baa-eaff-4021-9156-4e1ba51fa72d",
+      "name": "Builder Base",
+      "logoUrl": "/images/companies/builder-base.jpg",
+      "website": "https://builderbase.com/"
+    },
+    {
       "id": "d2bc21c4-ae2c-4807-ba3d-61a337406c7a",
       "name": "Devnovate",
       "logoUrl": "/images/companies/devnovate.png",
       "website": "https://devnovate.co/"
+    },
+    {
+      "id": "b1c21c33-32ca-4c25-b326-93dfe3310579",
+      "name": "Lunatechs",
+      "logoUrl": "/images/companies/lunatechs.jpg",
+      "website": "https://lunatechs.social/"
+    },
+    {
+      "id": "639dff36-56e2-4c49-8708-c6e6572a2319",
+      "name": "NerdConf",
+      "logoUrl": "/images/companies/nerdconf.jpg",
+      "website": "https://www.nerdconf.com/"
+    },
+    {
+      "id": "a613145a-9734-4a22-9873-f71f1d8be1c8",
+      "name": "We Are Developers",
+      "logoUrl": "/images/companies/we-are-developers.jpg",
+      "website": "https://www.wearedevelopers.com/"
     }
   ]
 }
