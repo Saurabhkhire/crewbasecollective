@@ -681,6 +681,28 @@
       "id": "2fdf69d7-58cd-4674-9c56-5fd91c8cd9d8",
       "createdAt": "2026-09-09T09:34:46.366Z",
       "updatedAt": "2026-09-09T09:34:55.909Z"
+    },
+    {
+      "name": "AI Global Campus",
+      "logoUrl": "/images/companies/ai-global-campus.jpg",
+      "website": "https://aiglobalcampus.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "8d79a06e-c3a6-40ea-a57a-e74ee9db0c1e",
+      "createdAt": "2026-09-27T01:57:10.747Z",
+      "updatedAt": "2026-09-27T01:57:10.747Z"
+    },
+    {
+      "name": "AISA One",
+      "logoUrl": "/images/companies/aisa-one.jpg",
+      "website": "https://aisa.one/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "5f14a1e0-512d-4906-b8f6-bfbfe56b9c0a",
+      "createdAt": "2026-09-27T01:58:00.720Z",
+      "updatedAt": "2026-09-27T01:58:00.720Z"
     }
   ]
 }

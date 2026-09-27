@@ -25,6 +25,12 @@
       "website": "https://www.aihouze.xyz/"
     },
     {
+      "id": "5f14a1e0-512d-4906-b8f6-bfbfe56b9c0a",
+      "name": "AISA One",
+      "logoUrl": "/images/companies/aisa-one.jpg",
+      "website": "https://aisa.one/"
+    },
+    {
       "id": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
       "name": "Apify",
       "logoUrl": "/images/companies/apify.png",
@@ -294,6 +300,12 @@
       "partnerType": "venue",
       "companies": [
         {
+          "id": "8d79a06e-c3a6-40ea-a57a-e74ee9db0c1e",
+          "name": "AI Global Campus",
+          "logoUrl": "/images/companies/ai-global-campus.jpg",
+          "website": "https://aiglobalcampus.com/"
+        },
+        {
           "id": "f8d0ad39-c8ad-4daf-a653-ec12d80cc222",
           "name": "Amazon",
           "logoUrl": "/images/companies/amazon.png",
@@ -347,16 +359,16 @@
           "website": "https://devnovate.co/"
         },
         {
-          "id": "b1c21c33-32ca-4c25-b326-93dfe3310579",
-          "name": "Lunatechs",
-          "logoUrl": "/images/companies/lunatechs.jpg",
-          "website": "https://lunatechs.social/"
-        },
-        {
           "id": "639dff36-56e2-4c49-8708-c6e6572a2319",
           "name": "NerdConf",
           "logoUrl": "/images/companies/nerdconf.jpg",
           "website": "https://www.nerdconf.com/"
+        },
+        {
+          "id": "75909d20-420b-49e7-baad-8cba3eb3b980",
+          "name": "Sartorial",
+          "logoUrl": "/images/companies/sar.png",
+          "website": "https://www.sartori.al/"
         },
         {
           "id": "a613145a-9734-4a22-9873-f71f1d8be1c8",
@@ -368,6 +380,12 @@
     }
   ],
   "venuePartners": [
+    {
+      "id": "8d79a06e-c3a6-40ea-a57a-e74ee9db0c1e",
+      "name": "AI Global Campus",
+      "logoUrl": "/images/companies/ai-global-campus.jpg",
+      "website": "https://aiglobalcampus.com/"
+    },
     {
       "id": "f8d0ad39-c8ad-4daf-a653-ec12d80cc222",
       "name": "Amazon",
@@ -419,16 +437,16 @@
       "website": "https://devnovate.co/"
     },
     {
-      "id": "b1c21c33-32ca-4c25-b326-93dfe3310579",
-      "name": "Lunatechs",
-      "logoUrl": "/images/companies/lunatechs.jpg",
-      "website": "https://lunatechs.social/"
-    },
-    {
       "id": "639dff36-56e2-4c49-8708-c6e6572a2319",
       "name": "NerdConf",
       "logoUrl": "/images/companies/nerdconf.jpg",
       "website": "https://www.nerdconf.com/"
+    },
+    {
+      "id": "75909d20-420b-49e7-baad-8cba3eb3b980",
+      "name": "Sartorial",
+      "logoUrl": "/images/companies/sar.png",
+      "website": "https://www.sartori.al/"
     },
     {
       "id": "a613145a-9734-4a22-9873-f71f1d8be1c8",
