@@ -592,7 +592,7 @@
       "information": null,
       "id": "1073f0d0-7e77-4dda-9a67-a75da7abc420",
       "createdAt": "2026-09-06T09:23:23.427Z",
-      "updatedAt": "2026-09-06T09:23:23.427Z"
+      "updatedAt": "2026-09-27T03:57:27.706Z"
     },
     {
       "name": "BridgeUS",
@@ -703,6 +703,160 @@
       "id": "5f14a1e0-512d-4906-b8f6-bfbfe56b9c0a",
       "createdAt": "2026-09-27T01:58:00.720Z",
       "updatedAt": "2026-09-27T01:58:00.720Z"
+    },
+    {
+      "name": "Masky AI",
+      "logoUrl": "/images/companies/masky-ai.png",
+      "website": "https://masky.ai",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "b437fdc6-d0b1-4f72-a0a4-5321d1d7c902",
+      "createdAt": "2026-10-05T02:09:18.192Z",
+      "updatedAt": "2026-10-05T02:09:18.192Z"
+    },
+    {
+      "name": "Prelint",
+      "logoUrl": "/images/companies/prelint.jpg",
+      "website": "https://prelint.com",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "10971458-9ae4-4caf-a04e-593d316509c4",
+      "createdAt": "2026-10-05T02:13:10.816Z",
+      "updatedAt": "2026-10-05T02:13:10.816Z"
+    },
+    {
+      "name": "Paritok",
+      "logoUrl": "/images/companies/paritok.png",
+      "website": "https://www.paritok.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "f605b75c-f5b6-46f6-b250-55969e3e595c",
+      "createdAt": "2026-10-05T02:15:18.306Z",
+      "updatedAt": "2026-10-05T02:15:18.306Z"
+    },
+    {
+      "name": "Querit",
+      "logoUrl": "/images/companies/image.png",
+      "website": "https://www.querit.ai/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "620739f1-9b26-4f12-bf73-bf7d39d602c6",
+      "createdAt": "2026-10-05T02:21:46.482Z",
+      "updatedAt": "2026-10-05T02:21:46.482Z"
+    },
+    {
+      "name": "Voisekey",
+      "logoUrl": "/images/companies/voisekey.png",
+      "website": "https://www.voiskey.ai",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "5e2919e8-527c-4ef8-b3cb-d0c33f466386",
+      "createdAt": "2026-10-05T02:23:06.357Z",
+      "updatedAt": "2026-10-05T02:23:06.357Z"
+    },
+    {
+      "name": "Venture Bridge Hub",
+      "logoUrl": "/images/companies/venture-bridge-hub.png",
+      "website": "https://venturebridgehub.com",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "c9bcd923-e0d8-42c5-b5c3-a29e9fb80f5b",
+      "createdAt": "2026-10-05T02:24:26.759Z",
+      "updatedAt": "2026-10-05T02:24:26.759Z"
+    },
+    {
+      "name": "AI Collective",
+      "logoUrl": "/images/companies/ai-collective.jpg",
+      "website": "https://www.aicollective.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "74593a99-f301-4abb-8276-c7d20dff8205",
+      "createdAt": "2026-10-05T02:27:25.729Z",
+      "updatedAt": "2026-10-05T02:28:01.184Z"
+    },
+    {
+      "name": "Medallion Substack",
+      "logoUrl": "/images/companies/medallion-substack.png",
+      "website": "https://medallionxln.substack.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "12c163ce-8437-4994-9386-b58ca8b6e298",
+      "createdAt": "2026-10-05T02:31:35.109Z",
+      "updatedAt": "2026-10-05T02:31:35.109Z"
+    },
+    {
+      "name": "Bond AI",
+      "logoUrl": "/images/companies/bond-ai.png",
+      "website": "https://bondcommunity.ai/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "9df9877e-e9fb-47d1-9cde-8853924ca375",
+      "createdAt": "2026-10-05T03:54:31.934Z",
+      "updatedAt": "2026-10-05T03:54:31.934Z"
+    },
+    {
+      "name": "Marvellous",
+      "logoUrl": "/images/companies/marvellous.png",
+      "website": "https://www.themarvelo.us/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "91458ab8-e1b0-4837-b496-67ec06423d77",
+      "createdAt": "2026-10-05T04:19:43.351Z",
+      "updatedAt": "2026-10-05T04:19:43.351Z"
+    },
+    {
+      "name": "Glasser",
+      "logoUrl": "/images/companies/glasser.jpg",
+      "website": "https://glasser.ai/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "5754b51e-8d51-454d-8e5f-c2099baf94d5",
+      "createdAt": "2026-10-05T18:18:43.943Z",
+      "updatedAt": "2026-10-05T18:18:43.943Z"
+    },
+    {
+      "name": "Box",
+      "logoUrl": "/images/companies/box.png",
+      "website": "https://www.box.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "25153914-ff5b-4099-8b1a-e089963d2ba3",
+      "createdAt": "2026-10-05T18:19:44.772Z",
+      "updatedAt": "2026-10-05T18:19:44.772Z"
+    },
+    {
+      "name": "GenAI Assembling",
+      "logoUrl": "/images/companies/genai-assembling.png",
+      "website": "https://genaiassembling.substack.com/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "3ef4c1a4-578e-4f3a-8577-d25da9c7dfd3",
+      "createdAt": "2026-10-17T22:53:17.484Z",
+      "updatedAt": "2026-10-17T22:53:17.484Z"
+    },
+    {
+      "name": "Celesto AI",
+      "logoUrl": "/images/companies/celesto-ai.png",
+      "website": "https://celesto.ai/",
+      "linkedin": null,
+      "email": null,
+      "information": null,
+      "id": "9b7ff73a-03dd-47d2-8a45-42c74cfe8e22",
+      "createdAt": "2026-10-17T23:17:38.695Z",
+      "updatedAt": "2026-10-17T23:17:38.695Z"
     }
   ]
 }

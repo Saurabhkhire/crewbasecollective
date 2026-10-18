@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "14a0bff1-6051-45ed-8946-cb39a4d84782",
-    "slug": "build-your-co-founder-hackathon-muj5td7d",
+    "slug": "build-your-co-founder-hackathon-munnmrk8",
     "name": "Build your Co Founder Hackathon",
     "type": "hackathon",
     "description": "​Build Your AI Co-Founder is a hackathon where you build and ship a company with a founding team of 2–4 co-founders, combining humans and AI.\n\n​Every team must have at least one human and one AI co-founder. You decide the rest—including who takes which role, what you build, and how your founding team works together.\n\n​AI co-founders can take any role: CEO, CTO, Product, Marketing, Sales, Research, or anything your company needs.\n\n​The goal is to experience what it means to build a real company with AI as part of the founding team—from idea to execution to a shipped product.",
@@ -24,7 +24,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-08-08T18:11:21.051Z",
-    "updatedAt": "2026-09-27T02:13:36.930Z",
+    "updatedAt": "2026-10-05T01:51:24.702Z",
     "lumaLink": "https://luma.com/i8976ew3789",
     "eventbriteLink": null
   },
@@ -174,8 +174,97 @@
     }
   ],
   "prizes": [],
-  "schedule": [],
-  "speakers": [],
+  "schedule": [
+    {
+      "id": "6080b228-e02e-4346-8f12-9cd6cc030c72",
+      "startTime": "2026-09-28T19:00:00.000Z",
+      "endTime": "2026-09-28T19:30:00.000Z",
+      "topic": "Welcome",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "2fb76bab-3ab3-4d9d-8cdf-2ca929641b47",
+      "startTime": "2026-09-28T19:30:00.000Z",
+      "endTime": "2026-09-28T20:00:00.000Z",
+      "topic": "Sponsor Demos",
+      "sortOrder": 1,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "5f8c3c63-c40d-4b95-a338-82beac9f6f79",
+      "startTime": "2026-09-28T20:00:00.000Z",
+      "endTime": "2026-09-29T01:00:00.000Z",
+      "topic": "Hacking",
+      "sortOrder": 2,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "3e479608-6b28-412f-8787-e8c1adb0321b",
+      "startTime": "2026-09-29T01:00:00.000Z",
+      "endTime": "2026-09-29T02:00:00.000Z",
+      "topic": "Judging and Demos",
+      "sortOrder": 3,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "9bf65400-f930-467b-9120-3ed0bba6f740",
+      "startTime": "2026-09-29T02:00:00.000Z",
+      "endTime": "2026-09-29T03:00:00.000Z",
+      "topic": "Winner Annoucements",
+      "sortOrder": 4,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "9d84b94d-8cdc-4c82-a4c7-44c730db5573",
+      "startTime": "2026-09-29T03:00:00.000Z",
+      "endTime": "2026-09-29T05:00:00.000Z",
+      "topic": "Networking",
+      "sortOrder": 5,
+      "isSkipped": false,
+      "speakers": []
+    }
+  ],
+  "speakers": [
+    {
+      "id": "1477834b-47c3-47b6-b730-89df410665a1",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "eventDay": "2026-09-28",
+      "startTime": "2026-09-28T19:30:00.000Z",
+      "endTime": "2026-09-28T19:40:00.000Z",
+      "topic": "Coding with AdaL",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 0
+    },
+    {
+      "id": "aad7be7d-7b5a-4058-8056-9ef6ac166d97",
+      "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+      "eventDay": "2026-09-28",
+      "startTime": "2026-09-28T19:40:00.000Z",
+      "endTime": "2026-09-28T19:55:00.000Z",
+      "topic": "Code review with Tenki, Cloud compute with Nebius and Store with AIsa",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 1
+    },
+    {
+      "id": "a3af296d-bc9f-4192-a3f4-7aeba561a65f",
+      "userId": "a0e5bad4-947c-4169-8c72-7cc7206a7870",
+      "eventDay": "2026-09-28",
+      "startTime": "2026-09-28T19:55:00.000Z",
+      "endTime": "2026-09-28T20:00:00.000Z",
+      "topic": "Ideas to Execution using Ask the W",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 2
+    }
+  ],
   "judges": [
     {
       "id": "c02a947d-d102-4d49-9ba9-59f3e426d496",
@@ -232,13 +321,6 @@
       "role": null,
       "status": "confirmed",
       "sortOrder": 7
-    },
-    {
-      "id": "5076b4c4-dded-4210-b84f-738f4b63871b",
-      "userId": "7dd76f6b-6a8e-4031-bba1-0a6bb980ed1c",
-      "role": null,
-      "status": "confirmed",
-      "sortOrder": 8
     },
     {
       "id": "ed6f9724-387d-4801-8562-71cedaf28277",

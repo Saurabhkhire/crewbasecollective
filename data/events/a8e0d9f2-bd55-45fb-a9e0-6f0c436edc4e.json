@@ -1,19 +1,19 @@
 {
   "event": {
     "id": "a8e0d9f2-bd55-45fb-a9e0-6f0c436edc4e",
-    "slug": "ai-native-startup-hackathon-mt0mk44u",
-    "name": "Ai Native Startup Hackathon",
+    "slug": "zero-human-startup-hackathon-muv2bcjv",
+    "name": "Zero Human Startup Hackathon",
     "type": "hackathon",
     "description": "",
-    "theme": "Ai Native Startup Hackathon",
-    "dayLabel": "Sat, Oct 10 – Sun, Oct 11",
-    "eventDate": "2026-10-10",
-    "endDate": "2026-10-11",
-    "startTime": "09:00",
-    "endTime": "20:00",
-    "location": "",
-    "locationLat": null,
-    "locationLng": null,
+    "theme": "Zero Human Startup Hackathon",
+    "dayLabel": "Wed, Oct 7",
+    "eventDate": "2026-10-07",
+    "endDate": "2026-10-07",
+    "startTime": "10:00",
+    "endTime": "17:00",
+    "location": "Sports Basement Outdoor & Camping, 1590, Bryant Street, Mission, San Francisco, California, 94103, United States",
+    "locationLat": "37.7670976",
+    "locationLng": "-122.4111318",
     "coverImageUrl": "",
     "coverPageUrl": "",
     "lumaLinks": [],
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": false,
     "createdAt": "2026-08-18T21:55:33.302Z",
-    "updatedAt": "2026-09-05T14:59:46.999Z",
+    "updatedAt": "2026-10-18T03:09:20.446Z",
     "lumaLink": null,
     "eventbriteLink": null
   },
@@ -37,19 +37,6 @@
       "representatives": [
         {
           "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
-          "status": "confirmed"
-        }
-      ]
-    },
-    {
-      "id": "be5bfc3e-b008-4877-9fff-5c30c234b458",
-      "companyId": "126c51c7-58af-4afb-a963-7ebb6c70df26",
-      "personId": null,
-      "status": "confirmed",
-      "sortOrder": 1,
-      "representatives": [
-        {
-          "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
           "status": "confirmed"
         }
       ]
@@ -92,12 +79,478 @@
           "status": "confirmed"
         }
       ]
+    },
+    {
+      "id": "4b215c74-7d7b-44d9-b3db-65f39b699354",
+      "companyId": "bee5c2fe-c6c9-4d7f-b81d-14e477752a8d",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 4,
+      "representatives": [
+        {
+          "userId": "3beab1c8-0b4f-412f-b387-ca3305558114",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "2790d607-8fc8-439c-83b4-ddc873d8d5bc",
+      "companyId": "f605b75c-f5b6-46f6-b250-55969e3e595c",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 5,
+      "representatives": [
+        {
+          "userId": "20377afb-57ed-4a14-b323-64e8460e44f7",
+          "status": "confirmed"
+        },
+        {
+          "userId": "6e829cb6-5dce-46f7-8fcd-26d3e52a644b",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "9d1a9e33-89db-4d94-8ade-bd2af5568eb2",
+      "companyId": "10971458-9ae4-4caf-a04e-593d316509c4",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 6,
+      "representatives": [
+        {
+          "userId": "012d2990-720c-4054-9f42-7079ff65d67c",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "f23aa3fc-6b0a-4fa7-ab36-6eade66e283b",
+      "companyId": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 7,
+      "representatives": [
+        {
+          "userId": "939c0411-0eae-40d6-a22a-6fc63e750374",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "2bf9bf1e-615e-45f2-83e3-cf9408640637",
+      "companyId": "619d3c70-3a4d-479f-bbd5-f13a2cfcd4ef",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 8,
+      "representatives": [
+        {
+          "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "de6d0bc6-ed80-4ef7-a650-c988deb76223",
+      "companyId": "5e2919e8-527c-4ef8-b3cb-d0c33f466386",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 9,
+      "representatives": []
+    },
+    {
+      "id": "7ffed172-9a26-4435-8c41-bf26662913ec",
+      "companyId": "620739f1-9b26-4f12-bf73-bf7d39d602c6",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 10,
+      "representatives": []
+    },
+    {
+      "id": "3685d062-4eab-4132-a484-8385c347e188",
+      "companyId": "aeeb497e-4490-41cc-a99b-fabafb9de69d",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 11,
+      "representatives": [
+        {
+          "userId": "fe33565d-c604-4e00-a041-810631800cfe",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "15164e47-adf2-4eac-8c7e-abca67a6b715",
+      "companyId": "061608b2-af67-4a39-9670-631831c950e5",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 12,
+      "representatives": [
+        {
+          "userId": "a0e5bad4-947c-4169-8c72-7cc7206a7870",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "cb75bcb2-0c1e-410c-aedd-08dd0fd43639",
+      "companyId": "5754b51e-8d51-454d-8e5f-c2099baf94d5",
+      "personId": null,
+      "status": "confirmed",
+      "sortOrder": 13,
+      "representatives": [
+        {
+          "userId": "757e6817-2578-4d89-ada3-b0fd365c76bd",
+          "status": "confirmed"
+        }
+      ]
     }
   ],
-  "partners": [],
+  "partners": [
+    {
+      "id": "7fc00e93-8f97-4598-af91-a73a0b800419",
+      "companyId": "c9bcd923-e0d8-42c5-b5c3-a29e9fb80f5b",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 0,
+      "representatives": [
+        {
+          "userId": "96ec51bb-8b7e-4d78-8203-27ddce7b2a31",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "3fa5ee94-e6a9-4438-91b5-55bd41d83956",
+      "companyId": "639dff36-56e2-4c49-8708-c6e6572a2319",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 1,
+      "representatives": [
+        {
+          "userId": "6d4f7208-29cf-4c48-bfe1-251f043a891c",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "8599a3e1-8fd7-4027-ac94-8f262456504c",
+      "companyId": "fa911e79-0010-4203-8bda-640a4b06dfa6",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 2,
+      "representatives": [
+        {
+          "userId": "00d224c5-5b6f-41af-9927-5f6e5529fb2d",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "1bb50dd1-5f43-4145-8a4e-42862fb22e27",
+      "companyId": "1073f0d0-7e77-4dda-9a67-a75da7abc420",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 3,
+      "representatives": [
+        {
+          "userId": "7cb32278-5075-4c6c-a7b4-10ba36d40e4a",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "de7c90de-a585-45d4-bcb3-d2bc27f175bf",
+      "companyId": "d2bc21c4-ae2c-4807-ba3d-61a337406c7a",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 4,
+      "representatives": [
+        {
+          "userId": "e2af9075-633b-48b5-9f4e-ede03672bbb1",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "5649825f-0450-49ea-bd1d-1d9c0c851ddf",
+      "companyId": "75909d20-420b-49e7-baad-8cba3eb3b980",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 5,
+      "representatives": [
+        {
+          "userId": "c4da02a5-b89a-4d64-873a-1ed9a67f33ef",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "e3499929-6a30-42e8-adc4-1d20972fd649",
+      "companyId": "12c163ce-8437-4994-9386-b58ca8b6e298",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 6,
+      "representatives": [
+        {
+          "userId": "f57aa942-44ad-4165-ad5a-8600a5bcff68",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "2a860c75-ece6-4608-975e-91ff6f5a4e0c",
+      "companyId": "9df9877e-e9fb-47d1-9cde-8853924ca375",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 7,
+      "representatives": [
+        {
+          "userId": "4450b872-09cb-4f64-87a6-268c9b3ca160",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "54b1db34-32f5-435a-bfe0-7927b3faf138",
+      "companyId": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 8,
+      "representatives": [
+        {
+          "userId": "939c0411-0eae-40d6-a22a-6fc63e750374",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "2f6975d1-de2e-4db9-95bf-7e5011343e1f",
+      "companyId": "25153914-ff5b-4099-8b1a-e089963d2ba3",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 9,
+      "representatives": []
+    },
+    {
+      "id": "86f7a2c7-17a1-4d19-9d98-72a0b45f4ce9",
+      "companyId": "17165d13-cf13-47a8-b4e4-fe98da9079bc",
+      "customName": null,
+      "partnerType": "community",
+      "customType": null,
+      "status": "confirmed",
+      "sortOrder": 10,
+      "representatives": [
+        {
+          "userId": "6226d658-17e8-4088-8bf0-1e5d31f4e2d9",
+          "status": "confirmed"
+        }
+      ]
+    }
+  ],
   "prizes": [],
-  "schedule": [],
-  "speakers": [],
+  "schedule": [
+    {
+      "id": "b7ef460e-c29f-4a05-afe4-0b49e9dbe934",
+      "startTime": "2026-10-07T17:00:00.000Z",
+      "endTime": "2026-10-07T18:00:00.000Z",
+      "topic": "Welcome",
+      "sortOrder": 0,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "0232cdde-dacb-4dd3-9297-767b8ac48134",
+      "startTime": "2026-10-07T18:00:00.000Z",
+      "endTime": "2026-10-07T19:00:00.000Z",
+      "topic": "Sponsor Demos",
+      "sortOrder": 1,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "baa360d4-fb62-40e3-b0c4-5fa44ee82a02",
+      "startTime": "2026-10-07T19:00:00.000Z",
+      "endTime": "2026-10-07T23:00:00.000Z",
+      "topic": "Hacking",
+      "sortOrder": 2,
+      "isSkipped": false,
+      "speakers": []
+    },
+    {
+      "id": "b8dd2cdb-27e2-422d-9b2e-67821397ae70",
+      "startTime": "2026-10-07T23:00:00.000Z",
+      "endTime": "2026-10-08T00:00:00.000Z",
+      "topic": "Judging and Demos",
+      "sortOrder": 3,
+      "isSkipped": false,
+      "speakers": []
+    }
+  ],
+  "speakers": [
+    {
+      "id": "b04a322a-60e7-4e55-a496-75a0ca1a3425",
+      "userId": "6e829cb6-5dce-46f7-8fcd-26d3e52a644b",
+      "eventDay": "2026-10-07",
+      "startTime": "2026-10-07T18:00:00.000Z",
+      "endTime": "2026-10-08T06:05:00.000Z",
+      "topic": "Compress tools with Paritok",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 0
+    },
+    {
+      "id": "01029203-e23b-4510-a01a-a501ba1a953f",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "eventDay": "2026-10-07",
+      "startTime": "2026-10-08T06:05:00.000Z",
+      "endTime": "2026-10-08T18:10:00.000Z",
+      "topic": "Coding with Agents in AdaL",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 1
+    },
+    {
+      "id": "47197f95-55d9-4fe8-9aa9-5c366bb6fb58",
+      "userId": "6a0cdb5d-4781-4dc9-b308-bc978015a90e",
+      "eventDay": "2026-10-08",
+      "startTime": "2026-10-08T18:10:00.000Z",
+      "endTime": "2026-10-09T06:15:00.000Z",
+      "topic": "Create team of AI Agents with Kylon",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 2
+    },
+    {
+      "id": "3a185f82-8630-4750-b975-4ad1f68f463c",
+      "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:20:00.000Z",
+      "endTime": "2026-10-09T18:25:00.000Z",
+      "topic": "Create No code pipelines with Rocket Ride",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 3
+    },
+    {
+      "id": "47fd72a3-cf6f-44a6-a346-d94f5795ba7d",
+      "userId": "012d2990-720c-4054-9f42-7079ff65d67c",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:15:00.000Z",
+      "endTime": "2026-10-09T18:20:00.000Z",
+      "topic": "Review, Record and Trace every decision with Prelint",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 4
+    },
+    {
+      "id": "d7889183-7a9a-4ead-a6ef-47888eb02609",
+      "userId": "16ce7875-f4d2-4fbe-9ba3-b385dc226fd0",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:25:00.000Z",
+      "endTime": "2026-10-09T18:30:00.000Z",
+      "topic": "Sandboxes and code review with Tenki",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 5
+    },
+    {
+      "id": "3e609999-0b0b-4331-b3d1-164a48a09709",
+      "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:30:00.000Z",
+      "endTime": "2026-10-09T18:35:00.000Z",
+      "topic": "Agents and Skills marketplace with Finch",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 6
+    },
+    {
+      "id": "fc34de00-c18c-4040-85a7-ce1478be96fc",
+      "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:35:00.000Z",
+      "endTime": "2026-10-09T18:40:00.000Z",
+      "topic": "Agent Native Backend in Insforge",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 7
+    },
+    {
+      "id": "3d131756-1794-4272-a746-355f9e8dff1b",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:40:00.000Z",
+      "endTime": "2026-10-09T18:43:00.000Z",
+      "topic": "Communication between agents using BAND",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 8
+    },
+    {
+      "id": "3d2a5fc3-ac4b-4fa0-ab98-45bdd46be157",
+      "userId": "4450b872-09cb-4f64-87a6-268c9b3ca160",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:43:00.000Z",
+      "endTime": "2026-10-09T18:46:00.000Z",
+      "topic": "Voice to prompt with Voisekey",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 9
+    },
+    {
+      "id": "f243fabd-dc90-4ebc-8376-f05940b3bc2d",
+      "userId": "4450b872-09cb-4f64-87a6-268c9b3ca160",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:46:00.000Z",
+      "endTime": "2026-10-09T18:50:00.000Z",
+      "topic": "Web Search with Querit",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 10
+    },
+    {
+      "id": "1f5b411b-1154-4100-9f27-6f6aef1ecc8c",
+      "userId": "939c0411-0eae-40d6-a22a-6fc63e750374",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:50:00.000Z",
+      "endTime": "2026-10-09T18:55:00.000Z",
+      "topic": "Web scrapper marketplace in Apify",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 11
+    },
+    {
+      "id": "8cd005d7-d44b-42f5-9c78-3391b1283bf4",
+      "userId": "4450b872-09cb-4f64-87a6-268c9b3ca160",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:55:00.000Z",
+      "endTime": "2026-10-09T18:59:00.000Z",
+      "topic": "Prompt with Box",
+      "isSkipped": false,
+      "status": "confirmed",
+      "sortOrder": 12
+    }
+  ],
   "judges": [
     {
       "id": "523da1a6-3f05-4b10-bc49-e66b176a322b",
@@ -128,13 +581,6 @@
       "sortOrder": 4
     },
     {
-      "id": "9b1931ba-d461-46d5-97b7-e6010c6288f0",
-      "userId": "9df2ae20-42b2-4402-817c-e86584b16a53",
-      "role": null,
-      "status": "confirmed",
-      "sortOrder": 5
-    },
-    {
       "id": "cceeb631-586c-414a-9c35-8045e5a67e19",
       "userId": "e7f933ee-cc4d-45f1-bc1a-2fa5860be7b2",
       "role": null,
@@ -163,14 +609,169 @@
       "sortOrder": 9
     },
     {
-      "id": "646fb761-3b2a-460a-a622-01a49c7aa1be",
-      "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+      "id": "88a9f2a5-25f5-4f5d-bbde-85231b7ceb97",
+      "userId": "3beab1c8-0b4f-412f-b387-ca3305558114",
       "role": null,
       "status": "confirmed",
-      "sortOrder": 9
+      "sortOrder": 10
+    },
+    {
+      "id": "977904cf-c708-4ab6-86ca-1bea25ac61c0",
+      "userId": "20377afb-57ed-4a14-b323-64e8460e44f7",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 11
+    },
+    {
+      "id": "f2400120-b926-4def-90e9-342da6289e67",
+      "userId": "6e829cb6-5dce-46f7-8fcd-26d3e52a644b",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 12
+    },
+    {
+      "id": "626311a4-1542-4791-976e-6dc861e8739e",
+      "userId": "012d2990-720c-4054-9f42-7079ff65d67c",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 13
+    },
+    {
+      "id": "2dfdee48-52f9-44b3-90cf-861242b2790d",
+      "userId": "939c0411-0eae-40d6-a22a-6fc63e750374",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 14
+    },
+    {
+      "id": "aa521f1a-c311-4876-99a9-e535143d24bb",
+      "userId": "a1e9ec7d-2ffd-4013-9c07-08fbd9aedc03",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 15
+    },
+    {
+      "id": "8221dc09-eabf-40b5-a2bf-ad515e4c02d6",
+      "userId": "fe33565d-c604-4e00-a041-810631800cfe",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 16
+    },
+    {
+      "id": "aa769630-dde5-4840-8d18-46a37d22bac5",
+      "userId": "a0e5bad4-947c-4169-8c72-7cc7206a7870",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 17
+    },
+    {
+      "id": "4ba38101-bc9d-4dc0-b9f8-355924aa14c3",
+      "userId": "1ed3ed9f-0067-403f-ae17-7f1f2aeb97e1",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 16
+    },
+    {
+      "id": "b5f467a3-6dfa-4d46-80e5-f73117c01369",
+      "userId": "7dd76f6b-6a8e-4031-bba1-0a6bb980ed1c",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 17
+    },
+    {
+      "id": "d40d2ee3-de07-4733-a9f3-09fb20d3b06b",
+      "userId": "7dd76f6b-6a8e-4031-bba1-0a6bb980ed1c",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 18
+    },
+    {
+      "id": "9d9d390e-b29f-4209-b4f8-523bc8145095",
+      "userId": "469b38c7-fdd4-4dca-aac6-324b2465ee30",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 19
+    },
+    {
+      "id": "00795504-0d4d-4eab-9b79-3ddcfe16afdd",
+      "userId": "757e6817-2578-4d89-ada3-b0fd365c76bd",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 20
+    },
+    {
+      "id": "165ecb39-71a0-4e05-9023-3a338835d9ea",
+      "userId": "936f27da-ef37-4460-80fd-7cb11d244b21",
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 21
     }
   ],
-  "hosts": [],
+  "hosts": [
+    {
+      "id": "8dc6a2d2-e69f-4c09-b1ef-1cae3c3bb855",
+      "userId": "96b0389e-2b86-46eb-975d-7302a06f6b83",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 0
+    },
+    {
+      "id": "5a778d24-ed08-4ffd-89b7-759c7e94ad0d",
+      "userId": "f57aa942-44ad-4165-ad5a-8600a5bcff68",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 1
+    },
+    {
+      "id": "62274be6-909e-456f-82d8-2a3d2de2bb93",
+      "userId": "00d224c5-5b6f-41af-9927-5f6e5529fb2d",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 2
+    },
+    {
+      "id": "ecf2a1a1-ea29-4193-ab31-fb9514bc2ea3",
+      "userId": "310cd184-dcaf-4d74-ac3a-0032c4b9239e",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 3
+    },
+    {
+      "id": "9338ba7f-6546-47e3-b546-e26e03c93a61",
+      "userId": "e2af9075-633b-48b5-9f4e-ede03672bbb1",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 4
+    },
+    {
+      "id": "a8662cf2-4582-4f3f-a268-4cf4ffb0faf0",
+      "userId": "3beab1c8-0b4f-412f-b387-ca3305558114",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 5
+    },
+    {
+      "id": "b2b7bae8-e8f4-4552-8c17-e7def2ab2cca",
+      "userId": "2bf73a5a-0a21-4efb-96ed-4560a0e2044c",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "status": "confirmed",
+      "sortOrder": 6
+    }
+  ],
   "associated": [],
   "staffRoles": [],
   "links": [],

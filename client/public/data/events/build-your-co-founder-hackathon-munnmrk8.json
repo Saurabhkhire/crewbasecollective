@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "14a0bff1-6051-45ed-8946-cb39a4d84782",
-    "slug": "build-your-co-founder-hackathon-muj5td7d",
+    "slug": "build-your-co-founder-hackathon-munnmrk8",
     "name": "Build your Co Founder Hackathon",
     "type": "hackathon",
     "description": "​Build Your AI Co-Founder is a hackathon where you build and ship a company with a founding team of 2–4 co-founders, combining humans and AI.\n\n​Every team must have at least one human and one AI co-founder. You decide the rest—including who takes which role, what you build, and how your founding team works together.\n\n​AI co-founders can take any role: CEO, CTO, Product, Marketing, Sales, Research, or anything your company needs.\n\n​The goal is to experience what it means to build a real company with AI as part of the founding team—from idea to execution to a shipped product.",
@@ -24,7 +24,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-08-08T18:11:21.051Z",
-    "updatedAt": "2026-09-27T02:13:36.930Z",
+    "updatedAt": "2026-10-05T01:51:24.702Z",
     "lumaLink": "https://luma.com/i8976ew3789",
     "eventbriteLink": null
   },
@@ -194,8 +194,82 @@
     }
   ],
   "prizes": [],
-  "schedule": [],
-  "speakers": [],
+  "schedule": [
+    {
+      "id": "6080b228-e02e-4346-8f12-9cd6cc030c72",
+      "startTime": "2026-09-28T19:00:00.000Z",
+      "endTime": "2026-09-28T19:30:00.000Z",
+      "topic": "Welcome",
+      "speakers": []
+    },
+    {
+      "id": "2fb76bab-3ab3-4d9d-8cdf-2ca929641b47",
+      "startTime": "2026-09-28T19:30:00.000Z",
+      "endTime": "2026-09-28T20:00:00.000Z",
+      "topic": "Sponsor Demos",
+      "speakers": []
+    },
+    {
+      "id": "5f8c3c63-c40d-4b95-a338-82beac9f6f79",
+      "startTime": "2026-09-28T20:00:00.000Z",
+      "endTime": "2026-09-29T01:00:00.000Z",
+      "topic": "Hacking",
+      "speakers": []
+    },
+    {
+      "id": "3e479608-6b28-412f-8787-e8c1adb0321b",
+      "startTime": "2026-09-29T01:00:00.000Z",
+      "endTime": "2026-09-29T02:00:00.000Z",
+      "topic": "Judging and Demos",
+      "speakers": []
+    },
+    {
+      "id": "9bf65400-f930-467b-9120-3ed0bba6f740",
+      "startTime": "2026-09-29T02:00:00.000Z",
+      "endTime": "2026-09-29T03:00:00.000Z",
+      "topic": "Winner Annoucements",
+      "speakers": []
+    },
+    {
+      "id": "9d84b94d-8cdc-4c82-a4c7-44c730db5573",
+      "startTime": "2026-09-29T03:00:00.000Z",
+      "endTime": "2026-09-29T05:00:00.000Z",
+      "topic": "Networking",
+      "speakers": []
+    }
+  ],
+  "speakers": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "eventDay": "2026-09-28",
+      "startTime": "2026-09-28T19:30:00.000Z",
+      "endTime": "2026-09-28T19:40:00.000Z",
+      "topic": "Coding with AdaL",
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Colin Lowenberg",
+      "linkedin": "https://www.linkedin.com/in/wifi/",
+      "eventDay": "2026-09-28",
+      "startTime": "2026-09-28T19:40:00.000Z",
+      "endTime": "2026-09-28T19:55:00.000Z",
+      "topic": "Code review with Tenki, Cloud compute with Nebius and Store with AIsa",
+      "title": "DevRel",
+      "companyName": "Nebius"
+    },
+    {
+      "username": "Yezhisai Murugesan",
+      "linkedin": "https://www.linkedin.com/in/yezhisaim/",
+      "eventDay": "2026-09-28",
+      "startTime": "2026-09-28T19:55:00.000Z",
+      "endTime": "2026-09-28T20:00:00.000Z",
+      "topic": "Ideas to Execution using Ask the W",
+      "title": "Founder",
+      "companyName": "Ask the W"
+    }
+  ],
   "judges": [
     {
       "username": "Saurabh Khire",
@@ -224,13 +298,6 @@
       "role": null,
       "title": "Strategic Advisor",
       "companyName": "Google Deepmind"
-    },
-    {
-      "username": "Ali Amjad",
-      "linkedin": "https://www.linkedin.com/in/ali-amjad-a80732137a",
-      "role": null,
-      "title": "Research Fellow",
-      "companyName": "R42 Group"
     },
     {
       "username": "Sumit Jadgale",

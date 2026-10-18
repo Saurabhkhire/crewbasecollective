@@ -2,7 +2,7 @@
   "events": [
     {
       "id": "14a0bff1-6051-45ed-8946-cb39a4d84782",
-      "slug": "build-your-co-founder-hackathon-muj5td7d",
+      "slug": "build-your-co-founder-hackathon-munnmrk8",
       "name": "Build your Co Founder Hackathon",
       "type": "hackathon",
       "description": "​Build Your AI Co-Founder is a hackathon where you build and ship a company with a founding team of 2–4 co-founders, combining humans and AI.\n\n​Every team must have at least one human and one AI co-founder. You decide the rest—including who takes which role, what you build, and how your founding team works together.\n\n​AI co-founders can take any role: CEO, CTO, Product, Marketing, Sales, Research, or anything your company needs.\n\n​The goal is to experience what it means to build a real company with AI as part of the founding team—from idea to execution to a shipped product.",
@@ -25,13 +25,13 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-08-08T18:11:21.051Z",
-      "updatedAt": "2026-09-27T02:13:36.930Z",
+      "updatedAt": "2026-10-05T01:51:24.702Z",
       "lumaLink": "https://luma.com/i8976ew3789",
       "eventbriteLink": null
     },
     {
       "id": "ad840a50-5bdd-4a19-b8bb-56cb39c93f17",
-      "slug": "buildfest-demos-and-challenges-mtohuhxj",
+      "slug": "buildfest-demos-and-challenges-muj6rws3",
       "name": "BuildFest: Demos and Challenges",
       "type": "demo",
       "description": "​What if you could see 10 AI tools in action, try them yourself, and use them to solve real problems — all in one session?\n\n​Buildfest: Demos and Challenges is a demo day, hands-on event where sponsors will show you what their tools can do, and then give you a small challenge to solve.\n​No long workshops. No hours of setup. ​You’ll see → try → build → solve. Whether you're a developer, student, founder, designer, researcher, or just curious about AI, you can jump in at your level.\n\n​Event Format\n\n​You’ll start with a set of 10 sample datasets covering different real-world problems. You can choose one of them to work with, or bring your own dataset and problem.\n\n​Pick a problem\n\n​You can work on problems like: Build a system that creates study plans for students, Help shoppers find the right product based on their needs, Automate information extraction and processing from invoices, Build an AI travel planner, Summarize notes and extract important actions, Match candidates to jobs and help recruiters screen applications, Analyze restaurant data and identify inventory/demand problems, Build an AI system that answers common customer questions, Turn a simple idea into a structured content workflow, Find and evaluate promising problems and ideas or choose your own problem and build something that matters to you.\n\n​How It Works\n\n​Each sponsor will have a short demo + challenge.\nFirst, they'll show you their product in action and explain what it does, why it is useful, and how you can use it.\n​Then you'll get a small challenge where you can try the tool yourself.\nYou don't need to use every tool. Use whichever sponsor tools make sense for your problem — one, several, or all of them.\nThe goal is to understand how each tool can be used and then combine the right tools to solve a problem.",
@@ -44,7 +44,7 @@
       "location": "Sports Basement Outdoor & Camping, 1590, Bryant Street, Mission, San Francisco, California, 94103, United States",
       "locationLat": "37.7670976",
       "locationLng": "-122.4111318",
-      "coverImageUrl": "",
+      "coverImageUrl": "/images/covers/buildfest-demos-and-challenges.png",
       "coverPageUrl": "",
       "lumaLinks": [
         "https://luma.com/5agzmgqu"
@@ -54,7 +54,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-09-05T14:44:22.471Z",
-      "updatedAt": "2026-09-09T10:44:45.406Z",
+      "updatedAt": "2026-09-27T02:15:17.428Z",
       "lumaLink": "https://luma.com/5agzmgqu",
       "eventbriteLink": null
     },
