@@ -61,6 +61,12 @@
       "website": null
     },
     {
+      "id": "9b7ff73a-03dd-47d2-8a45-42c74cfe8e22",
+      "name": "Celesto AI",
+      "logoUrl": "/images/companies/celesto-ai.png",
+      "website": "https://celesto.ai/"
+    },
+    {
       "id": "e2361fb1-6445-4e2e-b7ac-ac010b70f5ed",
       "name": "Cognee",
       "logoUrl": "/images/companies/cognee.png",
@@ -95,6 +101,12 @@
       "name": "Flatkey",
       "logoUrl": "/images/companies/flatkey.jpg",
       "website": "https://flatkey.ai/"
+    },
+    {
+      "id": "5754b51e-8d51-454d-8e5f-c2099baf94d5",
+      "name": "Glasser",
+      "logoUrl": "/images/companies/glasser.jpg",
+      "website": "https://glasser.ai/"
     },
     {
       "id": "b2a8b6b8-b12c-4cf0-92fe-554491f86636",
@@ -175,10 +187,22 @@
       "website": "https://www.lyzr.ai/"
     },
     {
+      "id": "b437fdc6-d0b1-4f72-a0a4-5321d1d7c902",
+      "name": "Masky AI",
+      "logoUrl": "/images/companies/masky-ai.png",
+      "website": "https://masky.ai"
+    },
+    {
       "id": "4eb2d7db-061b-4537-8ce5-0cd339cee4ce",
       "name": "Massive",
       "logoUrl": "/images/companies/massive.jpg",
       "website": "https://www.joinmassive.com/"
+    },
+    {
+      "id": "27dae401-4225-4729-8060-479381908f16",
+      "name": "N8N",
+      "logoUrl": "/images/companies/n8n.png",
+      "website": "https://n8n.io"
     },
     {
       "id": "126c51c7-58af-4afb-a963-7ebb6c70df26",
@@ -205,6 +229,18 @@
       "website": "https://opsera.ai/"
     },
     {
+      "id": "f605b75c-f5b6-46f6-b250-55969e3e595c",
+      "name": "Paritok",
+      "logoUrl": "/images/companies/paritok.png",
+      "website": "https://www.paritok.com/"
+    },
+    {
+      "id": "10971458-9ae4-4caf-a04e-593d316509c4",
+      "name": "Prelint",
+      "logoUrl": "/images/companies/prelint.jpg",
+      "website": "https://prelint.com"
+    },
+    {
       "id": "018ab7de-2007-4e09-b96e-a6e46dcc823b",
       "name": "PromptQL",
       "logoUrl": "/images/companies/promptql.png",
@@ -215,6 +251,12 @@
       "name": "Qdrant",
       "logoUrl": "/images/companies/qdrant.png",
       "website": "https://qdrant.tech/"
+    },
+    {
+      "id": "620739f1-9b26-4f12-bf73-bf7d39d602c6",
+      "name": "Querit",
+      "logoUrl": "/images/companies/image.png",
+      "website": "https://www.querit.ai/"
     },
     {
       "id": "89e11f70-e77f-4a35-9e2d-c446a62a420e",
@@ -283,6 +325,12 @@
       "website": "https://www.unlimit.com/"
     },
     {
+      "id": "5e2919e8-527c-4ef8-b3cb-d0c33f466386",
+      "name": "Voisekey",
+      "logoUrl": "/images/companies/voisekey.png",
+      "website": "https://www.voiskey.ai"
+    },
+    {
       "id": "b77957bf-462e-476b-8842-48575b8c20a5",
       "name": "Wasmer",
       "logoUrl": "/images/companies/wasmer.jpg",
@@ -329,10 +377,22 @@
       "partnerType": "community",
       "companies": [
         {
+          "id": "74593a99-f301-4abb-8276-c7d20dff8205",
+          "name": "AI Collective",
+          "logoUrl": "/images/companies/ai-collective.jpg",
+          "website": "https://www.aicollective.com/"
+        },
+        {
           "id": "882365e2-3fe6-4f5b-895c-3a9b7e92148e",
           "name": "AIHouse",
           "logoUrl": "/images/companies/aihouse.png",
           "website": "https://www.aihouze.xyz/"
+        },
+        {
+          "id": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
+          "name": "Apify",
+          "logoUrl": "/images/companies/apify.png",
+          "website": "https://apify.com/"
         },
         {
           "id": "1073f0d0-7e77-4dda-9a67-a75da7abc420",
@@ -341,10 +401,28 @@
           "website": "https://www.articuler.ai/"
         },
         {
+          "id": "9df9877e-e9fb-47d1-9cde-8853924ca375",
+          "name": "Bond AI",
+          "logoUrl": "/images/companies/bond-ai.png",
+          "website": "https://bondcommunity.ai/"
+        },
+        {
+          "id": "25153914-ff5b-4099-8b1a-e089963d2ba3",
+          "name": "Box",
+          "logoUrl": "/images/companies/box.png",
+          "website": "https://www.box.com/"
+        },
+        {
           "id": "fa911e79-0010-4203-8bda-640a4b06dfa6",
           "name": "BridgeUS",
           "logoUrl": "/images/companies/bridgeus.png",
           "website": "https://bridgeus.co"
+        },
+        {
+          "id": "17165d13-cf13-47a8-b4e4-fe98da9079bc",
+          "name": "BuildClub",
+          "logoUrl": "/images/companies/buildclub.png",
+          "website": "https://buildclub.ai/"
         },
         {
           "id": "9d045baa-eaff-4021-9156-4e1ba51fa72d",
@@ -359,6 +437,24 @@
           "website": "https://devnovate.co/"
         },
         {
+          "id": "3ef4c1a4-578e-4f3a-8577-d25da9c7dfd3",
+          "name": "GenAI Assembling",
+          "logoUrl": "/images/companies/genai-assembling.png",
+          "website": "https://genaiassembling.substack.com/"
+        },
+        {
+          "id": "91458ab8-e1b0-4837-b496-67ec06423d77",
+          "name": "Marvellous",
+          "logoUrl": "/images/companies/marvellous.png",
+          "website": "https://www.themarvelo.us/"
+        },
+        {
+          "id": "12c163ce-8437-4994-9386-b58ca8b6e298",
+          "name": "Medallion Substack",
+          "logoUrl": "/images/companies/medallion-substack.png",
+          "website": "https://medallionxln.substack.com/"
+        },
+        {
           "id": "639dff36-56e2-4c49-8708-c6e6572a2319",
           "name": "NerdConf",
           "logoUrl": "/images/companies/nerdconf.jpg",
@@ -369,6 +465,12 @@
           "name": "Sartorial",
           "logoUrl": "/images/companies/sar.png",
           "website": "https://www.sartori.al/"
+        },
+        {
+          "id": "c9bcd923-e0d8-42c5-b5c3-a29e9fb80f5b",
+          "name": "Venture Bridge Hub",
+          "logoUrl": "/images/companies/venture-bridge-hub.png",
+          "website": "https://venturebridgehub.com"
         },
         {
           "id": "a613145a-9734-4a22-9873-f71f1d8be1c8",
@@ -407,10 +509,22 @@
   ],
   "communityPartners": [
     {
+      "id": "74593a99-f301-4abb-8276-c7d20dff8205",
+      "name": "AI Collective",
+      "logoUrl": "/images/companies/ai-collective.jpg",
+      "website": "https://www.aicollective.com/"
+    },
+    {
       "id": "882365e2-3fe6-4f5b-895c-3a9b7e92148e",
       "name": "AIHouse",
       "logoUrl": "/images/companies/aihouse.png",
       "website": "https://www.aihouze.xyz/"
+    },
+    {
+      "id": "5cb3206e-945a-461b-b743-8b4781c0fbcb",
+      "name": "Apify",
+      "logoUrl": "/images/companies/apify.png",
+      "website": "https://apify.com/"
     },
     {
       "id": "1073f0d0-7e77-4dda-9a67-a75da7abc420",
@@ -419,10 +533,28 @@
       "website": "https://www.articuler.ai/"
     },
     {
+      "id": "9df9877e-e9fb-47d1-9cde-8853924ca375",
+      "name": "Bond AI",
+      "logoUrl": "/images/companies/bond-ai.png",
+      "website": "https://bondcommunity.ai/"
+    },
+    {
+      "id": "25153914-ff5b-4099-8b1a-e089963d2ba3",
+      "name": "Box",
+      "logoUrl": "/images/companies/box.png",
+      "website": "https://www.box.com/"
+    },
+    {
       "id": "fa911e79-0010-4203-8bda-640a4b06dfa6",
       "name": "BridgeUS",
       "logoUrl": "/images/companies/bridgeus.png",
       "website": "https://bridgeus.co"
+    },
+    {
+      "id": "17165d13-cf13-47a8-b4e4-fe98da9079bc",
+      "name": "BuildClub",
+      "logoUrl": "/images/companies/buildclub.png",
+      "website": "https://buildclub.ai/"
     },
     {
       "id": "9d045baa-eaff-4021-9156-4e1ba51fa72d",
@@ -437,6 +569,24 @@
       "website": "https://devnovate.co/"
     },
     {
+      "id": "3ef4c1a4-578e-4f3a-8577-d25da9c7dfd3",
+      "name": "GenAI Assembling",
+      "logoUrl": "/images/companies/genai-assembling.png",
+      "website": "https://genaiassembling.substack.com/"
+    },
+    {
+      "id": "91458ab8-e1b0-4837-b496-67ec06423d77",
+      "name": "Marvellous",
+      "logoUrl": "/images/companies/marvellous.png",
+      "website": "https://www.themarvelo.us/"
+    },
+    {
+      "id": "12c163ce-8437-4994-9386-b58ca8b6e298",
+      "name": "Medallion Substack",
+      "logoUrl": "/images/companies/medallion-substack.png",
+      "website": "https://medallionxln.substack.com/"
+    },
+    {
       "id": "639dff36-56e2-4c49-8708-c6e6572a2319",
       "name": "NerdConf",
       "logoUrl": "/images/companies/nerdconf.jpg",
@@ -447,6 +597,12 @@
       "name": "Sartorial",
       "logoUrl": "/images/companies/sar.png",
       "website": "https://www.sartori.al/"
+    },
+    {
+      "id": "c9bcd923-e0d8-42c5-b5c3-a29e9fb80f5b",
+      "name": "Venture Bridge Hub",
+      "logoUrl": "/images/companies/venture-bridge-hub.png",
+      "website": "https://venturebridgehub.com"
     },
     {
       "id": "a613145a-9734-4a22-9873-f71f1d8be1c8",

@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "a8e0d9f2-bd55-45fb-a9e0-6f0c436edc4e",
-    "slug": "zero-human-startup-hackathon-muv2bcjv",
+    "slug": "zero-human-startup-hackathon-mvd90q80",
     "name": "Zero Human Startup Hackathon",
     "type": "hackathon",
     "description": "",
@@ -14,15 +14,15 @@
     "location": "Sports Basement Outdoor & Camping, 1590, Bryant Street, Mission, San Francisco, California, 94103, United States",
     "locationLat": "37.7670976",
     "locationLng": "-122.4111318",
-    "coverImageUrl": "",
+    "coverImageUrl": "/images/covers/zero-human-startup-hackathon.png",
     "coverPageUrl": "",
     "lumaLinks": [],
     "eventbriteLinks": [],
     "groupLink": "",
     "isPartnerEvent": false,
-    "isPublished": false,
+    "isPublished": true,
     "createdAt": "2026-08-18T21:55:33.302Z",
-    "updatedAt": "2026-10-18T03:09:20.446Z",
+    "updatedAt": "2026-10-18T03:11:13.346Z",
     "lumaLink": null,
     "eventbriteLink": null
   },

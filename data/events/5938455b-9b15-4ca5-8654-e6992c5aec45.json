@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "5938455b-9b15-4ca5-8654-e6992c5aec45",
-    "slug": "universal-hackathon-mvd80oh2",
+    "slug": "universal-hackathon-mvd90xut",
     "name": "Universal Hackathon",
     "type": "hackathon",
     "description": "",
@@ -20,9 +20,9 @@
     "eventbriteLinks": [],
     "groupLink": "",
     "isPartnerEvent": false,
-    "isPublished": false,
+    "isPublished": true,
     "createdAt": "2026-08-08T18:13:05.987Z",
-    "updatedAt": "2026-10-18T03:09:09.038Z",
+    "updatedAt": "2026-10-18T03:11:23.238Z",
     "lumaLink": null,
     "eventbriteLink": null
   },

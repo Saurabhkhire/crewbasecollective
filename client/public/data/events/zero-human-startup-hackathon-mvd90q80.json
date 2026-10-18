@@ -1,0 +1,804 @@
+{
+  "event": {
+    "id": "a8e0d9f2-bd55-45fb-a9e0-6f0c436edc4e",
+    "slug": "zero-human-startup-hackathon-mvd90q80",
+    "name": "Zero Human Startup Hackathon",
+    "type": "hackathon",
+    "description": "",
+    "theme": "Zero Human Startup Hackathon",
+    "dayLabel": "Wed, Oct 7",
+    "eventDate": "2026-10-07",
+    "endDate": "2026-10-07",
+    "startTime": "10:00",
+    "endTime": "17:00",
+    "location": "Sports Basement Outdoor & Camping, 1590, Bryant Street, Mission, San Francisco, California, 94103, United States",
+    "locationLat": "37.7670976",
+    "locationLng": "-122.4111318",
+    "coverImageUrl": "/images/covers/zero-human-startup-hackathon.png",
+    "coverPageUrl": "",
+    "lumaLinks": [],
+    "eventbriteLinks": [],
+    "groupLink": "",
+    "isPartnerEvent": false,
+    "isPublished": true,
+    "createdAt": "2026-08-18T21:55:33.302Z",
+    "updatedAt": "2026-10-18T03:11:13.346Z",
+    "lumaLink": null,
+    "eventbriteLink": null
+  },
+  "tracks": [],
+  "sponsors": [
+    {
+      "id": "5cdb8ab9-6d02-4360-b653-c0f6cfea0203",
+      "companyName": "Kylon",
+      "companyWebsite": "https://kylon.io/",
+      "companyLogo": "/images/companies/kylon.png",
+      "companyDescription": "​Kylon is an AI agent team that runs your entire business.",
+      "representatives": [
+        {
+          "username": "Christina Bowllan",
+          "linkedin": "https://www.linkedin.com/in/christina-bowllan-074563177/",
+          "role": "Founding Team",
+          "companyName": "Kylon"
+        }
+      ]
+    },
+    {
+      "id": "24a0c048-dd14-439b-be74-d9717e347c23",
+      "companyName": "Tenki",
+      "companyWebsite": "https://tenki.cloud/",
+      "companyLogo": "/images/companies/tenki.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Colin Lowenberg",
+          "linkedin": "https://www.linkedin.com/in/wifi/",
+          "role": "DevRel",
+          "companyName": "Nebius"
+        }
+      ]
+    },
+    {
+      "id": "48f929cb-928a-4191-90ab-457cec218c8f",
+      "companyName": "Finchip AI",
+      "companyWebsite": "https://finchip.ai/",
+      "companyLogo": "/images/companies/finchip-ai.jpg",
+      "companyDescription": "​FinChip helps turn AI skills into ownable digital assets that can be launched, discovered, used, and traded. For builders exploring agent capabilities, skill marketplaces, and programmable AI services, FinChip opens up a new way to think about software as something agents can own and invoke.",
+      "representatives": [
+        {
+          "username": "Chelsey Huang",
+          "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+          "role": "Co-Founder",
+          "companyName": "Finchip AI"
+        }
+      ]
+    },
+    {
+      "id": "fefe0b80-8602-46fc-864a-cd15a495d1d2",
+      "companyName": "RocketRide",
+      "companyWebsite": "https://cloud.rocketride.ai/",
+      "companyLogo": "/images/companies/rocketride.jpg",
+      "companyDescription": "RocketRide is an open-source AI workflow platform that enables developers to build, debug, and deploy AI applications without ever leaving their IDE. Its powerful meta-harness streamlines the entire development lifecycle, making it easy to create, test, and optimize AI workflows in one place.",
+      "representatives": [
+        {
+          "username": "Mansi More",
+          "linkedin": "https://www.linkedin.com/in/mansimore9/",
+          "role": "AI Growth Engineer",
+          "companyName": "RocketRide"
+        }
+      ]
+    },
+    {
+      "id": "4b215c74-7d7b-44d9-b3db-65f39b699354",
+      "companyName": "AdaL",
+      "companyWebsite": "https://adalagent.ai/",
+      "companyLogo": "/images/companies/adal.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Aria Shi",
+          "linkedin": "https://www.linkedin.com/in/aria-ailearning/",
+          "role": "Head of GTM",
+          "companyName": "AdaL"
+        }
+      ]
+    },
+    {
+      "id": "2790d607-8fc8-439c-83b4-ddc873d8d5bc",
+      "companyName": "Paritok",
+      "companyWebsite": "https://www.paritok.com/",
+      "companyLogo": "/images/companies/paritok.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Luzhou Chen",
+          "linkedin": "https://www.linkedin.com/in/luzhuochen",
+          "role": "Co-Founder",
+          "companyName": "Paritok"
+        },
+        {
+          "username": "Jiayu Shi",
+          "linkedin": "https://www.linkedin.com/in/jiayu-jasper-shi/",
+          "role": "Founder",
+          "companyName": "Paritok"
+        }
+      ]
+    },
+    {
+      "id": "9d1a9e33-89db-4d94-8ade-bd2af5568eb2",
+      "companyName": "Prelint",
+      "companyWebsite": "https://prelint.com",
+      "companyLogo": "/images/companies/prelint.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Irka Pawloski",
+          "linkedin": "https://www.linkedin.com/in/irkapawlowski/",
+          "role": "Founder",
+          "companyName": "Prelint"
+        }
+      ]
+    },
+    {
+      "id": "f23aa3fc-6b0a-4fa7-ab36-6eade66e283b",
+      "companyName": "Apify",
+      "companyWebsite": "https://apify.com/",
+      "companyLogo": "/images/companies/apify.png",
+      "companyDescription": "Apify is a cloud platform for web scraping, data extraction, and browser automation that helps developers and businesses collect, process, and analyze web data at scale. It provides ready-made tools (Actors) and infrastructure for automating web tasks, crawling websites, and building data pipelines.",
+      "representatives": [
+        {
+          "username": "Petros Hong",
+          "linkedin": "https://www.linkedin.com/in/petroshong/",
+          "role": "DevRel",
+          "companyName": "Apify"
+        }
+      ]
+    },
+    {
+      "id": "2bf9bf1e-615e-45f2-83e3-cf9408640637",
+      "companyName": "InsForge",
+      "companyWebsite": "https://insforge.dev/",
+      "companyLogo": "/images/companies/insforge.png",
+      "companyDescription": "​InsForge is building agent-native cloud infrastructure for modern AI development. It brings together model gateway, compute, deployment, database, authentication, and more so AI coding agents can operate across the full development workflow.",
+      "representatives": [
+        {
+          "username": "Tony Chwang",
+          "linkedin": "https://www.linkedin.com/in/tony-chang-0430/",
+          "role": "Co Founder",
+          "companyName": "InsForge"
+        }
+      ]
+    },
+    {
+      "id": "de6d0bc6-ed80-4ef7-a650-c988deb76223",
+      "companyName": "Voisekey",
+      "companyWebsite": "https://www.voiskey.ai",
+      "companyLogo": "/images/companies/voisekey.png",
+      "companyDescription": null,
+      "representatives": []
+    },
+    {
+      "id": "7ffed172-9a26-4435-8c41-bf26662913ec",
+      "companyName": "Querit",
+      "companyWebsite": "https://www.querit.ai/",
+      "companyLogo": "/images/companies/image.png",
+      "companyDescription": null,
+      "representatives": []
+    },
+    {
+      "id": "3685d062-4eab-4132-a484-8385c347e188",
+      "companyName": "BAND",
+      "companyWebsite": "https://www.band.ai/",
+      "companyLogo": "/images/companies/band.png",
+      "companyDescription": "​BAND is an enterprise-grade interaction layer that enables humans and AI agents to collaborate seamlessly. It provides real-time communication, built-in governance, and a structured framework for managing complex multi-agent systems securely and at scale.",
+      "representatives": [
+        {
+          "username": "Ofer Mendelevitch",
+          "linkedin": "https://www.linkedin.com/in/ofermend/",
+          "role": "Head of DevRel",
+          "companyName": "BAND"
+        }
+      ]
+    },
+    {
+      "id": "15164e47-adf2-4eac-8c7e-abca67a6b715",
+      "companyName": "Ask the W",
+      "companyWebsite": "https://askthew.com/",
+      "companyLogo": "/images/companies/ask-the-w.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Yezhisai Murugesan",
+          "linkedin": "https://www.linkedin.com/in/yezhisaim/",
+          "role": "Founder",
+          "companyName": "Ask the W"
+        }
+      ]
+    },
+    {
+      "id": "cb75bcb2-0c1e-410c-aedd-08dd0fd43639",
+      "companyName": "Glasser",
+      "companyWebsite": "https://glasser.ai/",
+      "companyLogo": "/images/companies/glasser.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Scarlett Xiao",
+          "linkedin": "https://www.linkedin.com/in/xiaog100",
+          "role": "Co-Founder",
+          "companyName": "Glasser"
+        }
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "id": "7fc00e93-8f97-4598-af91-a73a0b800419",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Venture Bridge Hub",
+      "companyWebsite": "https://venturebridgehub.com",
+      "companyLogo": "/images/companies/venture-bridge-hub.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Adeep Choomarun",
+          "linkedin": "https://www.linkedin.com/in/adeep-chooramun/",
+          "role": "Co Founder & CEO",
+          "companyName": "Venture Bridge Hub"
+        }
+      ]
+    },
+    {
+      "id": "3fa5ee94-e6a9-4438-91b5-55bd41d83956",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "NerdConf",
+      "companyWebsite": "https://www.nerdconf.com/",
+      "companyLogo": "/images/companies/nerdconf.jpg",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Alex Marin",
+          "linkedin": "https://www.linkedin.com/in/alex-marin-83b369113/",
+          "role": "Founder",
+          "companyName": "NerdConf"
+        }
+      ]
+    },
+    {
+      "id": "8599a3e1-8fd7-4027-ac94-8f262456504c",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "BridgeUS",
+      "companyWebsite": "https://bridgeus.co",
+      "companyLogo": "/images/companies/bridgeus.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Vin Wanfan",
+          "linkedin": "https://www.linkedin.com/in/vinwanfan/",
+          "role": "Founder",
+          "companyName": "BridgeUS"
+        }
+      ]
+    },
+    {
+      "id": "1bb50dd1-5f43-4145-8a4e-42862fb22e27",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Articuler AI",
+      "companyWebsite": "https://www.articuler.ai/",
+      "companyLogo": "/images/companies/articuler-ai.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Gary Li",
+          "linkedin": "https://www.linkedin.com/in/yungang-gary-li/",
+          "role": "Head of Growth",
+          "companyName": "Articuler AI"
+        }
+      ]
+    },
+    {
+      "id": "de7c90de-a585-45d4-bcb3-d2bc27f175bf",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Devnovate",
+      "companyWebsite": "https://devnovate.co/",
+      "companyLogo": "/images/companies/devnovate.png",
+      "companyDescription": "We bring together students, developers, entrepreneurs, and creators through exciting hackathons across India and the USA, helping them learn, network, and build innovative solutions.",
+      "representatives": [
+        {
+          "username": "Aviral Bharadwaj",
+          "linkedin": "https://www.linkedin.com/in/aviral-bhardwaj/",
+          "role": "Founder",
+          "companyName": "Devnovate"
+        }
+      ]
+    },
+    {
+      "id": "5649825f-0450-49ea-bd1d-1d9c0c851ddf",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Sartorial",
+      "companyWebsite": "https://www.sartori.al/",
+      "companyLogo": "/images/companies/sar.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Sumit Jadgale",
+          "linkedin": "https://www.linkedin.com/in/sumitjagdale/",
+          "role": "Founder",
+          "companyName": "Sartorial"
+        }
+      ]
+    },
+    {
+      "id": "e3499929-6a30-42e8-adc4-1d20972fd649",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Medallion Substack",
+      "companyWebsite": "https://medallionxln.substack.com/",
+      "companyLogo": "/images/companies/medallion-substack.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Dwyane Campbell",
+          "linkedin": "https://www.linkedin.com/in/dcampbell1987/",
+          "role": "Founder",
+          "companyName": "Medallion Substack"
+        }
+      ]
+    },
+    {
+      "id": "2a860c75-ece6-4608-975e-91ff6f5a4e0c",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Bond AI",
+      "companyWebsite": "https://bondcommunity.ai/",
+      "companyLogo": "/images/companies/bond-ai.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Sahar Mor",
+          "linkedin": "​ https://www.linkedin.com/in/sahar-mor",
+          "role": "Founder",
+          "companyName": "Bond AI"
+        }
+      ]
+    },
+    {
+      "id": "54b1db34-32f5-435a-bfe0-7927b3faf138",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Apify",
+      "companyWebsite": "https://apify.com/",
+      "companyLogo": "/images/companies/apify.png",
+      "companyDescription": "Apify is a cloud platform for web scraping, data extraction, and browser automation that helps developers and businesses collect, process, and analyze web data at scale. It provides ready-made tools (Actors) and infrastructure for automating web tasks, crawling websites, and building data pipelines.",
+      "representatives": [
+        {
+          "username": "Petros Hong",
+          "linkedin": "https://www.linkedin.com/in/petroshong/",
+          "role": "DevRel",
+          "companyName": "Apify"
+        }
+      ]
+    },
+    {
+      "id": "2f6975d1-de2e-4db9-95bf-7e5011343e1f",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "Box",
+      "companyWebsite": "https://www.box.com/",
+      "companyLogo": "/images/companies/box.png",
+      "companyDescription": null,
+      "representatives": []
+    },
+    {
+      "id": "86f7a2c7-17a1-4d19-9d98-72a0b45f4ce9",
+      "partnerType": "community",
+      "customType": null,
+      "companyName": "BuildClub",
+      "companyWebsite": "https://buildclub.ai/",
+      "companyLogo": "/images/companies/buildclub.png",
+      "companyDescription": null,
+      "representatives": [
+        {
+          "username": "Annie Liao",
+          "linkedin": "https://www.linkedin.com/in/annieliaoo/",
+          "role": "Founder",
+          "companyName": "BuildClub"
+        }
+      ]
+    }
+  ],
+  "prizes": [],
+  "schedule": [
+    {
+      "id": "b7ef460e-c29f-4a05-afe4-0b49e9dbe934",
+      "startTime": "2026-10-07T17:00:00.000Z",
+      "endTime": "2026-10-07T18:00:00.000Z",
+      "topic": "Welcome",
+      "speakers": []
+    },
+    {
+      "id": "0232cdde-dacb-4dd3-9297-767b8ac48134",
+      "startTime": "2026-10-07T18:00:00.000Z",
+      "endTime": "2026-10-07T19:00:00.000Z",
+      "topic": "Sponsor Demos",
+      "speakers": []
+    },
+    {
+      "id": "baa360d4-fb62-40e3-b0c4-5fa44ee82a02",
+      "startTime": "2026-10-07T19:00:00.000Z",
+      "endTime": "2026-10-07T23:00:00.000Z",
+      "topic": "Hacking",
+      "speakers": []
+    },
+    {
+      "id": "b8dd2cdb-27e2-422d-9b2e-67821397ae70",
+      "startTime": "2026-10-07T23:00:00.000Z",
+      "endTime": "2026-10-08T00:00:00.000Z",
+      "topic": "Judging and Demos",
+      "speakers": []
+    }
+  ],
+  "speakers": [
+    {
+      "username": "Jiayu Shi",
+      "linkedin": "https://www.linkedin.com/in/jiayu-jasper-shi/",
+      "eventDay": "2026-10-07",
+      "startTime": "2026-10-07T18:00:00.000Z",
+      "endTime": "2026-10-08T06:05:00.000Z",
+      "topic": "Compress tools with Paritok",
+      "title": "Founder",
+      "companyName": "Paritok"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "eventDay": "2026-10-07",
+      "startTime": "2026-10-08T06:05:00.000Z",
+      "endTime": "2026-10-08T18:10:00.000Z",
+      "topic": "Coding with Agents in AdaL",
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Christina Bowllan",
+      "linkedin": "https://www.linkedin.com/in/christina-bowllan-074563177/",
+      "eventDay": "2026-10-08",
+      "startTime": "2026-10-08T18:10:00.000Z",
+      "endTime": "2026-10-09T06:15:00.000Z",
+      "topic": "Create team of AI Agents with Kylon",
+      "title": "Founding Team",
+      "companyName": "Kylon"
+    },
+    {
+      "username": "Irka Pawloski",
+      "linkedin": "https://www.linkedin.com/in/irkapawlowski/",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:15:00.000Z",
+      "endTime": "2026-10-09T18:20:00.000Z",
+      "topic": "Review, Record and Trace every decision with Prelint",
+      "title": "Founder",
+      "companyName": "Prelint"
+    },
+    {
+      "username": "Mansi More",
+      "linkedin": "https://www.linkedin.com/in/mansimore9/",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:20:00.000Z",
+      "endTime": "2026-10-09T18:25:00.000Z",
+      "topic": "Create No code pipelines with Rocket Ride",
+      "title": "AI Growth Engineer",
+      "companyName": "RocketRide"
+    },
+    {
+      "username": "Colin Lowenberg",
+      "linkedin": "https://www.linkedin.com/in/wifi/",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:25:00.000Z",
+      "endTime": "2026-10-09T18:30:00.000Z",
+      "topic": "Sandboxes and code review with Tenki",
+      "title": "DevRel",
+      "companyName": "Nebius"
+    },
+    {
+      "username": "Chelsey Huang",
+      "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:30:00.000Z",
+      "endTime": "2026-10-09T18:35:00.000Z",
+      "topic": "Agents and Skills marketplace with Finch",
+      "title": "Co-Founder",
+      "companyName": "Finchip AI"
+    },
+    {
+      "username": "Tony Chwang",
+      "linkedin": "https://www.linkedin.com/in/tony-chang-0430/",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:35:00.000Z",
+      "endTime": "2026-10-09T18:40:00.000Z",
+      "topic": "Agent Native Backend in Insforge",
+      "title": "Co Founder",
+      "companyName": "InsForge"
+    },
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:40:00.000Z",
+      "endTime": "2026-10-09T18:43:00.000Z",
+      "topic": "Communication between agents using BAND",
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Sahar Mor",
+      "linkedin": "​ https://www.linkedin.com/in/sahar-mor",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:43:00.000Z",
+      "endTime": "2026-10-09T18:46:00.000Z",
+      "topic": "Voice to prompt with Voisekey",
+      "title": "Founder",
+      "companyName": "Bond AI"
+    },
+    {
+      "username": "Sahar Mor",
+      "linkedin": "​ https://www.linkedin.com/in/sahar-mor",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:46:00.000Z",
+      "endTime": "2026-10-09T18:50:00.000Z",
+      "topic": "Web Search with Querit",
+      "title": "Founder",
+      "companyName": "Bond AI"
+    },
+    {
+      "username": "Petros Hong",
+      "linkedin": "https://www.linkedin.com/in/petroshong/",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:50:00.000Z",
+      "endTime": "2026-10-09T18:55:00.000Z",
+      "topic": "Web scrapper marketplace in Apify",
+      "title": "DevRel",
+      "companyName": "Apify"
+    },
+    {
+      "username": "Sahar Mor",
+      "linkedin": "​ https://www.linkedin.com/in/sahar-mor",
+      "eventDay": "2026-10-09",
+      "startTime": "2026-10-09T18:55:00.000Z",
+      "endTime": "2026-10-09T18:59:00.000Z",
+      "topic": "Prompt with Box",
+      "title": "Founder",
+      "companyName": "Bond AI"
+    }
+  ],
+  "judges": [
+    {
+      "username": "Christina Bowllan",
+      "linkedin": "https://www.linkedin.com/in/christina-bowllan-074563177/",
+      "role": null,
+      "title": "Founding Team",
+      "companyName": "Kylon"
+    },
+    {
+      "username": "Sumit Jadgale",
+      "linkedin": "https://www.linkedin.com/in/sumitjagdale/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Sartorial"
+    },
+    {
+      "username": "Vince Kohli",
+      "linkedin": "https://www.linkedin.com/in/vincekohli/",
+      "role": null,
+      "title": "Strategic Advisor",
+      "companyName": "Google Deepmind"
+    },
+    {
+      "username": "Merve Isler",
+      "linkedin": "https://www.linkedin.com/in/misslers/",
+      "role": null,
+      "title": "Ecosystem Builder",
+      "companyName": "AI Builders"
+    },
+    {
+      "username": "Amitabh Das",
+      "linkedin": "https://www.linkedin.com/in/das-amitabh/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Agent OS"
+    },
+    {
+      "username": "Anya Ozmen",
+      "linkedin": "https://www.linkedin.com/in/anyakaryaozmen/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Gameer"
+    },
+    {
+      "username": "Ali Amjad",
+      "linkedin": "https://www.linkedin.com/in/ali-amjad-a80732137/",
+      "role": null,
+      "title": "Research Fellow",
+      "companyName": "R42 Group"
+    },
+    {
+      "username": "Clarie Kwon",
+      "linkedin": "https://www.linkedin.com/in/hayoungclairekwon/",
+      "role": null,
+      "title": "CTO",
+      "companyName": "San Francisco General Intelligence Laboratory"
+    },
+    {
+      "username": "Aria Shi",
+      "linkedin": "https://www.linkedin.com/in/aria-ailearning/",
+      "role": null,
+      "title": "Head of GTM",
+      "companyName": "AdaL"
+    },
+    {
+      "username": "Luzhou Chen",
+      "linkedin": "https://www.linkedin.com/in/luzhuochen",
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Paritok"
+    },
+    {
+      "username": "Jiayu Shi",
+      "linkedin": "https://www.linkedin.com/in/jiayu-jasper-shi/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Paritok"
+    },
+    {
+      "username": "Irka Pawloski",
+      "linkedin": "https://www.linkedin.com/in/irkapawlowski/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Prelint"
+    },
+    {
+      "username": "Petros Hong",
+      "linkedin": "https://www.linkedin.com/in/petroshong/",
+      "role": null,
+      "title": "DevRel",
+      "companyName": "Apify"
+    },
+    {
+      "username": "Tony Chwang",
+      "linkedin": "https://www.linkedin.com/in/tony-chang-0430/",
+      "role": null,
+      "title": "Co Founder",
+      "companyName": "InsForge"
+    },
+    {
+      "username": "Ofer Mendelevitch",
+      "linkedin": "https://www.linkedin.com/in/ofermend/",
+      "role": null,
+      "title": "Head of DevRel",
+      "companyName": "BAND"
+    },
+    {
+      "username": "Hannah Kwon",
+      "linkedin": "https://www.linkedin.com/in/hannahkwon1/",
+      "role": null,
+      "title": "Software Engineer",
+      "companyName": "Amazon"
+    },
+    {
+      "username": "Yezhisai Murugesan",
+      "linkedin": "https://www.linkedin.com/in/yezhisaim/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Ask the W"
+    },
+    {
+      "username": "Ali Amjad",
+      "linkedin": "https://www.linkedin.com/in/ali-amjad-a80732137a",
+      "role": null,
+      "title": "Research Fellow",
+      "companyName": "R42 Group"
+    },
+    {
+      "username": "Ali Amjad",
+      "linkedin": "https://www.linkedin.com/in/ali-amjad-a80732137a",
+      "role": null,
+      "title": "Research Fellow",
+      "companyName": "R42 Group"
+    },
+    {
+      "username": "Zhi Ling",
+      "linkedin": "https://www.linkedin.com/in/zhilinglim/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Attrilo"
+    },
+    {
+      "username": "Scarlett Xiao",
+      "linkedin": "https://www.linkedin.com/in/xiaog100",
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Glasser"
+    },
+    {
+      "username": "Sarah Hatcher",
+      "linkedin": "https://www.linkedin.com/in/sarah-hatcher-ai/",
+      "role": null,
+      "title": "Founder",
+      "companyName": "Kripke and Human Technology Alliance Institute"
+    }
+  ],
+  "hosts": [
+    {
+      "username": "Saurabh Khire",
+      "linkedin": "https://www.linkedin.com/in/saurabhkhire",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Crewbase Collective"
+    },
+    {
+      "username": "Dwyane Campbell",
+      "linkedin": "https://www.linkedin.com/in/dcampbell1987/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Medallion Substack"
+    },
+    {
+      "username": "Vin Wanfan",
+      "linkedin": "https://www.linkedin.com/in/vinwanfan/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "BridgeUS"
+    },
+    {
+      "username": "Mansi More",
+      "linkedin": "https://www.linkedin.com/in/mansimore9/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "AI Growth Engineer",
+      "companyName": "RocketRide"
+    },
+    {
+      "username": "Aviral Bharadwaj",
+      "linkedin": "https://www.linkedin.com/in/aviral-bhardwaj/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Founder",
+      "companyName": "Devnovate"
+    },
+    {
+      "username": "Aria Shi",
+      "linkedin": "https://www.linkedin.com/in/aria-ailearning/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Head of GTM",
+      "companyName": "AdaL"
+    },
+    {
+      "username": "Chelsey Huang",
+      "linkedin": "https://www.linkedin.com/in/chenxi-huang-017107327/",
+      "hostType": "host",
+      "customType": null,
+      "role": null,
+      "title": "Co-Founder",
+      "companyName": "Finchip AI"
+    }
+  ],
+  "volunteers": [],
+  "team": [],
+  "links": [],
+  "photos": []
+}

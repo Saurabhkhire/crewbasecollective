@@ -8,6 +8,11 @@
       "companyName": "Crewbase Collective",
       "judged": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28"
@@ -34,6 +39,16 @@
         }
       ],
       "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
@@ -87,6 +102,16 @@
         }
       ],
       "hosted": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
@@ -221,6 +246,16 @@
       ],
       "spoke": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28"
@@ -247,6 +282,18 @@
         }
       ],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Tenki"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Tenki"
+        },
         {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
@@ -343,6 +390,11 @@
       "companyName": "InsForge",
       "judged": [
         {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Sports World Cup Hackathon",
           "slug": "sports-world-cup-hackathon-ms5uqqxw",
           "eventDate": "2026-07-13"
@@ -365,12 +417,23 @@
       ],
       "spoke": [
         {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Applied AI Intelligence Hackathon",
           "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
       "sponsored": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "InsForge"
+        },
         {
           "eventName": "Design & Deploy Workshop",
           "slug": "design-deploy-workshop-ms5mfqce",
@@ -518,6 +581,16 @@
       "companyName": "AI Builders",
       "judged": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28"
@@ -540,6 +613,11 @@
       ],
       "spoke": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
@@ -547,7 +625,14 @@
       ],
       "sponsored": [],
       "hosted": [],
-      "partnered": [],
+      "partnered": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Marvellous"
+        }
+      ],
       "volunteered": []
     },
     {
@@ -643,6 +728,16 @@
       "title": "Strategic Advisor",
       "companyName": "Google Deepmind",
       "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
@@ -1013,6 +1108,16 @@
       "companyName": "Gameer",
       "judged": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28"
@@ -1041,6 +1146,11 @@
       "title": "Founder",
       "companyName": "Attrilo",
       "judged": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "Sports World Cup Hackathon",
           "slug": "sports-world-cup-hackathon-ms5uqqxw",
@@ -1286,6 +1396,11 @@
       "companyName": "Finchip AI",
       "judged": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
@@ -1298,12 +1413,29 @@
       ],
       "spoke": [
         {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Finchip AI"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Finchip AI"
+        },
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
           "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
@@ -1324,6 +1456,16 @@
         }
       ],
       "hosted": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "Build your AI Organization Workshop",
           "slug": "build-your-ai-organization-workshop-ms5lzd54",
@@ -1416,6 +1558,11 @@
       ],
       "spoke": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
           "eventDate": "2026-09-10"
@@ -1478,6 +1625,16 @@
       "companyName": "BAND",
       "judged": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
@@ -1485,6 +1642,18 @@
       ],
       "spoke": [],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "BAND"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "BAND"
+        },
         {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
@@ -1542,13 +1711,41 @@
       "companyName": "Kylon",
       "judged": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Bay Builders Hackathon",
           "slug": "bay-builders-hackathon-ms5sgpk3",
           "eventDate": "2026-07-13"
         }
       ],
-      "spoke": [],
+      "spoke": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Kylon"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Kylon"
+        },
         {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
@@ -1654,6 +1851,16 @@
       "title": "Founder",
       "companyName": "Agent OS",
       "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "Sports World Cup Hackathon",
           "slug": "sports-world-cup-hackathon-ms5uqqxw",
@@ -1895,13 +2102,30 @@
       "companyName": "Apify",
       "judged": [
         {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Applied AI Intelligence Hackathon",
           "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
           "eventDate": "2026-05-31"
         }
       ],
-      "spoke": [],
+      "spoke": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
       "sponsored": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Apify"
+        },
         {
           "eventName": "Applied AI Intelligence Hackathon",
           "slug": "applied-ai-intelligence-hackathon-ms5uf6tt",
@@ -1910,7 +2134,14 @@
         }
       ],
       "hosted": [],
-      "partnered": [],
+      "partnered": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Apify"
+        }
+      ],
       "volunteered": []
     },
     {
@@ -2009,12 +2240,34 @@
       ],
       "hosted": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Wizard Hackathon",
           "slug": "wizard-hackathon-ms5th4d3",
           "eventDate": "2026-06-28"
         }
       ],
       "partnered": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Devnovate"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Devnovate"
+        },
         {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
@@ -2206,8 +2459,24 @@
       "linkedin": "https://www.linkedin.com/in/mansimore9/",
       "title": "AI Growth Engineer",
       "companyName": "RocketRide",
-      "judged": [],
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
       "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
@@ -2220,6 +2489,18 @@
         }
       ],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "RocketRide"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "RocketRide"
+        },
         {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
@@ -2234,6 +2515,16 @@
         }
       ],
       "hosted": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
@@ -2450,8 +2741,20 @@
       "title": "Developer Advocate",
       "companyName": "Synk",
       "judged": [],
-      "spoke": [],
+      "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Synk"
+        },
         {
           "eventName": "Prompt to Production: AI Builders, Secure Code and Skills Workshop",
           "slug": "prompt-to-production-ai-builders-secure-code-and-skills-workshop-ms5m210p",
@@ -2570,12 +2873,37 @@
       "sponsored": [],
       "hosted": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28"
         }
       ],
       "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "96ec51bb-8b7e-4d78-8203-27ddce7b2a31",
+      "username": "Adeep Choomarun",
+      "linkedin": "https://www.linkedin.com/in/adeep-chooramun/",
+      "title": "Co Founder & CEO",
+      "companyName": "Venture Bridge Hub",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Venture Bridge Hub"
+        }
+      ],
       "volunteered": []
     },
     {
@@ -2605,12 +2933,27 @@
       "companyName": "Sartorial",
       "judged": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28"
         }
       ],
       "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
         {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
@@ -2628,6 +2971,18 @@
       "hosted": [],
       "partnered": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Sartorial"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Sartorial"
+        },
+        {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28",
@@ -2642,9 +2997,38 @@
       "linkedin": "https://www.linkedin.com/in/aria-ailearning/",
       "title": "Head of GTM",
       "companyName": "AdaL",
-      "judged": [],
-      "spoke": [],
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "AdaL"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "AdaL"
+        },
         {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
@@ -2659,6 +3043,16 @@
         }
       ],
       "hosted": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
@@ -2679,6 +3073,54 @@
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "c2ffd60e-ae2f-4289-8e22-c92df4076a50",
+      "username": "Clarie Kwon",
+      "linkedin": "https://www.linkedin.com/in/hayoungclairekwon/",
+      "title": "CTO",
+      "companyName": "San Francisco General Intelligence Laboratory",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "815240df-a781-491e-a9e3-83b3f56828d7",
+      "username": "Ali Amjad",
+      "linkedin": "https://www.linkedin.com/in/ali-amjad-a80732137/",
+      "title": "Research Fellow",
+      "companyName": "R42 Group",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
         }
       ],
       "spoke": [],
@@ -2757,6 +3199,18 @@
       ],
       "partnered": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Articuler AI"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Articuler AI"
+        },
+        {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28",
@@ -2788,12 +3242,29 @@
       "sponsored": [],
       "hosted": [
         {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
+        {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
           "eventDate": "2026-09-10"
         }
       ],
       "partnered": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "BridgeUS"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "BridgeUS"
+        },
         {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
@@ -2827,6 +3298,12 @@
       ],
       "partnered": [
         {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "NerdConf"
+        },
+        {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
           "eventDate": "2026-09-10",
@@ -2842,6 +3319,16 @@
       "title": "Founder",
       "companyName": "Ask the W",
       "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        },
         {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
@@ -2861,6 +3348,18 @@
         }
       ],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Ask the W"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Ask the W"
+        },
         {
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
@@ -2887,12 +3386,23 @@
       "judged": [],
       "spoke": [
         {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
           "eventDate": "2026-09-10"
         }
       ],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Flatkey"
+        },
         {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
@@ -2910,8 +3420,19 @@
       "linkedin": "https://www.linkedin.com/in/jakobprince/",
       "title": "AI Strategist",
       "companyName": "PromptQL",
-      "judged": [],
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
       "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
         {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
@@ -2919,6 +3440,12 @@
         }
       ],
       "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "PromptQL"
+        },
         {
           "eventName": "BuildFest: Demos and Challenges",
           "slug": "buildfest-demos-and-challenges-muj6rws3",
@@ -2928,6 +3455,58 @@
       ],
       "hosted": [],
       "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "9f5f0ff5-b502-4277-a350-f2644fa4dffa",
+      "username": "Stefano Manesse",
+      "linkedin": "https://www.linkedin.com/in/stefano-manese/",
+      "title": "Events Coordinator",
+      "companyName": "N8N",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "N8N"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "6226d658-17e8-4088-8bf0-1e5d31f4e2d9",
+      "username": "Annie Liao",
+      "linkedin": "https://www.linkedin.com/in/annieliaoo/",
+      "title": "Founder",
+      "companyName": "BuildClub",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "partnered": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "BuildClub"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "BuildClub"
+        }
+      ],
       "volunteered": []
     },
     {
@@ -3103,6 +3682,544 @@
           "eventName": "Build your Co Founder Hackathon",
           "slug": "build-your-co-founder-hackathon-munnmrk8",
           "eventDate": "2026-09-28"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "7dd76f6b-6a8e-4031-bba1-0a6bb980ed1c",
+      "username": "Ali Amjad",
+      "linkedin": "https://www.linkedin.com/in/ali-amjad-a80732137a",
+      "title": "Research Fellow",
+      "companyName": "R42 Group",
+      "judged": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "f57aa942-44ad-4165-ad5a-8600a5bcff68",
+      "username": "Dwyane Campbell",
+      "linkedin": "https://www.linkedin.com/in/dcampbell1987/",
+      "title": "Founder",
+      "companyName": "Medallion Substack",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "partnered": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Medallion Substack"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Medallion Substack"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "e2fc22cb-9496-411b-9cf6-dd98a6473a59",
+      "username": "Ash Kumara",
+      "linkedin": "https://www.linkedin.com/in/ashkumra/",
+      "title": "Chapter Leader",
+      "companyName": "AI Collective",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "AI Collective"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "012d2990-720c-4054-9f42-7079ff65d67c",
+      "username": "Irka Pawloski",
+      "linkedin": "https://www.linkedin.com/in/irkapawlowski/",
+      "title": "Founder",
+      "companyName": "Prelint",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Prelint"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Prelint"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "6e829cb6-5dce-46f7-8fcd-26d3e52a644b",
+      "username": "Jiayu Shi",
+      "linkedin": "https://www.linkedin.com/in/jiayu-jasper-shi/",
+      "title": "Founder",
+      "companyName": "Paritok",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Paritok"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Paritok"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "20377afb-57ed-4a14-b323-64e8460e44f7",
+      "username": "Luzhou Chen",
+      "linkedin": "https://www.linkedin.com/in/luzhuochen",
+      "title": "Co-Founder",
+      "companyName": "Paritok",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Paritok"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Paritok"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "20ebdb4b-22c7-4d7c-8e05-87f940bbb6f2",
+      "username": "Seth Cadwell",
+      "linkedin": "https://www.linkedin.com/in/oceanseth/",
+      "title": "Founder",
+      "companyName": "Masky AI",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Masky AI"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "51859820-db4d-428f-a84d-8f0d9f037dae",
+      "username": "Chetan Jannu",
+      "linkedin": "https://www.linkedin.com/in/chetansandeeprenu",
+      "title": "Software Engineer",
+      "companyName": "Superhuman",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "1ed3ed9f-0067-403f-ae17-7f1f2aeb97e1",
+      "username": "Hannah Kwon",
+      "linkedin": "https://www.linkedin.com/in/hannahkwon1/",
+      "title": "Software Engineer",
+      "companyName": "Amazon",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "4450b872-09cb-4f64-87a6-268c9b3ca160",
+      "username": "Sahar Mor",
+      "linkedin": "​ https://www.linkedin.com/in/sahar-mor",
+      "title": "Founder",
+      "companyName": "Bond AI",
+      "judged": [],
+      "spoke": [
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Bond AI"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Bond AI"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "5cb2660f-1902-47cb-a980-c96be49be67e",
+      "username": "​Laura Cruickshanks",
+      "linkedin": "https://www.linkedin.com/in/mslauraliu",
+      "title": "Head of Community",
+      "companyName": "PromptQL",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "PromptQL"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "ccf7f874-970c-43af-8bf6-655b51200ed2",
+      "username": "Aniket Maurya",
+      "linkedin": "https://www.linkedin.com/in/aniketmaurya/",
+      "title": "Founder",
+      "companyName": "Celesto AI",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Celesto AI"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "3ac3d7f2-96ab-422d-bc3f-16859efce403",
+      "username": "Jessica Zhang",
+      "linkedin": "https://www.linkedin.com/in/jessicazhang999/?isSelfProfile=false",
+      "title": "Founder",
+      "companyName": "GenAI Assembling",
+      "judged": [],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "GenAI Assembling"
+        }
+      ],
+      "volunteered": []
+    },
+    {
+      "id": "757e6817-2578-4d89-ada3-b0fd365c76bd",
+      "username": "Scarlett Xiao",
+      "linkedin": "https://www.linkedin.com/in/xiaog100",
+      "title": "Co-Founder",
+      "companyName": "Glasser",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "spoke": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "sponsored": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19",
+          "companyName": "Glasser"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07",
+          "companyName": "Glasser"
+        }
+      ],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "936f27da-ef37-4460-80fd-7cb11d244b21",
+      "username": "Sarah Hatcher",
+      "linkedin": "https://www.linkedin.com/in/sarah-hatcher-ai/",
+      "title": "Founder",
+      "companyName": "Kripke and Human Technology Alliance Institute",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        },
+        {
+          "eventName": "Zero Human Startup Hackathon",
+          "slug": "zero-human-startup-hackathon-mvd90q80",
+          "eventDate": "2026-10-07"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "60529c75-c5e7-4797-b751-cc6b23e4ecef",
+      "username": "Vibhu Dixit",
+      "linkedin": "https://www.linkedin.com/in/vibhu-dixit-swe/",
+      "title": "Founding Engineer",
+      "companyName": "Casuro",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "e8615a14-661c-4882-8275-7342cc43e0bd",
+      "username": "Anna Halianovska",
+      "linkedin": "https://www.linkedin.com/in/anna-halianovska-3202723bb",
+      "title": "Operations Manager",
+      "companyName": "Startup Valley",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "378851dd-3710-415a-98cc-3928b905b82c",
+      "username": "Ravi Kiran",
+      "linkedin": "https://www.linkedin.com/in/ravi-kiran-b800991a5/",
+      "title": "Senior Software Engineer",
+      "companyName": "Amazon Web Services",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
+        }
+      ],
+      "spoke": [],
+      "sponsored": [],
+      "hosted": [],
+      "partnered": [],
+      "volunteered": []
+    },
+    {
+      "id": "7e4a80a5-0837-4a49-993f-8c2659229db4",
+      "username": "Bhavya Gupta",
+      "linkedin": "https://www.linkedin.com/in/bhavyagpt/",
+      "title": "Information Security Officer",
+      "companyName": "Stanford",
+      "judged": [
+        {
+          "eventName": "Universal Hackathon",
+          "slug": "universal-hackathon-mvd90xut",
+          "eventDate": "2026-10-19"
         }
       ],
       "spoke": [],
