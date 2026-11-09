@@ -136,7 +136,7 @@
   /* ---------- nodes (places agents can go) ---------- */
   const nodes = [];
   islands.forEach(i => nodes.push({ id: i.id, x: i.x, y: i.y + 30, label: i.t.island, short: i.t.short, kind: "track", island: i.id, color: i.hex, reasons: i.t.agentReasons }));
-  H.sponsors.forEach(s => nodes.push({ id: s.id, x: s.map.x + s.map.w + 16, y: s.map.y + 6, label: s.landmark, short: s.name, kind: "sponsor", island: "center", color: s.color, reasons: s.agentReasons }));
+  H.sponsors.forEach(s => nodes.push({ id: s.id, x: s.map.x + s.map.w + 16, y: s.map.y + 6, label: s.landmark, short: s.name, kind: "sponsor", island: "center", color: s.color }));
   const hub = nodes.find(n => n.kind === "sponsor" && H.sponsors.find(s => s.id === n.id).tier === "main") || { x: CENTER.x, y: CENTER.y + 40, island: "center" };
 
   const rand = a => a[Math.floor(Math.random() * a.length)];
@@ -163,23 +163,10 @@
     el("rect", { x: -5.5, y: -14, width: 11, height: 14, rx: 5, fill: a.color, filter: "url(#glow)" }, g);
     el("circle", { cx: 0, cy: -19, r: 5, fill: "#f4f6ff" }, g);
     el("circle", { cx: 1.8, cy: -19.5, r: 1.1, fill: "#111" }, g);
-    const bub = el("g", { class: "bubble", opacity: 0 }, g);
-    const br = el("rect", { x: 0, y: -50, height: 20, rx: 10, fill: "#0b1022", stroke: a.color, "stroke-width": 1.5 }, bub);
-    const bt = el("text", { x: 0, y: -36, "text-anchor": "middle", class: "bub-text" }, bub);
     const ax = at.x + jit(40), ay = at.y + jit(14);
     g.setAttribute("transform", `translate(${ax},${ay})`);
-    return Object.assign({}, a, { at, x: ax, y: ay, path: [], wait: i < 3 ? 0 : i * 700, g, bub, br, bt });
+    return Object.assign({}, a, { at, x: ax, y: ay, path: [], wait: i < 3 ? 0 : i * 700, g });
   });
-
-  function say(a, text) {
-    a.bt.textContent = text;
-    const w = text.length * 6.6 + 18;
-    a.br.setAttribute("x", -w / 2);
-    a.br.setAttribute("width", w);
-    a.bub.setAttribute("opacity", 1);
-    clearTimeout(a.bubT);
-    a.bubT = setTimeout(() => a.bub.setAttribute("opacity", 0), 2600);
-  }
 
   /* ---------- decision log ---------- */
   const logEl = document.getElementById("log"), countEl = document.getElementById("decCount");
@@ -211,9 +198,8 @@
         const dest = pickTarget(a);
         a.dest = dest;
         a.path = route(a.at, dest).map(n => ({ x: n.x + jit(n.kind === "sponsor" ? 18 : 60), y: n.y + jit(12) }));
-        const reason = rand(dest.reasons);
-        logDecision(a, dest, reason);
-        say(a, "→ " + dest.short);
+        // only track-island visits are logged; sponsor buildings are just places to walk to
+        if (dest.kind === "track" && dest.reasons && dest.reasons.length) logDecision(a, dest, rand(dest.reasons));
       }
       const p = a.path[0], dx = p.x - a.x, dy = p.y - a.y, dist = Math.hypot(dx, dy), step = (SPEED * dt) / 1000;
       if (dist <= step) {

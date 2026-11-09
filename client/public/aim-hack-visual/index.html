@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/aim-hack-visual/styles.css" />
+  <link rel="stylesheet" href="/aim-hack-visual/core.css" />
 </head>
 <body>
   <header class="nav">
@@ -24,13 +25,23 @@
     </div>
   </header>
 
-  <section class="hero wrap">
-    <p class="eyebrow">// Hackathon · Dates TBA · Solo or teams of up to 4</p>
-    <h1>Build what comes <em>after chat.</em></h1>
-    <p class="lead">AI agents that move, compete, cooperate and teach as living characters in worlds you create. No single chatbot. No fixed script.</p>
-    <div class="cta-row">
-      <a class="btn" href="/aim-hack-visual/play.html#film">▶ Try it: watch agents decide</a>
-      <a class="btn ghost" href="/aim-hack-visual/tracks.html">Explore the 3 tracks →</a>
+  <section class="hero2 wrap">
+    <div class="hero2-copy">
+      <p class="eyebrow">// Hackathon · Dates TBA · Solo or teams of up to 4</p>
+      <h1>Build what comes <em>after chat.</em></h1>
+      <p class="lead">AI agents that move, compete, cooperate and teach as living characters in worlds you create. No single chatbot. No fixed script.</p>
+      <div class="cta-row">
+        <a class="btn" href="/aim-hack-visual/play.html">▶ Open the playground</a>
+        <a class="btn ghost" href="/aim-hack-visual/tracks.html">Explore the 3 tracks →</a>
+      </div>
+      <ul class="hero2-facts">
+        <li><b>3</b> tracks: film, games, learning</li>
+        <li><b>5</b> sponsor tools to play with</li>
+        <li><b>∞</b> endings: agents decide</li>
+      </ul>
+    </div>
+    <div class="hero2-stage" id="heroStage" aria-label="Four AI characters introduce the three tracks">
+      <div class="hs-tag mono"><span class="live-dot"></span> LIVE CAST</div>
     </div>
   </section>
 
@@ -58,12 +69,10 @@
     <div class="section-head">
       <span class="kicker">Playground</span>
       <h2>Don't just read the brief. Play it.</h2>
-      <p>Pick characters, set a scene, and watch AI agents decide what happens. Or sit down at a table with agent players who trade, ally and betray.</p>
+      <p>Direct a film where agents decide the ending, play games with AI teammates, get interviewed by an agent panel, or design your own characters.</p>
     </div>
-    <div class="try-grid">
-      <a class="card try" href="/aim-hack-visual/play.html#film" style="--c:var(--film)"><span class="ico">🎬</span><div><h3>Track 01 · Direct an agent film</h3><p>Choose a cast and a story mode, throw in plot twists, and collect different endings. <b>Start →</b></p></div></a>
-      <a class="card try" href="/aim-hack-visual/play.html#game" style="--c:var(--game)"><span class="ico">🎮</span><div><h3>Track 02 · Play against agents</h3><p>You and a friend vs. AI players with goals, memory and grudges. <b>Play →</b></p></div></a>
-    </div>
+    <div class="try4" id="homeTry"></div>
+    <a class="card try-labs" href="/aim-hack-visual/sponsors.html#labs"><span class="tl-ico">🧪</span><div><h3>Sponsor Labs</h3><p>Wire agents together in a BAND channel, turn a sentence into a video with AdaL, query agent data with Bruin, equip Finch skills, and take a Casuro voice interview.</p></div><span class="go">Open the labs →</span></a>
   </section>
 
   <!-- CHALLENGE -->
@@ -140,7 +149,7 @@
     <div class="section-head">
       <span class="kicker">Sponsors &amp; partners</span>
       <h2>The buildings that power the world.</h2>
-      <p>Every sponsor is a landmark in the Sponsor District. <a href="/aim-hack-visual/sponsors.html">Explore the sponsor map →</a></p>
+      <p>Every sponsor is a landmark in the Sponsor District. <a href="/aim-hack-visual/sponsors.html">Explore the sponsor map</a> or <a href="/aim-hack-visual/sponsors.html#labs">play with their tools in the Sponsor Labs →</a></p>
     </div>
     <div class="sp-strip" id="homeSponsors"></div>
   </section>
@@ -165,6 +174,9 @@
   </footer>
 
   <script src="/aim-hack-visual/data.js"></script>
+  <script src="/aim-hack-visual/play-data.js"></script>
+  <script src="/aim-hack-visual/puppet.js"></script>
+  <script src="/aim-hack-visual/scenes.js"></script>
   <script src="/aim-hack-visual/site.js"></script>
   <script src="/aim-hack-visual/map.js"></script>
 </body>

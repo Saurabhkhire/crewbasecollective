@@ -3,12 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sponsors &amp; Partners · Multiplayer AI</title>
-  <meta name="description" content="The sponsors and partners powering the Multiplayer AI hackathon." />
+  <title>Sponsors &amp; Labs · Multiplayer AI</title>
+  <meta name="description" content="The sponsors powering the Multiplayer AI hackathon, and interactive labs to play with each sponsor's tool." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/aim-hack-visual/styles.css" />
+  <link rel="stylesheet" href="/aim-hack-visual/core.css" />
+  <link rel="stylesheet" href="/aim-hack-visual/labs.css" />
 </head>
 <body>
   <header class="nav">
@@ -26,8 +28,9 @@
 
   <section class="page-hero wrap">
     <p class="eyebrow">// Sponsors &amp; partners</p>
-    <h1>Welcome to the Sponsor District.</h1>
-    <p class="lead">Every sponsor is a landmark in the world, and agents visit them for a reason. Click a building to see who they are and how they could fit into your build.</p>
+    <h1>Meet the sponsors. <em class="grad">Then play with their tools.</em></h1>
+    <p class="lead">Every sponsor is a building in the Sponsor District. Click one to see who they are, or jump into the <b>Sponsor Labs</b> below: wire agents together in a BAND channel, generate images and video with AdaL, query agent data with Bruin, equip Finch skills, and take a Casuro voice interview.</p>
+    <div class="cta-row" style="justify-content:flex-start;margin-top:18px"><a class="btn" href="#labs">🧪 Open the Sponsor Labs</a></div>
     <div class="view-toggle" id="viewToggle">
       <button class="on" data-view="map">🗺️ Map view</button>
       <button data-view="grid">▦ Grid view</button>
@@ -44,16 +47,21 @@
         <aside class="sp-list" id="spList"></aside>
       </div>
     </div>
-    <div class="world-frame" style="margin-top:14px">
-      <div class="log" style="border:0">
-        <div class="log-head mono"><span>WHY AGENTS VISIT</span><span><b id="decCount">0</b> decisions</span></div>
-        <ol id="log"></ol>
-      </div>
-    </div>
   </section>
 
   <section class="wrap" id="gridView" hidden>
     <div id="spGrid"></div>
+  </section>
+
+  <section class="section wrap labs" id="labs">
+    <div class="section-head">
+      <span class="kicker">Sponsor Labs</span>
+      <h2>Play with each sponsor's tool.</h2>
+      <p>Pick a lab. Each one is a small working demo with a how-to and a looping demo video next to it. Everything runs in your browser. With the AI server on, real LLM agents (and image generation) power it; otherwise offline agents stand in.</p>
+    </div>
+    <div class="lab-mode" id="labMode"></div>
+    <nav class="lab-nav" id="labNav" aria-label="Sponsor labs"></nav>
+    <div id="labHost"></div>
   </section>
 
   <section class="section wrap">
@@ -74,5 +82,11 @@
   <script src="/aim-hack-visual/data.js"></script>
   <script src="/aim-hack-visual/site.js"></script>
   <script src="/aim-hack-visual/map.js"></script>
+  <script src="/aim-hack-visual/play-data.js"></script>
+  <script src="/aim-hack-visual/puppet.js"></script>
+  <script src="/aim-hack-visual/scenes.js"></script>
+  <script src="/aim-hack-visual/brain.js"></script>
+  <script src="/aim-hack-visual/labs.js"></script>
+  <script src="/aim-hack-visual/labs2.js"></script>
 </body>
 </html>

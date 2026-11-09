@@ -182,7 +182,6 @@ window.HACK = {
       landmark: "Bruin HQ · Data Plaza", icon: "🏛️", color: "#ffc857",
       blurb: "Bruin is an all-in-one data and AI platform that eliminates fragmented data tools by bringing everything into one unified workspace. It transforms raw data into actionable AI-powered insights in seconds, directly within Slack, Microsoft Teams and your browser.",
       buildIdea: "Pipe every agent decision into one place and ask questions about your runs, like which ending happened most, right from Slack.",
-      agentReasons: ["wants to analyse 50 runs of its own decisions", "needs data to explain why the heist failed", "is checking which ending audiences liked most"],
       map: { x: 600, y: 352, w: 46, h: 72 }
     },
     {
@@ -190,7 +189,6 @@ window.HACK = {
       landmark: "AdaL's Workshop", icon: "🤖", color: "#c48bff",
       blurb: "AdaL is an automation-first agent harness designed to get more done with less of your time. She combines personality, skills and memory to become a personalized agent that can work alongside you.",
       buildIdea: "Give characters a persistent personality, skills and memory so they feel like the same person across sessions.",
-      agentReasons: ["wants a personality that remembers last game's betrayal", "is upgrading its memory before the interview panel"],
       map: { x: 470, y: 335, w: 26, h: 34 }
     },
     {
@@ -198,23 +196,13 @@ window.HACK = {
       landmark: "BAND Tower", icon: "📡", color: "#5c8dff", tower: true,
       blurb: "BAND helps AI agents and people work together in a shared environment. Its platform lets agents built with different tools communicate, delegate tasks and keep context in sync, while giving teams visibility and control over how that work gets done.",
       buildIdea: "Let agents built with different tools talk, delegate and stay in sync inside one shared world.",
-      agentReasons: ["needs to sync plans with the other panel judges", "is opening a back-channel with its tribe"],
       map: { x: 728, y: 330, w: 15, h: 82 }
-    },
-    {
-      id: "tenki", name: "Tenki", tier: "sponsor", url: "https://tenki.cloud",
-      landmark: "Tenki Docks", icon: "☁️", color: "#4fd1c5",
-      blurb: "Tenki provides sandbox environments, cloud compute and runners for executing code and workloads. It gives builders a place to experiment, run and scale their work.",
-      buildIdea: "Run your film 100 times in sandboxes overnight to prove the endings really change, or train agents with RL.",
-      agentReasons: ["needs a sandbox to replay the film 100 times overnight", "is spinning up compute for RL training"],
-      map: { x: 452, y: 418, w: 30, h: 22 }
     },
     {
       id: "finch", name: "Finch", tier: "sponsor", url: "https://www.finchtech.ai",
       landmark: "Finch Skill Shop", icon: "🪶", color: "#ff9f43",
       blurb: "Finch provides agent skills that give AI agents reusable capabilities for performing specific tasks. Skills can help make agents more useful, structured and consistent.",
       buildIdea: "Give agents reusable skills like negotiate, examine and trade instead of hand-coding every behaviour.",
-      agentReasons: ["is picking up a negotiation skill before the market opens", "wants a reusable 'examiner' skill for the driving test"],
       map: { x: 752, y: 418, w: 25, h: 30 }
     },
     {
@@ -222,7 +210,6 @@ window.HACK = {
       landmark: "Casuro Interview House", icon: "🎙️", color: "#ff6b6b",
       blurb: "Casuro.ai is an AI-powered recruitment platform that helps companies streamline hiring through intelligent assessments, voice AI interviews and real-world case study challenges, evaluating candidates on their skills, problem-solving and how well they work with AI.",
       buildIdea: "Inspiration for Track 3: voice interviews, case challenges and fair, evidence-based evaluation.",
-      agentReasons: ["is rehearsing a voice interview for the Academy", "wants to see how fair hiring panels weigh evidence"],
       map: { x: 600, y: 455, w: 26, h: 28 }
     }
   ],

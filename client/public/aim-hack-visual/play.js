@@ -1,4 +1,9 @@
-/* Playground shell: track picker, router, shared UI helpers */
+/* =========================================================
+   Playground shell: shared UI helpers, character/scene library,
+   pickers, sponsor tool bar, landing page and router.
+   Routes:  #film  #game  #game/<id>  #grow  #studio  #studio/scenes
+   Modules: Film (film.js) · Games (game.js) · Grow (grow.js) · Studio (studio.js)
+   ========================================================= */
 window.UI = (function () {
   const U = {};
   U.$ = s => document.querySelector(s);
@@ -6,6 +11,7 @@ window.UI = (function () {
   U.rand = a => a[Math.floor(Math.random() * a.length)];
   U.app = () => U.$("#app");
   U.MOOD = { happy: "😄", angry: "😠", scared: "😨", sad: "😢", sly: "😏", shocked: "😱", calm: "😌", determined: "😤", neutral: "😐", thinking: "💭" };
+  U.uid = p => (p || "id") + "-" + Math.random().toString(36).slice(2, 8);
 
   /* ---------- run control: pause / speed / abort ---------- */
   U.ctl = { paused: false, speed: 1, token: 0, voice: false };
@@ -24,40 +30,41 @@ window.UI = (function () {
   let voices = [];
   const loadVoices = () => { try { voices = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang)); } catch {} };
   if ("speechSynthesis" in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
-  U.speak = function (text, idx) {
-    if (!U.ctl.voice || !text || !("speechSynthesis" in window)) return;
+  /* speak(text, voiceIndex, {force, onend}) — plays only if voices are on (or force) */
+  U.speak = function (text, idx, opts) {
+    opts = opts || {};
+    if ((!U.ctl.voice && !opts.force) || !text || !("speechSynthesis" in window)) { opts.onend && opts.onend(); return; }
     try {
       speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
-      if (voices.length) u.voice = voices[idx % voices.length];
-      u.pitch = 0.75 + (idx % 5) * 0.15;
+      if (voices.length) u.voice = voices[(idx || 0) % voices.length];
+      u.pitch = 0.75 + ((idx || 0) % 5) * 0.15;
       u.rate = 1.05 * Math.min(U.ctl.speed, 1.6);
+      if (opts.onend) u.onend = opts.onend;
       speechSynthesis.speak(u);
-    } catch {}
+    } catch { opts.onend && opts.onend(); }
   };
   U.stopVoice = () => { try { speechSynthesis.cancel(); } catch {} };
 
   /* ---------- step indicator ---------- */
   U.steps = function (labels, active, color) {
-    U.$("#steps").innerHTML = `<ol class="steps" style="--c:${color}">${labels.map((l, i) =>
-      `<li class="${i < active ? "done" : i === active ? "on" : ""}"><span>${i < active ? "✓" : i + 1}</span>${U.esc(l)}</li>`).join("")}</ol>`;
+    U.$("#steps").innerHTML = labels ? `<ol class="steps" style="--c:${color}">${labels.map((l, i) =>
+      `<li class="${i < active ? "done" : i === active ? "on" : ""}"><span>${i < active ? "✓" : i + 1}</span>${U.esc(l)}</li>`).join("")}</ol>` : "";
   };
 
   /* ---------- LLM status banner ---------- */
   U.banner = function () {
     const b = U.$("#modeBanner"), B = window.Brain;
-    if (B.mode === "llm") b.innerHTML = `<span class="pill ok">● LIVE LLM AGENTS</span> Every character is a separate OpenAI agent (<b>${U.esc(B.model)}</b>) deciding for itself.`;
-    else b.innerHTML = `<span class="pill warn">● OFFLINE DEMO AGENTS</span> ${U.esc(B.reason || "")} Agents are simulated from their personalities. <a href="#" id="howLLM">How to turn on real LLM agents</a>`;
-    const h = U.$("#howLLM");
-    if (h) h.onclick = e => { e.preventDefault(); U.modal(`<h3>Turn on OpenAI agents</h3>
-      <ol class="howto"><li>In the main Crewbase Collective Vercel project → Settings → Environment Variables, add <code>OPENAI_API_KEY</code> (optional: <code>OPENAI_MODEL</code>).</li><li>Redeploy. The page calls <code>/api/aim-hack-chat</code>.</li><li>Locally the playground runs with offline agents.</li></ol>
-      <p class="muted">The key stays on the server and is never sent to the browser.</p>`); };
+    if (B.mode === "llm") b.innerHTML = `<span class="pill ok">● LIVE AI AGENTS</span> Every character is a separate OpenAI agent (<b>${U.esc(B.model)}</b>) deciding for itself.${B.images ? ` Image generation is on.` : ""}`;
+    else b.innerHTML = `<span class="pill warn">● OFFLINE DEMO AGENTS</span> ${U.esc(B.reason || "")} Agents are simulated from their personalities.`;
   };
+  U.srcLabel = () => (Brain.mode === "llm" ? "🧠 " + U.esc(Brain.model) : "🧪 offline agents");
 
   /* ---------- generic modal ---------- */
-  U.modal = function (html, onMount) {
+  U.modal = function (html, onMount, cls) {
     let d = U.$("#uiModal");
-    if (!d) { d = document.createElement("dialog"); d.id = "uiModal"; d.className = "sp-modal play-modal"; document.body.appendChild(d); d.addEventListener("click", e => e.target === d && d.close()); }
+    if (!d) { d = document.createElement("dialog"); d.id = "uiModal"; document.body.appendChild(d); d.addEventListener("click", e => e.target === d && d.close()); }
+    d.className = "sp-modal play-modal " + (cls || "");
     d.innerHTML = `<button class="close" aria-label="Close">✕</button>${html}`;
     d.querySelector(".close").onclick = () => d.close();
     if (!d.open) d.showModal();
@@ -65,88 +72,171 @@ window.UI = (function () {
     return d;
   };
 
-  /* ---------- character editor (film + game) ---------- */
-  U.editCharacter = function (initial, opts) {
-    const c = Object.assign({ name: "", role: "", avatar: U.rand(PLAY.avatars), personality: "", secret: "", goal: "" }, initial || {});
-    const goalKey = opts.kind === "game" ? "goal" : "secret";
-    const goalLabel = opts.kind === "game" ? "Goal in the game" : "Secret goal (only this agent knows it)";
-    const goalPh = opts.kind === "game" ? "e.g. Become the richest player, but never hurt Tomo." : "e.g. Is secretly in love with the captain and will sabotage anyone who threatens her.";
-    U.modal(`
-      <span class="lm">${initial && initial.name ? "Edit character" : "Create your own character"}</span>
-      <h3>${opts.kind === "game" ? "🤖 Agent player" : "🎭 Film character"}</h3>
-      <form class="char-form" id="charForm">
-        <label>Avatar</label>
-        <div class="avatar-pick">${PLAY.avatars.map(a => `<button type="button" class="${a === c.avatar ? "on" : ""}" data-a="${a}">${a}</button>`).join("")}</div>
-        <div class="two"><div><label>Name</label><input name="name" required maxlength="24" value="${U.esc(c.name)}" placeholder="e.g. Zara"></div>
-        <div><label>Role</label><input name="role" required maxlength="28" value="${U.esc(c.role)}" placeholder="e.g. Pilot"></div></div>
-        <label>Personality <small>how they think and talk</small></label>
-        <textarea name="personality" required maxlength="220" rows="2" placeholder="e.g. Fearless, sarcastic, fiercely loyal to her friends.">${U.esc(c.personality)}</textarea>
-        <label>${goalLabel}</label>
-        <textarea name="goal" required maxlength="220" rows="2" placeholder="${goalPh}">${U.esc(c[goalKey])}</textarea>
-        <div class="row"><button class="btn btn-sm" type="submit">Save character</button></div>
-      </form>`, d => {
-      let av = c.avatar;
-      d.querySelectorAll(".avatar-pick button").forEach(b => b.onclick = () => { av = b.dataset.a; d.querySelectorAll(".avatar-pick button").forEach(x => x.classList.toggle("on", x === b)); });
-      d.querySelector("#charForm").onsubmit = e => {
-        e.preventDefault();
-        const f = new FormData(e.target);
-        const out = Object.assign({}, initial || {}, { name: f.get("name").trim(), role: f.get("role").trim(), avatar: av, personality: f.get("personality").trim() });
-        out[goalKey] = f.get("goal").trim();
-        out.custom = initial ? initial.custom : true;
-        d.close();
-        opts.onSave(out);
-      };
-    });
+  /* ---------- "agent at work" panel ----------
+     const w = UI.aiWork(el, ["Reading your idea", "Choosing a look", "Writing a personality"]);
+     w.step(1); ... w.done("why text")  */
+  U.aiWork = function (el, steps, title) {
+    el.innerHTML = `<div class="ai-work"><b>🤖 ${U.esc(title || (Brain.mode === "llm" ? "Agent at work" : "Offline agent at work"))}</b>
+      <ol>${steps.map((s, i) => `<li data-i="${i}"><i>○</i>${U.esc(s)}</li>`).join("")}</ol><div class="why"></div></div>`;
+    const lis = [...el.querySelectorAll("li")];
+    const set = k => lis.forEach((li, i) => { li.className = i < k ? "done" : i === k ? "on" : ""; li.querySelector("i").textContent = i < k ? "✓" : i === k ? "●" : "○"; });
+    set(0);
+    return { step: set, done: why => { set(lis.length); if (why) el.querySelector(".why").textContent = "“" + why + "”"; } };
+  };
+  /* animate the steps while a promise runs */
+  U.aiRun = async function (el, steps, promise, title) {
+    const w = U.aiWork(el, steps, title);
+    let k = 0;
+    const t = setInterval(() => { if (k < steps.length - 1) w.step(++k); }, 900);
+    try { const r = await promise; w.done(r && (r.why || (Array.isArray(r.design_notes) ? r.design_notes[0] : ""))); return r; }
+    finally { clearInterval(t); }
   };
 
-  /* ---------- track picker ---------- */
+  /* =========================================================
+     LIBRARY: preset + user-created characters and scenes
+     ========================================================= */
+  const load = k => { try { return JSON.parse(localStorage.getItem(k) || "[]"); } catch { return []; } };
+  const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+  const Lib = {
+    chars() { return load("aimp_chars").map(c => ({ ...c, custom: true })).concat(PLAY.characters.map(c => ({ ...c }))); },
+    char(id) { return Lib.chars().find(c => c.id === id); },
+    saveChar(c) { const all = load("aimp_chars"); c = { ...c, id: c.id || U.uid("c"), custom: true }; const i = all.findIndex(x => x.id === c.id); if (i >= 0) all[i] = c; else all.unshift(c); save("aimp_chars", all.slice(0, 60)); return c; },
+    removeChar(id) { save("aimp_chars", load("aimp_chars").filter(c => c.id !== id)); },
+    scenes() { return load("aimp_scenes").map(s => ({ ...s, custom: true })).concat(PLAY.scenes.map(s => ({ ...s }))); },
+    scene(id) { return Lib.scenes().find(s => s.id === id); },
+    saveScene(s) { const all = load("aimp_scenes"); s = { ...s, id: s.id || U.uid("s"), custom: true }; const i = all.findIndex(x => x.id === s.id); if (i >= 0) all[i] = s; else all.unshift(s); save("aimp_scenes", all.slice(0, 40)); return s; },
+    removeScene(id) { save("aimp_scenes", load("aimp_scenes").filter(s => s.id !== id)); }
+  };
+  U.Lib = Lib;
+
+  /* Open the Studio's character creator as a modal (manual + AI). */
+  U.createCharacter = function (onSave, initial) {
+    if (window.Studio && Studio.characterModal) return Studio.characterModal({ initial, onSave: c => onSave(Lib.saveChar(c)) });
+    location.hash = "#studio";
+  };
+  U.createScene = function (onSave, initial) {
+    if (window.Studio && Studio.sceneModal) return Studio.sceneModal({ initial, onSave: s => onSave(Lib.saveScene(s)) });
+    location.hash = "#studio/scenes";
+  };
+
+  /* ---------- cast picker ----------
+     UI.castPicker(el, { selected: [ids], min, max, color, detail: "secret"|"goal"|"role", onChange(ids) }) */
+  U.castPicker = function (el, o) {
+    const sel = o.selected;
+    const draw = () => {
+      const chars = Lib.chars();
+      el.innerHTML = `<div class="pick-cards">
+        <button class="pc new" data-new style="--c:${o.color}"><span class="plus">＋</span><h4>Create a character</h4><p>Pick the look yourself, or describe it and let an AI agent design it.</p></button>
+        ${chars.map(c => { const k = sel.indexOf(c.id); return `
+          <button class="pc ${k >= 0 ? "on" : ""}" data-id="${U.esc(c.id)}" style="--c:${o.color}" aria-pressed="${k >= 0}">
+            ${k >= 0 ? `<span class="n">${k + 1}</span>` : ""}${c.custom ? `<span class="yours">yours</span>` : ""}
+            <div class="pc-fig"><div class="pup-slot"></div></div>
+            <h4>${U.esc(c.name)}</h4><span class="role">${U.esc(c.role)}</span>
+            <p>${U.esc(o.detail === "goal" ? "🎯 " + (c.goal || c.personality) : o.detail === "role" ? c.personality : c.personality)}</p>
+          </button>`; }).join("")}</div>`;
+      el.querySelectorAll(".pc[data-id]").forEach(b => Puppet.mount(b.querySelector(".pup-slot"), Lib.char(b.dataset.id)));
+    };
+    el.onclick = e => {
+      if (e.target.closest("[data-new]")) return U.createCharacter(c => { if (sel.length < o.max) sel.push(c.id); draw(); o.onChange && o.onChange(sel); });
+      const b = e.target.closest(".pc[data-id]"); if (!b) return;
+      const id = b.dataset.id, k = sel.indexOf(id);
+      if (k >= 0) sel.splice(k, 1); else if (sel.length < o.max) sel.push(id); else { sel.shift(); sel.push(id); }
+      draw(); o.onChange && o.onChange(sel);
+    };
+    draw();
+    return { redraw: draw };
+  };
+
+  /* ---------- scene picker ----------
+     UI.scenePicker(el, { selected: [ids], max, color, onChange(ids) }) */
+  U.scenePicker = function (el, o) {
+    const sel = o.selected;
+    const draw = () => {
+      const scs = Lib.scenes();
+      el.innerHTML = `<div class="sc-cards">
+        <button class="scc new" data-new style="--c:${o.color}"><div class="thumb" style="display:grid;place-items:center;font-size:34px;background:rgba(255,255,255,.03)">＋</div><b>Create a scene</b><small>Office, forest, space… or describe one.</small></button>
+        ${scs.map(s => { const k = sel.indexOf(s.id); return `<button class="scc ${k >= 0 ? "on" : ""}" data-id="${U.esc(s.id)}" style="--c:${o.color}">
+          <div class="thumb">${k >= 0 && o.max > 1 ? `<span class="n">${k + 1}</span>` : ""}${Scenes.svg(s)}</div><b>${U.esc(s.name)}${s.custom ? " · yours" : ""}</b><small>${U.esc(s.desc || "")}</small></button>`; }).join("")}</div>`;
+    };
+    el.onclick = e => {
+      if (e.target.closest("[data-new]")) return U.createScene(s => { if (o.max === 1) sel.splice(0, sel.length, s.id); else if (sel.length < o.max) sel.push(s.id); draw(); o.onChange && o.onChange(sel); });
+      const b = e.target.closest(".scc[data-id]"); if (!b) return;
+      const id = b.dataset.id, k = sel.indexOf(id);
+      if (o.max === 1) sel.splice(0, sel.length, id);
+      else if (k >= 0) { if (sel.length > 1) sel.splice(k, 1); } else if (sel.length < o.max) sel.push(id); else { sel.shift(); sel.push(id); }
+      draw(); o.onChange && o.onChange(sel);
+    };
+    draw();
+    return { redraw: draw };
+  };
+
+  /* ---------- sponsor tool bar ----------
+     const bar = UI.sponsorBar(el, "film", activeSet, onChange)
+     activeSet is a Set of sponsor ids; bar.on("band") → boolean */
+  U.sponsorBar = function (el, track, active, onChange) {
+    const tools = (PLAY.tools[track] || []).map(t => ({ ...t, sp: HACK.sponsors.find(s => s.id === t.id) })).filter(t => t.sp);
+    const draw = () => {
+      const on = tools.filter(t => active.has(t.id));
+      el.innerHTML = `<div class="toolbar-sp"><span class="lbl">SPONSOR TOOLS</span>
+        ${tools.map(t => `<button class="sp-tog ${active.has(t.id) ? "on" : ""}" data-t="${t.id}" style="--c:${t.sp.color}" title="${U.esc(t.does)}">${t.sp.icon} ${U.esc(t.sp.name)} <small>${U.esc(t.label)}</small></button>`).join("")}
+        <span class="sp-hint">${on.length ? on.map(t => `<b>${U.esc(t.sp.name)}:</b> ${U.esc(t.does)}`).join(" · ") : "Switch on a sponsor's tool to see what it adds to this track."}</span></div>`;
+    };
+    el.onclick = e => { const b = e.target.closest("[data-t]"); if (!b) return; const id = b.dataset.t; active.has(id) ? active.delete(id) : active.add(id); draw(); onChange && onChange(active); };
+    draw();
+    return { on: id => active.has(id), redraw: draw };
+  };
+  U.sponsor = id => HACK.sponsors.find(s => s.id === id);
+
+  /* =========================================================
+     LANDING
+     ========================================================= */
   U.picker = function () {
-    U.$("#steps").innerHTML = "";
+    U.steps(null);
+    const cast = ["vega", "bolt", "luna", "jax", "zorp", "priya"].map(id => PLAY.characters.find(c => c.id === id));
     U.app().innerHTML = `
-      <div class="play-hero">
-        <p class="eyebrow">// Playground</p>
-        <h1>Don't read about it. <em>Watch agents decide.</em></h1>
-        <p class="lead">Pick a track, choose your characters, set the scene, and let a cast of AI agents take over. Run it twice and you'll get a different ending.</p>
-      </div>
-      <div class="pick-grid">
-        <a class="card pick big" href="#film" style="--c:var(--film)">
-          <span class="ribbon">▶ Start here</span>
-          <span class="num">TRACK 01</span><span class="ico">🎬</span>
-          <h2>Agent Animated Film</h2>
-          <p>Pick a cast, pick a story, and watch the agents write the plot live, right up to an ending nobody scripted.</p>
-          <ul><li>Choose 3–5 characters or write your own</li><li>Pick a story mode, tone and length</li><li>Throw in plot twists while it runs</li></ul>
-          <span class="go">Choose characters →</span>
-        </a>
-        <a class="card pick" href="#game" style="--c:var(--game)">
-          <span class="num">TRACK 02</span><span class="ico">🎮</span>
-          <h2>Co-op Multiplayer Game</h2>
-          <p>Play against AI agent players who trade, ally, steal, betray and hold grudges, and who trigger world events on their own.</p>
-          <ul><li>1–2 human players + 3–4 agents</li><li>Agents remember what you did</li></ul>
-          <span class="go">Set up a game →</span>
-        </a>
-        <div class="card pick soon" style="--c:var(--grow)">
-          <span class="num">TRACK 03</span><span class="ico">🎓</span>
-          <h2>Grow with Agents</h2>
-          <p>An agent panel that interviews, coaches and grades you. Coming soon.</p>
-          <span class="go">Coming soon</span>
+      <section class="pl-hero">
+        <div class="pl-stage" id="plStage">
+          ${cast.map((c, i) => `<div class="pl-actor" style="--d:${i * 0.35}s"><div class="pl-pup"></div></div>`).join("")}
+          <div class="pl-copy">
+            <p class="eyebrow">// Playground · Multiplayer AI</p>
+            <h1>Don't read about it. <em>Watch agents decide.</em></h1>
+            <p class="lead">Make characters, set a scene, and let a cast of AI agents take over: they direct films, play games with you, and interview you.</p>
+            <div class="cta-row"><a class="btn" href="#film">▶ Make an agent film</a><a class="btn ghost" href="#studio">✨ Create a character</a></div>
+          </div>
         </div>
-      </div>`;
+      </section>
+      <div class="pick-grid4">
+        <a class="card pick" href="#film" style="--c:var(--film)"><span class="num">TRACK 01</span><span class="ico">🎬</span><h2>Agent Animated Film</h2>
+          <p>Pick a cast and a scene, write one opening line, and watch 10–20 scenes play out. The agents decide the ending.</p><span class="go">Make a film →</span></a>
+        <a class="card pick" href="#game" style="--c:var(--game)"><span class="num">TRACK 02</span><span class="ico">🎮</span><h2>Play with Agents</h2>
+          <p>Zombie survival, Snakes & Ladders, Rock-Paper-Scissors, or build your own game, with AI teammates and rivals.</p><span class="go">Pick a game →</span></a>
+        <a class="card pick" href="#grow" style="--c:var(--grow)"><span class="num">TRACK 03</span><span class="ico">🎓</span><h2>Grow with Agents</h2>
+          <p>An agent panel interviews you, confers in private, adapts, and gives a verdict with evidence from your answers.</p><span class="go">Start a session →</span></a>
+        <a class="card pick studio" href="#studio" style="--c:#c48bff"><span class="num">STUDIO</span><span class="ico">✨</span><h2>Characters & Scenes</h2>
+          <p>Design characters by hand or describe them and let an AI agent create them. Build scenes like an office or a forest.</p><span class="go">Open the studio →</span></a>
+      </div>
+      <a class="card labs-link" href="/aim-hack-visual/sponsors.html#labs"><span>🧪</span><div><b>Sponsor Labs</b><p>Play with each sponsor's tool: wire up agents in a BAND channel, generate images and video with AdaL, and more.</p></div><span class="go">Open labs →</span></a>`;
+    U.$("#plStage") && Scenes.mount(U.$("#plStage"), { base: "city", time: "night", weather: "clear" });
+    document.querySelectorAll(".pl-pup").forEach((el, i) => { Puppet.mount(el, cast[i]); setTimeout(() => Puppet.gesture(el, ["wave", "jump", "nod", "raise", "shrug", "point"][i], 2600), 600 + i * 450); });
   };
 
   /* ---------- router ---------- */
   function route() {
-    U.ctl.token++; U.ctl.paused = false; U.stopVoice();
-    const h = location.hash.replace("#", "");
-    if (h === "film") Film.start();
-    else if (h === "game") Game.start();
+    U.ctl.token++; U.ctl.paused = false; U.ctl.speed = 1; U.stopVoice();
+    const [h, sub] = location.hash.replace("#", "").split("/");
+    const go = (mod, ...a) => (window[mod] ? window[mod].start(...a) : U.picker());
+    if (h === "film") go("Film", sub);
+    else if (h === "game") go("Games", sub);
+    else if (h === "grow") go("Grow", sub);
+    else if (h === "studio") go("Studio", sub);
     else U.picker();
     window.scrollTo({ top: 0 });
   }
   U.boot = async function () {
-    U.$("#modeBanner").innerHTML = `<span class="pill">● Checking for LLM server…</span>`;
-    route();
+    U.$("#modeBanner").innerHTML = `<span class="pill">● Checking for the AI server…</span>`;
     await Brain.init();
     U.banner();
+    route();
     window.addEventListener("hashchange", route);
   };
   return U;

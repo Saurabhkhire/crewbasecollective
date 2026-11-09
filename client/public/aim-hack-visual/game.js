@@ -1,318 +1,404 @@
-/* TRACK 2 · Co-op Multiplayer Game: setup → rounds (humans + agents) → world events → results */
-window.Game = (function () {
-  const { $, esc, rand } = UI;
+/* =========================================================
+   TRACK 2 · Play with Agents — game hub
+   Picker → (optional) Create-your-own → Players setup → game engine.
+   Engines register themselves (games/zombie.js, games/snakes.js, games/rps.js):
+     Games.register({ id, title, icon, color, blurb, rules: [..], agents: "how agents play",
+                      minAgents, maxAgents, needsScene, defaults: {...}, start(cfg, root) })
+   cfg = { engine, title, agents: [characters], human: {name}, scene, tools: Set, skills: {name: skill},
+           difficulty, enemy: {name, emoji}, waves, snakes, ladders, rounds, accent, demo }
+   Shared helpers for engines: Games.shell(cfg, opts) builds the play screen with
+   decision log, BAND radio, Bruin stats, sponsor bar, and returns an API.
+   ========================================================= */
+window.Games = (function () {
+  const { $, esc } = UI;
   const C = "#3ee6ff";
-  const STEPS = ["World", "Players", "Play", "Results"];
-  const A = PLAY.actions;
+  const ENGINES = {};
+  const ORDER = ["zombie", "snakes", "rps"];
   const S = {
-    world: 0,
-    custom: { title: "My World", desc: "", locations: "Castle, Forest, Harbor, Mines" },
-    agents: PLAY.gameAgents.map(a => ({ ...a })),
-    picked: [0, 1, 2],
-    humans: [{ name: "You", avatar: "🤠" }],
-    rounds: 5
+    agents: {},           // engine id → selected character ids
+    scene: {},            // engine id → [scene id]
+    human: (() => { try { return localStorage.getItem("aimp_player") || "You"; } catch { return "You"; } })(),
+    tools: new Set(),
+    draft: null
   };
 
-  /* ================= SETUP ================= */
-  function getWorld() {
-    if (S.world < PLAY.gameWorlds.length) return { ...PLAY.gameWorlds[S.world] };
-    const c = S.custom;
-    const locs = c.locations.split(",").map(s => s.trim()).filter(Boolean).slice(0, 4);
-    while (locs.length < 4) locs.push(["North", "South", "East", "West"][locs.length]);
-    return { id: "custom", icon: "🗺️", title: c.title || "My World", theme: "custom", desc: c.desc || "A strange land where humans and agents compete.", locations: locs, events: PLAY.customEvents };
+  const loadGames = () => { try { return JSON.parse(localStorage.getItem("aimp_games") || "[]"); } catch { return []; } };
+  const saveGames = g => { try { localStorage.setItem("aimp_games", JSON.stringify(g.slice(0, 20))); } catch {} };
+
+  /* ---------- Finch skills per engine ---------- */
+  const SKILLS = {
+    zombie: [
+      { id: "medic", icon: "💉", name: "Medic", does: "Slowly heals teammates nearby." },
+      { id: "sharp", icon: "🎯", name: "Sharpshooter", does: "Fires 60% faster, longer range." },
+      { id: "tank", icon: "🛡️", name: "Tank", does: "+60% max health." },
+      { id: "scout", icon: "👟", name: "Scout", does: "Moves 35% faster, revives faster." }
+    ],
+    snakes: [
+      { id: "lucky", icon: "🍀", name: "Lucky", does: "Rolls of 1 or 2 get +1." },
+      { id: "climber", icon: "🧗", name: "Climber", does: "Ladders lift you 3 squares further." },
+      { id: "slippery", icon: "🧈", name: "Slippery", does: "Snakes only drop you half the way." }
+    ],
+    rps: [
+      { id: "psychic", icon: "🔮", name: "Psychic", does: "Reads your patterns much more accurately." },
+      { id: "bluffer", icon: "🃏", name: "Bluffer", does: "Taunts hint at a throw it won't play." },
+      { id: "stubborn", icon: "🪨", name: "Stubborn", does: "Repeats winning throws, never panics." }
+    ]
+  };
+  function assignSkills(engine, agents) {
+    const list = SKILLS[engine] || [];
+    const out = {};
+    agents.forEach((a, i) => { out[a.name] = list[i % list.length]; });
+    return out;
   }
 
-  function setup() {
-    UI.steps(STEPS, 0, C);
-    const custom = S.world === PLAY.gameWorlds.length;
+  /* =========================================================
+     PICKER
+     ========================================================= */
+  function picker() {
+    UI.steps(["Game", "Players", "Play"], 0, C);
+    const mine = loadGames();
     UI.app().innerHTML = `
-      <div class="screen-head"><div><span class="kicker" style="color:${C}">🎮 Track 02 · Step 1</span><h2>Choose a world</h2>
-      <p class="muted">Humans and AI agents share this world as <b>equal players</b>. The agents act on their own goals, whether or not you talk to them.</p></div></div>
-      <div class="mode-grid">
-        ${PLAY.gameWorlds.map((w, i) => `<button class="card mode ${S.world === i ? "on" : ""}" data-w="${i}" style="--c:${C}"><span class="ico">${w.icon}</span><h4>${esc(w.title)}</h4><p>${esc(w.desc)}</p><small class="locs">📍 ${w.locations.join(" · ")}</small></button>`).join("")}
-        <button class="card mode ${custom ? "on" : ""}" data-w="${PLAY.gameWorlds.length}" style="--c:${C}"><span class="ico">✍️</span><h4>Build your own</h4><p>Name it, describe it, and pick 4 locations.</p></button>
-      </div>
-      ${custom ? `<div class="card story-cfg-one">
-        <div class="two"><div><label>World name</label><input id="wTitle" maxlength="40" value="${esc(S.custom.title)}"></div>
-        <div><label>4 locations (comma separated)</label><input id="wLocs" maxlength="120" value="${esc(S.custom.locations)}"></div></div>
-        <label>Describe the world</label><textarea id="wDesc" rows="2" maxlength="300" placeholder="e.g. A floating sky-city where guilds fight over wind crystals.">${esc(S.custom.desc)}</textarea>
-      </div>` : ""}
-      <div class="action-bar"><a class="btn ghost" href="#">← Tracks</a><button class="btn" id="next">Next: players →</button></div>`;
-    const keep = () => { if ($("#wTitle")) Object.assign(S.custom, { title: $("#wTitle").value.trim(), locations: $("#wLocs").value, desc: $("#wDesc").value.trim() }); };
-    UI.app().querySelectorAll("[data-w]").forEach(b => b.onclick = () => { keep(); S.world = +b.dataset.w; setup(); });
-    $("#next").onclick = () => { keep(); players(); };
-  }
-
-  function players() {
-    UI.steps(STEPS, 1, C);
-    const n = S.picked.length;
-    UI.app().innerHTML = `
-      <div class="screen-head"><div><span class="kicker" style="color:${C}">🎮 Track 02 · Step 2</span><h2>Pick the agent players</h2>
-      <p class="muted">Choose <b>3 or 4</b> AI agents. Each has its own goal, personality and memory, and they'll ally with you, trade with you, or betray you. Click ✏️ to rewrite one.</p></div></div>
-      <div class="cast-grid">
-        ${S.agents.map((a, i) => { const on = S.picked.includes(i); return `
-          <div class="card char ${on ? "on" : ""}" data-i="${i}" tabindex="0" role="button" aria-pressed="${on}" style="--c:${C}">
-            <button class="edit" data-edit="${i}" aria-label="Edit ${esc(a.name)}">✏️</button>
-            <div class="av">${a.avatar}</div><h4>${esc(a.name)}</h4><span class="role">${esc(a.role)}${a.custom ? " · yours" : ""}</span>
-            <p>${esc(a.personality)}</p><p class="secret">🎯 ${esc(a.goal)}</p>
+      <div class="screen-head"><div><span class="kicker" style="color:${C}">🎮 Track 02 · Play with Agents</span>
+        <h2>Pick a game</h2>
+        <p class="muted">Simple games where <b>AI agents are real players</b>: they make their own choices, talk to each other and to you, and remember what you did.</p></div></div>
+      <div class="gm-pick">
+        ${ORDER.filter(id => ENGINES[id]).map(id => { const e = ENGINES[id]; return `
+          <div class="card gm-card" style="--c:${e.color}">
+            <div class="gm-card-art art-${id}"><span>${e.icon}</span></div>
+            <h3>${esc(e.title)}</h3>
+            <p class="gm-one">${esc(e.blurb)}</p>
+            <ul class="gm-rules">${e.rules.map(r => `<li>${esc(r)}</li>`).join("")}</ul>
+            <p class="gm-how"><b>🤖 How agents play:</b> ${esc(e.agents)}</p>
+            <a class="btn" href="#game/${id}">▶ Play</a>
           </div>`; }).join("")}
-        <button class="card char new" id="newAgent"><div class="av">➕</div><h4>Create an agent</h4><p>Give it a personality and a goal.</p></button>
-      </div>
-
-      <div class="card humans-cfg">
-        <h3 class="cfg-h">🧑 Human players <small>1 or 2 on the same screen (hot-seat)</small></h3>
-        <div class="humans">${S.humans.map((h, i) => `
-          <div class="human-row"><select data-ha="${i}">${PLAY.avatars.map(a => `<option ${a === h.avatar ? "selected" : ""}>${a}</option>`).join("")}</select>
-          <input data-hn="${i}" maxlength="18" value="${esc(h.name)}" placeholder="Player ${i + 1} name">
-          ${i > 0 ? `<button class="btn ghost btn-sm" data-rm="${i}">Remove</button>` : ""}</div>`).join("")}</div>
-        ${S.humans.length < 2 ? `<button class="btn ghost btn-sm" id="addHuman">➕ Add Player 2 (friend on the same screen)</button>` : ""}
-        <h3 class="cfg-h">🔁 Rounds</h3>
-        <div class="chips sel" id="rounds">${[4, 5, 6, 8].map(r => `<button class="chip ${S.rounds === r ? "on" : ""}" data-r="${r}">${r} rounds</button>`).join("")}</div>
-      </div>
-
-      <div class="action-bar"><button class="btn ghost" id="back">← World</button>
-        <span class="muted"><b>${n}</b> agents · ${S.humans.length} human${S.humans.length > 1 ? "s" : ""}</span>
-        <button class="btn" id="start" ${n < 3 ? "disabled" : ""}>▶ Start game</button></div>`;
-
-    const keepHumans = () => UI.app().querySelectorAll("[data-hn]").forEach(inp => {
-      const i = +inp.dataset.hn;
-      S.humans[i].name = inp.value.trim() || `Player ${i + 1}`;
-      S.humans[i].avatar = UI.app().querySelector(`[data-ha="${i}"]`).value;
-    });
-    UI.app().querySelectorAll(".char[data-i]").forEach(el => {
-      const t = e => { if (e.target.closest("[data-edit]")) return; keepHumans(); const i = +el.dataset.i, k = S.picked.indexOf(i);
-        if (k >= 0) S.picked.splice(k, 1); else if (S.picked.length < 4) S.picked.push(i); players(); };
-      el.addEventListener("click", t); el.addEventListener("keydown", e => e.key === "Enter" && t(e));
-    });
-    UI.app().querySelectorAll("[data-edit]").forEach(b => b.onclick = () => { keepHumans(); const i = +b.dataset.edit;
-      UI.editCharacter(S.agents[i], { kind: "game", onSave: a => { S.agents[i] = a; players(); } }); });
-    $("#newAgent").onclick = () => { keepHumans(); UI.editCharacter(null, { kind: "game", onSave: a => { S.agents.push(a); if (S.picked.length < 4) S.picked.push(S.agents.length - 1); players(); } }); };
-    const add = $("#addHuman"); if (add) add.onclick = () => { keepHumans(); S.humans.push({ name: "Player 2", avatar: "🐱" }); players(); };
-    UI.app().querySelectorAll("[data-rm]").forEach(b => b.onclick = () => { keepHumans(); S.humans.splice(+b.dataset.rm, 1); players(); });
-    $("#rounds").onclick = e => { const b = e.target.closest("[data-r]"); if (b) { keepHumans(); S.rounds = +b.dataset.r; players(); } };
-    $("#back").onclick = () => { keepHumans(); setup(); };
-    $("#start").onclick = () => { keepHumans(); if (new Set(S.humans.map(h => h.name)).size < S.humans.length) S.humans[1].name += " 2"; play(); };
-  }
-
-  /* ================= GAME STATE ================= */
-  function newGame() {
-    const world = getWorld();
-    const ps = [];
-    S.humans.forEach((h, i) => ps.push({ ...h, role: "Human player", human: true, color: i ? "#ffc857" : "#f2f2f2" }));
-    S.picked.forEach((i, k) => {
-      let a = { ...S.agents[i] };
-      if (ps.some(p => p.name === a.name)) a.name += "*";
-      ps.push({ ...a, human: false, color: PLAY.colors[(k + 1) % PLAY.colors.length] });
-    });
-    ps.forEach((p, i) => Object.assign(p, { id: i, coins: 5, health: 10, influence: 0, loc: world.locations[i % world.locations.length], trust: {}, memory: [], aggression: 0 }));
-    return { world, events: world.events, players: ps, round: 1, rounds: S.rounds, lastRound: [], history: [], humanChatter: [], eventHappened: false };
-  }
-  const score = p => p.coins + p.health + 2 * p.influence;
-  const byName = (g, n) => g.players.find(p => p.name === n);
-  const trust = (from, to, d) => { from.trust[to.name] = (from.trust[to.name] || 0) + d; };
-  const remember = (p, txt) => { if (!p.human) p.memory.push(txt); };
-
-  /* resolve one decision → returns a log line */
-  function resolve(g, p, d) {
-    const t = byName(g, d.target), R = `R${g.round}`;
-    if (p.health <= 0) { p.health = 3; return `💤 ${p.name} is knocked out and recovers (+3 health).`; }
-    switch (d.action) {
-      case "move": p.loc = d.target; return `🚶 ${p.name} moves to ${d.target}.`;
-      case "gather": p.coins += 2; return `⛏️ ${p.name} works hard (+2 coins).`;
-      case "trade": p.coins++; t.coins++; trust(p, t, 1); trust(t, p, 1); remember(t, `${R}: ${p.name} traded fairly with me.`); return `🤝 ${p.name} trades with ${t.name} (+1 coin each).`;
-      case "ally": trust(p, t, 2); trust(t, p, 2); p.influence++; remember(t, `${R}: ${p.name} offered me an alliance.`); return `🛡️ ${p.name} forms an alliance with ${t.name}.`;
-      case "talk": trust(t, p, 1); remember(t, `${R}: ${p.name} told me: "${d.say}"`); return `💬 ${p.name} talks to ${t.name}.`;
-      case "steal": { const n = Math.min(3, t.coins); t.coins -= n; p.coins += n; trust(t, p, -3); p.aggression += 1; remember(t, `${R}: ${p.name} STOLE ${n} coins from me!`); return `🫳 ${p.name} steals ${n} coins from ${t.name}!`; }
-      case "attack": t.health = Math.max(0, t.health - 3); p.health = Math.max(0, p.health - 1); trust(t, p, -3); p.aggression += 2; remember(t, `${R}: ${p.name} ATTACKED me.`); return `⚔️ ${p.name} attacks ${t.name} (-3 health)!`;
-      case "betray": {
-        if ((t.trust[p.name] || 0) >= 2) { const n = Math.min(5, t.coins); t.coins -= n; p.coins += n; t.trust[p.name] = -5; p.aggression += 2; remember(t, `${R}: ${p.name} BETRAYED me and took ${n} coins. Never again.`); return `🗡️ ${p.name} BETRAYS ${t.name} and takes ${n} coins!`; }
-        trust(t, p, -1); return `🗡️ ${p.name} tries to betray ${t.name}, but ${t.name} never trusted them.`;
-      }
-    }
-    return `${p.name} hesitates.`;
-  }
-  function applyEvent(g, we) {
-    const fx = we.ev.fx, targets = fx.who === "all" ? g.players : fx.who === "humans" ? g.players.filter(p => p.human) : [we.by];
-    targets.forEach(p => {
-      if (fx.coinsPct) p.coins = Math.max(0, Math.round(p.coins * (1 + fx.coinsPct / 100)));
-      if (fx.coins) p.coins = Math.max(0, p.coins + fx.coins);
-      if (fx.health) p.health = Math.max(0, p.health + fx.health);
-      if (fx.influence) p.influence = Math.max(0, p.influence + fx.influence);
-    });
-    if (fx.causerInfluence) we.by.influence += fx.causerInfluence;
-    g.players.forEach(p => remember(p, `R${g.round}: WORLD EVENT "${we.ev.title}" caused by ${we.by.name}.`));
-  }
-
-  /* ================= BOARD ================= */
-  let G;
-  function play() {
-    G = newGame();
-    UI.ctl.token++;
-    UI.steps(STEPS, 2, C);
-    UI.app().innerHTML = `
-      <div class="game-top">
-        <div><span class="kicker" style="color:${C}">${G.world.icon} ${esc(G.world.title)}</span><h2 id="roundLbl">Round 1 / ${G.rounds}</h2></div>
-        <div class="game-top-r"><span class="src">${Brain.mode === "llm" ? "🧠 " + esc(Brain.model) : "🧪 offline agents"}</span>
-        <button class="btn ghost btn-sm" id="voiceG">${UI.ctl.voice ? "🔊 Voices on" : "🔇 Voices off"}</button></div>
-      </div>
-      <div class="game-grid">
-        <div>
-          <div class="board theme-${G.world.theme}" id="board">${G.world.locations.map((l, i) => `<div class="loc" data-loc="${esc(l)}"><span class="loc-n">📍 ${esc(l)}</span><div class="tokens"></div></div>`).join("")}
-            <div class="event-pop" id="eventPop" hidden></div></div>
-          <div class="card turn" id="turn"></div>
+        <div class="card gm-card gm-new" style="--c:#c48bff">
+          <div class="gm-card-art art-new"><span>➕</span></div>
+          <h3>Create your own game</h3>
+          <p class="gm-one">Pick an engine, name it, theme it, or just describe it and let an AI agent design it.</p>
+          <ul class="gm-rules"><li>Shooter, board race or duel</li><li>Your enemies, your world, your rules</li><li>Saved here for next time</li></ul>
+          <p class="gm-how"><b>🤖 How agents help:</b> an agent turns one sentence into a playable game.</p>
+          <a class="btn" href="#game/custom">✨ Create a game</a>
         </div>
-        <aside>
-          <div class="card score" id="score"></div>
-          <div class="card glog"><div class="log-head mono"><span>DECISION LOG</span><label class="minds"><input type="checkbox" id="showMindsG" checked> agent thoughts</label></div><ol id="glog"></ol></div>
+      </div>
+      ${mine.length ? `<h3 class="gm-sub">🗂️ Your games</h3><div class="gm-mine">${mine.map(g => `
+        <div class="card gm-mine-card" style="--c:${g.accent || "#c48bff"}">
+          <div class="gm-cover" data-cover="${esc(g.id)}">${coverHTML(g)}</div>
+          <div class="gm-mine-b"><b>${esc(g.title)}</b><small>${esc(ENGINES[g.engine] ? ENGINES[g.engine].title : g.engine)} · ${esc(g.difficulty || "normal")}</small>
+          <p>${esc(g.desc || "")}</p>
+          <div class="row"><button class="btn btn-sm" data-play="${esc(g.id)}">▶ Play</button><button class="btn ghost btn-sm" data-edit="${esc(g.id)}">✏️ Edit</button><button class="btn ghost btn-sm" data-del="${esc(g.id)}" aria-label="Delete">🗑</button></div></div>
+        </div>`).join("")}</div>` : ""}`;
+    UI.app().querySelectorAll("[data-play]").forEach(b => b.onclick = () => { const g = loadGames().find(x => x.id === b.dataset.play); if (g) setup(g.engine, g); });
+    UI.app().querySelectorAll("[data-edit]").forEach(b => b.onclick = () => { const g = loadGames().find(x => x.id === b.dataset.edit); if (g) creator(g); });
+    UI.app().querySelectorAll("[data-del]").forEach(b => b.onclick = () => { saveGames(loadGames().filter(x => x.id !== b.dataset.del)); picker(); });
+    UI.app().querySelectorAll("[data-cover]").forEach(el => { const g = mine.find(x => x.id === el.dataset.cover); if (g && !g.cover) mountCoverPuppets(el, g); });
+  }
+
+  function coverHTML(g) {
+    if (g.cover) return `<img src="${g.cover}" alt="">`;
+    const sc = sceneOf(g);
+    return `<div class="cv-bg">${Scenes.svg(sc)}</div><div class="cv-pups"></div><div class="cv-t"><span>${esc(g.enemy && g.enemy.emoji || ENGINES[g.engine]?.icon || "🎮")}</span>${esc(g.title)}</div>`;
+  }
+  function mountCoverPuppets(el, g) {
+    const box = el.querySelector(".cv-pups"); if (!box) return;
+    const ids = (g.agents && g.agents.length ? g.agents : ["kit", "bolt", "luna"]).slice(0, 3);
+    ids.forEach(id => { const c = UI.Lib.char(id); if (!c) return; const d = document.createElement("div"); box.appendChild(d); Puppet.mount(d, c); });
+  }
+  function sceneOf(cfg) {
+    if (cfg.scene && cfg.scene.base) return cfg.scene;
+    if (cfg.sceneId) { const s = UI.Lib.scene(cfg.sceneId); if (s) return s; }
+    const e = ENGINES[cfg.engine];
+    return UI.Lib.scene((e && e.defaults.sceneId) || "s-city") || { base: "city", time: "night", weather: "clear" };
+  }
+
+  /* =========================================================
+     PLAYERS SETUP (shared by all engines)
+     ========================================================= */
+  function setup(engineId, custom, demo) {
+    const e = ENGINES[engineId];
+    if (!e) return picker();
+    const base = Object.assign({ engine: engineId }, e.defaults, custom || {});
+    const key = custom ? custom.id : engineId;
+    if (!S.agents[key]) S.agents[key] = (custom && custom.agents && custom.agents.length ? custom.agents : e.defaults.agents).slice(0, e.maxAgents);
+    if (!S.scene[key]) S.scene[key] = [base.sceneId || e.defaults.sceneId || "s-city"];
+    const sel = S.agents[key], scSel = S.scene[key];
+
+    const go = () => {
+      const agents = sel.map(id => UI.Lib.char(id)).filter(Boolean);
+      if (agents.length < e.minAgents) return;
+      try { localStorage.setItem("aimp_player", S.human); } catch {}
+      const cfg = Object.assign({}, base, {
+        title: base.title || e.title,
+        agents, human: { name: S.human || "You" },
+        scene: (custom && custom.scene && custom.scene.base && !scSel.length) ? custom.scene : (UI.Lib.scene(scSel[0]) || sceneOf(base)),
+        tools: S.tools, skills: assignSkills(engineId, agents), demo: !!demo
+      });
+      UI.steps(["Game", "Players", "Play"], 2, C);
+      UI.ctl.token++; UI.ctl.paused = false;
+      e.start(cfg);
+    };
+    if (demo) return go();
+
+    UI.steps(["Game", "Players", "Play"], 1, C);
+    UI.app().innerHTML = `
+      <div class="screen-head"><div><span class="kicker" style="color:${e.color}">${e.icon} ${esc(base.title || e.title)}</span>
+        <h2>Who's playing?</h2>
+        <p class="muted">Pick <b>${e.minAgents === e.maxAgents ? e.maxAgents : `${e.minAgents}–${e.maxAgents}`}</b> AI agents ${engineId === "zombie" ? "to fight beside you" : "to play against you"}. Each one plays from its own personality and goal. Characters you made in the Studio show up here too.</p></div></div>
+      <div class="gm-setup">
+        <div class="card gm-rulebox" style="--c:${e.color}">
+          <h3 class="cfg-h">📜 Rules</h3><ul class="gm-rules">${(base.rulesOverride || e.rules).map(r => `<li>${esc(r)}</li>`).join("")}</ul>
+          <label>Your name</label><input id="gmName" maxlength="18" value="${esc(S.human)}">
+        </div>
+        <div id="gmTools"></div>
+      </div>
+      <h3 class="cfg-h gm-h">🤖 Agent players <small id="gmCount"></small></h3>
+      <div id="gmCast"></div>
+      ${e.needsScene ? `<h3 class="cfg-h gm-h">🗺️ Arena <small>the world you play in</small></h3><div id="gmScene"></div>` : ""}
+      <div class="action-bar"><a class="btn ghost" href="#game">← Games</a><span class="muted" id="gmReady"></span><button class="btn" id="gmGo">▶ Start</button></div>`;
+    const count = () => {
+      $("#gmCount").textContent = `${sel.length} selected (${e.minAgents}–${e.maxAgents})`;
+      $("#gmGo").disabled = sel.length < e.minAgents;
+      $("#gmReady").textContent = sel.length < e.minAgents ? `Pick ${e.minAgents - sel.length} more` : `${sel.length} agents + you`;
+    };
+    UI.castPicker($("#gmCast"), { selected: sel, min: e.minAgents, max: e.maxAgents, color: e.color, detail: "goal", onChange: count });
+    if (e.needsScene) UI.scenePicker($("#gmScene"), { selected: scSel, max: 1, color: e.color });
+    UI.sponsorBar($("#gmTools"), "game", S.tools);
+    $("#gmName").oninput = ev => { S.human = ev.target.value.trim().slice(0, 18) || "You"; };
+    $("#gmGo").onclick = go;
+    count();
+  }
+
+  /* =========================================================
+     CREATE YOUR OWN
+     ========================================================= */
+  const EMOJI = [["zombie", "🧟"], ["alien", "👽"], ["robot", "🤖"], ["ghost", "👻"], ["monster", "👾"], ["spider", "🕷️"], ["dragon", "🐉"], ["bug", "🐛"], ["slime", "🦠"], ["vampire", "🧛"], ["skeleton", "💀"], ["pirate", "🏴‍☠️"], ["ninja", "🥷"], ["shark", "🦈"], ["bee", "🐝"], ["virus", "🦠"], ["goblin", "👺"], ["clown", "🤡"], ["snowman", "⛄"], ["rat", "🐀"], ["bat", "🦇"], ["wolf", "🐺"], ["dinosaur", "🦖"], ["cat", "🐈"], ["boss", "😈"]];
+  const SCENE_WORDS = [["space", "space"], ["star", "space"], ["planet", "space"], ["forest", "forest"], ["wood", "forest"], ["jungle", "forest"], ["city", "city"], ["street", "city"], ["neon", "city"], ["castle", "castle"], ["medieval", "castle"], ["beach", "beach"], ["island", "beach"], ["ocean", "beach"], ["school", "classroom"], ["class", "classroom"], ["court", "courtroom"], ["kitchen", "kitchen"], ["restaurant", "kitchen"], ["desert", "desert"], ["snow", "snow"], ["mountain", "snow"], ["ice", "snow"], ["concert", "stage"], ["stage", "stage"], ["manor", "manor"], ["haunted", "manor"], ["lab", "lab"], ["science", "lab"], ["office", "office"], ["park", "park"]];
+
+  function offlineDesign(text) {
+    const t = text.toLowerCase();
+    const engine = /rock|paper|scissor|duel|guess|hand|mind|predict/.test(t) ? "rps"
+      : /board|race|ladder|snake|dice|roll|climb|slide/.test(t) ? "snakes" : "zombie";
+    const em = EMOJI.find(([w]) => t.includes(w));
+    const sw = SCENE_WORDS.find(([w]) => t.includes(w));
+    const words = text.replace(/[^\w\s'-]/g, " ").split(/\s+/).filter(w => w.length > 3 && !/game|where|with|that|they|have|from|into|your|about|make|some/i.test(w)).slice(0, 3);
+    const title = words.length ? words.map(w => w[0].toUpperCase() + w.slice(1).toLowerCase()).join(" ") : "My Game";
+    const hard = /hard|brutal|nightmare|insane/.test(t), easy = /easy|kid|chill|cozy|relax/.test(t);
+    return {
+      title: engine === "zombie" ? `${title} Survival` : engine === "snakes" ? `${title} Race` : `${title} Duel`,
+      engine, enemy_name: em ? em[0] : "zombie", enemy_emoji: em ? em[1] : "🧟",
+      scene: sw ? sw[1] : engine === "zombie" ? "city" : engine === "snakes" ? "park" : "stage",
+      time: /night|dark|haunt|spooky/.test(t) ? "night" : /sunset|dusk/.test(t) ? "sunset" : "day",
+      weather: /rain|storm/.test(t) ? "rain" : /snow|ice/.test(t) ? "snow" : /fog|mist/.test(t) ? "fog" : "clear",
+      difficulty: hard ? "hard" : easy ? "easy" : "normal",
+      waves: hard ? 7 : easy ? 3 : 5, snakes: hard ? 10 : easy ? 5 : 8, ladders: hard ? 5 : easy ? 9 : 7, rounds: hard ? 7 : 5,
+      desc: text.slice(0, 140),
+      design_notes: `Read the idea as a ${engine === "zombie" ? "survival shooter" : engine === "snakes" ? "board race" : "mind-game duel"}${em ? ` with ${em[0]}s` : ""}${sw ? ` set in a ${sw[1]}` : ""}.`
+    };
+  }
+
+  function creator(existing) {
+    UI.steps(["Design", "Players", "Play"], 0, "#c48bff");
+    const d = S.draft = Object.assign({
+      id: UI.uid("g"), title: "My Game", engine: "zombie", enemy: { name: "zombie", emoji: "🧟" }, sceneId: "s-city",
+      difficulty: "normal", waves: 5, snakes: 6, ladders: 6, rounds: 5, accent: "#c48bff", desc: "", agents: [], cover: ""
+    }, existing ? JSON.parse(JSON.stringify(existing)) : {});
+    const scSel = [d.sceneId || "s-city"];
+    const EX = ["Robots invade a neon city at night, survive 6 waves", "A cozy jungle board race with lots of ladders", "A psychic duel on a concert stage against mind-reading aliens", "Ghosts haunt the manor and the team must survive until dawn"];
+
+    UI.app().innerHTML = `
+      <div class="screen-head"><div><span class="kicker" style="color:#c48bff">➕ Track 02 · Create your own game</span>
+        <h2>Design a game</h2><p class="muted">Describe it in one sentence and an AI agent will design it, or set everything yourself below.</p></div></div>
+      <div class="card gm-describe">
+        <h3 class="cfg-h">✨ Describe your game</h3>
+        <div class="ai-row"><textarea id="gmIdea" rows="2" maxlength="300" placeholder="e.g. Space pirates attack a starship and we have to survive 5 waves"></textarea><button class="btn ai" id="gmDesign">✨ Design it</button></div>
+        <div class="ex-chips">${EX.map(x => `<button data-ex="${esc(x)}">${esc(x)}</button>`).join("")}</div>
+        <div id="gmWork" style="margin-top:12px"></div>
+      </div>
+      <h3 class="cfg-h gm-h">⚙️ Engine</h3>
+      <div class="gm-engines">${ORDER.map(id => `<button class="card gm-eng ${d.engine === id ? "on" : ""}" data-eng="${id}" style="--c:${ENGINES[id].color}"><span>${ENGINES[id].icon}</span><b>${id === "zombie" ? "Survival shooter" : id === "snakes" ? "Board race" : "Mind-game duel"}</b><small>${esc(ENGINES[id].blurb)}</small></button>`).join("")}</div>
+      <div class="gm-form card">
+        <div class="two"><div><label>Game name</label><input id="gTitle" maxlength="40"></div><div><label>One-line description</label><input id="gDesc" maxlength="140"></div></div>
+        <div class="two" id="gEnemyRow"><div><label>Enemy name</label><input id="gEnemy" maxlength="20"></div><div><label>Enemy emoji</label><div class="gm-emo" id="gEmo">${EMOJI.slice(0, 18).map(([n, e]) => `<button type="button" data-emo="${e}" data-n="${n}">${e}</button>`).join("")}</div></div></div>
+        <div class="two"><div><label>Difficulty</label><div class="chips sel" id="gDiff">${["easy", "normal", "hard"].map(x => `<button class="chip" data-d="${x}">${x}</button>`).join("")}</div></div>
+          <div id="gRule"></div></div>
+        <label>Accent colour</label><div class="gm-colors" id="gCol">${PLAY.colors.map(c => `<button type="button" data-col="${c}" style="background:${c}" aria-label="${c}"></button>`).join("")}</div>
+      </div>
+      <h3 class="cfg-h gm-h">🗺️ World <small>backdrop for your game</small></h3><div id="gScene"></div>
+      <div id="gTools"></div>
+      <div class="card gm-preview"><div class="gm-cover big" id="gCover"></div><div><b id="pvTitle"></b><p class="muted" id="pvDesc"></p><p class="muted" id="pvRules"></p><button class="btn ghost btn-sm" id="gArt">🎨 Generate cover art (AdaL)</button></div></div>
+      <div class="action-bar"><a class="btn ghost" href="#game">← Games</a><button class="btn" id="gSave">💾 Save & choose players →</button></div>`;
+
+    const fill = () => {
+      $("#gTitle").value = d.title; $("#gDesc").value = d.desc || ""; $("#gEnemy").value = d.enemy.name;
+      UI.app().querySelectorAll("[data-eng]").forEach(b => b.classList.toggle("on", b.dataset.eng === d.engine));
+      UI.app().querySelectorAll("[data-emo]").forEach(b => b.classList.toggle("on", b.dataset.emo === d.enemy.emoji));
+      UI.app().querySelectorAll("[data-d]").forEach(b => b.classList.toggle("on", b.dataset.d === d.difficulty));
+      UI.app().querySelectorAll("[data-col]").forEach(b => b.classList.toggle("on", b.dataset.col === d.accent));
+      $("#gEnemyRow").style.display = d.engine === "zombie" ? "" : "none";
+      $("#gRule").innerHTML = d.engine === "zombie" ? `<label>Waves</label><div class="range-row"><input type="range" id="rA" min="3" max="8" value="${d.waves}"><output>${d.waves}</output></div>`
+        : d.engine === "snakes" ? `<label>Snakes / ladders</label><div class="range-row"><input type="range" id="rA" min="3" max="12" value="${d.snakes}"><output>${d.snakes}</output>🐍 <input type="range" id="rB" min="3" max="12" value="${d.ladders}"><output>${d.ladders}</output>🪜</div>`
+        : `<label>Rounds per opponent</label><div class="chips sel" id="rR">${[3, 5, 7].map(n => `<button class="chip ${d.rounds === n ? "on" : ""}" data-r="${n}">Best of ${n}</button>`).join("")}</div>`;
+      const rA = $("#rA"), rB = $("#rB"), rR = $("#rR");
+      if (rA) rA.oninput = () => { rA.nextElementSibling.textContent = rA.value; if (d.engine === "zombie") d.waves = +rA.value; else d.snakes = +rA.value; preview(); };
+      if (rB) rB.oninput = () => { rB.nextElementSibling.textContent = rB.value; d.ladders = +rB.value; preview(); };
+      if (rR) rR.onclick = ev => { const b = ev.target.closest("[data-r]"); if (b) { d.rounds = +b.dataset.r; fill(); preview(); } };
+      preview();
+    };
+    const preview = () => {
+      d.sceneId = scSel[0];
+      $("#pvTitle").textContent = `${ENGINES[d.engine].icon} ${d.title || "My Game"}`;
+      $("#pvDesc").textContent = d.desc || ENGINES[d.engine].blurb;
+      $("#pvRules").textContent = d.engine === "zombie" ? `Survive ${d.waves} waves of ${d.enemy.name}s ${d.enemy.emoji} · ${d.difficulty}` : d.engine === "snakes" ? `${d.snakes} snakes, ${d.ladders} ladders · first to 100 wins · ${d.difficulty}` : `Best of ${d.rounds} against each agent · ${d.difficulty}`;
+      const cv = $("#gCover"); cv.style.setProperty("--c", d.accent);
+      cv.innerHTML = coverHTML(d); if (!d.cover) mountCoverPuppets(cv, d);
+    };
+    const read = () => { d.title = $("#gTitle").value.trim() || "My Game"; d.desc = $("#gDesc").value.trim(); d.enemy.name = $("#gEnemy").value.trim() || "zombie"; };
+    ["#gTitle", "#gDesc", "#gEnemy"].forEach(s => $(s).oninput = () => { read(); preview(); });
+    UI.app().querySelectorAll("[data-eng]").forEach(b => b.onclick = () => { read(); d.engine = b.dataset.eng; fill(); });
+    $("#gEmo").onclick = ev => { const b = ev.target.closest("[data-emo]"); if (!b) return; read(); d.enemy = { name: b.dataset.n, emoji: b.dataset.emo }; fill(); };
+    $("#gDiff").onclick = ev => { const b = ev.target.closest("[data-d]"); if (!b) return; read(); d.difficulty = b.dataset.d; fill(); };
+    $("#gCol").onclick = ev => { const b = ev.target.closest("[data-col]"); if (!b) return; read(); d.accent = b.dataset.col; fill(); };
+    UI.scenePicker($("#gScene"), { selected: scSel, max: 1, color: "#c48bff", onChange: () => { d.cover = ""; preview(); } });
+    UI.sponsorBar($("#gTools"), "game", S.tools);
+    UI.app().querySelectorAll("[data-ex]").forEach(b => b.onclick = () => { $("#gmIdea").value = b.dataset.ex; });
+
+    $("#gmDesign").onclick = async () => {
+      const idea = $("#gmIdea").value.trim(); if (!idea) { $("#gmIdea").focus(); return; }
+      $("#gmDesign").disabled = true;
+      const sys = `You are a game designer agent. Turn the player's idea into a config for ONE of three simple engines:
+- "zombie": co-op top-down survival shooter, waves of enemies (any enemy type, not only zombies)
+- "snakes": snakes & ladders board race
+- "rps": rock-paper-scissors mind-game duel
+Scene bases: ${Scenes.BASES.map(b => b.id).join(", ")}.
+Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy_name":"singular noun","enemy_emoji":"one emoji","scene":"scene base id","time":"day|sunset|night","weather":"${Scenes.WEATHER.join("|")}","difficulty":"easy|normal|hard","waves":3-8,"snakes":3-12,"ladders":3-12,"rounds":3|5|7,"desc":"one fun sentence","design_notes":"one sentence on why you chose this design"}`;
+      const out = await UI.aiRun($("#gmWork"), ["Reading your idea", "Choosing the best engine", "Picking enemies and the world", "Tuning the rules"],
+        Brain.ask(sys, `IDEA: ${idea}`, 0.9, () => offlineDesign(idea)), Brain.mode === "llm" ? "Game-designer agent at work" : "Offline designer at work");
+      const eng = ENGINES[out.engine] ? out.engine : "zombie";
+      const base = Scenes.BASES.find(b => b.id === out.scene) ? out.scene : "city";
+      const sc = UI.Lib.saveScene({ name: `${Brain.clip(out.title, 30) || "Game"} world`, base, time: Scenes.TIMES.includes(out.time) ? out.time : "day", weather: Scenes.WEATHER.includes(out.weather) ? out.weather : "clear", desc: Brain.clip(out.desc, 140) });
+      const n = (v, lo, hi, def) => { v = Math.round(+v); return v >= lo && v <= hi ? v : def; };
+      Object.assign(d, {
+        title: Brain.clip(out.title, 40) || "My Game", engine: eng, desc: Brain.clip(out.desc, 140),
+        enemy: { name: Brain.clip(out.enemy_name, 20) || "zombie", emoji: Brain.clip(out.enemy_emoji, 8) || "🧟" },
+        difficulty: ["easy", "normal", "hard"].includes(out.difficulty) ? out.difficulty : "normal",
+        waves: n(out.waves, 3, 8, 5), snakes: n(out.snakes, 3, 12, 8), ladders: n(out.ladders, 3, 12, 7), rounds: [3, 5, 7].includes(+out.rounds) ? +out.rounds : 5, cover: ""
+      });
+      scSel.splice(0, 1, sc.id);
+      $("#gmWork").querySelectorAll("li").forEach(li => { li.className = "done"; li.querySelector("i").textContent = "✓"; });
+      $("#gmWork").querySelector(".why").textContent = "“" + (Brain.clip(out.design_notes, 220) || "Designed from your idea.") + "”";
+      UI.scenePicker($("#gScene"), { selected: scSel, max: 1, color: "#c48bff", onChange: () => { d.cover = ""; preview(); } });
+      $("#gmDesign").disabled = false;
+      fill();
+      if (S.tools.has("adal")) art();
+    };
+
+    const art = async () => {
+      read();
+      const btn = $("#gArt"); btn.disabled = true; btn.textContent = "🎨 AdaL is painting…";
+      const sc = UI.Lib.scene(scSel[0]) || {};
+      const url = await Brain.image(`Vibrant video game cover art, no text. Game: "${d.title}". ${d.desc || ""} ${d.engine === "zombie" ? `A small team of heroes fighting waves of ${d.enemy.name}s` : d.engine === "snakes" ? "A giant snakes and ladders board with playful characters" : "Two rivals in a dramatic rock-paper-scissors standoff"}, set in ${sc.desc || sc.name || "a colourful world"}. Stylised 3D cartoon, dramatic lighting, accent colour ${d.accent}.`);
+      btn.disabled = false;
+      if (url) { d.cover = url; btn.textContent = "🎨 Regenerate cover art"; }
+      else { btn.textContent = Brain.mode === "llm" ? "🎨 Image failed, using a scene cover" : "🎨 Offline: using a scene cover"; }
+      preview();
+    };
+    $("#gArt").onclick = art;
+
+    $("#gSave").onclick = () => {
+      read(); d.sceneId = scSel[0];
+      const all = loadGames().filter(g => g.id !== d.id);
+      let stored = Object.assign({}, d);
+      all.unshift(stored);
+      try { saveGames(all); } catch { stored.cover = ""; saveGames(all); }
+      if (!loadGames().some(g => g.id === d.id)) { stored.cover = ""; saveGames([stored].concat(all.slice(1))); }
+      setup(d.engine, stored);
+    };
+    fill();
+  }
+
+  /* =========================================================
+     PLAY SHELL shared by engines
+     ========================================================= */
+  function shell(cfg, o) {
+    const e = ENGINES[cfg.engine];
+    const color = cfg.accent && cfg.engine !== "rps" ? cfg.accent : e.color;
+    UI.app().innerHTML = `
+      <div class="gm-top" style="--c:${color}">
+        <div><span class="kicker" style="color:${color}">${e.icon} ${esc(cfg.title || e.title)}</span><h2 id="gmStatus">${esc(o.status || "")}</h2></div>
+        <div class="gm-ctrl"><span class="src">${UI.srcLabel()}</span>
+          ${o.pause ? `<button class="btn ghost btn-sm" id="gmPause">⏸ Pause</button>` : ""}
+          <button class="btn ghost btn-sm" id="gmVoice">${UI.ctl.voice ? "🔊" : "🔇"} Voices</button>
+          <a class="btn ghost btn-sm" href="#game">✕ Quit</a></div>
+      </div>
+      <div id="gmBar"></div>
+      <div class="gm-grid">
+        <div class="gm-main" id="gmMain">${o.main || ""}</div>
+        <aside class="gm-side">
+          <div class="card gm-panel gm-radio" id="gmRadio" hidden><div class="log-head mono"><span>📡 BAND · TEAM RADIO</span><span class="sp-badge" style="--c:#5c8dff">live channel</span></div><ol id="gmRadioL"></ol></div>
+          <div class="card gm-panel" id="gmStats" hidden><div class="log-head mono"><span>📊 BRUIN · LIVE STATS</span></div><div id="gmStatsB"></div></div>
+          <div class="card gm-panel"><div class="log-head mono"><span>DECISION LOG</span><label class="minds"><input type="checkbox" id="gmMinds" checked> agent thinking</label></div><ol id="gmLog" class="gm-log"></ol></div>
         </aside>
       </div>`;
-    $("#voiceG").onclick = () => { UI.ctl.voice = !UI.ctl.voice; $("#voiceG").textContent = UI.ctl.voice ? "🔊 Voices on" : "🔇 Voices off"; };
-    $("#showMindsG").onchange = e => $("#glog").classList.toggle("hide-minds", !e.target.checked);
-    renderBoard(); renderScore();
-    gLog(`<b>🎲 The game begins.</b> ${esc(G.world.desc)}`, "sys");
-    nextRound();
+    const api = {
+      root: UI.app(), main: $("#gmMain"), token: UI.ctl.token, color,
+      alive: () => api.token === UI.ctl.token && document.body.contains(api.main),
+      status: t => { const s = $("#gmStatus"); if (s) s.textContent = t; },
+      log(html, cls) { const l = $("#gmLog"); if (!l) return; const li = document.createElement("li"); if (cls) li.className = cls; li.innerHTML = html; l.prepend(li); while (l.children.length > 60) l.lastChild.remove(); },
+      think(who, color2, text, src) { api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
+      radio(from, to, text, color2) {
+        if (!cfg.tools.has("band")) return false;
+        const l = $("#gmRadioL"); if (!l) return false;
+        const li = document.createElement("li");
+        li.innerHTML = `<b style="color:${color2 || "#5c8dff"}">${esc(from)}</b>${to ? ` <span class="to">→ ${esc(to)}</span>` : ` <span class="to">→ #team</span>`}<span>${esc(text)}</span>`;
+        l.prepend(li); while (l.children.length > 30) l.lastChild.remove();
+        o.onRadio && o.onRadio(from, to, text);
+        return true;
+      },
+      stats(rows) {
+        if (!cfg.tools.has("bruin")) return;
+        const b = $("#gmStatsB"); if (!b) return;
+        b.innerHTML = rows.map(sec => `<div class="st-sec"><small>${esc(sec.title)}</small>${sec.rows.map(r => { const max = Math.max(1, ...sec.rows.map(x => x.v)); return `<div class="st-row"><span>${esc(r.k)}</span><i style="--w:${(r.v / max) * 100}%;--c:${r.c || "#ffc857"}"></i><b>${typeof r.v === "number" && r.v % 1 ? r.v.toFixed(1) : r.v}${r.u || ""}</b></div>`; }).join("")}</div>`).join("");
+      },
+      refreshTools() {
+        $("#gmRadio").hidden = !cfg.tools.has("band");
+        $("#gmStats").hidden = !cfg.tools.has("bruin");
+        o.onTools && o.onTools(cfg.tools);
+      },
+      skill: name => (cfg.tools.has("finch") ? cfg.skills[name] : null),
+      skillBadge(name) { const s = api.skill(name); return s ? `<span class="sp-badge" style="--c:#ff9f43" title="${esc(s.does)}">${s.icon} ${esc(s.name)}</span>` : ""; }
+    };
+    UI.sponsorBar($("#gmBar"), "game", cfg.tools, () => api.refreshTools());
+    $("#gmMinds").onchange = ev => $("#gmLog").classList.toggle("hide-minds", !ev.target.checked);
+    $("#gmVoice").onclick = () => { UI.ctl.voice = !UI.ctl.voice; $("#gmVoice").textContent = `${UI.ctl.voice ? "🔊" : "🔇"} Voices`; if (!UI.ctl.voice) UI.stopVoice(); };
+    if (o.pause) $("#gmPause").onclick = () => { UI.ctl.paused = !UI.ctl.paused; $("#gmPause").textContent = UI.ctl.paused ? "▶ Resume" : "⏸ Pause"; o.onPause && o.onPause(UI.ctl.paused); };
+    api.refreshTools();
+    return api;
   }
 
-  function renderBoard() {
-    $("#board").querySelectorAll(".loc").forEach(l => {
-      l.querySelector(".tokens").innerHTML = G.players.filter(p => p.loc === l.dataset.loc).map(p => `
-        <div class="token ${p.human ? "human" : ""} ${p.health <= 0 ? "ko" : ""}" id="tok-${p.id}" style="--c:${p.color}">
-          <div class="bubble"></div><span class="t-av">${p.avatar}</span><span class="t-n">${esc(p.name)}</span></div>`).join("");
-    });
-  }
-  function renderScore() {
-    const humans = G.players.filter(p => p.human), agents = G.players.filter(p => !p.human);
-    const sorted = G.players.slice().sort((a, b) => score(b) - score(a));
-    $("#score").innerHTML = `
-      <div class="log-head mono"><span>STANDINGS</span><span>score = 💰+❤️+2⭐</span></div>
-      <table><tbody>${sorted.map((p, i) => `<tr style="--c:${p.color}"><td>${i + 1}</td><td><b>${p.avatar} ${esc(p.name)}</b><small>${p.human ? "human" : esc(p.role)}</small></td>
-        <td>💰${p.coins}</td><td>❤️${p.health}</td><td>⭐${p.influence}</td><td class="sc">${score(p)}</td></tr>`).join("")}</tbody></table>
-      <div class="log-head mono" style="margin-top:14px"><span>WHAT AGENTS THINK OF YOU</span></div>
-      <div class="trust">${agents.map(a => `<div><span>${a.avatar} ${esc(a.name)}</span>${humans.map(h => { const v = a.trust[h.name] || 0; return `<span class="tv ${v > 0 ? "pos" : v < 0 ? "neg" : ""}" title="${esc(a.name)}'s trust in ${esc(h.name)}">${h.avatar} ${v > 0 ? "+" : ""}${v} ${v >= 2 ? "💚" : v <= -2 ? "💢" : ""}</span>`; }).join("")}</div>`).join("")}</div>`;
-  }
-  function gLog(html, cls) { const li = document.createElement("li"); if (cls) li.className = cls; li.innerHTML = html; $("#glog").prepend(li); }
-  function bubble(p, text) {
-    const t = $("#tok-" + p.id); if (!t || !text) return;
-    const b = t.querySelector(".bubble"); b.textContent = text; b.classList.add("on");
-    setTimeout(() => b.classList.remove("on"), 4200 / UI.ctl.speed);
+  /* final results card (shared) */
+  function results(api, o) {
+    const ov = document.createElement("div");
+    ov.className = "gm-over";
+    ov.innerHTML = `<div class="gm-over-card" style="--c:${o.color || api.color}">
+      <small>${esc(o.kicker || "GAME OVER")}</small><div class="gm-big">${o.icon || "🏆"}</div><h2>${esc(o.title)}</h2><p>${esc(o.text || "")}</p>
+      ${o.rows ? `<ol class="gm-podium">${o.rows.map(r => `<li style="--c:${r.color || "#3ee6ff"}"><span class="pod-fig"></span><b>${esc(r.name)}</b><small>${esc(r.sub || "")}</small><em>${esc(r.score)}</em></li>`).join("")}</ol>` : ""}
+      <div class="after-btns"><button class="btn" data-again>🔁 Play again</button><a class="btn ghost" href="#game">🎮 Other games</a><a class="btn ghost" href="#grow">🎓 Try Track 3</a></div></div>`;
+    (o.into || api.main).appendChild(ov);
+    if (o.rows) ov.querySelectorAll(".pod-fig").forEach((el, i) => { const r = o.rows[i]; if (r.char) { Puppet.mount(el, r.char); Puppet.gesture(el, i === 0 ? "jump" : "nod", 2400); } else el.textContent = r.icon || "🧑"; });
+    ov.querySelector("[data-again]").onclick = () => o.again();
   }
 
-  /* ---------- human turn UI ---------- */
-  function humanTurn(h) {
-    return new Promise(resolveTurn => {
-      let action = "gather";
-      const others = G.players.filter(p => p !== h);
-      const draw = () => {
-        const need = A[action].needs;
-        $("#turn").innerHTML = `
-          <div class="turn-h"><span class="t-av big">${h.avatar}</span><div><b>${esc(h.name)}'s turn</b><small>You're at 📍 ${esc(h.loc)} · 💰${h.coins} ❤️${h.health} ⭐${h.influence}${S.humans.length > 1 ? " · others look away 🙈" : ""}</small></div></div>
-          <div class="acts">${Object.entries(A).map(([k, v]) => `<button class="act-b ${k === action ? "on" : ""}" data-a="${k}" title="${esc(v.help)}"><span>${v.icon}</span>${v.label}</button>`).join("")}</div>
-          <p class="muted act-help">${A[action].icon} ${esc(A[action].help)}</p>
-          <div class="turn-row">
-            ${need === "location" ? `<select id="tgt">${G.world.locations.filter(l => l !== h.loc).map(l => `<option>${esc(l)}</option>`).join("")}</select>` : ""}
-            ${need === "player" ? `<select id="tgt">${others.map(o => `<option value="${esc(o.name)}">${o.avatar} ${esc(o.name)}${o.human ? " (human)" : ""}</option>`).join("")}</select>` : ""}
-            <input id="sayIn" maxlength="120" placeholder="Say something to the table (agents will hear it)…">
-            <button class="btn btn-sm" id="lock">Lock in ✓</button>
-          </div>`;
-        $("#turn").querySelectorAll("[data-a]").forEach(b => b.onclick = () => { action = b.dataset.a; const s = $("#sayIn").value; draw(); $("#sayIn").value = s; });
-        $("#lock").onclick = () => {
-          const tg = $("#tgt") ? $("#tgt").value : "";
-          resolveTurn({ action, target: tg, say: $("#sayIn").value.trim() });
-        };
-      };
-      draw();
-    });
-  }
+  /* speak with a character-specific voice index */
+  const voiceIdx = name => [...String(name)].reduce((a, ch) => a + ch.charCodeAt(0), 0);
 
-  async function nextRound() {
-    const token = UI.ctl.token;
-    try {
-      $("#roundLbl").textContent = `Round ${G.round} / ${G.rounds}`;
-      G.humanChatter = [];
-      const decisions = [];
-      for (const h of G.players.filter(p => p.human)) {
-        const d = await humanTurn(h);
-        if (token !== UI.ctl.token) return;
-        decisions.push({ p: h, d });
-        if (d.say) G.humanChatter.push(`${h.name}${d.target && byName(G, d.target) ? ` (to ${d.target})` : ""}: "${d.say}"`);
-      }
-      const agents = G.players.filter(p => !p.human);
-      $("#turn").innerHTML = `<div class="thinking-row">${agents.map(a => `<span class="think-chip" style="--c:${a.color}">${a.avatar} ${esc(a.name)} is deciding<span class="dots3"><i></i><i></i><i></i></span></span>`).join("")}</div>`;
-      agents.forEach(a => { const t = $("#tok-" + a.id); t && t.classList.add("thinking"); });
-
-      const ad = await Promise.all(agents.map(a => Brain.gameTurn(a, G)));
-      if (token !== UI.ctl.token) return;
-      agents.forEach((a, i) => { decisions.push({ p: a, d: ad[i] }); if (ad[i].memory_note) a.memory.push(`R${G.round} note: ${ad[i].memory_note}`); });
-
-      // resolve simultaneously, random order
-      decisions.sort(() => Math.random() - 0.5);
-      const results = [];
-      for (const { p, d } of decisions) {
-        const line = resolve(G, p, d);
-        results.push(line + (d.say ? ` ${p.name} says: "${d.say}"` : ""));
-        gLog(`<span class="ts">R${G.round}</span><b style="color:${p.color}">${p.avatar} ${esc(p.name)}</b>${p.human ? ' <span class="hb">human</span>' : ""}
-          <span class="act">${esc(line)}</span>${d.say ? `<span class="say">“${esc(d.say)}”</span>` : ""}
-          ${!p.human ? `<span class="thought">🔒 ${esc(d.thought || "")}</span>` : ""}`);
-      }
-      renderBoard(); renderScore();
-      decisions.forEach(({ p, d }) => d.say && bubble(p, d.say));
-      const firstAgentSay = decisions.find(x => !x.p.human && x.d.say);
-      if (firstAgentSay) UI.speak(firstAgentSay.d.say, firstAgentSay.p.id);
-
-      // game master: narration + agent-caused world event
-      $("#turn").innerHTML = `<div class="thinking-row"><span class="think-chip">🎲 The game master is reading the table<span class="dots3"><i></i><i></i><i></i></span></span></div>`;
-      const mustEvent = !G.eventHappened && G.round >= Math.ceil(G.rounds / 2);
-      const nar = await Brain.gameNarrate(G, results, mustEvent);
-      if (token !== UI.ctl.token) return;
-      gLog(`<b>📜 Round ${G.round}</b> <span class="act">${esc(nar.narration)}</span>`, "sys");
-      if (nar.world_event) {
-        G.eventHappened = true;
-        applyEvent(G, nar.world_event);
-        const we = nar.world_event;
-        results.push(`WORLD EVENT: ${we.ev.title}, caused by ${we.by.name}`);
-        gLog(`<b>🌍 WORLD EVENT: ${we.ev.icon} ${esc(we.ev.title)}</b><span class="act">Caused by agent <b>${esc(we.by.name)}</b>. ${esc(we.why || "")} ${esc(we.ev.text)}</span>`, "event");
-        const pop = $("#eventPop");
-        pop.innerHTML = `<small>WORLD EVENT · CAUSED BY AN AGENT</small><div class="e-ico">${we.ev.icon}</div><h3>${esc(we.ev.title)}</h3><p>${we.by.avatar} <b>${esc(we.by.name)}</b>: ${esc(we.why || "")}</p><p class="muted">${esc(we.ev.text)}</p><button class="btn btn-sm" id="okEv">Continue</button>`;
-        $("#board").querySelectorAll(".bubble.on").forEach(b => b.classList.remove("on"));
-        pop.hidden = false;
-        UI.speak(`World event: ${we.ev.title}`, we.by.id);
-        await new Promise(r => ($("#okEv").onclick = r));
-        pop.hidden = true;
-        renderBoard(); renderScore();
-      }
-      G.lastRound = results;
-      G.history.push(...results.map(r => `R${G.round}: ${r}`));
-      G.round++;
-      if (G.round > G.rounds) return finish();
-      nextRound();
-    } catch (e) { console.error(e); }
-  }
-
-  /* ================= RESULTS ================= */
-  async function finish() {
-    UI.steps(STEPS, 3, C);
-    const st = G.players.map(p => ({ ...p, score: score(p) })).sort((a, b) => b.score - a.score);
-    $("#turn").innerHTML = `<div class="thinking-row"><span class="think-chip">📰 Writing the epilogue<span class="dots3"><i></i><i></i><i></i></span></span></div>`;
-    const ep = await Brain.gameEpilogue(G, st);
-    const w = st[0];
-    $("#turn").innerHTML = `
-      <div class="results">
-        <small class="kicker">FINAL RESULTS</small>
-        <h2>${w.avatar} ${esc(w.name)} ${w.name === "You" ? "win" : "wins"}!</h2>
-        <p class="winner-type">${w.human ? "🧑 A human beat the machines." : "🤖 An AI agent won. The humans got outplayed."}</p>
-        <div class="headline">📰 ${esc(ep.headline || "")}</div>
-        <p>${esc(ep.epilogue || "")}</p>
-        <ol class="podium">${st.map(p => `<li style="--c:${p.color}"><span>${p.avatar}</span><b>${esc(p.name)}</b><small>${p.human ? "human" : "agent"}</small><em>${p.score}</em></li>`).join("")}</ol>
-        <div class="after-btns">
-          <button class="btn" id="again">🔁 Rematch (agents keep no memory)</button>
-          <button class="btn ghost" id="cfg">⚙️ Change setup</button>
-          <a class="btn ghost" href="#film">🎬 Try Track 1</a>
-        </div>
-      </div>`;
-    UI.speak(ep.headline, 0);
-    $("#again").onclick = play;
-    $("#cfg").onclick = players;
-  }
-
-  return { start: setup };
+  return {
+    register(e) { ENGINES[e.id] = e; },
+    engines: ENGINES, SKILLS, shell, results, sceneOf, voiceIdx,
+    start(sub) {
+      const [id, q] = String(sub || "").split("?");
+      if (id === "custom") return creator(null);
+      if (ENGINES[id]) return setup(id, null, /demo/.test(q || ""));
+      picker();
+    },
+    restart(cfg) { UI.ctl.token++; UI.ctl.paused = false; ENGINES[cfg.engine].start(Object.assign({}, cfg, { demo: false })); }
+  };
 })();
