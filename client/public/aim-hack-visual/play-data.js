@@ -78,7 +78,7 @@ window.PLAY = {
     game: [
       { id: "band", label: "Team radio", does: "Agent teammates coordinate in a shared channel; lines show callouts between them." },
       { id: "finch", label: "Skills", does: "Agents get a special skill (Medic, Sharpshooter, Lucky…) that changes how they play." },
-      { id: "bruin", label: "Live stats", does: "Live stats panel: kills, rolls, wins and who carried the team." },
+      { id: "bruin", label: "Analytics", does: "Analytics panel: live metrics, a data pipeline, quality checks and data governance for the run." },
       { id: "adal", label: "Custom art", does: "Generates cover art for the game you create." }
     ],
     grow: [

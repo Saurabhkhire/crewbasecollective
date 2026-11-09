@@ -334,17 +334,102 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
         <div class="gm-main" id="gmMain">${o.main || ""}</div>
         <aside class="gm-side">
           <div class="card gm-panel gm-radio" id="gmRadio" hidden><div class="log-head mono"><span>📡 BAND · TEAM RADIO</span><span class="sp-badge" style="--c:#5c8dff">live channel</span></div><ol id="gmRadioL"></ol></div>
-          <div class="card gm-panel" id="gmStats" hidden><div class="log-head mono"><span>📊 BRUIN · LIVE STATS</span></div><div id="gmStatsB"></div></div>
+          <div class="card gm-panel br-panel" id="gmStats" hidden><div class="log-head mono"><span>🏛️ BRUIN · ANALYTICS</span><span class="sp-badge" style="--c:#ffc857">live</span></div>
+            <div class="br-tabs" id="brTabs"><button data-bt="metrics" class="on">Metrics</button><button data-bt="pipeline">Pipeline</button><button data-bt="quality">Quality</button><button data-bt="govern">Observe & govern</button></div>
+            <div id="gmStatsB"></div></div>
           <div class="card gm-panel"><div class="log-head mono"><span>DECISION LOG</span><label class="minds"><input type="checkbox" id="gmMinds" checked> agent thinking</label></div><ol id="gmLog" class="gm-log"></ol></div>
         </aside>
       </div>`;
+    /* ---------- Bruin: every game event lands in a tiny warehouse ----------
+       transformation (pipeline) · data quality (checks) · observability (volume) · governance (column access) */
+    const BR = { tab: "metrics", events: [], rows: [], t0: Date.now(), lastRender: 0, ran: null, showPrivate: false };
+    const plain = h => String(h).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    function record(kind, who, text, extra) {
+      BR.events.push(Object.assign({ ts: Date.now(), kind, who: who || "", text: plain(text || "").slice(0, 200) }, extra || {}));
+      if (BR.events.length > 2000) BR.events.shift();
+      if (cfg.tools.has("bruin") && BR.tab !== "metrics" && Date.now() - BR.lastRender > 800) renderBruin();
+    }
+    function qualityChecks() {
+      const ev = BR.events, dec = ev.filter(e => e.kind === "decision");
+      const names = [cfg.human.name].concat(cfg.agents.map(a => a.name));
+      const llm = dec.filter(d => d.src === "llm").length, off = dec.filter(d => d.src === "offline").length;
+      const neg = BR.rows.flatMap(sec => sec.rows).filter(r => typeof r.v === "number" && r.v < 0);
+      const age = ev.length ? (Date.now() - ev[ev.length - 1].ts) / 1000 : 0;
+      return [
+        { name: "not_null(decision.reason)", desc: "Every agent decision explains why", ok: dec.every(d => d.text), detail: `${dec.length} decisions` },
+        { name: "unique(player.name)", desc: "No two players share a name", ok: new Set(names).size === names.length, detail: `${names.length} players` },
+        { name: "accepted_values(source)", desc: "Decisions come from the LLM or the offline brain", ok: dec.every(d => d.src === "llm" || d.src === "offline"), detail: `${llm} llm · ${off} offline` },
+        { name: "fallback_rate < 20%", desc: "The LLM answered most decisions", ok: Brain.mode !== "llm" || !dec.length || off / dec.length < 0.2, detail: Brain.mode !== "llm" ? "offline mode" : dec.length ? `${Math.round(off / dec.length * 100)}% fallback` : "no data yet" },
+        { name: "non_negative(metrics)", desc: "No score, health or count below zero", ok: !neg.length, detail: neg.length ? `${neg.length} bad rows` : "all ≥ 0" },
+        { name: "freshness < 30s", desc: "The event stream is still flowing", ok: age < 30, warn: true, detail: ev.length ? `last event ${Math.round(age)}s ago` : "no events" }
+      ];
+    }
+    function sparkline() {
+      const now = Date.now(), B = 12, size = 10000, buckets = Array(B).fill(0);
+      BR.events.forEach(e => { const k = Math.floor((now - e.ts) / size); if (k < B) buckets[B - 1 - k]++; });
+      const max = Math.max(1, ...buckets);
+      return `<div class="br-spark">${buckets.map(v => `<i style="height:${Math.max(6, v / max * 100)}%" title="${v} events"></i>`).join("")}</div>`;
+    }
+    const MODELS = [
+      { id: "raw.game_events", kind: "source", rows: () => BR.events.length, desc: "Every move, decision, message and world event, as it happens." },
+      { id: "stg.events_clean", kind: "transform", rows: () => BR.events.filter(e => e.text).length, desc: "HTML stripped, empty rows dropped, timestamps normalised." },
+      { id: "fct.agent_decisions", kind: "transform", rows: () => BR.events.filter(e => e.kind === "decision").length, desc: "One row per agent choice, with its reason and source (LLM or offline)." },
+      { id: "fct.messages", kind: "transform", rows: () => BR.events.filter(e => e.kind === "radio").length, desc: "Who talked to whom over the BAND channel." },
+      { id: "mart.player_metrics", kind: "mart", rows: () => BR.rows.reduce((n, sec) => n + sec.rows.length, 0), desc: "The numbers in the Metrics tab: one row per player per metric." }
+    ];
+    const COLUMNS = [
+      ["player_name", "public", "Shown on the scoreboard"], ["action", "public", "What the player did"], ["score_metrics", "public", "Kills, positions, win rates"],
+      ["radio_message", "internal", "Team-only chat (BAND channel)"], ["agent_reason", "private", "An agent's private reasoning (masked by default)"], ["llm_source", "internal", "Which brain made the call"]
+    ];
+    function renderBruin() {
+      const b = $("#gmStatsB"); if (!b) return;
+      BR.lastRender = Date.now();
+      document.querySelectorAll("#brTabs [data-bt]").forEach(x => x.classList.toggle("on", x.dataset.bt === BR.tab));
+      if (BR.tab === "metrics") {
+        b.innerHTML = BR.rows.length ? BR.rows.map(sec => `<div class="st-sec"><small>${esc(sec.title)}</small>${sec.rows.map(r => { const max = Math.max(1, ...sec.rows.map(x => x.v)); return `<div class="st-row"><span>${esc(r.k)}</span><i style="--w:${(r.v / max) * 100}%;--c:${r.c || "#ffc857"}"></i><b>${typeof r.v === "number" && r.v % 1 ? r.v.toFixed(1) : r.v}${r.u || ""}</b></div>`; }).join("")}</div>`).join("") : `<p class="muted br-empty">Metrics appear as soon as the game produces data.</p>`;
+      } else if (BR.tab === "pipeline") {
+        const done = BR.ran ? BR.ran.done : -1;
+        b.innerHTML = `<p class="br-intro">Bruin turns raw game events into clean, tested tables: <b>ingest → transform → mart</b>.</p>
+          <ol class="br-dag">${MODELS.map((m, i) => `<li class="br-node k-${m.kind} ${done > i ? "done" : ""} ${done === i ? "running" : ""}"><b>${m.id}</b><span>${m.rows()} rows</span><small>${esc(m.desc)}</small></li>`).join("")}</ol>
+          <div class="br-row"><button class="btn btn-sm" id="brRun">▶ Run pipeline</button><span class="muted">${BR.ran && BR.ran.done >= MODELS.length ? `✓ ${MODELS.length} models built in ${BR.ran.ms} ms` : BR.ran ? "running…" : ""}</span></div>`;
+        $("#brRun").onclick = () => {
+          const t0 = performance.now(); BR.ran = { done: 0 };
+          const step = () => { if (!api.alive() || BR.tab !== "pipeline") return; BR.ran.done++; if (BR.ran.done >= MODELS.length) BR.ran.ms = Math.round(performance.now() - t0); renderBruin(); if (BR.ran.done < MODELS.length) setTimeout(step, 420); };
+          renderBruin(); setTimeout(step, 420);
+        };
+      } else if (BR.tab === "quality") {
+        const qc = qualityChecks(), pass = qc.filter(q => q.ok).length;
+        b.innerHTML = `<p class="br-intro">Data-quality checks on the game's tables. <b>${pass}/${qc.length} passing.</b></p>
+          <ul class="br-checks">${qc.map(q => `<li class="${q.ok ? "ok" : q.warn ? "warn" : "bad"}"><i>${q.ok ? "✓" : q.warn ? "!" : "✗"}</i><div><b>${esc(q.name)}</b><small>${esc(q.desc)} · ${esc(q.detail)}</small></div></li>`).join("")}</ul>
+          <button class="btn ghost btn-sm" id="brRecheck">↻ Re-run checks</button>`;
+        $("#brRecheck").onclick = renderBruin;
+      } else {
+        const ev = BR.events, mins = Math.max(1 / 60, (Date.now() - BR.t0) / 60000), dec = ev.filter(e => e.kind === "decision");
+        b.innerHTML = `<div class="br-kpis"><div><b>${ev.length}</b><small>events</small></div><div><b>${Math.round(ev.length / mins)}</b><small>events / min</small></div><div><b>${dec.length}</b><small>agent decisions</small></div></div>
+          <small class="br-lbl">OBSERVABILITY · event volume, last 2 min</small>${sparkline()}
+          <small class="br-lbl">GOVERNANCE · who can see which column</small>
+          <ul class="br-cols">${COLUMNS.map(([c, lvl, d]) => `<li><code>${c}</code><span class="lvl l-${lvl}">${lvl}</span><small>${esc(d)}</small></li>`).join("")}</ul>
+          <label class="minds br-priv"><input type="checkbox" id="brPriv" ${BR.showPrivate ? "checked" : ""}> show private columns (owner access)</label>
+          <small class="br-lbl">LATEST ROWS</small>
+          <table class="br-tbl"><tbody>${ev.slice(-5).reverse().map(e => `<tr><td>${esc(e.kind)}</td><td>${esc(e.who)}</td><td>${e.kind === "decision" && !BR.showPrivate ? `<span class="mask">••••• masked</span>` : esc(e.text.slice(0, 60))}</td></tr>`).join("") || `<tr><td class="muted">no rows yet</td></tr>`}</tbody></table>
+          <button class="btn ghost btn-sm" id="brCsv">⬇ Export run as CSV</button>`;
+        $("#brPriv").onchange = e2 => { BR.showPrivate = e2.target.checked; renderBruin(); };
+        $("#brCsv").onclick = () => {
+          const rows = [["time", "kind", "who", "text", "source"]].concat(BR.events.map(e => [new Date(e.ts).toISOString(), e.kind, e.who, e.kind === "decision" && !BR.showPrivate ? "[masked]" : e.text, e.src || ""]));
+          const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+          const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = `${(cfg.title || "game").replace(/\W+/g, "-").toLowerCase()}-run.csv`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+        };
+      }
+    }
+
     const api = {
       root: UI.app(), main: $("#gmMain"), token: UI.ctl.token, color,
       alive: () => api.token === UI.ctl.token && document.body.contains(api.main),
       status: t => { const s = $("#gmStatus"); if (s) s.textContent = t; },
-      log(html, cls) { const l = $("#gmLog"); if (!l) return; const li = document.createElement("li"); if (cls) li.className = cls; li.innerHTML = html; l.prepend(li); while (l.children.length > 60) l.lastChild.remove(); },
-      think(who, color2, text, src) { api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
+      log(html, cls) { if (cls !== "think") record(cls === "event" ? "world_event" : cls === "sys" ? "system" : "action", (html.match(/<b[^>]*>([^<]*)<\/b>/) || [])[1], html); const l = $("#gmLog"); if (!l) return; const li = document.createElement("li"); if (cls) li.className = cls; li.innerHTML = html; l.prepend(li); while (l.children.length > 60) l.lastChild.remove(); },
+      think(who, color2, text, src) { record("decision", who, text, { src: src || "llm" }); api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
       radio(from, to, text, color2) {
+        record("radio", from, `${to ? "→ " + to + ": " : ""}${text}`);
         if (!cfg.tools.has("band")) return false;
         const l = $("#gmRadioL"); if (!l) return false;
         const li = document.createElement("li");
@@ -354,19 +439,21 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
         return true;
       },
       stats(rows) {
+        BR.rows = rows;
         if (!cfg.tools.has("bruin")) return;
-        const b = $("#gmStatsB"); if (!b) return;
-        b.innerHTML = rows.map(sec => `<div class="st-sec"><small>${esc(sec.title)}</small>${sec.rows.map(r => { const max = Math.max(1, ...sec.rows.map(x => x.v)); return `<div class="st-row"><span>${esc(r.k)}</span><i style="--w:${(r.v / max) * 100}%;--c:${r.c || "#ffc857"}"></i><b>${typeof r.v === "number" && r.v % 1 ? r.v.toFixed(1) : r.v}${r.u || ""}</b></div>`; }).join("")}</div>`).join("");
+        if (BR.tab === "metrics" || Date.now() - BR.lastRender > 1500) renderBruin();
       },
       refreshTools() {
         $("#gmRadio").hidden = !cfg.tools.has("band");
         $("#gmStats").hidden = !cfg.tools.has("bruin");
+        if (cfg.tools.has("bruin")) renderBruin();
         o.onTools && o.onTools(cfg.tools);
       },
       skill: name => (cfg.tools.has("finch") ? cfg.skills[name] : null),
       skillBadge(name) { const s = api.skill(name); return s ? `<span class="sp-badge" style="--c:#ff9f43" title="${esc(s.does)}">${s.icon} ${esc(s.name)}</span>` : ""; }
     };
     UI.sponsorBar($("#gmBar"), "game", cfg.tools, () => api.refreshTools());
+    $("#brTabs").onclick = ev => { const t = ev.target.closest("[data-bt]"); if (t) { BR.tab = t.dataset.bt; renderBruin(); } };
     $("#gmMinds").onchange = ev => $("#gmLog").classList.toggle("hide-minds", !ev.target.checked);
     $("#gmVoice").onclick = () => { UI.ctl.voice = !UI.ctl.voice; $("#gmVoice").textContent = `${UI.ctl.voice ? "🔊" : "🔇"} Voices`; if (!UI.ctl.voice) UI.stopVoice(); };
     if (o.pause) $("#gmPause").onclick = () => { UI.ctl.paused = !UI.ctl.paused; $("#gmPause").textContent = UI.ctl.paused ? "▶ Resume" : "⏸ Pause"; o.onPause && o.onPause(UI.ctl.paused); };
