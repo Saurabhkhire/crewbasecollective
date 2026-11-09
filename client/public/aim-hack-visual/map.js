@@ -101,7 +101,7 @@
     if (mode === "full") {
       g.setAttribute("tabindex", "0");
       g.setAttribute("role", "link");
-      const go = () => (location.href = "/aimultiplayerhackathon-visual/tracks.html#" + i.id);
+      const go = () => (location.href = "/aim-hack-visual/tracks.html#" + i.id);
       g.addEventListener("click", go);
       g.addEventListener("keydown", e => e.key === "Enter" && go());
     }

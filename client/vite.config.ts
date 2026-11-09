@@ -1,4 +1,4 @@
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 import {
@@ -58,8 +58,41 @@ function spaFallbacks(): Plugin {
   };
 }
 
+/**
+ * Dev only: serve /aim-hack-visual (static site in public/aim-hack-visual) and run its
+ * chat function (api/aim-hack-chat.js) like Vercel does. Env from client/.env.local.
+ */
+function aimHackVisualDev(): Plugin {
+  const BASE = "/aim-hack-visual";
+  return {
+    name: "aim-hack-visual-dev",
+    apply: "serve",
+    configureServer(server) {
+      const env = loadEnv(server.config.mode, __dirname, "");
+      for (const k of ["OPENAI_API_KEY", "OPENAI_MODEL", "AIMP_ALLOWED_ORIGINS"]) {
+        if (env[k] && !process.env[k]) process.env[k] = env[k];
+      }
+      server.middlewares.use(async (req: any, res: any, next) => {
+        const pathname = (req.url || "").split("?")[0];
+        if (pathname === BASE || pathname === BASE + "/") {
+          req.url = BASE + "/index.html";
+          return next();
+        }
+        if (pathname !== BASE + "/api/chat") return next();
+        let raw = "";
+        for await (const c of req) raw += c;
+        try { req.body = raw ? JSON.parse(raw) : undefined; } catch { req.body = raw; }
+        res.status = (code: number) => { res.statusCode = code; return res; };
+        res.json = (obj: unknown) => { res.setHeader("content-type", "application/json"); res.end(JSON.stringify(obj)); };
+        const mod = await server.ssrLoadModule(path.resolve(__dirname, "api/aim-hack-chat.js"));
+        return mod.default(req, res);
+      });
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), spaFallbacks()],
+  plugins: [react(), spaFallbacks(), aimHackVisualDev()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -68,11 +101,6 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // AI Multiplayer Hackathon site (its own dev server, see aimultiplayerhackathon-visual/)
-      "/aimultiplayerhackathon-visual": {
-        target: "http://localhost:3000",
-        changeOrigin: false,
-      },
       "/api": {
         target: "http://localhost:4000",
         changeOrigin: true,

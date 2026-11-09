@@ -27,7 +27,7 @@
           </div>
           <div>
             <div class="for-you"><b>Great fit for:</b> ${esc(t.forYou)}</div>
-            ${t.id !== "grow" ? `<a class="btn" style="margin-top:12px" href="/aimultiplayerhackathon-visual/play.html#${t.id}">▶ ${t.id === "film" ? "Direct a film with agents" : "Play against agents"}</a>` : ""}
+            ${t.id !== "grow" ? `<a class="btn" style="margin-top:12px" href="/aim-hack-visual/play.html#${t.id}">▶ ${t.id === "film" ? "Direct a film with agents" : "Play against agents"}</a>` : ""}
           </div>
         </div>
 

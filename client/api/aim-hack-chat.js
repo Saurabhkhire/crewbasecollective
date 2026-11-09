@@ -1,11 +1,11 @@
 /**
  * AI agents endpoint for the AI Multiplayer Hackathon visual site.
- * Separate from the main Crewbase Collective site; only used by files in ../public/.
+ * Only used by client/public/aim-hack-visual/.
  *
  *   GET  /api/chat  → { ok, llm, model }               (is LLM mode available?)
  *   POST /api/chat  { system, user, temperature } → { content }  (OpenAI JSON reply as a string)
  *
- * The browser calls /aimultiplayerhackathon-visual/api/chat; vercel.json rewrites it here.
+ * The browser calls /aim-hack-visual/api/chat; vercel.json rewrites it to /api/aim-hack-chat.
  *
  * Env:
  *   OPENAI_API_KEY        required for LLM mode (otherwise the playground uses offline agents)

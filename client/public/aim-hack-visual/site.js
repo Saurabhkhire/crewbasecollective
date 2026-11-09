@@ -28,7 +28,7 @@
       <p>${esc(s.blurb)}</p>
       <div class="use"><b>Idea: how it could fit your build</b>${esc(s.buildIdea)}</div>
       <div class="row"><a class="btn btn-sm" href="${s.url}" target="_blank" rel="noopener">Visit ${esc(s.name)} ↗</a>
-      <a class="btn ghost btn-sm" href="/aimultiplayerhackathon-visual/sponsors.html">All sponsors</a></div>`;
+      <a class="btn ghost btn-sm" href="/aim-hack-visual/sponsors.html">All sponsors</a></div>`;
     dlg.querySelector(".close").onclick = () => dlg.close();
     dlg.showModal();
   };
@@ -37,7 +37,7 @@
   const homeTracks = $("#homeTracks");
   if (homeTracks) {
     homeTracks.innerHTML = H.tracks.map(t => `
-      <a class="card track-card" href="/aimultiplayerhackathon-visual/tracks.html#${t.id}" style="--c:${t.hex}">
+      <a class="card track-card" href="/aim-hack-visual/tracks.html#${t.id}" style="--c:${t.hex}">
         <span class="num">TRACK ${t.num} · ${t.island.toUpperCase()}</span>
         <span class="ico">${t.icon}</span>
         <h3>${esc(t.name)}</h3>

@@ -1,6 +1,6 @@
 /* =========================================================
    Brain: every agent decision goes through here.
-   - LLM mode: calls /aimultiplayerhackathon-visual/api/chat (this project's api/chat.js → OpenAI)
+   - LLM mode: calls /aim-hack-visual/api/chat (this project's api/chat.js → OpenAI)
    - Offline mode: personality-weighted simulated agents
    ========================================================= */
 window.Brain = (function () {
@@ -10,7 +10,7 @@ window.Brain = (function () {
 
   B.init = async function () {
     try {
-      const r = await fetch("/aimultiplayerhackathon-visual/api/chat", { cache: "no-store" });
+      const r = await fetch("/aim-hack-visual/api/chat", { cache: "no-store" });
       const j = await r.json();
       B.mode = j.llm ? "llm" : "offline";
       B.model = j.model;
@@ -23,7 +23,7 @@ window.Brain = (function () {
   };
 
   async function llm(system, user, temperature) {
-    const r = await fetch("/aimultiplayerhackathon-visual/api/chat", {
+    const r = await fetch("/aim-hack-visual/api/chat", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ system, user, temperature })

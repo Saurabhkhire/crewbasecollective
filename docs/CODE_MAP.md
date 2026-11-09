@@ -25,7 +25,7 @@ Legend: 🟢 live / used · 🟡 one-off script or tooling · ⚪ legacy (kept, 
 | File | Status | Purpose |
 |------|--------|---------|
 | `api/index.ts` | 🟢 | Exports `createApp()` from `server/src/app.ts` — the production API |
-| `api/aimultiplayer-chat.mjs` | 🟢 | Re-exports `aimultiplayerhackathon-visual/api/chat.js` (OpenAI) for `/aimultiplayerhackathon-visual/api/chat` |
+| `api/aim-hack-chat.mjs` | ⚪ | Re-exports `client/api/aim-hack-chat.js`; only used if Vercel Root Directory is `.` |
 
 ## `data/` — content source of truth
 
@@ -169,13 +169,9 @@ Legend: 🟢 live / used · 🟡 one-off script or tooling · ⚪ legacy (kept, 
 |------|--------|---------|
 | `build-data.ts` | 🟢 | `npm run build:data` → `buildDerivedData()` |
 | `publish-content.ts` | 🟢 | build:data → `git add` content → commit → `git push origin main` |
-| `prepare-vercel-output.ts` | 🟢 | Copy `client/dist` → `dist`, plus `aimultiplayerhackathon-visual/public/…` → `dist/aimultiplayerhackathon-visual` |
+| `prepare-vercel-output.ts` | 🟢 | Copy `client/dist` → `dist` |
 | `rename-named-images.ts` | 🟡 | Rename logos/covers to readable names, update refs |
 | `process-logo.py` | 🟡 | Regenerate logo PNG variants (Pillow + numpy) |
-
-## `aimultiplayerhackathon-visual/` — standalone static site
-
-Plain HTML/JS site served at `/aimultiplayerhackathon-visual` by the main Vercel project. See its README.
 
 ## `supabase/`
 

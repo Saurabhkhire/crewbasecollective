@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Playground · Multiplayer AI</title>
+  <meta name="description" content="Pick characters, set a scene, and watch AI agents decide the story, or play a multiplayer game against agent players." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/aim-hack-visual/styles.css" />
+  <link rel="stylesheet" href="/aim-hack-visual/play.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="logo" href="/aim-hack-visual/index.html"><span class="logo-dot"></span><span>MULTIPLAYER</span><span>AI</span></a>
+      <nav>
+        <a href="/aim-hack-visual/play.html#" class="active">▶ Playground</a>
+        <a href="/aim-hack-visual/tracks.html" class="hide-sm">Tracks</a>
+        <a href="/aim-hack-visual/sponsors.html" class="hide-sm">Sponsors</a>
+        <a class="btn btn-sm" data-register href="/aim-hack-visual/index.html#register">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap play">
+    <div class="mode-banner" id="modeBanner"></div>
+    <div id="steps"></div>
+    <div id="app"></div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© Multiplayer AI Hackathon · Playground demo: build something way better than this 😉</span>
+      <span><a href="/aim-hack-visual/index.html">Home</a> · <a href="/aim-hack-visual/tracks.html">Tracks</a></span>
+    </div>
+  </footer>
+
+  <script src="/aim-hack-visual/data.js"></script>
+  <script src="/aim-hack-visual/site.js"></script>
+  <script src="/aim-hack-visual/play-data.js"></script>
+  <script src="/aim-hack-visual/brain.js"></script>
+  <script src="/aim-hack-visual/play.js"></script>
+  <script src="/aim-hack-visual/film.js"></script>
+  <script src="/aim-hack-visual/game.js"></script>
+  <script>UI.boot();</script>
+</body>
+</html>
