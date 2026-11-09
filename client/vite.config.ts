@@ -68,6 +68,11 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
+      // AI Multiplayer Hackathon site (its own dev server, see aimultiplayerhackathon-visual/)
+      "/aimultiplayerhackathon-visual": {
+        target: "http://localhost:3000",
+        changeOrigin: false,
+      },
       "/api": {
         target: "http://localhost:4000",
         changeOrigin: true,

@@ -12,3 +12,10 @@ if (!existsSync(clientDist)) {
 rmSync(vercelDist, { recursive: true, force: true });
 cpSync(clientDist, vercelDist, { recursive: true });
 console.log("Copied client/dist → dist for Vercel");
+
+// Standalone static site served at /aimultiplayerhackathon-visual (no build step).
+const aimpSrc = resolve("aimultiplayerhackathon-visual/public/aimultiplayerhackathon-visual");
+if (existsSync(aimpSrc)) {
+  cpSync(aimpSrc, resolve(vercelDist, "aimultiplayerhackathon-visual"), { recursive: true });
+  console.log("Copied aimultiplayerhackathon-visual → dist/aimultiplayerhackathon-visual");
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "",
+  "installCommand": "",
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/aimultiplayerhackathon-visual/api/chat", "destination": "/api/chat" }
+  ],
+  "redirects": [
+    { "source": "/", "destination": "/aimultiplayerhackathon-visual", "permanent": false }
+  ]
+}

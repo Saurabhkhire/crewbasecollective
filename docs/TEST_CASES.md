@@ -1,5 +1,8 @@
 # Test Cases
 
+> ⚠️ **Partly legacy.** Written for the old Postgres + admin-login version. Today the CMS is local-only with **no login** (AUTH cases don't apply), content is saved to `data/*.json` (read "Row in DB" as "entry in JSON file"), and request forms are emailed, not stored. See [ARCHITECTURE.md](./ARCHITECTURE.md).
+
+
 **Updated:** 2026-07-26  
 ✅ = positive · ❌ = negative
 

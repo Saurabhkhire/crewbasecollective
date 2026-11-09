@@ -1,6 +1,6 @@
 # Content schema (static JSON)
 
-**Updated:** 2026-07-27  
+**Updated:** 2026-10-25  
 **Source of truth in code:** `server/src/data/types.ts`  
 **Legacy Postgres mapping:** `docs/DATABASE_SCHEMA.md` (old Supabase tables)
 
@@ -15,19 +15,21 @@ crewbasecollective/
 ├── data/                              ← EDIT HERE (via local CMS or by hand)
 │   ├── companies.json                 ← all sponsor/partner companies
 │   ├── people.json                    ← all people
+│   ├── settings.json                  ← CMS settings (sub-roles, links, SMTP, email templates)
+│   ├── assets/pitch-deck.pdf          ← sponsorship deck attached to sponsor emails
 │   ├── events/
 │   │   └── {event-uuid}.json          ← one file per event (full nested data)
 │   └── images/
-│       ├── companies/{company-id}.jpg ← company logos
-│       └── events/{slug}/             ← event covers + gallery photos
-│           ├── cover.jpg
-│           ├── cover-page.jpg
-│           └── photos/{photo-id}.jpg
+│       ├── companies/{company-name}.png ← company logos (older files: random ids)
+│       ├── covers/{event-name}.png      ← event cover images
+│       └── events/{event-name}/         ← gallery photos (1.jpg, 2.jpg … sequential)
+│                                          folder = sanitized event NAME, not the slug
 │
 ├── client/public/data/                ← AUTO-BUILT (do not edit by hand)
 │   ├── events-index.json              ← list of published events (summary)
 │   ├── sponsors.json                  ← companies for /sponsors page
 │   ├── people.json                    ← people + computed involvement lists
+│   ├── community-links.json           ← from settings.json communityLinks
 │   └── events/{slug}.json             ← denormalized event detail for public site
 │
 └── client/public/images/              ← AUTO-COPIED from data/images/
@@ -39,7 +41,7 @@ crewbasecollective/
 | `client/public/data/` | Public website JSON | `npm run build:data` or CMS after every save |
 | `client/public/images/` | Public image URLs (`/images/...`) | Copied from `data/images/` on build |
 
-**Image paths in JSON** use web paths like `/images/companies/{id}.png` or `/images/events/{slug}/cover.jpg`. Files live under `data/images/`; the build copies them to `client/public/images/`.
+**Image paths in JSON** use web paths like `/images/companies/nebius.png`, `/images/covers/bay-builders-hackathon.png` or `/images/events/bay-builders-hackathon/1.jpg`. Files live under `data/images/`; the build copies them to `client/public/images/`.
 
 ---
 
@@ -56,6 +58,7 @@ crewbasecollective/
       "logoUrl": "/images/companies/uuid.png",
       "website": "https://...",
       "linkedin": "https://...",
+      "email": "optional@company.com",
       "information": "Description text",
       "createdAt": "ISO-8601",
       "updatedAt": "ISO-8601"
@@ -84,7 +87,7 @@ crewbasecollective/
       "notes": null,
       "companyId": "uuid-or-null",
       "companyName": "Crewbase Collective",
-      "roles": [],
+      "roles": [{ "role": "judge", "subRole": null, "status": "confirmed" }],
       "createdAt": "ISO-8601",
       "updatedAt": "ISO-8601"
     }
@@ -94,7 +97,8 @@ crewbasecollective/
 
 **Was Supabase table:** `users`  
 `role` values: `participant`, `speaker`, `judge`, `host`, `volunteer`, `sponsor_rep`, `organizer`, `other`  
-`email`, `phone`, and `notes` are admin-only (not written to public `people.json`).
+`role` is a **legacy** single field. Real role data lives in `roles[]` (`PersonRoleAssignment`): `role` = one of the fixed roles (`judge`, `speaker`, `sponsor representative`, `partner representative`, `host`, `volunteer`, `associated`), `subRole` = optional configurable sub-role (e.g. `mc`), `status` = `confirmed` | `maybe` | `no_response`. Old files with `tags[]` are migrated by `normalizePersonRecord()`.
+`email`, `phone`, `notes` and `roles` are admin-only (not written to public `people.json`).
 
 ---
 
@@ -140,12 +144,17 @@ One JSON file per event. Top-level shape:
 | `location` | string \| null | `location` |
 | `locationLat` / `locationLng` | string \| null | `location_lat` / `location_lng` |
 | `coverImageUrl` / `coverPageUrl` | string \| null | `cover_image_url` / `cover_page_url` |
-| `lumaLink` / `eventbriteLink` / `groupLink` | string \| null | same |
+| `lumaLinks` / `eventbriteLinks` | string[] | `luma_link` / `eventbrite_link` (legacy single `lumaLink`/`eventbriteLink` auto-migrated) |
+| `groupLink` | string \| null | `group_link` |
 | `isPartnerEvent` | boolean | `is_partner_event` |
-| `isPublished` | boolean | `is_published` |
+| `isPublished` | boolean | `is_published` — the only visibility switch; unpublished events aren't in public JSON |
 | `createdAt` / `updatedAt` | ISO string | `created_at` / `updated_at` |
 
 `type` values: `hackathon`, `pitch_competition`, `workshop`, `mixer`, `dinner`, `demo`, `other`
+
+#### Assignment status
+
+Sponsors, partners, their `representatives`, judges, speakers, hosts, associated and staff roles carry `status`: `confirmed` | `maybe` | `no_response`. **Only `confirmed` rows are published.** Speakers/schedule items also have `isSkipped` (set by the live "reassign" action). Most rows have `sortOrder`.
 
 #### Nested arrays (inside same event file)
 
@@ -158,7 +167,7 @@ One JSON file per event. Top-level shape:
 | `schedule` | `schedule_items` + `schedule_speakers` | Nested `speakers` per slot |
 | `speakers` | `event_speakers` | Standalone speaker timeline |
 | `judges` | `event_judges` | Hackathon / pitch only |
-| `hosts` | `event_hosts` | `hostType`: host, sponsor, venue_partner, volunteer, other |
+| `hosts` | `event_hosts` | `hostType`: host, sponsor, venue_partner, volunteer, other. Volunteers are hosts with `hostType: "volunteer"` (own CMS tab) |
 | `associated` | — | Admin-only associated people; never published. Legacy `externals` migrate here |
 | `staffRoles` | — | Legacy sub-role rows; visible ones may appear as public `team` |
 | `links` | `event_links` | |
@@ -177,11 +186,25 @@ Built by `buildDerivedData()` in `server/src/data/repository.ts`:
 |------|------------|---------|
 | `events-index.json` | Published events only (`isPublished: true`) | `/events`, home, request forms |
 | `events/{slug}.json` | Denormalized event (names, logos resolved) | `/events/:slug` |
-| `sponsors.json` | All companies | `/sponsors` |
-| `people.json` | People + computed `judged`, `spoke`, `sponsored`, `hosted`, `volunteered` arrays | `/people` |
+| `sponsors.json` | Companies grouped as `sponsors`, `partners`, `venuePartners`, `communityPartners` | `/sponsors`, home |
+| `people.json` | `id, username, linkedin, title, companyName` + computed `judged`, `spoke`, `sponsored`, `partnered`, `hosted`, `volunteered` event lists | `/people`, home |
+| `community-links.json` | `settings.json → communityLinks` (`whatsapp`, `discord`, `x`, `lumaCalendar`) | footer, `/get-involved` |
 
 Run manually: `npm run build:data`  
 CMS runs this automatically after every save.
+
+---
+
+## `data/settings.json` (CMS-only, never public except community links)
+
+| Key | Shape | Purpose |
+|-----|-------|---------|
+| `subRoles` | `[{ key, visible }]` | Configurable sub-roles (MC, photographer…). `visible: false` = never shown publicly |
+| `communityLinks` | `{ whatsapp, discord, x, lumaCalendar }` | Published to `community-links.json` |
+| `smtp` | `{ provider: "gmail"\|"brevo", host, port, user, pass, from, notifyEmail, gmail:{user,pass}, brevo:{user,pass} }` | CMS email sending. Empty fields fall back to `server/.env`. ⚠️ File is committed — keep passwords in `.env` |
+| `emailTemplates` | `{ sponsorshipRequest, speakerInvite, judgeInvite, judgeSpeakerInvite, judgeCertification, speakerCertification, judgeSpeakerCertification }` each `{ subject, body, certificateText? }` | Templates with `{{placeholders}}` (see docs/API.md) |
+
+Defaults: `DEFAULT_SITE_SETTINGS` in `types.ts`; loaded by `getSiteSettings()` in `repository.ts`.
 
 ---
 
@@ -193,7 +216,9 @@ CMS runs this automatically after every save.
 | Partner type | `venue`, `technology`, `community`, `media`, `food`, `other`, `custom` |
 | Prize placement | `first`, `second`, `third`, `winning`, `custom` |
 | Host type | `host`, `sponsor`, `venue_partner`, `volunteer`, `other` |
-| Person role | `participant`, `speaker`, `judge`, `host`, `volunteer`, `sponsor_rep`, `organizer`, `other` |
+| Person role (legacy `role` field) | `participant`, `speaker`, `judge`, `host`, `volunteer`, `sponsor_rep`, `organizer`, `other` |
+| Fixed role (`roles[].role`) | `judge`, `speaker`, `sponsor representative`, `partner representative`, `host`, `volunteer`, `associated` |
+| Role status | `confirmed`, `maybe`, `no_response` |
 
 Defined in TypeScript: `server/src/data/types.ts`  
 Old Drizzle/Postgres enums: `server/src/db/schema.ts`

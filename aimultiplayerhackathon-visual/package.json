@@ -1,0 +1,13 @@
+{
+  "name": "aimultiplayerhackathon-visual",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI Multiplayer Hackathon visual site + agent playground. Separate from the main Crewbase Collective site; shares only the URL path /aimultiplayerhackathon-visual.",
+  "scripts": {
+    "dev": "node dev-server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

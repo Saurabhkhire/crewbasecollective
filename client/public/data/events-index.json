@@ -2,7 +2,7 @@
   "events": [
     {
       "id": "5938455b-9b15-4ca5-8654-e6992c5aec45",
-      "slug": "universal-hackathon-mvd90xut",
+      "slug": "universal-hackathon-mvebl5cy",
       "name": "Universal Hackathon",
       "type": "hackathon",
       "description": "",
@@ -23,7 +23,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-08-08T18:13:05.987Z",
-      "updatedAt": "2026-10-18T03:11:23.238Z",
+      "updatedAt": "2026-10-18T21:12:23.867Z",
       "lumaLink": null,
       "eventbriteLink": null
     },
@@ -56,7 +56,7 @@
     },
     {
       "id": "14a0bff1-6051-45ed-8946-cb39a4d84782",
-      "slug": "build-your-co-founder-hackathon-munnmrk8",
+      "slug": "build-your-co-founder-hackathon-mvd95cmu",
       "name": "Build your Co Founder Hackathon",
       "type": "hackathon",
       "description": "​Build Your AI Co-Founder is a hackathon where you build and ship a company with a founding team of 2–4 co-founders, combining humans and AI.\n\n​Every team must have at least one human and one AI co-founder. You decide the rest—including who takes which role, what you build, and how your founding team works together.\n\n​AI co-founders can take any role: CEO, CTO, Product, Marketing, Sales, Research, or anything your company needs.\n\n​The goal is to experience what it means to build a real company with AI as part of the founding team—from idea to execution to a shipped product.",
@@ -79,7 +79,7 @@
       "isPartnerEvent": false,
       "isPublished": true,
       "createdAt": "2026-08-08T18:11:21.051Z",
-      "updatedAt": "2026-10-05T01:51:24.702Z",
+      "updatedAt": "2026-10-18T03:14:49.016Z",
       "lumaLink": "https://luma.com/i8976ew3789",
       "eventbriteLink": null
     },

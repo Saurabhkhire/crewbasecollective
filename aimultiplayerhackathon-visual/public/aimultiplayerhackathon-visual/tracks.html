@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tracks &amp; Ideas · Multiplayer AI</title>
+  <meta name="description" content="The three Multiplayer AI tracks, 36 project ideas, an idea generator and an eligibility checklist." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/aimultiplayerhackathon-visual/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="logo" href="/aimultiplayerhackathon-visual/index.html"><span class="logo-dot"></span><span>MULTIPLAYER</span><span>AI</span></a>
+      <nav>
+        <a href="/aimultiplayerhackathon-visual/play.html">▶ Playground</a>
+        <a href="/aimultiplayerhackathon-visual/tracks.html" class="active hide-sm">Tracks</a>
+        <a href="#generator" class="hide-sm">Idea generator</a>
+        <a href="/aimultiplayerhackathon-visual/sponsors.html">Sponsors</a>
+        <a class="btn btn-sm" data-register href="/aimultiplayerhackathon-visual/index.html#register">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero wrap">
+    <p class="eyebrow">// Tracks &amp; ideas</p>
+    <h1>What should you build?</h1>
+    <p class="lead">Pick one of three tracks and build a working, visual, multi-agent experience: characters that think, act, move and decide on screen. Here's everything you need to choose, plus 36 ideas to steal.</p>
+
+    <div class="chooser">
+      <a class="card" href="#film" style="--c:var(--film)"><small>You love stories, film, animation…</small><b>🎬 Track 01 · Agent Animated Film</b></a>
+      <a class="card" href="#game" style="--c:var(--game)"><small>You love games, systems, multiplayer…</small><b>🎮 Track 02 · Co-op Multiplayer Game</b></a>
+      <a class="card" href="#grow" style="--c:var(--grow)"><small>You love learning, careers, coaching…</small><b>🎓 Track 03 · Grow with Agents</b></a>
+    </div>
+  </section>
+
+  <div class="tabs"><div class="wrap" id="trackTabs"></div></div>
+
+  <div id="tracksRoot"></div>
+
+  <!-- GENERATOR -->
+  <section class="section wrap" id="generator">
+    <div class="section-head">
+      <span class="kicker">Stuck? Roll the dice</span>
+      <h2>🎲 Idea generator</h2>
+      <p>Pick a track and roll. Click any card to lock it, then roll again to remix the rest. Treat the result as a starting point, not a spec.</p>
+    </div>
+    <div class="gen-tabs" id="genTabs"></div>
+    <div class="gen-slots" id="genSlots"></div>
+    <div class="card gen-out" id="genOut"></div>
+    <div class="gen-actions">
+      <button class="btn" id="genRoll">🎲 Roll again</button>
+      <span class="hint">Tip: add a score booster (3D, voice, or agents that learn between runs) to make it stand out.</span>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section class="section wrap" id="checklist">
+    <div class="section-head">
+      <span class="kicker">Am I eligible?</span>
+      <h2>✅ Project readiness check</h2>
+      <p>Tick what your project does. All five requirements apply to every track. Boosters raise your score.</p>
+    </div>
+    <div id="checkRoot"></div>
+  </section>
+
+  <!-- PITFALLS -->
+  <section class="section wrap" id="pitfalls">
+    <div class="section-head">
+      <span class="kicker">Read this before you build</span>
+      <h2>⚠️ Common pitfalls</h2>
+      <p>These are the traps that turn a multiplayer-agent project into "just another chatbot."</p>
+    </div>
+    <div class="pitfalls">
+      <div class="card pit"><span class="scope">ALL TRACKS</span><h4>A chatbot with a face</h4><div class="no">✕ One assistant with an avatar answering questions.</div><div class="yes">✓ 3+ agents with their own goals who talk to each other, not just to you.</div></div>
+      <div class="card pit"><span class="scope">ALL TRACKS</span><h4>Secretly scripted</h4><div class="no">✕ A hard-coded plot that the agents just narrate.</div><div class="yes">✓ Real choices with real consequences. Run it twice to prove the outcome changes.</div></div>
+      <div class="card pit"><span class="scope">ALL TRACKS</span><h4>Text-only agents</h4><div class="no">✕ Agents whose decisions only show up as chat messages.</div><div class="yes">✓ Every decision becomes movement or action on screen.</div></div>
+      <div class="card pit"><span class="scope">ALL TRACKS</span><h4>Invisible reasoning</h4><div class="no">✕ Things happen and nobody knows why.</div><div class="yes">✓ A decision log: "Rex betrayed the crew because he was promised the pod."</div></div>
+      <div class="card pit"><span class="scope">TRACK 02</span><h4>NPCs in disguise</h4><div class="no">✕ Agents that wait for the player to talk to them.</div><div class="yes">✓ Agents act on their own schedule. The world changes while humans are away.</div></div>
+      <div class="card pit"><span class="scope">TRACK 03</span><h4>Vibes-only feedback</h4><div class="no">✕ "Great job! 8/10."</div><div class="yes">✓ Quote what the human said and tie every score to evidence from the session.</div></div>
+    </div>
+  </section>
+
+  <!-- TOOLKIT -->
+  <section class="section wrap" id="toolkit">
+    <div class="section-head">
+      <span class="kicker">Starter toolkit</span>
+      <h2>🧰 What people typically build with</h2>
+      <p>Suggestions only. Use any stack you like. Also check what our <a href="/aimultiplayerhackathon-visual/sponsors.html">sponsors</a> offer.</p>
+    </div>
+    <div class="toolkit">
+      <div class="card"><h4>🌍 Worlds &amp; rendering</h4><p>Three.js, Babylon.js, Unity, Unreal, Godot, Phaser. Blender or ready-made asset packs for characters.</p></div>
+      <div class="card"><h4>🧠 Agent brains</h4><p>Any LLM API with structured outputs or tool calls, plus a loop: observe → think → decide → act → log.</p></div>
+      <div class="card"><h4>📚 Memory &amp; learning</h4><p>Reflection summaries, vector memory, relationship scores, RL (Gymnasium, ML-Agents) or fine-tuning.</p></div>
+      <div class="card"><h4>🎙️ Voice &amp; audio</h4><p>Text-to-speech with a distinct voice per agent, speech-to-text for humans, generated music and SFX.</p></div>
+      <div class="card"><h4>🌐 Multiplayer</h4><p>WebSockets, Colyseus, Photon, Nakama, or any game server that lets agents join as players.</p></div>
+      <div class="card"><h4>🎞️ Video output</h4><p>Screen capture, Unity Recorder, Blender renders, ffmpeg for stitching your 1–3 minute short.</p></div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="cta-panel">
+      <h2>Got your world in mind?</h2>
+      <p>Grab a team of up to four and register interest.</p>
+      <div class="cta-row"><a class="btn" data-register href="/aimultiplayerhackathon-visual/index.html#register">Register interest</a><a class="btn ghost" href="/aimultiplayerhackathon-visual/index.html">← Back to the world map</a></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>© Multiplayer AI Hackathon</span>
+      <span><a href="/aimultiplayerhackathon-visual/index.html">Home</a> · <a href="/aimultiplayerhackathon-visual/sponsors.html">Sponsors</a></span>
+    </div>
+  </footer>
+
+  <script src="/aimultiplayerhackathon-visual/data.js"></script>
+  <script src="/aimultiplayerhackathon-visual/site.js"></script>
+  <script src="/aimultiplayerhackathon-visual/tracks.js"></script>
+</body>
+</html>

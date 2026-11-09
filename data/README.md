@@ -3,19 +3,23 @@
 Edit via the local CMS (`npm run dev:cms`), then publish with `npm run publish:content`.
 
 **Full schema & Supabase mapping:** [`docs/CONTENT_SCHEMA.md`](../docs/CONTENT_SCHEMA.md)  
-**TypeScript types:** `server/src/data/types.ts`
+**TypeScript types:** `server/src/data/types.ts`  
+**Plain-language overview:** [`docs/SIMPLE_GUIDE.md`](../docs/SIMPLE_GUIDE.md)
 
 ## Layout
 
 ```
 data/
-├── companies.json          # 33 sponsor/partner companies
-├── people.json             # 64 people
+├── companies.json          # sponsor/partner companies (~78 as of 2026-10)
+├── people.json             # people directory (~121)
+├── settings.json           # CMS settings: sub-roles, community links, SMTP, email templates
+├── assets/                 # pitch-deck.pdf for sponsorship emails
 ├── events/
-│   └── {uuid}.json         # 15 events (nested tracks, sponsors, schedule, etc.)
+│   └── {uuid}.json         # one file per event (~23; nested tracks, sponsors, schedule, etc.)
 └── images/
-    ├── companies/          # logos → referenced as /images/companies/...
-    └── events/{slug}/      # covers + gallery → /images/events/...
+    ├── companies/          # logos → /images/companies/...
+    ├── covers/             # event covers → /images/covers/...
+    └── events/{event-name}/ # gallery → /images/events/...  (folder = event name, not slug)
 ```
 
 ## Derived (auto-built — do not edit)

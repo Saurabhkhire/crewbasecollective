@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multiplayer AI · Hackathon</title>
+  <meta name="description" content="A hackathon for building AI agents that behave like living characters. They move, compete, cooperate and teach in worlds you create." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/aimultiplayerhackathon-visual/styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="logo" href="/aimultiplayerhackathon-visual/index.html"><span class="logo-dot"></span><span>MULTIPLAYER</span><span>AI</span></a>
+      <nav>
+        <a href="/aimultiplayerhackathon-visual/play.html">▶ Playground</a>
+        <a href="/aimultiplayerhackathon-visual/tracks.html" class="hide-sm">Tracks</a>
+        <a href="/aimultiplayerhackathon-visual/tracks.html#generator" class="hide-sm">Idea generator</a>
+        <a href="/aimultiplayerhackathon-visual/sponsors.html">Sponsors</a>
+        <a class="btn btn-sm" data-register href="#register">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero wrap">
+    <p class="eyebrow">// Hackathon · Dates TBA · Solo or teams of up to 4</p>
+    <h1>Build what comes <em>after chat.</em></h1>
+    <p class="lead">AI agents that move, compete, cooperate and teach as living characters in worlds you create. No single chatbot. No fixed script.</p>
+    <div class="cta-row">
+      <a class="btn" href="/aimultiplayerhackathon-visual/play.html#film">▶ Try it: watch agents decide</a>
+      <a class="btn ghost" href="/aimultiplayerhackathon-visual/tracks.html">Explore the 3 tracks →</a>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="world-frame">
+      <div class="world-bar mono">
+        <span class="live-dot"></span> LIVE WORLD
+        <span class="muted">· 8 agents deciding where to go · click an island to explore a track, a building to meet a sponsor</span>
+      </div>
+      <div class="world-grid">
+        <div class="map-wrap">
+          <svg id="world" viewBox="0 0 1200 780" data-mode="full" role="img" aria-label="Map of the Multiplayer AI world: three track islands around a sponsor district, with AI agents walking between them"></svg>
+        </div>
+        <aside class="log" aria-live="polite">
+          <div class="log-head mono"><span>DECISION LOG</span><span><b id="decCount">0</b> decisions</span></div>
+          <ol id="log"></ol>
+          <div class="log-foot">Every project needs one of these: a visible record of what the agents decided and why.</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRY IT -->
+  <section class="section wrap" id="try">
+    <div class="section-head">
+      <span class="kicker">Playground</span>
+      <h2>Don't just read the brief. Play it.</h2>
+      <p>Pick characters, set a scene, and watch AI agents decide what happens. Or sit down at a table with agent players who trade, ally and betray.</p>
+    </div>
+    <div class="try-grid">
+      <a class="card try" href="/aimultiplayerhackathon-visual/play.html#film" style="--c:var(--film)"><span class="ico">🎬</span><div><h3>Track 01 · Direct an agent film</h3><p>Choose a cast and a story mode, throw in plot twists, and collect different endings. <b>Start →</b></p></div></a>
+      <a class="card try" href="/aimultiplayerhackathon-visual/play.html#game" style="--c:var(--game)"><span class="ico">🎮</span><div><h3>Track 02 · Play against agents</h3><p>You and a friend vs. AI players with goals, memory and grudges. <b>Play →</b></p></div></a>
+    </div>
+  </section>
+
+  <!-- CHALLENGE -->
+  <section class="section wrap">
+    <div class="section-head">
+      <span class="kicker">The challenge</span>
+      <h2>From one-to-one, to many-to-many.</h2>
+      <p>Most AI today is one human talking to one assistant. The next step is multiplayer: many agents interacting with each other and with humans, where the outcome isn't scripted. It emerges from what the agents decide.</p>
+    </div>
+    <div class="compare">
+      <div class="card old">
+        <div class="dots">
+          <svg viewBox="0 0 300 90" preserveAspectRatio="xMidYMid meet">
+            <line x1="110" y1="45" x2="190" y2="45" stroke="#8d97bd" stroke-dasharray="4 4" />
+            <circle cx="110" cy="45" r="12" fill="#eaf0ff" /><circle cx="190" cy="45" r="12" fill="#8d97bd" />
+          </svg>
+        </div>
+        <h3>Today: 1 human ↔ 1 assistant</h3>
+        <p>You ask, it answers. A text box, one voice, and a script that's predictable by design.</p>
+      </div>
+      <div class="card new">
+        <div class="dots">
+          <svg viewBox="0 0 300 90" preserveAspectRatio="xMidYMid meet">
+            <g stroke="rgba(164,107,255,.55)">
+              <line x1="60" y1="30" x2="150" y2="20" /><line x1="150" y1="20" x2="240" y2="35" /><line x1="60" y1="30" x2="110" y2="72" />
+              <line x1="110" y1="72" x2="195" y2="70" /><line x1="195" y1="70" x2="240" y2="35" /><line x1="150" y1="20" x2="110" y2="72" /><line x1="150" y1="20" x2="195" y2="70" />
+            </g>
+            <circle cx="60" cy="30" r="10" fill="#ff4fa3" /><circle cx="150" cy="20" r="10" fill="#3ee6ff" /><circle cx="240" cy="35" r="10" fill="#b6ff5c" />
+            <circle cx="110" cy="72" r="10" fill="#eaf0ff" /><circle cx="195" cy="70" r="10" fill="#ffc857" />
+          </svg>
+        </div>
+        <h3>Here: many agents ↔ each other ↔ humans</h3>
+        <p>Visible characters with their own goals, personalities and minds that think, act, move and decide. They shape a film, a game, or a real person's growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKS -->
+  <section class="section wrap" id="tracks">
+    <div class="section-head">
+      <span class="kicker">Pick one of three tracks</span>
+      <h2>Agents that play, perform and teach.</h2>
+      <p>Each track is a different island in the world. Click through for the full brief, 12 ideas per track, and an idea generator.</p>
+    </div>
+    <div class="track-cards" id="homeTracks"></div>
+  </section>
+
+  <!-- REQUIREMENTS -->
+  <section class="section wrap">
+    <div class="section-head">
+      <span class="kicker">What every project needs</span>
+      <h2>Five must-haves, three score boosters.</h2>
+      <p>Whatever track you pick, judges will look for these. Not sure if your idea qualifies? <a href="/aimultiplayerhackathon-visual/tracks.html#checklist">Run the eligibility check →</a></p>
+    </div>
+    <div id="homeReq"></div>
+  </section>
+
+  <!-- WHO -->
+  <section class="section wrap">
+    <div class="section-head">
+      <span class="kicker">Who should join</span>
+      <h2>You don't need to be an ML engineer.</h2>
+      <p>The best teams mix people who can build agents, make them look alive, and tell a story. Join solo or in a team of up to four.</p>
+    </div>
+    <div class="chips">
+      <span class="chip">🧑‍💻 Developers</span><span class="chip">🎮 Game builders</span><span class="chip">🧠 ML engineers</span>
+      <span class="chip">🧊 3D artists</span><span class="chip">🎨 Designers</span><span class="chip">📋 Product managers</span>
+      <span class="chip">✍️ Storytellers</span><span class="chip">🎙️ Voice &amp; audio creators</span><span class="chip">🎬 Animators</span>
+    </div>
+  </section>
+
+  <!-- SPONSORS -->
+  <section class="section wrap">
+    <div class="section-head">
+      <span class="kicker">Sponsors &amp; partners</span>
+      <h2>The buildings that power the world.</h2>
+      <p>Every sponsor is a landmark in the Sponsor District. <a href="/aimultiplayerhackathon-visual/sponsors.html">Explore the sponsor map →</a></p>
+    </div>
+    <div class="sp-strip" id="homeSponsors"></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section wrap" id="register">
+    <div class="cta-panel">
+      <h2>Build agents that don't just talk.</h2>
+      <p>Build agents that play, perform and teach. Registration opens soon. Grab a team and start sketching your world.</p>
+      <div class="cta-row">
+        <a class="btn" data-register href="#register">Register interest</a>
+        <a class="btn ghost" href="/aimultiplayerhackathon-visual/tracks.html#generator">🎲 Generate an idea</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>© Multiplayer AI Hackathon</span>
+      <span><a href="/aimultiplayerhackathon-visual/tracks.html">Tracks</a> · <a href="/aimultiplayerhackathon-visual/sponsors.html">Sponsors</a> · <a href="/aimultiplayerhackathon-visual/tracks.html#checklist">Eligibility</a></span>
+    </div>
+  </footer>
+
+  <script src="/aimultiplayerhackathon-visual/data.js"></script>
+  <script src="/aimultiplayerhackathon-visual/site.js"></script>
+  <script src="/aimultiplayerhackathon-visual/map.js"></script>
+</body>
+</html>

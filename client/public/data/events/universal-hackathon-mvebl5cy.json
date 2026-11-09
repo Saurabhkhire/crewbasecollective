@@ -1,7 +1,7 @@
 {
   "event": {
     "id": "5938455b-9b15-4ca5-8654-e6992c5aec45",
-    "slug": "universal-hackathon-mvd90xut",
+    "slug": "universal-hackathon-mvebl5cy",
     "name": "Universal Hackathon",
     "type": "hackathon",
     "description": "",
@@ -22,7 +22,7 @@
     "isPartnerEvent": false,
     "isPublished": true,
     "createdAt": "2026-08-08T18:13:05.987Z",
-    "updatedAt": "2026-10-18T03:11:23.238Z",
+    "updatedAt": "2026-10-18T21:12:23.867Z",
     "lumaLink": null,
     "eventbriteLink": null
   },
@@ -691,7 +691,7 @@
       "eventDay": "2026-10-19",
       "startTime": "2026-10-19T18:40:00.000Z",
       "endTime": "2026-10-19T18:45:00.000Z",
-      "topic": "Create AI Agent Team to run a Business",
+      "topic": "Create AI Agent Team to run a Business in Kylon",
       "title": "Founder",
       "companyName": "Crewbase Collective"
     },
