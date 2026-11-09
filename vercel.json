@@ -6,14 +6,9 @@
   "installCommand": "npm install",
   "cleanUrls": false,
   "trailingSlash": false,
-  "redirects": [
-    { "source": "/aimultiplayerhackathon-visual", "destination": "/aim-hack-visual", "permanent": true },
-    { "source": "/aimultiplayerhackathon-visual/:path*", "destination": "/aim-hack-visual/:path*", "permanent": true }
-  ],
   "rewrites": [
-    { "source": "/aim-hack-visual/api/chat", "destination": "/api/aim-hack-chat" },
-    { "source": "/aim-hack-visual", "destination": "/aim-hack-visual/index.html" },
-    { "source": "/aim-hack-visual/", "destination": "/aim-hack-visual/index.html" },
+    { "source": "/aimultiplayerhackathon-visual/api/chat", "destination": "/api/aimultiplayer-chat" },
+    { "source": "/aimultiplayerhackathon-visual", "destination": "/aimultiplayerhackathon-visual/index.html" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "functions": {
@@ -21,9 +16,9 @@
       "maxDuration": 30,
       "includeFiles": "{server/**,client/public/data/**,data/**}"
     },
-    "api/aim-hack-chat.mjs": {
+    "api/aimultiplayer-chat.mjs": {
       "maxDuration": 30,
-      "includeFiles": "client/api/aim-hack-chat.js"
+      "includeFiles": "aimultiplayerhackathon-visual/api/**"
     }
   }
 }
