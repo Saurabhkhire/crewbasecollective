@@ -25,7 +25,6 @@ Legend: 🟢 live / used · 🟡 one-off script or tooling · ⚪ legacy (kept, 
 | File | Status | Purpose |
 |------|--------|---------|
 | `api/index.ts` | 🟢 | Exports `createApp()` from `server/src/app.ts` — the production API |
-| `api/aim-hack-chat.mjs` | ⚪ | Re-exports `client/api/aim-hack-chat.js`; only used if Vercel Root Directory is `.` |
 
 ## `data/` — content source of truth
 
@@ -113,6 +112,8 @@ Legend: 🟢 live / used · 🟡 one-off script or tooling · ⚪ legacy (kept, 
 
 ### `client/api/` — ⚪/fallback Vercel functions
 `health.ts`, `subscribe.ts`, `requests.ts`: self-contained copies of the forms API, only used if Vercel Root Directory = `client/`. Keep in sync with `server/src/routes/forms.ts`.
+
+`aim-hack-chat.ts`: OpenAI endpoint for the separate `/aim-hack-visual` site in `client/public/aim-hack-visual/` (see [AIM_HACK_VISUAL.md](AIM_HACK_VISUAL.md)). No `client/vercel.json` — adding one broke the deploy.
 
 ## `cms/` — local admin app shell
 

@@ -12,4 +12,3 @@ if (!existsSync(clientDist)) {
 rmSync(vercelDist, { recursive: true, force: true });
 cpSync(clientDist, vercelDist, { recursive: true });
 console.log("Copied client/dist → dist for Vercel");
-

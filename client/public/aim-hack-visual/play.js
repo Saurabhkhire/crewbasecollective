@@ -50,7 +50,7 @@ window.UI = (function () {
     else b.innerHTML = `<span class="pill warn">● OFFLINE DEMO AGENTS</span> ${U.esc(B.reason || "")} Agents are simulated from their personalities. <a href="#" id="howLLM">How to turn on real LLM agents</a>`;
     const h = U.$("#howLLM");
     if (h) h.onclick = e => { e.preventDefault(); U.modal(`<h3>Turn on OpenAI agents</h3>
-      <ol class="howto"><li>In the main Crewbase Collective Vercel project → Settings → Environment Variables, add <code>OPENAI_API_KEY</code> (optional: <code>OPENAI_MODEL</code>).</li><li>Redeploy. The page calls <code>/aim-hack-visual/api/chat</code>.</li><li>Locally the playground runs with offline agents.</li></ol>
+      <ol class="howto"><li>In the main Crewbase Collective Vercel project → Settings → Environment Variables, add <code>OPENAI_API_KEY</code> (optional: <code>OPENAI_MODEL</code>).</li><li>Redeploy. The page calls <code>/api/aim-hack-chat</code>.</li><li>Locally the playground runs with offline agents.</li></ol>
       <p class="muted">The key stays on the server and is never sent to the browser.</p>`); };
   };
 

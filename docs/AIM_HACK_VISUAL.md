@@ -2,24 +2,23 @@
 
 A standalone plain HTML/CSS/JS site + agent playground, served by the **main** Vercel project at
 **crewbasecollective.com/aim-hack-visual**. No shared code with the React app, no build step.
-The old URL `/aimultiplayerhackathon-visual/*` redirects here.
+The old URL `/aimultiplayerhackathon-visual` redirects here.
 
-## Files
+## Files (kept separate from the React app)
 
 ```
 client/public/aim-hack-visual/    ← the website (Vite copies public/ into dist as-is)
   index.html  tracks.html  sponsors.html  play.html
   data.js        content: tracks, ideas, sponsors (edit this)
   play-data.js   playground content: characters, story modes, game worlds
-  brain.js       agent decisions (LLM via /aim-hack-visual/api/chat, or offline simulation)
+  brain.js       agent decisions (LLM via /api/aim-hack-chat, or offline simulation)
   film.js / game.js / play.js / puppet.js / map.js / site.js / tracks.js
-client/api/aim-hack-chat.js       ← Vercel function → OpenAI (key stays server-side)
-api/aim-hack-chat.mjs             ← re-export, only used if Vercel Root Directory is the repo root
-client/vercel.json                ← rewrites /aim-hack-visual/api/chat → /api/aim-hack-chat (+ old-URL redirect)
+client/api/aim-hack-chat.ts       ← Vercel function → OpenAI (key stays server-side)
 ```
 
-Production builds from **Root Directory `client/`** (that's why `client/vercel.json` and `client/api/` are live).
-The root `vercel.json` mirrors the same rules in case the Root Directory is ever switched to `.`.
+Vercel's Root Directory is `client/`, so only files inside `client/` deploy. **No rewrites / no vercel.json** are used:
+`/aim-hack-visual/` is served by its `index.html`; the `spaFallbacks` plugin in `client/vite.config.ts` also writes
+`dist/aim-hack-visual.html` and redirect pages for the old URL `/aimultiplayerhackathon-visual`.
 
 All links inside the site are absolute (`/aim-hack-visual/...html`).
 
