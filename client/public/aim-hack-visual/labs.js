@@ -176,7 +176,8 @@
       "<b>Add agents</b> from the picker (or 🎲 for a random one). Drag them anywhere. ✕ removes one.",
       "<b>Draw a channel:</b> drag from an agent's 🔗 handle onto another agent (or switch to Connect mode and tap two agents).",
       "<b>Delete a channel:</b> click the line.",
-      "<b>Set a goal</b> and press ▶ Run. Messages travel as glowing packets along your lines only.",
+      "<b>Run a simulation:</b> set a goal and press ▶ Run simulation. Agents message each other as glowing packets along your lines only.",
+      "<b>Send by hand:</b> pick a sender and a linked receiver, type a message and press Send. Tick <i>AI reply</i> to let the receiver answer.",
       "The feed shows each <b>#channel</b>, and the hand-off list shows who delegated what to whom."
     ],
     demoChars: ["vega", "jax", "priya"], demoScenes: { bg: { base: "office", time: "night" } },
@@ -216,11 +217,19 @@
       <div class="lab-bar run">
         <input id="bdGoal" maxlength="140" value="${esc(GOALS[1])}" aria-label="Team goal">
         <select id="bdTurns" aria-label="Number of messages"><option value="6">6 messages</option><option value="10" selected>10 messages</option><option value="14">14 messages</option></select>
-        <button class="btn btn-sm" id="bdRun">▶ Run</button>
+        <button class="btn btn-sm" id="bdRun">▶ Run simulation</button>
       </div>
       <div class="ex-chips" id="bdGoals">${GOALS.map(g => `<button>${esc(g)}</button>`).join("")}</div>
+      <div class="lab-bar manual" id="bdManual">
+        <span class="bd-lbl">✉️ Send by hand</span>
+        <select id="bdFrom" aria-label="From agent"></select><span class="bd-arrow">→</span>
+        <select id="bdTo" aria-label="To agent"></select>
+        <input id="bdMsg" maxlength="200" placeholder="Type a message to send along the channel…" aria-label="Message">
+        <label class="bd-reply"><input type="checkbox" id="bdReply" checked> AI reply</label>
+        <button class="btn btn-sm" id="bdSend">Send</button>
+      </div>
       <div class="band-out">
-        <div class="lab-panel"><div class="lp-h">CHANNEL FEED</div><ol class="feed" id="bdFeed"><li class="empty">Press ▶ Run to start the conversation.</li></ol></div>
+        <div class="lab-panel"><div class="lp-h">CHANNEL FEED</div><ol class="feed" id="bdFeed"><li class="empty">Press ▶ Run simulation, or send a message by hand below.</li></ol></div>
         <div class="lab-panel"><div class="lp-h">HAND-OFFS · WHO DELEGATED WHAT</div><ol class="dels" id="bdDels"><li class="empty">Delegated tasks appear here.</li></ol></div>
       </div>`;
     const board = $("#bdBoard", main), svg = $("#bdLines", main);
@@ -248,7 +257,7 @@
         board.appendChild(d);
         Puppet.mount($(".ag-pup", d), c);
       });
-      fillPicker(); hint();
+      fillPicker(); hint(); fillFromTo();
     }
     function drawLines(temp) {
       svg.innerHTML = S.links.map((l, i) => {
@@ -257,6 +266,17 @@
         return `<g class="ln" data-i="${i}"><line class="hit" x1="${p.x}" y1="${p.y}" x2="${q.x}" y2="${q.y}" vector-effect="non-scaling-stroke"/><line class="glow" x1="${p.x}" y1="${p.y}" x2="${q.x}" y2="${q.y}" vector-effect="non-scaling-stroke"/><line class="core" x1="${p.x}" y1="${p.y}" x2="${q.x}" y2="${q.y}" vector-effect="non-scaling-stroke"/><title>Click to delete this channel</title></g>`;
       }).join("") + (temp ? `<line class="temp" x1="${temp.x1}" y1="${temp.y1}" x2="${temp.x2}" y2="${temp.y2}" vector-effect="non-scaling-stroke"/>` : "");
       hint();
+      if (!temp) fillFromTo();
+    }
+    function fillFromTo() {
+      const fromSel = $("#bdFrom", main), toSel = $("#bdTo", main); if (!fromSel) return;
+      const keep = fromSel.value;
+      fromSel.innerHTML = S.agents.map(a => `<option value="${a.uid}">${esc(charById(a.id).name)}</option>`).join("");
+      if (S.agents.some(a => a.uid === keep)) fromSel.value = keep;
+      const keepTo = toSel.value, ns = nbrs(fromSel.value);
+      toSel.innerHTML = ns.length ? ns.map(a => `<option value="${a.uid}">${esc(charById(a.id).name)}</option>`).join("") : `<option value="">no channel: draw a line first</option>`;
+      if (ns.some(a => a.uid === keepTo)) toSel.value = keepTo;
+      $("#bdSend", main).disabled = !ns.length;
     }
     const pct = e => { const r = board.getBoundingClientRect(); return { x: clamp((e.clientX - r.left) / r.width * 100, 4, 96), y: clamp((e.clientY - r.top) / r.height * 100, 45, 97) }; };
     const agentAt = e => { const n = document.elementFromPoint(e.clientX, e.clientY); const a = n && n.closest(".ag"); return a && a.dataset.u; };
@@ -333,6 +353,58 @@
       const b = $(".ag-bub", n); b.textContent = text; b.classList.add("on");
       Puppet.talk($(".pup", n), 1600);
     }
+    function logMsg(me, toAg, text, del, thought, src, manual) {
+      const m = { from: me.uid, to: toAg.uid, text, del };
+      S.msgs.push(m);
+      const a = charById(me.id), b = charById(toAg.id);
+      const fe = $("#bdFeed", main), empty = fe.querySelector(".empty"); empty && empty.remove();
+      const li = document.createElement("li");
+      li.innerHTML = `<span class="ch">${esc(chan(me, toAg))}${manual ? ` <em class="by-hand">sent by you</em>` : ""}</span><span class="who"><b>${esc(a.name)}</b> → ${esc(b.name)}</span><span class="msg">${esc(text)}</span>${del ? `<span class="del">📋 delegated: ${esc(del)}</span>` : ""}${thought ? `<span class="th">💭 ${esc(Brain.clip(thought, 160))}</span>` : ""}${src === "offline" && Brain.mode === "llm" ? `<span class="th">⚠ LLM call failed, offline agent used</span>` : ""}`;
+      fe.prepend(li);
+      if (del) {
+        S.dels.push(m);
+        $("#bdDels", main).innerHTML = S.dels.map(x => `<li><b>${esc(charById(ag(x.from).id).name)}</b> → <b>${esc(charById(ag(x.to).id).name)}</b><span>${esc(x.del)}</span></li>`).join("");
+      }
+      return m;
+    }
+    function agentPrompt(c, others, goal) {
+      return `You are ${c.name}, the ${c.role}, one agent in a BAND workspace where agents built with different tools collaborate.
+Personality: ${c.personality}
+You can ONLY message agents you are connected to by a channel: ${others.map(o => `${charById(o.id).name} (${charById(o.id).role})`).join(", ")}.
+Team goal: ${goal}
+Move the goal forward: share a finding, ask a question, agree, or delegate ONE concrete sub-task to a connected agent. Stay in character, be specific, be brief.
+Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 28 words","delegate":"the concrete task you hand to them, max 8 words, or empty string","thought":"one short private sentence"}`;
+    }
+    let sending = false;
+    async function sendByHand() {
+      if (sending || S.running) return;
+      const from = ag($("#bdFrom", main).value), to = ag($("#bdTo", main).value), text = $("#bdMsg", main).value.trim();
+      if (!from || !to) { $("#bdHint", main).textContent = "Pick a sender and a connected receiver. Draw a line between them first."; return; }
+      if (!text) { $("#bdMsg", main).focus(); return; }
+      sending = true; $("#bdSend", main).disabled = true;
+      try {
+        bubble(from, text);
+        await packet(from, to, 900);
+        logMsg(from, to, text, "", "", "", true);
+        $("#bdMsg", main).value = "";
+        if ($("#bdReply", main).checked) {
+          const c = charById(to.id), goal = $("#bdGoal", main).value.trim() || GOALS[0];
+          el(to.uid) && el(to.uid).classList.add("thinking");
+          const seen = S.msgs.filter(m => m.from === to.uid || m.to === to.uid).slice(-8).map(m => `${charById(ag(m.from).id).name} → ${charById(ag(m.to).id).name}: ${m.text}`);
+          const d = await Brain.ask(agentPrompt(c, [from], goal), `Messages on your channels so far:\n${seen.join("\n")}\n${charById(from.id).name} just sent you: "${text}". Reply to ${charById(from.id).name}.`, 0.9,
+            () => ({ to: charById(from.id).name, message: rand([`Got it, ${first(charById(from.id))}. I'll take care of it and report back.`, `Good point. Before I do that, what's the deadline?`, `On it. I'll ${rand(TASKS)} first.`, `Hmm, I'm not sure. Can you ${rand(TASKS)} instead?`]), delegate: "", thought: "Answering the message I just got." }));
+          el(to.uid) && el(to.uid).classList.remove("thinking");
+          const reply = Brain.clip(d.message, 220) || "…";
+          bubble(to, reply);
+          await packet(to, from, 900);
+          logMsg(to, from, reply, Brain.clip(d.delegate, 80), d.thought, d._src);
+        }
+      } finally { sending = false; fillFromTo(); }
+    }
+    $("#bdFrom", main).onchange = fillFromTo;
+    $("#bdSend", main).onclick = sendByHand;
+    $("#bdMsg", main).onkeydown = e => { if (e.key === "Enter") sendByHand(); };
+
     const TASKS = ["check the logs", "draft the plan", "book the venue", "test the fix", "write the summary", "call the vendor", "set the budget", "make the slides", "scout the exits", "order the cake"];
     function offline(me, others, goal, k, N) {
       const to = rand(others), t = rand(TASKS), t2 = rand(TASKS.filter(x => x !== t));
@@ -344,7 +416,7 @@
       return { to: to.name, message, delegate, thought: `${first(to)} is the best fit for this.` };
     }
     async function run() {
-      if (S.running) { S.token++; S.running = false; $("#bdRun", main).textContent = "▶ Run"; board.classList.remove("running"); return; }
+      if (S.running) { S.token++; S.running = false; $("#bdRun", main).textContent = "▶ Run simulation"; board.classList.remove("running"); return; }
       const linked = S.agents.filter(a => nbrs(a.uid).length);
       if (!linked.length) { $("#bdHint", main).textContent = "Draw at least one line between two agents first."; board.classList.add("shake"); setTimeout(() => board.classList.remove("shake"), 500); return; }
       const goal = $("#bdGoal", main).value.trim() || GOALS[0], N = +$("#bdTurns", main).value, token = ++S.token;
@@ -359,12 +431,7 @@
         const others = nbrs(me.uid), c = charById(me.id);
         el(me.uid) && el(me.uid).classList.add("thinking");
         const seen = S.msgs.filter(m => m.from === me.uid || m.to === me.uid).slice(-8).map(m => `${chan(ag(m.from) || me, ag(m.to) || me)} ${charById(ag(m.from).id).name} → ${charById(ag(m.to).id).name}: ${m.text}${m.del ? ` [delegated: ${m.del}]` : ""}`);
-        const system = `You are ${c.name}, the ${c.role}, one agent in a BAND workspace where agents built with different tools collaborate.
-Personality: ${c.personality}
-You can ONLY message agents you are connected to by a channel: ${others.map(o => `${charById(o.id).name} (${charById(o.id).role})`).join(", ")}.
-Team goal: ${goal}
-Move the goal forward: share a finding, ask a question, agree, or delegate ONE concrete sub-task to a connected agent. Stay in character, be specific, be brief.
-Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 28 words","delegate":"the concrete task you hand to them, max 8 words, or empty string","thought":"one short private sentence"}`;
+        const system = agentPrompt(c, others, goal);
         const user = `Messages on your channels so far:\n${seen.join("\n") || "(none yet: you start)"}\nThis is message ${k} of ${N}.${k === N ? " This is the LAST message: wrap up and confirm who does what." : ""}`;
         const d = await Brain.ask(system, user, 0.95, () => offline(me, others.map(o => charById(o.id)), goal, k, N));
         if (token !== S.token) return;
@@ -374,19 +441,10 @@ Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 2
         bubble(me, text);
         await packet(me, toAg, 900);
         if (token !== S.token) return;
-        const m = { from: me.uid, to: toAg.uid, text, del };
-        S.msgs.push(m); last = m;
-        const a = charById(me.id), b = charById(toAg.id);
-        const li = document.createElement("li");
-        li.innerHTML = `<span class="ch">${esc(chan(me, toAg))}</span><span class="who"><b>${esc(a.name)}</b> → ${esc(b.name)}</span><span class="msg">${esc(text)}</span>${del ? `<span class="del">📋 delegated: ${esc(del)}</span>` : ""}${d.thought ? `<span class="th">💭 ${esc(Brain.clip(d.thought, 160))}</span>` : ""}${d._src === "offline" && Brain.mode === "llm" ? `<span class="th">⚠ LLM call failed, offline agent used</span>` : ""}`;
-        $("#bdFeed", main).prepend(li);
-        if (del) {
-          S.dels.push(m);
-          $("#bdDels", main).innerHTML = S.dels.map(x => `<li><b>${esc(charById(ag(x.from).id).name)}</b> → <b>${esc(charById(ag(x.to).id).name)}</b><span>${esc(x.del)}</span></li>`).join("");
-        }
+        last = logMsg(me, toAg, text, del, d.thought, d._src);
         await wait(1500);
       }
-      S.running = false; $("#bdRun", main).textContent = "▶ Run again"; board.classList.remove("running");
+      S.running = false; $("#bdRun", main).textContent = "▶ Run simulation again"; board.classList.remove("running");
       $$(".ag-bub", board).forEach(b => b.classList.remove("on"));
     }
     $("#bdRun", main).onclick = run;

@@ -230,3 +230,11 @@
 .ca-hl span { color: #c9d0ee; font-size: 13px; }
 .ca-tip { margin: 0; padding: 10px 12px; border-radius: 10px; background: rgba(255, 200, 87, 0.08); border-left: 3px solid var(--gold); }
 @media (max-width: 560px) { .lab { padding: 14px; border-radius: 18px; } .lab-head h3 { font-size: 21px; } }
+
+/* BAND: send by hand */
+.lab-bar.manual { padding: 10px 12px; border: 1px dashed rgba(92, 141, 255, 0.45); border-radius: 12px; background: rgba(92, 141, 255, 0.06); }
+.bd-lbl { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.1em; color: #9db8ff; text-transform: uppercase; }
+.bd-arrow { color: var(--muted); }
+.bd-reply { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-size: 13px; white-space: nowrap; }
+.lab-bar .bd-reply input { width: auto; flex: none; min-width: 0; margin: 0; }
+.by-hand { font-style: normal; font-size: 10px; padding: 1px 6px; border-radius: 99px; background: rgba(255, 200, 87, 0.15); color: var(--gold); margin-left: 4px; }
