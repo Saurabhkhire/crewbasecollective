@@ -253,3 +253,27 @@
 .cb-slack p { margin: 0; padding: 6px 10px; font-size: 12px; color: #dcdfe3; }
 .cb-slack p b { color: #ffc857; }
 @media (max-width: 960px) { .cb { left: 28%; } }
+
+/* ---------- Glasser individual view ---------- */
+.tv-gl { position: absolute; top: 14px; right: 14px; bottom: 72px; left: 42%; display: flex; flex-direction: column; gap: 10px; z-index: 3; }
+.gl-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.gl-card { position: relative; display: flex; flex-direction: column; gap: 1px; padding: 7px 8px; border-radius: 10px; background: rgba(8, 12, 28, 0.86); border: 1px solid rgba(124, 200, 255, 0.25); font-size: 11px; color: #c9d0ee; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+.gl-card span { font-size: 16px; }
+.gl-card b { color: #fff; font-size: 12px; }
+.gl-card small { color: var(--muted); font-size: 10px; line-height: 1.2; }
+.gl-card em { font-style: normal; font-family: "JetBrains Mono", monospace; font-size: 10px; color: #7cc8ff; margin-top: 2px; }
+.gl-card.hot { border-color: #7cc8ff; box-shadow: 0 0 18px rgba(124, 200, 255, 0.55); transform: translateY(-3px) scale(1.04); }
+.gl-card.ok { border-color: #b6ff5c; box-shadow: 0 0 18px rgba(182, 255, 92, 0.45); }
+.gl-card.hot em { color: #ffc857; }
+.gl-res { margin-top: auto; border-radius: 12px; background: rgba(8, 12, 28, 0.9); border: 1px solid rgba(124, 200, 255, 0.35); padding: 8px 10px; font-size: 12px; }
+.gl-res-h { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.1em; color: #7cc8ff; margin-bottom: 4px; }
+.gl-res-h i { font-style: normal; color: var(--gold); letter-spacing: 0; }
+.gl-res table { width: 100%; border-collapse: collapse; }
+.gl-res td { padding: 4px 2px; border-top: 1px solid var(--line); color: #e6ecff; }
+.gl-res td:last-child { text-align: right; color: var(--muted); font-family: "JetBrains Mono", monospace; font-size: 11px; }
+@media (max-width: 620px) {
+  .tv-gl { left: 10px; right: 10px; top: 10px; bottom: auto; }
+  .gl-cards { grid-template-columns: repeat(4, 1fr); }
+  .gl-card small, .gl-card em { display: none; }
+  .gl-res { display: none; }
+}

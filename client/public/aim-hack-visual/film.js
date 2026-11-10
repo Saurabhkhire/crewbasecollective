@@ -477,7 +477,11 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
     }
 
     if (tool("band") && target && d.say && !dmLine) st.live.link(el(actor), el(target), "band", "says to " + target.name);
-    st.log.push(`${actor.name}: ${d.action}${d.say ? ` (says: "${d.say}")` : ""}${d.skill_used && tool("finch") ? ` [uses skill ${actor.skill.name}]` : ""}${dmLine}`);
+    if (tool("glasser") && d.fact) {
+      const g = UI.glasserCall(st.live, { topic: (d.source || "") + " " + d.fact, fact: d.fact, from: el(actor) });
+      if (g) d.glasser = `${g.ep.provider} · ${PLAY.glasser.price(g.price)}`;
+    }
+    st.log.push(`${actor.name}: ${d.action}${d.say ? ` (says: "${d.say}")` : ""}${d.skill_used && tool("finch") ? ` [uses skill ${actor.skill.name}]` : ""}${dmLine}${d.glasser ? ` [looked up via Glasser: ${d.fact}]` : ""}`);
     addLog({ actor, d, beat: st.beat + 1 });
     st.perBeat.push((d.say ? 1 : 0) + (d.skill_used ? 1 : 0) + (dmLine ? 1 : 0) + (["angry", "shocked", "scared"].includes(d.emotion) ? 2 : 0));
     if (tool("bruin")) { insights(st); bruinDash(st); st.live.fx("bruin", { text: `Logged scene ${st.beat + 1}: ${actor.name} · ${d.emotion}${d.skill_used ? " · skill" : ""}${dmLine ? " · DM" : ""}`, callout: false }); }
@@ -530,9 +534,11 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
       li.innerHTML = `<span class="ts">#${x.beat} · ${esc(loc(S.st).name)}</span>
         <span><b style="color:${actor.color}">${esc(actor.name)}</b> ${UI.MOOD[d.emotion] || ""}${d.move_to && d.move_to !== "stay" ? ` <span class="mv">→ ${esc(d.move_to)}</span>` : ""}
         ${d.skill_used && tool("finch") ? `${UI.skillBadge(actor.skill)}` : ""}
-        ${d.dm && tool("band") && d.dm_to ? `<span class="sp-badge" style="--c:#5c8dff">📡 DM ${esc(d.dm_to)}</span>` : ""}</span>
+        ${d.dm && tool("band") && d.dm_to ? `<span class="sp-badge" style="--c:#5c8dff">📡 DM ${esc(d.dm_to)}</span>` : ""}
+        ${d.glasser ? `<span class="sp-badge" style="--c:#7cc8ff" title="${esc(PLAY.glasser.note)}">🔭 ${esc(d.glasser)}</span>` : ""}</span>
         <span class="act">${esc(d.action)}</span>
         ${d.say ? `<span class="say">“${esc(d.say)}”</span>` : ""}
+        ${d.glasser ? `<span class="act" style="color:#9fd8ff">🔭 Fact (simulated): ${esc(d.fact)}</span>` : ""}
         <span class="thought">🔒 ${esc(d.thought)}</span>
         ${d._src === "offline" && Brain.mode === "llm" ? `<span class="warn-s">⚠ LLM failed, used offline brain</span>` : ""}`;
     }
@@ -604,14 +610,14 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
       : k < N - 1 ? "MIDDLE: escalate. Form alliances, make accusations, lie, reveal or betray. Pursue your secret goal."
       : "CLIMAX: make a decisive, irreversible move that will shape the ending.";
     const sc = loc(st);
-    const band = tool("band"), finch = tool("finch");
+    const band = tool("band"), finch = tool("finch"), glas = tool("glasser");
     const system = `You are ${actor.name}, the ${actor.role}, an autonomous character in an improvised animated short film. Nobody scripts you: YOU decide what you do.
 Personality: ${actor.personality}
 Secret goal (private; reveal only if it is dramatically right): ${actor.secret || actor.goal || "survive and come out on top"}
 Film tone: ${st.tone}. Current location: ${sc.name}: ${sc.desc || ""}
-${finch ? `${UI.skillPrompt(actor.skill)} Use it when it matters, set "skill_used": true and describe its effect in "skill_effect".\n` : ""}${band ? `You can also send ONE private message through the BAND agent channel to another character ("dm_to" + "dm"). Nobody else sees it. Use it to plot, warn, bribe or confess. Leave both empty if not needed.\n` : ""}Make bold, specific, visual choices that move the plot. Stay in character. Keep it short and cinematic.
+${finch ? `${UI.skillPrompt(actor.skill)} Use it when it matters, set "skill_used": true and describe its effect in "skill_effect".\n` : ""}${band ? `You can also send ONE private message through the BAND agent channel to another character ("dm_to" + "dm"). Nobody else sees it. Use it to plot, warn, bribe or confess. Leave both empty if not needed.\n` : ""}${glas ? `You can look up ONE real-world fact through Glasser (a data API for agents) when it makes the scene more grounded: put a short, plausible real-world fact or statistic that fits the setting in "fact" (max 18 words) and the kind of source in "source" (e.g. "Exa web search", "Google Maps places", "Financial Datasets"). Use it in your action or line. Leave both empty if not needed.\n` : ""}Make bold, specific, visual choices that move the plot. Stay in character. Keep it short and cinematic.
 Reply with JSON only:
-{"thought":"one sentence of private reasoning","action":"what you physically do, third person present tense, max 16 words","say":"your spoken line, max 22 words, may be empty","move_to":"one of: ${places.join(" | ")}","target":"name of the character you act on, or empty","emotion":"one of: ${EMOTIONS.join(", ")}","gesture":"one of: ${GESTURES.join(", ")}"${finch ? `,"skill_used":true|false,"skill_effect":"what the skill changed, max 10 words, or empty"` : ""}${band ? `,"dm_to":"character name or empty","dm":"private message, max 18 words, or empty"` : ""}}`;
+{"thought":"one sentence of private reasoning","action":"what you physically do, third person present tense, max 16 words","say":"your spoken line, max 22 words, may be empty","move_to":"one of: ${places.join(" | ")}","target":"name of the character you act on, or empty","emotion":"one of: ${EMOTIONS.join(", ")}","gesture":"one of: ${GESTURES.join(", ")}"${finch ? `,"skill_used":true|false,"skill_effect":"what the skill changed, max 10 words, or empty"` : ""}${band ? `,"dm_to":"character name or empty","dm":"private message, max 18 words, or empty"` : ""}${glas ? `,"fact":"real-world fact you looked up, or empty","source":"data source, or empty"` : ""}}`;
     const user = `OPENING EVENT: ${st.opening}
 CHARACTERS:
 ${st.cast.map(c => `- ${c.name} (${c.role})${c === actor ? " ← YOU" : ""}: mood ${c.mood || "neutral"}${c.exited ? ", has LEFT the story" : ""}`).join("\n")}
@@ -633,6 +639,9 @@ Hidden theme for this run: ${st.seed}.`;
     out.dm_to = others.some(o => o.name === out.dm_to) ? out.dm_to : "";
     out.skill_used = !!out.skill_used;
     out.skill_effect = Brain.clip(out.skill_effect, 80);
+    out.fact = glas ? Brain.clip(out.fact, 140) : "";
+    out.source = glas ? Brain.clip(out.source, 40) : "";
+    if (glas && !out.fact && out._src === "offline" && Math.random() < 0.4) out.fact = rand(PLAY.glasser.facts.film);
     return out;
   }
   const GESTURE_FOR = { angry: "point", happy: "wave", sad: "slump", scared: "raise", shocked: "raise", sly: "cross", determined: "point", calm: "nod" };
@@ -783,7 +792,7 @@ Story hook: ${st.opening} Compose the characters together in the scene. Title te
       Object.assign(S.story, { title: p.title, opening: p.opening, twist: p.twist, tone: p.tone, beats: 10 });
       S.sceneIds.splice(0, S.sceneIds.length, ...p.scenes);
       S.castIds.splice(0, S.castIds.length, ...p.cast);
-      if (sub === "demo-tools") ["band", "finch", "bruin", "adal"].forEach(t => S.tools.add(t));
+      if (sub === "demo-tools") ["band", "finch", "bruin", "adal", "glasser"].forEach(t => S.tools.add(t));
       return run();
     }
     storyScreen();

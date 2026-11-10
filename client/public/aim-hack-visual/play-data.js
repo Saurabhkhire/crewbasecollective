@@ -73,20 +73,63 @@ window.PLAY = {
       { id: "band", label: "Agent channel", does: "Agents send each other private messages; glowing lines show who is talking to whom." },
       { id: "adal", label: "Poster & frames", does: "Generates a movie poster and key frames for your film." },
       { id: "finch", label: "Skills", does: "Each agent gets a skill (Persuade, Deceive, Investigate…) and uses it on screen." },
-      { id: "bruin", label: "Insights", does: "A live dashboard of who spoke, who acted, and how endings compare across runs." }
+      { id: "bruin", label: "Insights", does: "A live dashboard of who spoke, who acted, and how endings compare across runs." },
+      { id: "glasser", label: "Real-world facts", does: "Characters pull one real-world fact or statistic into a scene through Glasser; every lookup shows its provider and price (simulated)." }
     ],
     game: [
       { id: "band", label: "Team radio", does: "Agent teammates coordinate in a shared channel; lines show callouts between them." },
       { id: "finch", label: "Skills", does: "Agents get a special skill (Medic, Sharpshooter, Lucky…) that changes how they play." },
       { id: "bruin", label: "Analytics", does: "Analytics panel: live metrics, a data pipeline, quality checks and data governance for the run." },
-      { id: "adal", label: "Custom art", does: "Generates cover art for the game you create." }
+      { id: "adal", label: "Custom art", does: "Generates cover art for the game you create." },
+      { id: "glasser", label: "Real data", does: "Agents look up real-world data (prices, trends, places) mid-game and cite it in their plans; each call shows its cost (simulated)." }
     ],
     grow: [
       { id: "casuro", label: "Voice interview", does: "Answer out loud with your microphone and hear the panel speak. Fair, evidence-based scoring." },
       { id: "band", label: "Panel back-channel", does: "See the panel's private messages to each other while you answer." },
       { id: "finch", label: "Examiner skills", does: "Each panelist uses a scoring skill (STAR method, clarity, confidence…)." },
-      { id: "bruin", label: "Score analytics", does: "Charts of your scores per question and per skill." }
+      { id: "bruin", label: "Score analytics", does: "Charts of your scores per question and per skill." },
+      { id: "glasser", label: "Company research", does: "Before you start, the panel researches the company and role through Glasser and grounds its questions in what it found (simulated)." }
     ]
+  },
+
+  /* Glasser: real-world data APIs for agents (glasser.ai). The playground SIMULATES calls:
+     nothing is sent to Glasser, prices are examples, data rows are generated samples. */
+  glasser: {
+    note: "Simulated sample data. Connect Glasser for real data.",
+    skill: "set up https://glasser.ai/SKILL.md",
+    catalog: [
+      { id: "apollo-company", provider: "Apollo", icon: "🏢", kind: "company", endpoint: "Company search", price: 0.01975, unit: "call", sub: "$65/seat/mo", re: /compan|startup|firm|employer|hiring|business|org/i },
+      { id: "pdl-person", provider: "People Data Labs", icon: "🧑‍💼", kind: "people", endpoint: "Person search", price: 0.28, unit: "profile", sub: "from $98/mo", re: /people|person|profile|candidate|founder|engineer|talent|recruit/i },
+      { id: "pdl-company", provider: "People Data Labs", icon: "📇", kind: "company", endpoint: "Company enrichment", price: 0.1, unit: "record", sub: "from $98/mo", re: /enrich|firmograph|headcount|raise|funding/i },
+      { id: "hunter-email", provider: "Hunter", icon: "✉️", kind: "people", endpoint: "Find work email", price: 0.012, unit: "call", sub: "$49/mo", re: /email|contact|reach out/i },
+      { id: "builtwith", provider: "BuiltWith", icon: "🧱", kind: "company", endpoint: "Tech stack lookup", price: 0.03, unit: "call", sub: "$295/mo", re: /tech stack|built with|technolog|framework|uses react|stack/i },
+      { id: "crustdata", provider: "Crustdata", icon: "📈", kind: "company", endpoint: "Headcount growth", price: 0.05, unit: "call", sub: "custom plan", re: /growth|headcount trend|jobs? (?:open|posting)/i },
+      { id: "ahrefs-kw", provider: "Ahrefs", icon: "🔗", kind: "seo", endpoint: "Organic keywords", price: 0.01548, unit: "result", sub: "$129/mo", re: /backlink|ranking|organic/i },
+      { id: "semrush-kw", provider: "Semrush", icon: "📊", kind: "seo", endpoint: "Keyword metrics", price: 0.0011, unit: "call", sub: "$139/mo", re: /keyword|search volume|seo/i },
+      { id: "dataforseo", provider: "DataForSEO", icon: "🔎", kind: "seo", endpoint: "SERP results", price: 0.00024, unit: "keyword", sub: "pay-as-you-go", re: /serp|google results|rank/i },
+      { id: "serper", provider: "Serper", icon: "🛒", kind: "web", endpoint: "Google shopping search", price: 0.002, unit: "call", sub: "credits", re: /price|shopping|product|buy|cost|deal/i },
+      { id: "exa", provider: "Exa", icon: "🌐", kind: "web", endpoint: "Neural web search", price: 0.005, unit: "call", sub: "credits", re: /news|fact|research|article|web|latest|statistic/i },
+      { id: "keepa", provider: "Keepa", icon: "📉", kind: "ecommerce", endpoint: "Amazon price history", price: 0.0038, unit: "product", sub: "€19/mo", re: /price history|amazon|keepa/i },
+      { id: "amazon", provider: "Amazon", icon: "📦", kind: "ecommerce", endpoint: "Product search", price: 0.004, unit: "call", sub: "n/a", re: /listing|amazon product|best seller/i },
+      { id: "gmaps", provider: "Google Maps", icon: "📍", kind: "places", endpoint: "Places search", price: 0.017, unit: "call", sub: "n/a", re: /place|restaurant|map|near|venue|location|city/i },
+      { id: "reddit", provider: "Reddit", icon: "👽", kind: "social", endpoint: "Posts search", price: 0.002, unit: "call", sub: "n/a", re: /reddit|opinion|community|forum/i },
+      { id: "youtube", provider: "YouTube", icon: "▶️", kind: "social", endpoint: "Video stats", price: 0.003, unit: "call", sub: "n/a", re: /video|youtube|views/i },
+      { id: "linkedin", provider: "LinkedIn", icon: "💼", kind: "people", endpoint: "Profile lookup", price: 0.03, unit: "call", sub: "n/a", re: /linkedin|career|role|job title/i },
+      { id: "fin", provider: "Financial Datasets", icon: "💹", kind: "finance", endpoint: "Stock prices", price: 0.01, unit: "call", sub: "n/a", re: /stock|market|revenue|earnings|financ/i }
+    ],
+    /* pick the endpoint that best matches a text (provider name, topic or question) */
+    pick(text) {
+      const t = String(text || "");
+      const C = this.catalog;
+      return C.find(c => t.toLowerCase().includes(c.provider.toLowerCase())) || C.find(c => c.re.test(t)) || C.find(c => c.id === "exa");
+    },
+    price(p) { return p >= 0.1 ? "$" + p.toFixed(2) : p >= 0.01 ? "$" + p.toFixed(3) : "$" + p.toFixed(4); },
+    /* offline sample facts per track (generic and labelled as simulated) */
+    facts: {
+      film: ["A 2-hour power cut leaves most city buildings on backup lighting.", "Escape pods on research ships are rated for 72 hours of air.", "Storms at sea cut radio range by roughly half.", "The average bank vault door weighs over 20 tonnes.", "Most house fires start in the kitchen, at night.", "Mountain rescue teams answer most calls after dark."],
+      game: ["Searches for 'zombie survival kit' spike every October.", "Medkit prices on Amazon jumped 18% this week.", "Board-game sales peak in December.", "Rock is the most common first throw in rock-paper-scissors.", "Most players lose their first ladder race to a late snake.", "Teams that share callouts survive 30% longer in co-op games."],
+      grow: ["The company grew headcount by about a third in the last year.", "It runs on a React + Python stack on AWS.", "It opened 14 engineering roles this quarter.", "Its last funding round was a Series B.", "Customers mention 'fast onboarding' most in reviews.", "The team is hybrid, with offices in two cities."]
+    }
   },
 
   /* Finch skill library: reusable abilities you can equip on any agent.

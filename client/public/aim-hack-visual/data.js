@@ -219,6 +219,13 @@ window.HACK = {
       blurb: "Casuro.ai is an AI-powered recruitment platform that helps companies streamline hiring through intelligent assessments, voice AI interviews and real-world case study challenges, evaluating candidates on their skills, problem-solving and how well they work with AI.",
       buildIdea: "Inspiration for Track 3: voice interviews, case challenges and fair, evidence-based evaluation.",
       map: { x: 600, y: 455, w: 26, h: 28 }
+    },
+    {
+      id: "glasser", name: "Glasser", tier: "sponsor", url: "https://glasser.ai",
+      landmark: "Glasser Data Exchange", icon: "🔭", color: "#7cc8ff",
+      blurb: "Glasser gives AI agents real-world data through one API key: 2,000+ endpoints for people, companies, web search, SEO, social and e-commerce data. Agents see the price before each call and pay as they go, with no subscriptions. Connect it as a Skill, an MCP server or a CLI.",
+      buildIdea: "Ground your agents in reality: let a character research a real company before an interview, price real products in a trading game, or look up real facts mid-story, and show the cost of every call in the decision log.",
+      map: { x: 452, y: 418, w: 30, h: 22 }
     }
   ],
 
@@ -234,16 +241,15 @@ window.HACK = {
   ]
 };
 
-/* ---------- sponsor tool visibility (per visitor) ----------
-   HACK.allSponsors = every sponsor; HACK.sponsors = only the ones this visitor shows.
-   Everything (maps, labs, track toolbars) reads HACK.sponsors, so hiding a tool
-   removes it everywhere. Changed from the "⚙️ Tools" panel in the nav (site.js). */
+/* ---------- sponsor visibility (ORGANISERS ONLY, not shown to visitors) ----------
+   To hide a sponsor everywhere (maps, labs, home strip, track toolbars), add its id to
+   HIDDEN_SPONSORS below and redeploy. Example: ["casuro"]. Leave [] to show all.
+   HACK.allSponsors = every sponsor; HACK.sponsors = the visible ones (what every page reads). */
 (function (H) {
+  const HIDDEN_SPONSORS = [];
   H.allSponsors = H.sponsors.slice();
-  let hidden = [];
-  try { hidden = JSON.parse(localStorage.getItem("aimp_sponsors_hidden") || "[]"); } catch {}
-  H.hiddenSponsors = Array.isArray(hidden) ? hidden.filter(id => H.allSponsors.some(s => s.id === id)) : [];
+  H.hiddenSponsors = HIDDEN_SPONSORS.filter(id => H.allSponsors.some(s => s.id === id));
   H.sponsors = H.allSponsors.filter(s => !H.hiddenSponsors.includes(s.id));
   H.sponsorVisible = id => !H.hiddenSponsors.includes(id);
-  H.setHiddenSponsors = ids => { try { localStorage.setItem("aimp_sponsors_hidden", JSON.stringify(ids || [])); } catch {} };
+  try { localStorage.removeItem("aimp_sponsors_hidden"); } catch {}
 })(window.HACK);

@@ -371,3 +371,55 @@
 .bx-stack b { color: var(--b); }
 .bx .btn { align-self: flex-start; }
 
+
+/* ---------- Glasser lab ---------- */
+.gl-top { display: grid; grid-template-columns: 220px 1fr; gap: 14px; align-items: stretch; }
+@media (max-width: 720px) { .gl-top { grid-template-columns: 1fr; } }
+.gl-agent { position: relative; min-height: 220px; border-radius: 14px; border: 1px solid var(--line); overflow: hidden; }
+.gl-pup { position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%); z-index: 2; }
+.gl-pup .pup { width: 92px; }
+.gl-bub { position: absolute; left: 8px; right: 8px; top: 8px; z-index: 3; padding: 8px 10px; border-radius: 12px; background: rgba(244, 246, 255, 0.96); color: #141a33; font-size: 12.5px; line-height: 1.35; font-weight: 600; }
+.gl-goal label.small { display: block; margin: 0 0 4px; }
+.gl-auto { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+.gl-auto input { width: auto; accent-color: #7cc8ff; }
+.gl-confirm { display: grid; grid-template-columns: auto 1fr auto auto; gap: 14px; align-items: center; margin: 12px 0; padding: 12px 16px; border-radius: 14px; border: 1.5px solid #7cc8ff; background: linear-gradient(90deg, rgba(124, 200, 255, 0.14), rgba(16, 23, 47, 0.8)); box-shadow: 0 0 26px rgba(124, 200, 255, 0.25); }
+.gl-confirm[hidden] { display: none; }
+.gl-confirm .gl-ic { font-size: 26px; }
+.gl-cf-t b { display: block; }
+.gl-cf-t small { color: var(--muted); }
+.gl-price { text-align: right; }
+.gl-price small { display: block; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.1em; color: #7cc8ff; text-transform: uppercase; }
+.gl-price b { font-size: 22px; font-family: "JetBrains Mono", monospace; }
+.gl-price i { display: block; font-style: normal; font-size: 11px; color: var(--muted); }
+.gl-btns { display: flex; gap: 6px; }
+.gl-auto-ok { color: var(--grow); font-weight: 700; font-size: 13px; white-space: nowrap; }
+@media (max-width: 620px) { .gl-confirm { grid-template-columns: auto 1fr; } .gl-price { text-align: left; } }
+.gl-catp { margin-top: 12px; }
+.gl-kinds { margin: 8px 0 10px; }
+.gl-kinds button.on { background: #7cc8ff; border-color: #7cc8ff; color: #04121f; }
+.gl-cat { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.gl-c { position: relative; display: flex; flex-direction: column; gap: 1px; padding: 9px 10px; border-radius: 12px; border: 1px solid rgba(124, 200, 255, 0.22); background: rgba(8, 12, 28, 0.6); font-size: 12px; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
+.gl-c .gl-ic { font-size: 18px; }
+.gl-c b { font-size: 13px; }
+.gl-c small { color: var(--muted); }
+.gl-c em { font-style: normal; font-family: "JetBrains Mono", monospace; font-size: 11px; color: #7cc8ff; margin-top: 3px; }
+.gl-c s { color: #8d97bd; font-size: 10.5px; }
+.gl-c.hot { border-color: #7cc8ff; box-shadow: 0 0 20px rgba(124, 200, 255, 0.5); transform: translateY(-3px); }
+.gl-c.ok { border-color: rgba(182, 255, 92, 0.6); }
+.gl-c.ok::after { content: "✓ called"; position: absolute; top: 6px; right: 8px; font-size: 10px; color: var(--grow); font-weight: 700; }
+.gl-out { display: grid; grid-template-columns: 1.3fr 1fr; gap: 12px; margin-top: 12px; }
+@media (max-width: 860px) { .gl-out { grid-template-columns: 1fr; } }
+.gl-sim { font-style: normal; color: var(--gold); letter-spacing: 0; text-transform: none; font-family: "Space Grotesk", sans-serif; font-size: 11.5px; margin-left: 6px; }
+.gl-tab { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.gl-tab th { text-align: left; font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: 0.06em; color: var(--muted); font-weight: 400; padding: 4px; border-bottom: 1px solid var(--line); }
+.gl-tab td { padding: 6px 4px; border-bottom: 1px solid var(--line); color: #e6ecff; }
+.gl-tab tr.skip td { color: var(--muted); text-decoration: line-through; }
+.gl-tot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 14px; }
+.gl-tot b { font-family: "JetBrains Mono", monospace; color: #7cc8ff; font-size: 18px; }
+.gl-save { margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+.gl-save b { color: var(--grow); }
+.gl-connect { margin-top: 12px; }
+.gl-connect .chip-row { margin: 8px 0; }
+.gl-connect .chip-row button.on { background: #7cc8ff; border-color: #7cc8ff; color: #04121f; }
+.gl-code { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 10px 12px; border-radius: 10px; background: rgba(0, 0, 0, 0.35); border: 1px dashed rgba(124, 200, 255, 0.45); }
+.gl-code code { flex: 1; min-width: 200px; background: none; font-size: 14px; color: #9fd8ff; }

@@ -1,44 +1,8 @@
-/* Shared behaviour: sponsor tool settings, sponsor modal, home sections, sponsors page */
+/* Shared behaviour: sponsor modal, home sections, sponsors page */
 (function () {
   const H = window.HACK;
   const $ = s => document.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-
-  /* ---------- ⚙️ sponsor tool visibility (nav button on every page) ---------- */
-  const TOOL_LINE = { band: "Agent channels: agents message each other along links you draw.", adal: "Images & video: posters, frames and short videos from a sentence.", bruin: "Data & insights: every agent decision into a pipeline and dashboard.", finch: "Skills: reusable abilities you equip on agents, or create with AI.", casuro: "Voice interviews: speak your answers, get evidence-based scores." };
-  function openTools() {
-    let d = $("#toolsDlg");
-    if (!d) { d = document.createElement("dialog"); d.id = "toolsDlg"; d.className = "sp-modal tools-dlg"; document.body.appendChild(d); d.addEventListener("click", e => { if (e.target === d) d.close(); }); }
-    const hidden = new Set(H.hiddenSponsors);
-    const draw = () => {
-      d.innerHTML = `<button class="close" aria-label="Close">✕</button>
-        <span class="lm">Sponsor tools</span><h3>Choose which tools to show</h3>
-        <p class="muted">Hidden tools disappear from the maps, the Sponsor Labs and the toolbars in every track. Saved in this browser only.</p>
-        <div class="tg-list">${H.allSponsors.map(s => `<label class="tg-row" style="--c:${s.color}"><span class="tg-ic">${s.icon}</span><span class="tg-tx"><b>${esc(s.name)}</b><small>${esc(TOOL_LINE[s.id] || s.blurb.split(". ")[0])}</small></span>
-          <input type="checkbox" class="tg-sw" data-id="${s.id}" ${hidden.has(s.id) ? "" : "checked"} aria-label="Show ${esc(s.name)}"></label>`).join("")}</div>
-        <div class="row tg-btns"><button class="btn ghost btn-sm" data-all="1">Show all</button><button class="btn ghost btn-sm" data-all="0">Hide all</button><span style="flex:1"></span><button class="btn btn-sm" data-save>Save & reload</button></div>`;
-      d.querySelector(".close").onclick = () => d.close();
-    };
-    draw();
-    d.onchange = e => { const c = e.target.closest(".tg-sw"); if (c) c.checked ? hidden.delete(c.dataset.id) : hidden.add(c.dataset.id); };
-    d.onclick = e => {
-      if (e.target === d) return d.close();
-      const a = e.target.closest("[data-all]"); if (a) { H.allSponsors.forEach(s => (a.dataset.all === "1" ? hidden.delete(s.id) : hidden.add(s.id))); draw(); return; }
-      if (e.target.closest("[data-save]")) { H.setHiddenSponsors([...hidden]); location.reload(); }
-    };
-    if (!d.open) d.showModal();
-  }
-  window.openSponsorTools = openTools;
-  const navEl = document.querySelector(".nav nav");
-  if (navEl && H.allSponsors) {
-    const b = document.createElement("button");
-    b.type = "button"; b.className = "nav-tools"; b.title = "Choose which sponsor tools to show";
-    b.innerHTML = `⚙️ <span class="hide-xs">Tools</span>${H.hiddenSponsors.length ? `<i>${H.allSponsors.length - H.hiddenSponsors.length}/${H.allSponsors.length}</i>` : ""}`;
-    b.onclick = openTools;
-    const submit = navEl.querySelector(".nav-submit");
-    navEl.insertBefore(b, submit || null);
-  }
-  document.addEventListener("click", e => { const t = e.target.closest("[data-open-tools]"); if (t) { e.preventDefault(); openTools(); } });
 
   const spCount = $("#spCount"); if (spCount) spCount.textContent = H.sponsors.length;
   /* ---------- home: event card + submission steps ---------- */

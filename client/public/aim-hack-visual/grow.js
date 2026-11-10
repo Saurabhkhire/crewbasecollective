@@ -482,13 +482,17 @@ window.Grow = (function () {
         if (G.next === "harder" && sc.id !== "language") q += " And be specific. I want details, not a summary.";
         if (G.next === "easier" && sc.id !== "language") q = "Take your time. " + q;
       }
+      if (on("glasser") && G.research && G.research.length && k > 0 && k % 2 === 1 && sc.id !== "language" && G.next !== "follow_up") {
+        const r = G.research[(k >> 1) % G.research.length];
+        q = `I looked this up: ${r.fact.replace(/\.$/, "")}. ` + q;
+      }
       return { asker: G.panel[asker].name, question: q, intent: G.next === "follow_up" ? "Probing a vague answer" : "Core question" };
     };
     const system = `You are running a practice session where AI agents play expert roles and test a human.
 Session: ${sc.id === "custom" ? sc.title + " — " + (sc.focus || "") : sc.title}. Topic/context: ${G.ctx}.${sc.id === "language" ? ` Speak ONLY in simple ${G.ctx} (adapt vocabulary to the human's level).` : ""}
 Panel: ${G.panel.map(p => `${p.name} (${p.xrole}; personality: ${p.personality})${on("finch") ? ` [Finch skill ${p.skill.name}: ${p.skill.instructions}]` : ""}`).join("; ")}.
 Difficulty now: ${G.level}/5. Scored on: ${G.rubric.join(", ")}.
-Pick which panelist asks next (rotate, but the same person may follow up) and write ONE question in that character's voice.
+${on("glasser") && G.research && G.research.length ? `Company/role research from Glasser (simulated sample data): ${G.research.map(r => `${r.fact} [${r.provider}]`).join(" | ")}. Ground at least some questions in these findings and mention them naturally.\n` : ""}Pick which panelist asks next (rotate, but the same person may follow up) and write ONE question in that character's voice.
 If the instruction is follow_up, quote the human's own words back and push for specifics.
 Reply with JSON only: {"asker":"exact panelist name","question":"max 40 words","intent":"what it tests, max 8 words"}`;
     const user = `Question ${k + 1} of ${G.nq}. Instruction from the panel's last private discussion: ${k === 0 ? "open the session" : G.next}${G.quote ? ` (quote: "${G.quote}")` : ""}.
@@ -643,11 +647,33 @@ Reply with JSON only:
     svg.innerHTML = "";
   }
 
+  /* Glasser (simulated): the panel researches the company / role before asking */
+  async function glasserResearch(token) {
+    if (G.research || !on("glasser")) return;
+    G.research = [];
+    const sc = G.sc;
+    const offline = () => ({ findings: PLAY.glasser.facts.grow.slice().sort(() => Math.random() - 0.5).slice(0, 3).map((f, i) => ({ source: ["Apollo company search", "BuiltWith tech stack lookup", "Crustdata headcount growth"][i], fact: f })) });
+    gLog(`<b style="color:#7cc8ff">🔭 Glasser</b><span class="act">The panel is researching "${esc(G.ctx)}" before the next question…</span>`);
+    const out = await Brain.ask(`You are a research agent for an interview/coaching panel. You use Glasser, a pay-as-you-go data API for agents (company search, people data, tech stack, headcount growth, web search, reviews).
+Produce 3 short, plausible findings about the company/role/topic the human is practising for, as if returned by those APIs. They are SIMULATED sample data for a demo, so keep them generic and believable, never claim to be exact.
+Reply with JSON only: {"findings":[{"source":"provider + endpoint, e.g. Apollo company search","fact":"max 18 words"}]}`,
+      `Session: ${sc.title}. Topic/context: ${G.ctx}.`, 0.8, offline);
+    if (token !== UI.ctl.token) return;
+    const list = (Array.isArray(out.findings) ? out.findings : offline().findings).slice(0, 3).map(f => ({ source: Brain.clip(f.source, 50), fact: Brain.clip(f.fact, 140) })).filter(f => f.fact);
+    for (const [i, f] of list.entries()) {
+      const g = UI.glasserCall(G.live, { topic: f.source + " " + f.fact, fact: f.fact, from: $(`#seat-${i % G.panel.length}`) });
+      G.research.push({ ...f, price: g ? g.price : 0, provider: g ? g.ep.provider : f.source });
+      gLog(`<b style="color:#7cc8ff">🔭 ${esc(g ? g.ep.provider + " · " + PLAY.glasser.price(g.price) : f.source)}</b><span class="act">${esc(f.fact)}</span><span class="thought">simulated sample data</span>`);
+      await UI.sleep(900, token);
+    }
+  }
+
   async function loop(token) {
     await UI.sleep(500, token);
     for (let k = 0; k < G.nq; k++) {
       await UI.waitWhilePaused(token);
       $("#qLbl").textContent = `Question ${k + 1} of ${G.nq}`;
+      if (on("glasser") && !G.research) await glasserResearch(token);
       $("#answerBox").innerHTML = `<div class="thinking-row"><span class="think-chip" style="--c:${C}">The panel is choosing the next question<span class="dots3"><i></i><i></i><i></i></span></span></div>`;
       G.panel.forEach(p => Puppet.emotion(p.el, "thinking"));
       const q = await nextQuestion(k);
@@ -786,7 +812,7 @@ Reply with JSON only: {"result":"label","summary":"2 sentences","strengths":[{"p
     S.demo = false;
     if (sub === "demo" || sub === "demo-tools") {
       S.demo = true; S.sc = "interview"; S.panel = null; S.nq = 4; UI.ctl.speed = 3;
-      if (sub === "demo-tools") ["band", "bruin", "finch", "casuro"].forEach(t => S.tools.add(t));
+      if (sub === "demo-tools") ["band", "bruin", "finch", "casuro", "glasser"].forEach(t => S.tools.add(t));
       const sc = scen(); S.panel = sc.panel.slice(); S.panel.forEach((id, i) => (S.roles[id] = sc.roles[i]));
       return session();
     }

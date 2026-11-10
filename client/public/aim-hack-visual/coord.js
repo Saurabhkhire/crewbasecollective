@@ -3,7 +3,7 @@
      Coord.network(el)        → full animated network (sponsors.html "Tools together" view)
      Coord.strip(el, focusId) → compact "Works with" strip inside a lab
                                 returns { pulse(otherId, label, dir), note(text) }
-   Nodes: finch, band, adal, casuro, bruin (+ team = the agents, you = the human).
+   Nodes: finch, band, adal, casuro, bruin, glasser (+ team = the agents, you = the human).
    Needs data.js (HACK.sponsors), play-data.js, puppet.js.
    ========================================================= */
 window.Coord = (function () {
@@ -14,7 +14,7 @@ window.Coord = (function () {
   /* respects the visitor's "⚙️ Tools" setting: hidden sponsor tools drop out of every view */
   const vis = id => id === "team" || id === "you" || !H.sponsorVisible || H.sponsorVisible(id);
   const stepsOf = k => SCENARIOS[k].steps.filter(s => vis(s.f) && vis(s.t));
-  const ROLE = { finch: "Skills", band: "Channels", adal: "Images & video", casuro: "Voice & evaluation", bruin: "Data & insights", team: "Agent team", you: "You (human)" };
+  const ROLE = { finch: "Skills", band: "Channels", adal: "Images & video", casuro: "Voice & evaluation", bruin: "Data & insights", glasser: "Real-world data", team: "Agent team", you: "You (human)" };
   const nodeColor = id => id === "team" ? "#eaf0ff" : id === "you" ? "#b6ff5c" : sp(id).color || "#fff";
   const nodeIcon = id => id === "team" ? "🤖" : id === "you" ? "🧑" : sp(id).icon || "•";
   const nodeName = id => id === "team" ? "Agents" : id === "you" ? "You" : sp(id).name || id;
@@ -25,6 +25,8 @@ window.Coord = (function () {
       label: "🎬 Agent film", title: "An agent cast makes a short film",
       steps: [
         { f: "finch", t: "team", label: "🎒 Persuade · Deceive · Investigate", detail: "Finch installs reusable skills into each actor-agent's prompt, so Rook can lie convincingly and Marlowe can spot it." },
+        { f: "team", t: "glasser", label: "🔭 “how long does pod air last?”", detail: "An actor-agent asks Glasser for a real-world fact. Glasser picks the right data API (here Exa web search), shows the price before the call, then runs it." },
+        { f: "glasser", t: "team", label: "📊 1 fact · $0.005", detail: "The fact comes back and the agent works it into its next line, so the story feels grounded in reality." },
         { f: "team", t: "band", label: "💬 Vega → Rook (private)", detail: "Agents message each other only through the BAND channels the director allowed. Other actors can't read it." },
         { f: "band", t: "team", label: "📨 “Meet me at the pod.”", detail: "BAND routes the message, keeps the shared context in sync, and the receiver reacts on the next beat." },
         { f: "team", t: "adal", label: "🎬 12 scenes + cast", detail: "The finished plot goes to AdaL, which turns it into a movie poster and key frames for each act." },
@@ -39,6 +41,8 @@ window.Coord = (function () {
       steps: [
         { f: "finch", t: "team", label: "🩹 Medic · 🎯 Sharpshooter", detail: "Finch gives each agent teammate a skill that really changes how it plays." },
         { f: "you", t: "team", label: "🕹️ your moves", detail: "You play alongside the agents as an equal teammate." },
+        { f: "team", t: "glasser", label: "🛒 “real medkit prices?”", detail: "An agent asks Glasser for real-world data to back its plan: Serper shopping search, price shown before the call." },
+        { f: "glasser", t: "team", label: "💵 3 prices · $0.002", detail: "Real prices come back and the agent cites them in its next callout." },
         { f: "team", t: "band", label: "📻 “Cover the north gate!”", detail: "Teammates coordinate over BAND team radio, so plans are shared, not guessed." },
         { f: "band", t: "team", label: "📻 callouts synced", detail: "Every agent gets the callout and re-plans its next wave." },
         { f: "adal", t: "team", label: "🎨 cover art + theme", detail: "AdaL generates the art for the custom game you designed." },
@@ -50,6 +54,8 @@ window.Coord = (function () {
       label: "🎓 Interview", title: "An agent panel interviews a human",
       steps: [
         { f: "finch", t: "team", label: "📋 Examine · 🧑‍🏫 Coach", detail: "Finch gives each panelist a scoring skill: one examines evidence, one coaches." },
+        { f: "team", t: "glasser", label: "🏢 research the company", detail: "Before the first question the panel looks up the company and role: Apollo company search, BuiltWith tech stack, Crustdata headcount growth." },
+        { f: "glasser", t: "team", label: "📇 3 findings · $0.17", detail: "The findings come back with their cost, and the panel grounds its questions in them." },
         { f: "casuro", t: "you", label: "🎙️ question spoken", detail: "Casuro speaks the panel's question out loud." },
         { f: "you", t: "casuro", label: "🗣️ your answer (voice)", detail: "You answer with your voice; Casuro turns it into a transcript." },
         { f: "casuro", t: "team", label: "📝 transcript + evidence", detail: "The panel receives your exact words to score fairly." },
@@ -99,7 +105,7 @@ window.Coord = (function () {
   /* =========================================================
      FULL NETWORK
      ========================================================= */
-  const POS = { finch: { x: 175, y: 150 }, band: { x: 500, y: 82 }, adal: { x: 825, y: 150 }, casuro: { x: 825, y: 420 }, bruin: { x: 175, y: 420 }, team: { x: 500, y: 285 }, you: { x: 500, y: 505 } };
+  const POS = { finch: { x: 175, y: 150 }, band: { x: 500, y: 82 }, adal: { x: 825, y: 150 }, casuro: { x: 825, y: 420 }, bruin: { x: 175, y: 420 }, glasser: { x: 825, y: 285 }, team: { x: 500, y: 285 }, you: { x: 500, y: 505 } };
   const TEAM = ["vega", "rook", "bolt"];
 
   function network(root) {
@@ -119,7 +125,7 @@ window.Coord = (function () {
             <div class="cg-info"><small>Tip: click any tool to see what it sends and receives.</small></div>
           </aside>
         </div>
-        <div class="cg-legend">${["finch", "band", "adal", "casuro", "bruin"].filter(vis).map(id => `<span style="--c:${nodeColor(id)}"><i></i>${nodeIcon(id)} <b>${esc(nodeName(id))}</b> ${esc(ROLE[id])}</span>`).join("")}<span style="--c:#eaf0ff"><i></i>🤖 <b>Agents</b> do the work</span></div>
+        <div class="cg-legend">${["finch", "band", "adal", "casuro", "bruin", "glasser"].filter(vis).map(id => `<span style="--c:${nodeColor(id)}"><i></i>${nodeIcon(id)} <b>${esc(nodeName(id))}</b> ${esc(ROLE[id])}</span>`).join("")}<span style="--c:#eaf0ff"><i></i>🤖 <b>Agents</b> do the work</span></div>
       </div>`;
     const svg = root.querySelector(".cg-svg");
     defs(svg);
@@ -141,7 +147,7 @@ window.Coord = (function () {
         el("rect", { x: -76, y: -40, width: 152, height: 80, rx: 18, fill: "#10172f", stroke: c, "stroke-width": 2 }, g);
         el("text", { x: -52, y: 9, "font-size": 30, "text-anchor": "middle" }, g, nodeIcon(id));
         el("text", { x: -22, y: -4, class: "cg-nm" }, g, nodeName(id));
-        el("text", { x: -22, y: 18, class: "cg-rl", fill: c }, g, ({ finch: "SKILLS", band: "CHANNELS", adal: "MEDIA", casuro: "VOICE · EVAL", bruin: "DATA", you: "HUMAN" })[id] || "");
+        el("text", { x: -22, y: 18, class: "cg-rl", fill: c }, g, ({ finch: "SKILLS", band: "CHANNELS", adal: "MEDIA", casuro: "VOICE · EVAL", bruin: "DATA", glasser: "REAL DATA", you: "HUMAN" })[id] || "");
       }
       nodes[id] = g;
       const pick = () => { selected = selected === id ? null : id; info(); };
@@ -236,9 +242,9 @@ window.Coord = (function () {
   /* =========================================================
      COMPACT STRIP (inside each lab)
      ========================================================= */
-  const SPOT = [{ x: 60, y: 40 }, { x: 60, y: 120 }, { x: 420, y: 40 }, { x: 420, y: 120 }, { x: 240, y: 145 }];
+  const SPOT = [{ x: 60, y: 40 }, { x: 60, y: 120 }, { x: 420, y: 40 }, { x: 420, y: 120 }, { x: 165, y: 145 }, { x: 315, y: 145 }];
   function strip(root, focus) {
-    const others = ["team", "finch", "band", "adal", "casuro", "bruin"].filter(id => id !== focus && vis(id)).slice(0, 5);
+    const others = ["team", "finch", "band", "adal", "casuro", "bruin", "glasser"].filter(id => id !== focus && vis(id)).slice(0, 6);
     const pos = Object.fromEntries(others.map((id, i) => [id, SPOT[i]]));
     pos[focus] = { x: 240, y: 70 };
     // canned hand-offs involving this tool, from every scenario
@@ -322,9 +328,10 @@ window.Coord = (function () {
     finch: { title: "Finch · skills on agents", job: "Each agent carries reusable skills. When an agent uses one, the badge lights up and the skill's instruction changes what the agent says or does.", lab: "finch" },
     adal: { title: "AdaL · images and video", job: "An agent turns a prompt into a storyboard, renders frames one by one, and assembles a poster or short video the other agents can use.", lab: "adal" },
     bruin: { title: "Bruin · data from every agent", job: "Every message, skill use, render and score streams into Bruin: ingested into raw tables, transformed into assets with lineage, guarded by quality checks, then answered in plain English in Slack.", lab: "bruin" },
-    casuro: { title: "Casuro · voice interview & scoring", job: "A human answers out loud. Casuro transcribes the voice, scores each rubric item with evidence quotes, and hands the verdict to the panel.", lab: "casuro" }
+    casuro: { title: "Casuro · voice interview & scoring", job: "A human answers out loud. Casuro transcribes the voice, scores each rubric item with evidence quotes, and hands the verdict to the panel.", lab: "casuro" },
+    glasser: { title: "Glasser · real-world data for agents", job: "Agents need real data. Glasser gives them 2,000+ endpoints (people, companies, search, SEO, social, e-commerce) through one key: the agent picks a provider, sees the price before the call, pays per call and gets the rows back. No subscriptions.", lab: "glasser" }
   };
-  const ORDER = ["band", "finch", "adal", "bruin", "casuro"];
+  const ORDER = ["band", "finch", "adal", "bruin", "casuro", "glasser"];
   const wait = ms => new Promise(r => setTimeout(r, ms));
   const pick = a => a[Math.floor(Math.random() * a.length)];
   const charOf = id => P.characters.find(c => c.id === id);
@@ -333,7 +340,7 @@ window.Coord = (function () {
   function tools(root) {
     const tabs = [{ id: "together", label: "🔗 All together" }].concat(ORDER.filter(vis).map(id => ({ id, label: `${nodeIcon(id)} ${nodeName(id)}` })));
     if (tabs.length === 1) {
-      root.innerHTML = `<div class="ct-empty"><span>🙈</span><b>All sponsor tools are hidden.</b><button class="btn btn-sm" data-open-tools>⚙️ Choose sponsor tools</button></div>`;
+      root.innerHTML = `<div class="ct-empty"><span>🙈</span><b>No sponsor tools to show.</b></div>`;
       return { destroy() {} };
     }
     root.innerHTML = `<div class="ct">
@@ -389,13 +396,13 @@ window.Coord = (function () {
         p.remove();
       }
     };
-    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom" }[id], time: "night", weather: "clear" });
+    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom", glasser: "office" }[id], time: "night", weather: "clear" });
     host.querySelector(".tv").addEventListener("click", e => {
       const b = e.target.closest("[data-tv]"); if (b) { ctx.paused = !ctx.paused; b.textContent = ctx.paused ? "▶" : "❚❚"; return; }
       const lab = e.target.closest("[data-lab-open]");
       if (lab) { e.preventDefault(); location.hash = "#lab-" + lab.dataset.labOpen; const t = document.getElementById("labs"); t && t.scrollIntoView({ behavior: "smooth" }); }
     });
-    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro }[id];
+    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro, glasser: viewGlasser }[id];
     run(ctx).catch(() => {});
     return { destroy() { ctx.alive = false; } };
   }
@@ -604,6 +611,57 @@ window.Coord = (function () {
       x.feed(`🎙️ <b>Q${n}</b> scored ${avg.toFixed(1)}/5 · evidence: <em>“${esc(Q.quote)}”</em>`);
       x.kpis([["answers scored", n], ["average", (total / n).toFixed(1) + "/5"], ["verdict so far", total / n >= 3.5 ? "Hire" : "Not yet"]]);
       await x.tick(2600);
+    }
+  }
+
+  /* ---------- Glasser: agents query real-world data providers, price before each call ---------- */
+  async function viewGlasser(x) {
+    const G = P.glasser;
+    if (!G) return;
+    const cat = id => G.catalog.find(c => c.id === id);
+    const SHOW = ["apollo-company", "pdl-person", "builtwith", "semrush-kw", "serper", "keepa", "gmaps", "exa"].map(cat).filter(Boolean);
+    const box = document.createElement("div"); box.className = "tv-gl";
+    box.innerHTML = `<div class="gl-cards">${SHOW.map(c => `<div class="gl-card" data-id="${c.id}"><span>${c.icon}</span><b>${esc(c.provider)}</b><small>${esc(c.endpoint)}</small><em>${G.price(c.price)}/${esc(c.unit)}</em></div>`).join("")}</div>
+      <div class="gl-res"><div class="gl-res-h"><span>RESULTS</span><i>simulated sample data</i></div><table><tbody></tbody></table></div>`;
+    x.layer.appendChild(box);
+    const A = [x.agent("priya", 14, 84, 0.85), x.agent("bolt", 30, 84, 0.85)];
+    const JOBS = [
+      { who: 0, q: "Find AI startups in SF hiring engineers", ep: "apollo-company", n: 1, rows: [["Northwind AI", "84 staff · 6 eng roles"], ["Lumen Labs", "41 staff · 3 eng roles"], ["Parcel Robotics", "120 staff · 9 eng roles"]] },
+      { who: 1, q: "What stack does Lumen Labs use?", ep: "builtwith", n: 1, rows: [["Frontend", "React · Next.js"], ["Cloud", "AWS · Vercel"], ["Data", "Postgres · Snowflake"]] },
+      { who: 0, q: "Price-check 3 camping lanterns", ep: "serper", n: 1, rows: [["LED lantern 1000lm", "$24.99"], ["Solar lantern 2-pack", "$31.50"], ["Rechargeable lantern", "$19.95"]] },
+      { who: 1, q: "Search volume for “AI hackathon”", ep: "semrush-kw", n: 1, rows: [["ai hackathon", "8.1k / mo"], ["ai hackathon sf", "1.3k / mo"], ["agent hackathon", "880 / mo"]] },
+      { who: 0, q: "Find 3 senior ML engineers in Seattle", ep: "pdl-person", n: 3, rows: [["Senior ML Engineer", "Seattle · 9 yrs"], ["Staff ML Engineer", "Seattle · 12 yrs"], ["ML Engineer II", "Bellevue · 6 yrs"]] },
+      { who: 1, q: "Coffee shops near the AWS Loft", ep: "gmaps", n: 1, rows: [["Blue Door Coffee", "★ 4.6 · 2 min walk"], ["Steam & Bean", "★ 4.4 · 4 min walk"], ["Daily Grind", "★ 4.5 · 6 min walk"]] }
+    ];
+    const tbody = box.querySelector("tbody");
+    let calls = 0, spent = 0;
+    const subs = new Set();
+    const at = el2 => { const r1 = el2.getBoundingClientRect(), r0 = x.stage.getBoundingClientRect(); return { x: (r1.left + r1.width / 2 - r0.left) / r0.width * 100, y: (r1.top + r1.height / 2 - r0.top) / r0.height * 100 }; };
+    for (let k = 0; ; k++) {
+      const job = JOBS[k % JOBS.length], ep = cat(job.ep), a = A[job.who];
+      const card = box.querySelector(`.gl-card[data-id="${job.ep}"]`);
+      A.forEach(g => g.el.classList.toggle("on", g === a));
+      box.querySelectorAll(".gl-card").forEach(c => c.classList.remove("hot", "ok"));
+      Puppet.talk(a.pup, 1400); Puppet.gesture(a.pup, "point", 1200);
+      x.cap(`${a.name} asks Glasser`, job.q);
+      await x.tick(1300);
+      card.classList.add("hot");
+      const cost = ep.price * job.n;
+      card.querySelector("em").textContent = `price before call: ${G.price(cost)}`;
+      x.cap(`Glasser picks ${ep.provider} · ${ep.endpoint}`, `Price shown before the call: ${G.price(cost)}. Approved.`);
+      await x.tick(1200);
+      const pa = { x: a.x, y: a.y - 26 }, pc = at(card);
+      await x.packet(pa, pc, nodeColor("glasser"), 900);
+      card.classList.add("ok");
+      await x.packet(pc, pa, "#b6ff5c", 900);
+      card.querySelector("em").textContent = `${G.price(ep.price)}/${ep.unit}`;
+      calls++; spent += cost; subs.add(`${ep.provider} ${ep.sub}`);
+      tbody.innerHTML = job.rows.map(r => `<tr><td>${ep.icon} ${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("");
+      Puppet.emotion(a.pup, "happy"); Puppet.gesture(a.pup, "nod", 900);
+      x.feed(`<b>${esc(a.name)}</b> · ${ep.icon} ${esc(ep.provider)} <span style="color:${nodeColor("glasser")}">${G.price(cost)}</span><em>${esc(job.q)} → ${job.rows.length} rows</em>`);
+      x.kpis([["calls", calls], ["spent", "$" + spent.toFixed(3)], ["subscriptions skipped", subs.size]]);
+      await x.tick(2200);
+      Puppet.emotion(a.pup, "neutral");
     }
   }
 

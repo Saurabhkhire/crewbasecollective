@@ -113,7 +113,6 @@ Legend: 🟢 live / used · 🟡 one-off script or tooling · ⚪ legacy (kept, 
 ### `client/api/` — ⚪/fallback Vercel functions
 `health.ts`, `subscribe.ts`, `requests.ts`: self-contained copies of the forms API, only used if Vercel Root Directory = `client/`. Keep in sync with `server/src/routes/forms.ts`.
 
-`aim-hack-chat.ts`: OpenAI endpoint for the separate `/aim-hack-visual` site in `client/public/aim-hack-visual/` (see [AIM_HACK_VISUAL.md](AIM_HACK_VISUAL.md)). No `client/vercel.json` — adding one broke the deploy.
 
 ## `cms/` — local admin app shell
 
@@ -180,3 +179,7 @@ Legend: 🟢 live / used · 🟡 one-off script or tooling · ⚪ legacy (kept, 
 |------|---------|
 | `schema.sql` | 🟢 `subscribers` table |
 | `cleanup-content.sql` | 🟡 SQL version of content-table cleanup |
+
+## Separate project: `/aim-hack-visual` (not part of this app)
+
+`client/public/aim-hack-visual/`, `client/api/aim-hack-chat.ts`, `client/aim-hack-visual.vite.ts`, `client/.env.aim-hack.example` belong to the standalone AI Multiplayer Hackathon site. Ignore them when working on the main app. See [AIM_HACK_VISUAL.md](AIM_HACK_VISUAL.md).

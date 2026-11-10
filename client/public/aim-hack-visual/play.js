@@ -203,7 +203,7 @@ window.UI = (function () {
        live.refresh()                              re-sync with the active set (call after toggles)
      UI.toolFx(stageEl, id, opts) = stageEl._live.fx(id, opts)
      ========================================================= */
-  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored" };
+  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls" };
   U.toolsLive = function (stage, track, active) {
     if (!stage) return null;
     if (stage._live) stage._live.destroy();
@@ -299,6 +299,18 @@ window.UI = (function () {
     return live;
   };
   U.toolFx = (stage, id, o) => stage && stage._live && stage._live.fx(id, o);
+  /* Glasser (simulated): record one data call on a live layer.
+     UI.glasserCall(live, { topic, fact, from }) → { ep, price } ; shows "🔭 Glasser · Apollo company search · $0.020: fact" */
+  U.glasserCall = function (live, o) {
+    o = o || {};
+    if (!live || !live.active.has("glasser") || !PLAY.glasser) return null;
+    const G = PLAY.glasser, ep = G.pick(o.topic || o.fact || "");
+    live._gl = live._gl || { n: 0, cost: 0 };
+    live._gl.n++; live._gl.cost += ep.price;
+    live.fx("glasser", { text: `${ep.provider} ${ep.endpoint.toLowerCase()} · ${G.price(ep.price)}${o.fact ? ": " + o.fact : ""}`, from: o.from, callout: o.callout !== false });
+    live.stat("glasser", `${live._gl.n} call${live._gl.n === 1 ? "" : "s"} · $${live._gl.cost.toFixed(3)}`);
+    return { ep, price: ep.price };
+  };
   /* tiny charts for Bruin dashboards */
   U.miniBars = rows => {
     const max = Math.max(1, ...rows.map(r => r.value));

@@ -90,11 +90,18 @@ Config: copy `server/.env.example` → `server/.env` (Supabase + SMTP; all optio
 
 ---
 
+## 5b. Separate project in this repo: `/aim-hack-visual` (ignore it for main-app work)
+
+The "AI Multiplayer Hackathon" site at crewbasecollective.com/aim-hack-visual is a **separate, standalone project** that only shares this repo and the Vercel deployment. It is not part of the Crewbase Collective app.
+- **When working on the main app** (client/src, cms, server, data, routes, URLs, nav, styles): do **not** read, edit, refactor or account for these paths: `client/public/aim-hack-visual/`, `client/api/aim-hack-chat.ts`, `client/aim-hack-visual.vite.ts`, `client/.env.aim-hack.example`, `docs/AIM_HACK_VISUAL.md`, and the two marked lines in `client/vite.config.ts`.
+- **When working on the hackathon site**: stay inside those paths. Full file list, keys and a removal checklist: [docs/AIM_HACK_VISUAL.md](docs/AIM_HACK_VISUAL.md).
+
+---
+
 ## 6. Gotchas an agent will trip on
 
 1. **Admin UI code lives in `client/`, not `cms/`.** `cms/src/App.tsx` only routes to `client/src/pages/admin/*` via the `@` alias (`cms/vite.config.ts`). Edit admin screens in `client/src/pages/admin/`.
 2. **Vercel's Root Directory is `client/`** (verified 2026-11-08: `/api/index` 404s, `client/api/health.ts` answers, root `vercel.json` rewrites are ignored). So production uses `client/api/*` and `client/public/*` (no `client/vercel.json`; adding one made the deploy fail with STATIC_BUILD_NO_OUT_DIR); the root `vercel.json`, `api/` and `npm run build` only matter if the Root Directory is switched to `.`. Locally `server/src/routes/forms.ts` serves the forms API. Two copies of the forms API exist, so if you change form fields, update both.
-   - The `/aim-hack-visual` static site lives in `client/public/aim-hack-visual/` + `client/api/aim-hack-chat.ts` — see [docs/AIM_HACK_VISUAL.md](docs/AIM_HACK_VISUAL.md).
 3. **Request form types** must match in three places: `client/src/components/RequestForms.tsx`, `server/src/routes/forms.ts`, `client/api/requests.ts`. Types: `sponsorship`, `judging_speaking`, `partnership`, `member_host`, `volunteer`, `contact_us`.
 4. **Event slugs have a random suffix** (`slugify()` appends a base-36 timestamp, e.g. `universal-hackathon-mvebl5cy`). Image folders use the **name without suffix** (`events/universal-hackathon/`). Renaming an event can change its slug → public JSON filename changes.
 5. **`data/settings.json` is committed** and holds SMTP settings. Never put real SMTP passwords there if the repo is shared — use `server/.env` instead (env fills empty fields).

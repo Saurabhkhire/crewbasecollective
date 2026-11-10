@@ -402,9 +402,6 @@ dialog.sp-modal::backdrop { background: rgba(3, 5, 12, 0.7); backdrop-filter: bl
 @media (max-width: 520px) { .nav-in { gap: 10px; } .nav nav { gap: 12px; font-size: 14px; } .nav nav a:not(.btn):not(:first-child) { display: none; } .logo { font-size: 14px; letter-spacing: 0.05em; } }
 
 /* ---------- nav: sponsor tools + submit ---------- */
-.nav-tools { font: inherit; font-size: 14px; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 99px; padding: 6px 12px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
-.nav-tools:hover { color: var(--text); border-color: rgba(255, 255, 255, 0.35); }
-.nav-tools i { font-style: normal; font-size: 11px; font-family: "JetBrains Mono", monospace; color: var(--gold); }
 .nav-submit { white-space: nowrap; }
 @media (max-width: 720px) { .hide-xs { display: none; } .nav-submit { padding: 7px 12px; font-size: 13px; } }
 .tools-dlg { max-width: 560px; }

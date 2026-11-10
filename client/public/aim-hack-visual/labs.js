@@ -155,7 +155,7 @@
   async function open(id, scroll) {
     const vis = visibleLabs();
     if (!vis.length) {
-      host.innerHTML = `<div class="card lab-empty"><span>🙈</span><h3>All sponsor tools are hidden</h3><p class="muted">You switched every sponsor tool off. Turn some back on to play with the labs.</p><button class="btn" data-open-tools>⚙️ Choose sponsor tools</button></div>`;
+      host.innerHTML = `<div class="card lab-empty"><span>🙈</span><h3>No sponsor labs to show</h3><p class="muted">The sponsor labs are not available right now.</p></div>`;
       return;
     }
     const lab = vis.find(l => l.id === id) || vis[0];
