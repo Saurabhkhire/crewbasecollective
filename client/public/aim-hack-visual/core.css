@@ -169,3 +169,8 @@ input[type="range"] { padding: 0; accent-color: var(--film); background: none; b
 .prov-seg button:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .prov-note { flex-basis: 100%; font-size: 12.5px; color: var(--gold); }
+.adal-st { font-size: 12.5px; padding: 3px 10px; border-radius: 99px; border: 1px solid var(--line); white-space: nowrap; }
+.adal-st.ok { color: var(--grow); border-color: rgba(182, 255, 92, 0.45); }
+.adal-st.warm { color: var(--gold); border-color: rgba(255, 200, 87, 0.45); white-space: normal; }
+.adal-st.bad { color: #ff9b9b; border-color: rgba(255, 107, 107, 0.45); white-space: normal; }
+.adal-st a { color: inherit; font-weight: 700; }

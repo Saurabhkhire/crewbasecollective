@@ -474,6 +474,7 @@ Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 2
       Brain.picker(document.getElementById("provPick"), banner);
     };
     banner();
+    window.addEventListener("brain:adal", banner);
     const want = (location.hash.match(/^#lab-(\w+)/) || [])[1];
     open(want || "band", !!want);
     window.addEventListener("hashchange", () => { const w = (location.hash.match(/^#lab-(\w+)/) || [])[1]; if (w && (!current || !$("#lab-" + w))) open(w, true); });

@@ -6,6 +6,8 @@
  *   GET  /api/aim-hack-chat  → { ok, llm, images, providers: { openai, adal }, model, adalModel }
  *   POST /api/aim-hack-chat  { system, user, temperature, provider } → { content, provider }  (agent JSON reply as a string)
  *   POST /api/aim-hack-chat  { kind: "image", prompt, provider }      → { b64, format, provider } (one generated image)
+ *   POST /api/aim-hack-chat  { kind: "adal-warm" }                    → { state }  wake the AdaL agent (~40 s)
+ *   POST /api/aim-hack-chat  { kind: "adal-check" }                   → { state: ready | starting | asleep | off | error }
  *
  * The visitor picks the provider in the page ("openai" or "adal"); a provider can only be used
  * when its keys are set below. If AdaL fails or times out, the request falls back to OpenAI.
@@ -66,6 +68,7 @@ function limited(ip, map = hits, max = 90) {
   return arr.length > max;
 }
 const imageHits = new Map();
+const warmHits = new Map();
 
 /* ======================= OpenAI ======================= */
 async function openaiJSON(system, user, temperature) {
@@ -154,33 +157,63 @@ async function readStream(r, signal) {
   if (err) throw new Error("AdaL: " + err);
   return answer || deltas;
 }
-/* A provisioned session takes ~40 s to start, so reuse one that is already "ready". */
+/* AdaL stops idle workers after a few minutes and a new one takes ~40 s to start.
+   So requests ONLY use a session whose worker is already "ready"; starting one is a
+   separate "warm" call that the page makes when the visitor picks AdaL. */
+async function adalSessions(signal) {
+  const ls = await (await adalFetch("/v1/sessions?limit=30", { method: "GET" }, signal)).json();
+  return (Array.isArray(ls) ? ls : ls.items || []).filter(x => x.agent_config_id === env("ADAL_AGENT_ID") && x.status === "active");
+}
 let cachedSession = null;
-async function adalSession(signal) {
+async function adalReadySession(signal) {
   if (cachedSession) return cachedSession;
-  const ls = await (await adalFetch("/v1/sessions?limit=20", { method: "GET" }, signal)).json();
-  const list = Array.isArray(ls) ? ls : ls.items || [];
-  const ready = list.find(x => x.agent_config_id === env("ADAL_AGENT_ID") && x.worker_status === "ready" && x.status === "active");
-  if (ready) return (cachedSession = ready.id);
-  const body = { agent_config_id: env("ADAL_AGENT_ID"), title: "Multiplayer AI playground" };
-  if (env("ADAL_MODEL")) body.model = env("ADAL_MODEL");
-  const s = await (await adalFetch("/v1/sessions", { method: "POST", body: JSON.stringify(body) }, signal)).json();
-  const id = s.id || s.session_id;
-  if (!id) throw new Error("AdaL: no session id");
-  await adalFetch(`/v1/sessions/${id}/provision`, { method: "POST", body: "{}" }, signal);
-  return (cachedSession = id);
+  const ready = (await adalSessions(signal)).find(x => x.worker_status === "ready");
+  if (!ready) throw new Error("AdaL agent is asleep (waking it takes about 40 s)");
+  return (cachedSession = ready.id);
+}
+/* state of the agent: "ready" | "starting" | "asleep" */
+async function adalState() {
+  const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 8000);
+  try {
+    const list = await adalSessions(ctl.signal);
+    if (list.some(x => x.worker_status === "ready")) return "ready";
+    if (list.some(x => /provision|start|launch|pending|creat/i.test(x.worker_status || ""))) return "starting";
+    return "asleep";
+  } finally { clearTimeout(t); }
+}
+/* wake the agent: reuse an existing session (stopped or never started) before creating a new one */
+async function adalWarm() {
+  const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 55000);
+  try {
+    const list = await adalSessions(ctl.signal);
+    const ready = list.find(x => x.worker_status === "ready");
+    if (ready) { cachedSession = ready.id; return "ready"; }
+    if (list.some(x => /provision|start|launch|pending|creat/i.test(x.worker_status || ""))) return "starting";
+    let s = list.find(x => x.title === "Multiplayer AI playground") || list[0];
+    if (!s) {
+      const body = { agent_config_id: env("ADAL_AGENT_ID"), title: "Multiplayer AI playground" };
+      if (env("ADAL_MODEL")) body.model = env("ADAL_MODEL");
+      s = await (await adalFetch("/v1/sessions", { method: "POST", body: JSON.stringify(body) }, ctl.signal)).json();
+    }
+    const r = await (await adalFetch(`/v1/sessions/${s.id}/provision`, { method: "POST", body: "{}" }, ctl.signal)).json().catch(() => ({}));
+    if (r.worker_status === "ready") { cachedSession = s.id; return "ready"; }
+    return "starting";
+  } catch (e) {
+    if (e.name === "AbortError") return "starting";
+    throw e;
+  } finally { clearTimeout(t); }
 }
 async function adalRun(message) {
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), Number(env("ADAL_TIMEOUT_MS")) || 25000);
   try {
-    const id = await adalSession(ctl.signal);
+    const id = await adalReadySession(ctl.signal);
     const r = await adalFetch(`/v1/sessions/${id}/chat/stream`, { method: "POST", body: JSON.stringify({ message }) }, ctl.signal);
     const text = await readStream(r, ctl.signal);
     if (!text) throw new Error("AdaL: empty reply");
     return text;
   } catch (e) {
-    if (/not found|404|expired|stopped/i.test(String(e && e.message))) cachedSession = null;
+    if (/not found|404|expired|stopped|asleep|busy|initiali/i.test(String(e && e.message))) cachedSession = null;
     throw e.name === "AbortError" ? new Error("AdaL timed out") : e;
   } finally { clearTimeout(timer); }
 }
@@ -214,6 +247,11 @@ async function adalImage(prompt) {
 /* ======================= handler ======================= */
 export default async function handler(req, res) {
   res.setHeader("cache-control", "no-store");
+  if (req.method === "GET" && /[?&]check=adal/.test(req.url || "")) {
+    if (!ADAL_READY()) return res.status(200).json({ state: "off" });
+    try { return res.status(200).json({ state: await adalState() }); }
+    catch (e) { return res.status(200).json({ state: "error", error: e?.message || "AdaL unreachable" }); }
+  }
   if (req.method === "GET") {
     return res.status(200).json({
       ok: true, llm: LLM_ON(), images: IMAGES_ON(),
@@ -235,6 +273,18 @@ export default async function handler(req, res) {
   if (typeof body === "string") { try { body = JSON.parse(body); } catch { return res.status(400).json({ error: "Bad JSON" }); } }
   const chosen = pick(String(body?.provider || "").toLowerCase());
   let adalErr = "";
+
+  if (body?.kind === "adal-check") {
+    if (!ADAL_READY()) return res.status(200).json({ state: "off" });
+    try { return res.status(200).json({ state: await adalState() }); }
+    catch (e) { return res.status(200).json({ state: "error", error: e?.message || "AdaL unreachable" }); }
+  }
+  if (body?.kind === "adal-warm") {
+    if (!ADAL_READY()) return res.status(200).json({ state: "off" });
+    if (limited(ip, warmHits, 6)) return res.status(429).json({ error: "Too many wake-up calls." });
+    try { return res.status(200).json({ state: await adalWarm() }); }
+    catch (e) { return res.status(200).json({ state: "error", error: e?.message || "AdaL unreachable" }); }
+  }
 
   if (body?.kind === "image") {
     if (!IMAGES_ON()) return res.status(503).json({ error: "Image generation is off." });

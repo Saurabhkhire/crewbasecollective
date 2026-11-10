@@ -58,7 +58,7 @@ window.UI = (function () {
     if (B.mode === "llm") {
       b.innerHTML = `<span class="pill ok">● LIVE AI AGENTS</span><span class="mb-txt">Every character is a separate ${B.provider === "adal" ? "AdaL cloud agent" : "OpenAI agent"} (<b>${U.esc(B.model)}</b>) deciding for itself.</span><span class="mb-pick" id="provPick"></span>`;
       B.picker(U.$("#provPick"), () => U.banner());
-      if (B.provider === "adal" && B.adalError) b.insertAdjacentHTML("beforeend", `<span class="prov-note">⚠ AdaL didn't answer (${U.esc(B.adalError)}), so this run used OpenAI.</span>`);
+      if (B.provider === "adal" && B.adalError && B.adalState === "ready") b.insertAdjacentHTML("beforeend", `<span class="prov-note">⚠ AdaL didn't answer (${U.esc(B.adalError)}), so that step used OpenAI.</span>`);
     } else b.innerHTML = `<span class="pill warn">● OFFLINE DEMO AGENTS</span> ${U.esc(B.reason || "")} Agents are simulated from their personalities.`;
   };
   U.srcLabel = () => (Brain.mode === "llm" ? "🧠 " + U.esc(Brain.model) : "🧪 offline agents");
@@ -236,6 +236,7 @@ window.UI = (function () {
     window.scrollTo({ top: 0 });
   }
   window.addEventListener("brain:fallback", () => U.banner());
+  window.addEventListener("brain:adal", () => U.banner());
   U.boot = async function () {
     U.$("#modeBanner").innerHTML = `<span class="pill">● Checking for the AI server…</span>`;
     await Brain.init();
