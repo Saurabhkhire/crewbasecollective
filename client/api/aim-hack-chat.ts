@@ -219,7 +219,9 @@ export default async function handler(req, res) {
       ok: true, llm: LLM_ON(), images: IMAGES_ON(),
       providers: { openai: !!KEY(), adal: ADAL_READY() },
       model: KEY() ? MODEL() : null,
-      adalModel: ADAL_READY() ? "AdaL agent" + (env("ADAL_MODEL") ? ` (${env("ADAL_MODEL")})` : "") : null
+      adalModel: ADAL_READY() ? "AdaL agent" + (env("ADAL_MODEL") ? ` (${env("ADAL_MODEL")})` : "") : null,
+      // setup check: which AdaL setting NAMES this deployment can see (never values)
+      adalSetup: ADAL_READY() ? "ok" : { seen: Object.keys(process.env).filter(k => /adal/i.test(k)), needs: ["ADAL_API_KEY", "ADAL_AGENT_ID"], env: process.env.VERCEL_ENV || "local" }
     });
   }
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
