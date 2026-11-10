@@ -321,7 +321,7 @@ window.Coord = (function () {
     band: { title: "BAND · agents talk to each other", job: "Every agent is linked to the others by channels. Messages travel along the links, each one lands in the channel feed, and tasks get delegated between agents.", lab: "band" },
     finch: { title: "Finch · skills on agents", job: "Each agent carries reusable skills. When an agent uses one, the badge lights up and the skill's instruction changes what the agent says or does.", lab: "finch" },
     adal: { title: "AdaL · images and video", job: "An agent turns a prompt into a storyboard, renders frames one by one, and assembles a poster or short video the other agents can use.", lab: "adal" },
-    bruin: { title: "Bruin · data from every agent", job: "Every decision, message and skill use streams into a pipeline (raw → clean → metrics) and becomes a live dashboard you can question.", lab: "bruin" },
+    bruin: { title: "Bruin · data from every agent", job: "Every message, skill use, render and score streams into Bruin: ingested into raw tables, transformed into assets with lineage, guarded by quality checks, then answered in plain English in Slack.", lab: "bruin" },
     casuro: { title: "Casuro · voice interview & scoring", job: "A human answers out loud. Casuro transcribes the voice, scores each rubric item with evidence quotes, and hands the verdict to the panel.", lab: "casuro" }
   };
   const ORDER = ["band", "finch", "adal", "bruin", "casuro"];
@@ -503,37 +503,65 @@ window.Coord = (function () {
     }
   }
 
-  /* ---------- Bruin: events → pipeline → dashboard ---------- */
+  /* ---------- Bruin: events → ingestion → transform DAG → quality checks → Slack answer ---------- */
   async function viewBruin(x) {
-    const cast = ["vega", "rook", "bolt", "priya"];
+    const cast = ["vega", "rook", "nyx", "priya"];
     const A = cast.map((id, i) => x.agent(id, i % 2 ? 15 : 7, 34 + i * 18, 0.55));
-    const wrap = document.createElement("div"); wrap.className = "tv-bruin";
-    wrap.innerHTML = `<div class="br-pipe">${["Raw events", "Clean", "Metrics"].map((s, i) => `<div class="br-st" data-i="${i}"><b>0</b><small>${s}</small></div>`).join("")}</div>
-      <div class="br-dash"><small>DASHBOARD · decisions per agent</small>${cast.map(id => `<div class="br-row"><span>${esc(first(charOf(id)))}</span><div class="br-bar"><i style="width:0"></i></div><em>0</em></div>`).join("")}<div class="br-spark"></div></div>`;
+    const wrap = document.createElement("div"); wrap.className = "cb";
+    const NODES = ["raw.events", "stg.messages", "stg.decisions", "mart.agent_performance"];
+    wrap.innerHTML = `<div class="cb-ing"><div class="cb-hub">🏛️ Bruin<small>ingestr</small></div><span class="cb-arrow">→</span><span class="cb-raw">raw.events · <b>0</b> rows</span></div>
+      <div class="cb-dag">${NODES.map((n, i) => `${i ? '<span class="cb-arrow">→</span>' : ""}<span class="cb-n" data-n="${n}">${n}</span>`).join("")}</div>
+      <div class="cb-chk">🛡️ checks waiting</div>
+      <div class="cb-slack"><div class="cb-slack-h"># hackathon-data</div><p>You: @Bruin which agent betrays the most?</p><p class="ans"></p></div>`;
     x.layer.appendChild(wrap);
-    const stagePos = i => ({ x: 33 + i * 13, y: 22 });
-    const counts = [0, 0, 0], per = cast.map(() => 0), spark = [];
-    const KIND = [["💬", "message"], ["⚡", "decision"], ["🎒", "skill use"], ["🖼️", "frame"], ["🗡️", "betrayal"]];
-    for (let k = 0; ; k++) {
-      const ai = k % cast.length, a = A[ai], [ic, kind] = pick(KIND);
-      a.el.classList.add("on"); setTimeout(() => a.el.classList.remove("on"), 900);
-      x.cap(`${a.name} → Bruin`, `${ic} ${kind} event logged`);
-      await x.packet({ x: a.x + 3, y: a.y - 8 }, stagePos(0), nodeColor("bruin"), 700);
-      counts[0]++; wrap.querySelector('[data-i="0"] b').textContent = counts[0];
-      await x.packet(stagePos(0), stagePos(1), "#eaf0ff", 450);
-      counts[1]++; wrap.querySelector('[data-i="1"] b').textContent = counts[1];
-      await x.packet(stagePos(1), stagePos(2), "#b6ff5c", 450);
-      counts[2]++; wrap.querySelector('[data-i="2"] b').textContent = counts[2];
-      if (kind !== "frame") per[ai]++;
-      const max = Math.max(1, ...per);
-      wrap.querySelectorAll(".br-row").forEach((r, i) => { r.querySelector("i").style.width = (per[i] / max * 100) + "%"; r.querySelector("em").textContent = per[i]; r.classList.toggle("hot", i === ai); });
-      spark.push(per.reduce((p, q) => p + q, 0)); if (spark.length > 24) spark.shift();
-      const mx = Math.max(...spark, 1);
-      wrap.querySelector(".br-spark").innerHTML = `<svg viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="${nodeColor("bruin")}" stroke-width="2" points="${spark.map((v, i) => `${i * 5},${30 - v / mx * 26}`).join(" ")}"/></svg>`;
-      x.feed(`${ic} <b>${esc(a.name)}</b> · ${esc(kind)} → <em>raw → clean → metrics</em>`);
-      const top = per.indexOf(Math.max(...per));
-      x.kpis([["events", counts[0]], ["agents", cast.length], ["most active", first(charOf(cast[top]))]]);
-      await x.tick(700);
+    const hub = { x: 30, y: 18 };
+    const KIND = [["💬", "BAND message", "band"], ["🪶", "Finch skill use", "finch"], ["🎨", "AdaL render", "adal"], ["🎙️", "Casuro score", "casuro"], ["🗡️", "betrayal", "band"]];
+    let rows = 0, round = 0;
+    const betr = { Nyx: 0, Rook: 0, Vega: 0, Priya: 0 };
+    for (;;) {
+      round++;
+      wrap.querySelectorAll(".cb-n").forEach(n => n.className = "cb-n");
+      const chk = wrap.querySelector(".cb-chk"); chk.className = "cb-chk"; chk.textContent = "🛡️ checks waiting";
+      wrap.querySelector(".cb-slack").classList.remove("on");
+      for (let k = 0; k < 6; k++) {
+        const ai = k % cast.length, a = A[ai], [ic, kind, tool] = k === 4 || k === 2 ? KIND[4] : pick(KIND.slice(0, 4));
+        a.el.classList.add("on"); setTimeout(() => a.el.classList.remove("on"), 900);
+        x.cap(`${a.name} → Bruin`, `${ic} ${kind} ingested`);
+        await x.packet({ x: a.x + 3, y: a.y - 8 }, hub, nodeColor(tool) || nodeColor("bruin"), 650);
+        rows += 37 + Math.floor(Math.random() * 40);
+        if (kind === "betrayal") betr[a.name] = (betr[a.name] || 0) + 1;
+        wrap.querySelector(".cb-raw b").textContent = rows.toLocaleString();
+        x.feed(`${ic} <b>${esc(a.name)}</b> · ${esc(kind)} → <em>raw.events</em>`);
+        x.kpis([["rows", rows.toLocaleString()], ["sources", 4], ["round", round]]);
+        await x.tick(250);
+      }
+      x.cap("Bruin · transform", "Assets build in dependency order");
+      const fail = round % 2 === 1;
+      for (const n of NODES) {
+        const el = wrap.querySelector(`[data-n="${n}"]`);
+        if (n === "mart.agent_performance" && fail) { el.className = "cb-n fail"; el.textContent = "⏸ " + n; break; }
+        el.className = "cb-n ok"; el.textContent = "✓ " + n;
+        x.feed(`🧱 <b>${esc(n)}</b> built`);
+        await x.tick(550);
+        if (n === "stg.messages") {
+          chk.className = "cb-chk " + (fail ? "fail" : "ok");
+          chk.textContent = fail ? "✗ accepted_values: 3 rows say 'betrayl'. Downstream blocked." : "✓ not_null · unique · accepted_values · freshness";
+          if (fail) { el.className = "cb-n fail"; el.textContent = "✗ " + n; x.cap("Bruin · quality", "A check caught an LLM typo and blocked the mart"); x.feed(`🛡️ <b>check failed</b> on stg.messages: fixed &amp; re-run`); await x.tick(1600); }
+        }
+      }
+      if (fail) {
+        x.cap("Bruin · fix & re-run", "Typo fixed in SQL, the pipeline re-runs clean");
+        await x.tick(900);
+        NODES.forEach(n => { const el = wrap.querySelector(`[data-n="${n}"]`); el.className = "cb-n ok"; el.textContent = "✓ " + n; });
+        chk.className = "cb-chk ok"; chk.textContent = "✓ all checks pass";
+        await x.tick(700);
+      }
+      const top = Object.entries(betr).sort((p, q) => q[1] - p[1])[0];
+      const s = wrap.querySelector(".cb-slack"); s.querySelector(".ans").innerHTML = `<b>🏛️ Bruin:</b> ${esc(top[0])} betrays most (${top[1] + 3} in ${round * 6 + 12} events). ⚡ 1.2s · mart.agent_performance`;
+      s.classList.add("on");
+      x.cap("Bruin · AI analyst in Slack", "Asked in plain English, answered from checked data in seconds");
+      x.feed(`💬 <b>Slack</b> answered from <em>mart.agent_performance</em>`);
+      await x.tick(3400);
     }
   }
 

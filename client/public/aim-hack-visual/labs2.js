@@ -280,13 +280,20 @@ Use 4 to 6 shots with a clear beginning, middle and end. Vary the camera moves.`
   }
 
   /* =========================================================
-     3 · Bruin — data & insights
+     3 · Bruin — the data & AI platform behind every agent
+     Ingest → Transform (assets + lineage) → Quality checks → AI analyst (Slack / Teams / browser) → Dashboard
      ========================================================= */
   const STORIES = ["Escape Pod", "Inside Job", "Manor Dinner", "The Verdict"];
   const ENDINGS = ["Triumph", "Tragedy", "Betrayal", "Bittersweet", "Twist", "Comedy"];
   const ACTORS = ["vega", "rook", "imani", "bolt", "kit", "marlowe", "ashford", "nyx"];
+  const CANDS = ["Alex", "Sam", "Jordan", "Riley", "Taylor"];
+  const RUBRIC = ["Clarity", "Evidence", "Impact", "Confidence"];
+  const spAll = id => ((window.HACK && (HACK.allSponsors || HACK.sponsors)) || []).find(s => s.id === id) || { id, name: id, icon: "•", color: "#8d97bd" };
+  const BR = () => spAll("bruin").color || "#ffc857";
+  const rng = seed => { let s = seed >>> 0 || 42; return () => ((s = (s * 1103515245 + 12345) >>> 0) / 4294967296); };
+
   function makeRuns(n, seed) {
-    let s = seed || 42; const r = () => ((s = (s * 1103515245 + 12345) >>> 0) / 4294967296);
+    const r = rng(seed);
     const W = { "Escape Pod": [3, 3, 1, 4, 1, 1], "Inside Job": [1, 1, 6, 1, 2, 1], "Manor Dinner": [1, 2, 2, 1, 5, 2], "The Verdict": [2, 1, 1, 3, 3, 2] };
     const pickW = w => { let x = r() * w.reduce((a, b) => a + b, 0); for (let i = 0; i < w.length; i++) { x -= w[i]; if (x < 0) return i; } return w.length - 1; };
     return Array.from({ length: n }, (_, i) => {
@@ -295,100 +302,391 @@ Use 4 to 6 shots with a clear beginning, middle and end. Vary the camera moves.`
       return { run: i + 1, story, ending, lead, scenes: 10 + Math.floor(r() * 11), betrayals: ending === "Betrayal" ? 1 + Math.floor(r() * 3) : Math.floor(r() * 1.6), voice: r() < 0.4 };
     });
   }
-  function summarize(runs) {
-    const count = (k) => runs.reduce((m, x) => (m[x[k]] = (m[x[k]] || 0) + 1, m), {});
-    const by = {}; STORIES.forEach(s => { const rs = runs.filter(x => x.story === s); by[s] = { runs: rs.length, endings: rs.reduce((m, x) => (m[x.ending] = (m[x.ending] || 0) + 1, m), {}), betrayal_rate: rs.length ? +(rs.filter(x => x.betrayals > 0).length / rs.length).toFixed(2) : 0, avg_scenes: rs.length ? +(rs.reduce((a, x) => a + x.scenes, 0) / rs.length).toFixed(1) : 0 }; });
-    const leads = count("lead"); const leadNames = {}; Object.keys(leads).forEach(k => leadNames[charById(k).name] = leads[k]);
-    return { total_runs: runs.length, endings: count("ending"), lead_agent_runs: leadNames, by_story: by, avg_scenes: +(runs.reduce((a, x) => a + x.scenes, 0) / runs.length).toFixed(1), runs_with_betrayal: runs.filter(x => x.betrayals > 0).length, voice_runs: runs.filter(x => x.voice).length };
+  /* every tool and track produces rows: this is the "everything is data" story */
+  function makeData(nRuns, seed) {
+    const r = rng(seed + 7), runs = makeRuns(nRuns, seed);
+    const BETRAY_W = { rook: 5, nyx: 6, ashford: 4, marlowe: 3, kit: 1, vega: 1, imani: 0.5, bolt: 0.7 };
+    const messages = [], skillUses = [], renders = [], scores = [], rounds = [];
+    const skillIds = (P.skills || []).map(s => s.name);
+    runs.forEach(run => {
+      const n = run.scenes + Math.floor(r() * 6);
+      for (let k = 0; k < n; k++) {
+        const from = ACTORS[Math.floor(r() * ACTORS.length)];
+        let to = ACTORS[Math.floor(r() * ACTORS.length)]; if (to === from) to = ACTORS[(ACTORS.indexOf(from) + 1) % ACTORS.length];
+        const roll = r() * 10;
+        const kind = roll < (BETRAY_W[from] || 1) * (run.betrayals ? 0.45 : 0.12) ? "betray" : roll < 4.5 ? "chat" : roll < 7.5 ? "delegate" : "alliance";
+        messages.push({ id: messages.length + 1, run: run.run, from, to, kind });
+      }
+      for (let k = 0; k < 2 + Math.floor(r() * 4); k++) skillUses.push({ run: run.run, agent: ACTORS[Math.floor(r() * ACTORS.length)], skill: skillIds[Math.floor(r() * skillIds.length)] || "Plan" });
+      for (let k = 0; k < 1 + Math.floor(r() * 4); k++) renders.push({ run: run.run, kind: k ? "frame" : "poster" });
+      for (let k = 0; k < 3; k++) rounds.push({ run: run.run, round: k + 1 });
+    });
+    /* an LLM typo the quality checks will catch */
+    [5, 17, 29].forEach(i => { if (messages[i]) { messages[i].kind = "betrayl"; messages[i].from = ["nyx", "rook", "nyx"][i % 3]; } });
+    const SKILL = { Alex: 3.9, Sam: 3.1, Jordan: 4.3, Riley: 2.8, Taylor: 3.6 };
+    CANDS.forEach(c => { for (let sess = 1; sess <= 2 + Math.floor(r() * 2); sess++) RUBRIC.forEach(rb => scores.push({ candidate: c, session: sess, skill: rb, score: Math.max(1, Math.min(5, Math.round(SKILL[c] + (r() - 0.5) * 2 + sess * 0.2))) })); });
+    return { runs, messages, skillUses, renders, scores, rounds };
+  }
+  const countBy = (rows, f) => rows.reduce((m, x) => { const k = f(x); m[k] = (m[k] || 0) + 1; return m; }, {});
+  function summarize(D, fixed) {
+    const msgs = D.messages.map(m => (fixed && m.kind === "betrayl" ? { ...m, kind: "betray" } : m));
+    const betray = countBy(msgs.filter(m => m.kind === "betray"), m => charById(m.from).name);
+    const cand = {}; CANDS.forEach(c => { const s = D.scores.filter(x => x.candidate === c); cand[c] = +(s.reduce((a, x) => a + x.score, 0) / Math.max(1, s.length)).toFixed(2); });
+    const bySkill = {}; RUBRIC.forEach(rb => { const s = D.scores.filter(x => x.skill === rb); bySkill[rb] = +(s.reduce((a, x) => a + x.score, 0) / Math.max(1, s.length)).toFixed(2); });
+    return {
+      film_runs: D.runs.length, endings: countBy(D.runs, x => x.ending), lead_agent_runs: countBy(D.runs, x => charById(x.lead).name),
+      betrayals_by_agent: betray, messages_total: D.messages.length, message_kinds: countBy(msgs, m => m.kind),
+      skill_uses: countBy(D.skillUses, x => x.skill), adal_renders: D.renders.length, game_rounds: D.rounds.length,
+      interview_avg_by_candidate: cand, interview_avg_by_skill: bySkill, data_quality: fixed ? "all checks pass" : "WARNING: accepted_values check failing on stg.messages.kind (3 rows 'betrayl'); betrayal counts exclude them"
+    };
+  }
+
+  /* assets, lineage and SQL in Bruin's asset format */
+  const ASSETS = [
+    { id: "raw.film_runs", col: 0, src: "film", rows: D => D.runs.length, deps: [], checks: [["row_count", "> 0"]] },
+    { id: "raw.game_rounds", col: 0, src: "game", rows: D => D.rounds.length, deps: [], checks: [["not_null", "round"]] },
+    { id: "raw.band_messages", col: 0, src: "band", rows: D => D.messages.length, deps: [], checks: [["not_null", "from_agent"], ["row_count", "> 0"]] },
+    { id: "raw.finch_skill_uses", col: 0, src: "finch", rows: D => D.skillUses.length, deps: [], checks: [["not_null", "skill"]] },
+    { id: "raw.adal_renders", col: 0, src: "adal", rows: D => D.renders.length, deps: [], checks: [["accepted_values", "kind ∈ poster, frame"]] },
+    { id: "raw.casuro_scores", col: 0, src: "casuro", rows: D => D.scores.length, deps: [], checks: [["freshness", "< 1 hour"]] },
+    { id: "stg.messages", col: 1, rows: D => D.messages.length, deps: ["raw.band_messages"], checks: [["unique", "message_id"], ["accepted_values", "kind ∈ chat, delegate, alliance, betray", true]] },
+    { id: "stg.decisions", col: 1, rows: D => D.runs.reduce((a, x) => a + x.scenes, 0) + D.rounds.length, deps: ["raw.film_runs", "raw.game_rounds", "raw.finch_skill_uses"], checks: [["not_null", "agent"], ["freshness", "< 1 hour"]] },
+    { id: "stg.media", col: 1, rows: D => D.renders.length, deps: ["raw.adal_renders"], checks: [["row_count", "> 0"]] },
+    { id: "stg.scores", col: 1, rows: D => D.scores.length, deps: ["raw.casuro_scores"], checks: [["accepted_values", "score ∈ 1..5"], ["not_null", "candidate"]] },
+    { id: "mart.agent_performance", col: 2, rows: () => ACTORS.length, deps: ["stg.decisions", "stg.messages"], checks: [["unique", "agent"]] },
+    { id: "mart.endings", col: 2, rows: () => ENDINGS.length, deps: ["stg.decisions", "stg.media"], checks: [["row_count", "> 0"]] },
+    { id: "mart.interview_scores", col: 2, rows: () => CANDS.length * RUBRIC.length, deps: ["stg.scores"], checks: [["unique", "candidate, skill"]] }
+  ];
+  const SRC = { film: { icon: "🎬", name: "Track 01 · Film runs" }, game: { icon: "🎮", name: "Track 02 · Game rounds" } };
+  const srcInfo = k => SRC[k] || { icon: spAll(k).icon, name: `${spAll(k).name} · ${{ band: "messages", finch: "skill uses", adal: "renders", casuro: "scores" }[k]}` };
+  function assetSQL(a, fixed) {
+    const body = {
+      "raw.film_runs": "-- loaded by ingestr from the playground event stream\nSELECT * FROM playground.film_runs",
+      "raw.game_rounds": "SELECT * FROM playground.game_rounds",
+      "raw.band_messages": "-- every message agents sent through BAND channels\nSELECT * FROM band.channel_messages",
+      "raw.finch_skill_uses": "SELECT * FROM finch.skill_events",
+      "raw.adal_renders": "SELECT * FROM adal.render_jobs",
+      "raw.casuro_scores": "SELECT * FROM casuro.rubric_scores",
+      "stg.messages": fixed
+        ? "SELECT id AS message_id, run_id, from_agent, to_agent,\n       CASE WHEN kind = 'betrayl' THEN 'betray' ELSE kind END AS kind  -- fix: LLM typo\nFROM raw.band_messages"
+        : "SELECT id AS message_id, run_id, from_agent, to_agent, kind\nFROM raw.band_messages",
+      "stg.decisions": "SELECT run_id, agent, action, skill, created_at\nFROM raw.film_runs\nJOIN raw.finch_skill_uses USING (run_id)\nUNION ALL SELECT run_id, agent, action, NULL, created_at FROM raw.game_rounds",
+      "stg.media": "SELECT run_id, kind, COUNT(*) AS renders FROM raw.adal_renders GROUP BY 1, 2",
+      "stg.scores": "SELECT candidate, session, skill, score FROM raw.casuro_scores",
+      "mart.agent_performance": "SELECT d.agent,\n       COUNT(*) AS decisions,\n       COUNT_IF(m.kind = 'betray') AS betrayals,\n       COUNT_IF(m.kind = 'delegate') AS delegations\nFROM stg.decisions d LEFT JOIN stg.messages m ON m.from_agent = d.agent\nGROUP BY 1",
+      "mart.endings": "SELECT ending, COUNT(*) AS runs, AVG(frames) AS avg_frames\nFROM stg.decisions JOIN stg.media USING (run_id)\nGROUP BY 1 ORDER BY runs DESC",
+      "mart.interview_scores": "SELECT candidate, skill, AVG(score) AS avg_score\nFROM stg.scores GROUP BY 1, 2"
+    }[a.id];
+    const cols = a.checks.map(([c, v]) => `  - name: ${v.split(/ [∈<>]/)[0].split(",")[0].trim().replace(/^[<>].*/, "rows")}\n    checks:\n      - name: ${c}${/∈|<|>/.test(v) ? `   # ${v}` : ""}`).join("\n");
+    return `/* @bruin\nname: ${a.id}\ntype: duckdb.sql\nmaterialization:\n  type: table${a.deps.length ? `\ndepends:\n${a.deps.map(d => `  - ${d}`).join("\n")}` : ""}\ncolumns:\n${cols}\n@bruin */\n\n${body}`;
   }
 
   LABS.push({
-    id: "bruin", tool: "Data & insights", playLink: "film",
-    title: "Ask questions about what your agents decided",
-    pitch: "Every agent decision is data. Here are 50 logged film runs from the playground. Explore the charts, then ask a question in plain English and Bruin answers with numbers, the matching chart, and the query behind it.",
+    id: "bruin", tool: "Data & AI platform", playLink: "film",
+    title: "Every agent decision is data. Bruin turns it into answers.",
+    pitch: "Bruin is one workspace for the whole data journey. Ingest events from every tool and track, transform them into trusted assets with lineage, guard them with quality checks, then ask the AI analyst in Slack, Teams or the browser and get answers in seconds.",
     how: [
-      "The dashboard shows <b>50 simulated film runs</b>: story, ending, lead agent, scenes, betrayals.",
-      "<b>Hover</b> any bar for exact numbers.",
-      "<b>Ask</b> a question, e.g. “Which story ends in betrayal most?”",
-      "Bruin answers with numbers, <b>highlights the chart</b> that proves it, and shows the SQL it would run.",
-      "<b>Simulate 10 more runs</b> to see the patterns shift."
+      "<b>Ingest:</b> press ▶ and watch BAND messages, Finch skill uses, AdaL renders, Casuro scores and track runs land in raw tables.",
+      "<b>Transform:</b> run the pipeline. Assets build in dependency order; click any asset for its SQL.",
+      "<b>Quality:</b> checks run on every asset. One fails on purpose; read why, then <b>Fix &amp; re-run</b>.",
+      "<b>Ask AI:</b> chat with Bruin in a Slack, Teams or browser mock-up. It answers in plain English with a chart and the SQL it ran.",
+      "<b>Run end-to-end</b> plays the whole story in one go."
     ],
-    demoChars: [], demoScenes: {},
+    demoChars: ["vega", "rook", "nyx"], demoScenes: { bg: { base: "boardroom", time: "night" } },
     demo: [
-      { cap: "Every agent decision is logged as data", dur: 3.2, draw(ctx, p, A, W, H) { bruinBg(ctx, W, H); const rows = makeRuns(9, 7); ctx.font = "13px 'JetBrains Mono', monospace"; rows.forEach((r, i) => { const a = clamp(p * 9 - i, 0, 1); ctx.fillStyle = `rgba(234,240,255,${a})`; ctx.fillText(`run ${String(r.run).padStart(2, "0")}  ${r.story.padEnd(13)} ${r.ending.padEnd(12)} ${charById(r.lead).name}`, 40, 60 + i * 28); }); } },
-      { cap: "See the patterns at a glance", dur: 3.4, draw(ctx, p, A, W, H) { bruinBg(ctx, W, H); bruinBars(ctx, W, p, null); } },
-      { cap: "Ask a question in plain English", dur: 3.2, draw(ctx, p, A, W, H) { bruinBg(ctx, W, H); bruinBars(ctx, W, 1, null, 0.4); const q = "Which story ends in betrayal most?"; ctx.fillStyle = "#151d3d"; rr(ctx, 40, 240, W - 80, 50, 25); ctx.fill(); ctx.strokeStyle = "#ffc857"; ctx.lineWidth = 2; ctx.stroke(); ctx.fillStyle = "#fff"; ctx.font = "16px 'Space Grotesk', sans-serif"; ctx.fillText(q.slice(0, Math.floor(q.length * Math.min(1, p * 1.4))), 62, 271); } },
-      { cap: "Get the answer, the chart, and the query", dur: 3.8, draw(ctx, p, A, W, H) { bruinBg(ctx, W, H); bruinBars(ctx, W, 1, "Betrayal"); textBox(ctx, "Inside Job ends in Betrayal in 6 of 13 runs (46%), the highest of any story.", 40, 238, W - 80, { bg: "rgba(255,200,87,.95)" }); } }
+      { cap: "Ingest: every tool streams events into Bruin", dur: 3.6, draw(ctx, p, A, W, H) { bgDark(ctx, W, H); demoIngest(ctx, W, H, p); } },
+      { cap: "Transform: assets build in dependency order", dur: 3.8, draw(ctx, p, A, W, H) { bgDark(ctx, W, H); demoDag(ctx, W, H, p, false); } },
+      { cap: "Quality: a check catches an LLM typo before it spreads", dur: 3.6, draw(ctx, p, A, W, H) { bgDark(ctx, W, H); demoDag(ctx, W, H, 1, true); textBox(ctx, "✗ accepted_values failed on stg.messages.kind: 3 rows say 'betrayl'", W / 2, 300, W - 120, { center: true, bg: "rgba(255,107,107,.95)" }); } },
+      { cap: "Ask in Slack, get the answer in seconds", dur: 4.2, draw(ctx, p, A, W, H) { bgDark(ctx, W, H); demoSlack(ctx, W, H, p, A); } }
     ],
     build: buildBruin
   });
-  function bruinBg(ctx, W, H) { ctx.fillStyle = "#0d1226"; ctx.fillRect(0, 0, W, H); }
-  function bruinBars(ctx, W, p, hl, dim) {
-    const data = [["Betrayal", 14], ["Twist", 11], ["Bittersweet", 10], ["Triumph", 7], ["Tragedy", 5]];
-    ctx.font = "13px 'Space Grotesk', sans-serif";
-    data.forEach(([l, v], i) => { const y = 50 + i * 34, w = (v / 14) * (W - 230) * ease(clamp(p * 1.4 - i * 0.08, 0, 1)); ctx.fillStyle = "#c9d0ee"; ctx.fillText(l, 40, y + 16); ctx.fillStyle = hl && l !== hl ? "rgba(255,200,87,.35)" : `rgba(255,200,87,${dim || 1})`; rr(ctx, 140, y + 2, Math.max(4, w), 20, 4); ctx.fill(); ctx.fillStyle = "#eaf0ff"; ctx.fillText(String(v), 148 + w, y + 17); });
+
+  function bgDark(ctx, W, H) { const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#0d1226"); g.addColorStop(1, "#070a14"); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
+  function demoIngest(ctx, W, H, p) {
+    const src = ["band", "finch", "adal", "casuro", "film", "game"], hub = { x: W / 2, y: H / 2 };
+    src.forEach((k, i) => {
+      const y = 40 + i * 50, s = srcInfo(k);
+      ctx.fillStyle = "#151d3d"; rr(ctx, 24, y - 16, 150, 32, 10); ctx.fill();
+      ctx.fillStyle = "#eaf0ff"; ctx.font = "13px 'Space Grotesk', sans-serif"; ctx.fillText(`${s.icon} ${s.name.split(" · ")[0]}`, 36, y + 5);
+      ctx.strokeStyle = "rgba(255,200,87,.35)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(174, y); ctx.lineTo(hub.x - 60, hub.y); ctx.stroke();
+      const t = (p * 2 + i * 0.17) % 1; ctx.fillStyle = "#ffc857"; ctx.beginPath(); ctx.arc(174 + (hub.x - 60 - 174) * t, y + (hub.y - y) * t, 5, 0, 7); ctx.fill();
+      ctx.fillStyle = "#151d3d"; rr(ctx, W - 210, y - 16, 186, 32, 10); ctx.fill(); ctx.fillStyle = "#c9d0ee"; ctx.font = "12px 'JetBrains Mono', monospace"; ctx.fillText(`raw.${["band_messages", "finch_skill_uses", "adal_renders", "casuro_scores", "film_runs", "game_rounds"][i]}`, W - 200, y - 1); ctx.fillStyle = "#ffc857"; ctx.fillText(`${Math.floor(p * [612, 160, 110, 160, 50, 150][i])} rows`, W - 200, y + 12);
+      ctx.strokeStyle = "rgba(255,200,87,.25)"; ctx.beginPath(); ctx.moveTo(hub.x + 60, hub.y); ctx.lineTo(W - 210, y); ctx.stroke();
+    });
+    ctx.fillStyle = "#ffc857"; rr(ctx, hub.x - 60, hub.y - 30, 120, 60, 14); ctx.fill(); ctx.fillStyle = "#0a0d1a"; ctx.font = "700 15px 'Space Grotesk', sans-serif"; ctx.textAlign = "center"; ctx.fillText("🏛️ Bruin", hub.x, hub.y - 2); ctx.font = "11px 'JetBrains Mono', monospace"; ctx.fillText("ingestr", hub.x, hub.y + 16); ctx.textAlign = "left";
+  }
+  function demoDag(ctx, W, H, p, fail) {
+    const cols = [["raw.band_messages", "raw.film_runs", "raw.casuro_scores"], ["stg.messages", "stg.decisions", "stg.scores"], ["mart.agent_performance", "mart.endings", "mart.interview_scores"]];
+    const pos = (c, i) => ({ x: 30 + c * ((W - 60) / 3), y: 50 + i * 80 });
+    const edges = [[0, 0, 1, 0], [0, 1, 1, 1], [0, 2, 1, 2], [1, 0, 2, 0], [1, 1, 2, 0], [1, 1, 2, 1], [1, 2, 2, 2]];
+    edges.forEach(([c1, i1, c2, i2]) => { const a = pos(c1, i1), b = pos(c2, i2); ctx.strokeStyle = "rgba(255,200,87,.35)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(a.x + 170, a.y + 18); ctx.bezierCurveTo(a.x + 200, a.y + 18, b.x - 30, b.y + 18, b.x, b.y + 18); ctx.stroke(); });
+    cols.forEach((col, c) => col.forEach((name, i) => {
+      const q = pos(c, i), done = p * 3 > c + i * 0.3, bad = fail && name === "stg.messages", blocked = fail && name === "mart.agent_performance";
+      ctx.fillStyle = bad ? "rgba(255,107,107,.9)" : blocked ? "#2a2f45" : done ? "rgba(255,200,87,.95)" : "#151d3d"; rr(ctx, q.x, q.y, 170, 36, 10); ctx.fill();
+      ctx.fillStyle = done && !blocked ? "#0a0d1a" : "#c9d0ee"; ctx.font = "12px 'JetBrains Mono', monospace"; ctx.fillText(`${bad ? "✗" : blocked ? "⏸" : done ? "✓" : "○"} ${name}`, q.x + 10, q.y + 22);
+    }));
+  }
+  function demoSlack(ctx, W, H, p, A) {
+    ctx.fillStyle = "#1a1d21"; rr(ctx, 30, 24, W - 60, H - 48, 14); ctx.fill();
+    ctx.fillStyle = "#3f0e40"; rr(ctx, 30, 24, 130, H - 48, 14); ctx.fill(); ctx.fillStyle = "#eaf0ff"; ctx.font = "700 12px 'Space Grotesk', sans-serif"; ctx.fillText("Crewbase", 44, 50); ctx.font = "12px 'Space Grotesk', sans-serif"; ["# general", "# hackathon-data", "# agents"].forEach((c, i) => { if (i === 1) { ctx.fillStyle = "#1164a3"; rr(ctx, 38, 64 + i * 26, 114, 22, 6); ctx.fill(); } ctx.fillStyle = "#eaf0ff"; ctx.fillText(c, 46, 79 + i * 26); });
+    ctx.fillStyle = "#eaf0ff"; ctx.font = "13px 'Space Grotesk', sans-serif"; ctx.fillText("You: @Bruin which agent betrays the most?", 180, 70);
+    if (p > 0.35) {
+      ctx.fillStyle = "#ffc857"; ctx.font = "700 13px 'Space Grotesk', sans-serif"; ctx.fillText("🏛️ Bruin  APP", 180, 108);
+      ctx.fillStyle = "#eaf0ff"; ctx.font = "13px 'Space Grotesk', sans-serif"; ctx.fillText("Nyx betrays most: 41 of 118 betrayal messages (35%).", 180, 130);
+      [["Nyx", 41], ["Rook", 33], ["Lady Ashford", 22], ["Marlowe", 14]].forEach(([n, v], i) => { const w = (v / 41) * (W - 360) * Math.min(1, (p - 0.35) * 2.5); ctx.fillStyle = "#c9d0ee"; ctx.fillText(n, 180, 168 + i * 30); ctx.fillStyle = i ? "rgba(255,200,87,.45)" : "#ffc857"; rr(ctx, 290, 154 + i * 30, Math.max(4, w), 18, 4); ctx.fill(); });
+    }
   }
 
   function buildBruin(main, coord) {
     coord = coord || { pulse() {} };
-    let runs = makeRuns(50, 42), hl = { endings: null, agents: null, stories: null };
-    const QS = ["Which ending happens most?", "Which story ends in betrayal most often?", "Who drives the plot the most?", "How long is an average film?", "Do voice runs end differently?"];
+    const S = { D: makeData(50, 42), seed: 42, nRuns: 50, ingested: false, ran: false, fixed: false, state: {}, checks: {}, skin: "slack", sel: "stg.messages", asked: 0, busy: false, token: 0 };
+    const C = BR();
+    const TABS = [["ingest", "① Ingest"], ["transform", "② Transform"], ["quality", "③ Quality"], ["ask", "④ Ask AI"], ["dash", "⑤ Dashboard"], ["why", "Why Bruin"]];
     main.innerHTML = `
-      <div class="kpis" id="brK"></div>
-      <div class="br-charts">
-        <div class="lab-panel" id="chEndings"></div>
-        <div class="lab-panel" id="chAgents"></div>
-        <div class="lab-panel wide" id="chStories"></div>
-      </div>
-      <div class="lab-bar"><input id="brQ" maxlength="160" placeholder="Ask your data a question…" aria-label="Ask a question about the data"><button class="btn btn-sm" id="brAsk">Ask Bruin</button><button class="btn ghost btn-sm" id="brMore">＋ Simulate 10 more runs</button></div>
-      <div class="ex-chips" id="brEx">${QS.map(q => `<button>${esc(q)}</button>`).join("")}</div>
-      <div id="brA"></div>
-      <details class="br-table"><summary>Show the data table</summary><div class="tbl" id="brT"></div></details>`;
-    function hbar(el, title, rows, key) {
-      if (hl[key]) { const h = hl[key].toLowerCase().replace(/['"‘’“”]/g, "").trim(); const m = rows.find(r => r[0].toLowerCase() === h) || rows.find(r => h.includes(r[0].toLowerCase()) || r[0].toLowerCase().includes(h)); hl[key] = m ? m[0] : null; }
-      const max = Math.max(...rows.map(r => r[1]), 1);
-      el.innerHTML = `<div class="lp-h">${esc(title)}</div><div class="hb">${rows.map(([l, v, sub]) => `<div class="hb-r ${hl[key] && hl[key] !== l ? "dim" : ""} ${hl[key] === l ? "hl" : ""}" title="${esc(l)}: ${esc(sub || v)}"><span class="hb-l">${esc(l)}</span><span class="hb-t"><i style="width:${(v / max) * 100}%"></i></span><span class="hb-v">${esc(sub || v)}</span></div>`).join("")}</div>`;
+      <div class="bx" style="--b:${C}">
+        <div class="bx-top">
+          <div class="bx-ws"><span class="bx-logo">🏛️</span><div><b>bruin</b><small>project · hackathon-agents</small></div></div>
+          <div class="bx-status" id="bxStatus"></div>
+          <button class="btn btn-sm" id="bxAll">▶ Run end-to-end</button>
+        </div>
+        <div class="bx-tabs" role="tablist">${TABS.map(([k, l], i) => `<button role="tab" data-t="${k}" class="${i ? "" : "on"}">${l}</button>`).join("")}</div>
+        <section class="bx-pane" data-p="ingest"></section>
+        <section class="bx-pane" data-p="transform" hidden></section>
+        <section class="bx-pane" data-p="quality" hidden></section>
+        <section class="bx-pane" data-p="ask" hidden></section>
+        <section class="bx-pane" data-p="dash" hidden></section>
+        <section class="bx-pane" data-p="why" hidden></section>
+      </div>`;
+    const pane = k => main.querySelector(`[data-p="${k}"]`);
+    const tab = k => { $$(".bx-tabs button", main).forEach(b => b.classList.toggle("on", b.dataset.t === k)); $$(".bx-pane", main).forEach(p => (p.hidden = p.dataset.p !== k)); if (k === "dash") drawDash(); };
+    $(".bx-tabs", main).onclick = e => { const b = e.target.closest("[data-t]"); if (b) tab(b.dataset.t); };
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const alive = t => t === S.token && main.isConnected;
+    const totalRows = () => ASSETS.filter(a => a.col === 0).reduce((s, a) => s + a.rows(S.D), 0);
+    function status() {
+      const nChecks = ASSETS.reduce((s, a) => s + a.checks.length, 0);
+      const pass = Object.values(S.checks).filter(v => v === "pass").length, fail = Object.values(S.checks).filter(v => v === "fail").length;
+      $("#bxStatus", main).innerHTML = [
+        `<span class="${S.ingested ? "ok" : ""}">📥 ${S.ingested ? totalRows().toLocaleString() + " rows" : "not ingested"}</span>`,
+        `<span class="${S.ran ? "ok" : ""}">🧱 ${Object.values(S.state).filter(v => v === "ok").length}/${ASSETS.length} assets</span>`,
+        `<span class="${fail ? "bad" : pass ? "ok" : ""}">🛡️ ${pass}/${nChecks} checks${fail ? ` · ${fail} failing` : ""}</span>`,
+        `<span class="${S.asked ? "ok" : ""}">💬 ${S.asked} answered</span>`
+      ].join("");
     }
-    function render() {
-      const s = summarize(runs);
-      $("#brK", main).innerHTML = [["Runs", s.total_runs], ["Distinct endings", Object.keys(s.endings).length], ["Avg scenes", s.avg_scenes], ["Runs with a betrayal", Math.round(s.runs_with_betrayal / s.total_runs * 100) + "%"]].map(([l, v]) => `<div class="kpi"><b>${v}</b><span>${l}</span></div>`).join("");
-      hbar($("#chEndings", main), "ENDINGS · runs", Object.entries(s.endings).sort((a, b) => b[1] - a[1]), "endings");
-      hbar($("#chAgents", main), "LEAD AGENT · runs where they acted most", Object.entries(s.lead_agent_runs).sort((a, b) => b[1] - a[1]), "agents");
-      hbar($("#chStories", main), "BETRAYAL RATE BY STORY", STORIES.map(st => [st, s.by_story[st].betrayal_rate * 100, `${Math.round(s.by_story[st].betrayal_rate * 100)}% of ${s.by_story[st].runs}`]).sort((a, b) => b[1] - a[1]), "stories");
-      $("#brT", main).innerHTML = `<table><thead><tr><th>Run</th><th>Story</th><th>Ending</th><th>Lead</th><th>Scenes</th><th>Betrayals</th><th>Voice</th></tr></thead><tbody>${runs.map(r => `<tr><td>${r.run}</td><td>${r.story}</td><td>${r.ending}</td><td>${esc(charById(r.lead).name)}</td><td>${r.scenes}</td><td>${r.betrayals}</td><td>${r.voice ? "yes" : "no"}</td></tr>`).join("")}</tbody></table>`;
+
+    /* ---------------- ① INGEST ---------------- */
+    const SOURCES = ["band", "finch", "adal", "casuro", "film", "game"];
+    const RAW_OF = { band: "raw.band_messages", finch: "raw.finch_skill_uses", adal: "raw.adal_renders", casuro: "raw.casuro_scores", film: "raw.film_runs", game: "raw.game_rounds" };
+    function drawIngest() {
+      const h = 52, H = SOURCES.length * h + 20, hubY = H / 2;
+      const path = (y1, y2, x1, x2) => `M${x1} ${y1} C${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}`;
+      pane("ingest").innerHTML = `
+        <p class="bx-lead">Every agent action in the playground is an event. Bruin's open-source ingestion (<b>ingestr</b>) pulls them from each tool into raw tables in one workspace: no glue scripts.</p>
+        <div class="bx-ing">
+          <svg viewBox="0 0 720 ${H}" class="bx-ing-svg" aria-label="Sources flowing into Bruin raw tables">
+            ${SOURCES.map((k, i) => { const y = 10 + i * h + h / 2; return `<path id="bxi-a${i}" d="${path(y, hubY, 190, 300)}" class="bx-wire"/><path id="bxi-b${i}" d="${path(hubY, y, 420, 500)}" class="bx-wire"/>`; }).join("")}
+            ${S.ingesting ? SOURCES.map((k, i) => `<circle r="5" class="bx-pk"><animateMotion dur="1.3s" begin="${(i * 0.21).toFixed(2)}s" repeatCount="indefinite"><mpath href="#bxi-a${i}"/></animateMotion></circle><circle r="4" class="bx-pk b"><animateMotion dur="1.1s" begin="${(0.5 + i * 0.17).toFixed(2)}s" repeatCount="indefinite"><mpath href="#bxi-b${i}"/></animateMotion></circle>`).join("") : ""}
+            ${SOURCES.map((k, i) => { const y = 10 + i * h, s = srcInfo(k), col = SRC[k] ? "#8d97bd" : spAll(k).color; return `<g class="bx-src"><rect x="6" y="${y + 6}" width="184" height="${h - 12}" rx="10" style="stroke:${col}"/><text x="20" y="${y + h / 2 + 5}">${s.icon} ${esc(s.name)}</text></g>`; }).join("")}
+            <g class="bx-hub ${S.ingesting ? "on" : ""}"><rect x="300" y="${hubY - 38}" width="120" height="76" rx="16"/><text x="360" y="${hubY - 6}" text-anchor="middle" class="t1">🏛️ Bruin</text><text x="360" y="${hubY + 16}" text-anchor="middle" class="t2">ingestr</text></g>
+            ${SOURCES.map((k, i) => { const y = 10 + i * h, a = ASSETS.find(x => x.id === RAW_OF[k]); return `<g class="bx-raw ${S.ingested ? "ok" : ""}"><rect x="500" y="${y + 6}" width="214" height="${h - 12}" rx="10"/><text x="514" y="${y + h / 2 - 2}" class="t1">${a.id}</text><text x="514" y="${y + h / 2 + 13}" class="t2" data-cnt="${a.id}">${S.ingested ? a.rows(S.D).toLocaleString() : 0} rows</text></g>`; }).join("")}
+          </svg>
+        </div>
+        <div class="lab-bar"><button class="btn btn-sm" id="bxIngest">${S.ingested ? "↻ Ingest again" : "▶ Ingest events"}</button><button class="btn ghost btn-sm" id="bxMore">＋ Simulate 10 more film runs</button><span class="muted bx-note" id="bxIngNote">${S.ingested ? `${totalRows().toLocaleString()} rows from ${SOURCES.length} sources, ready to transform.` : "Sources: 4 sponsor tools + 2 playground tracks."}</span></div>`;
+      $("#bxIngest", main).onclick = () => ingest();
+      $("#bxMore", main).onclick = () => { S.nRuns += 10; S.seed += 11; S.D = makeData(S.nRuns, S.seed); S.ingested = false; S.ran = false; S.state = {}; S.checks = {}; drawAll(); ingest(); };
+    }
+    async function ingest() {
+      const t = ++S.token; S.ingesting = true; S.ingested = false; drawIngest(); status();
+      ["band", "finch", "adal", "casuro"].forEach((k, i) => setTimeout(() => coord.pulse(k, `${ASSETS.find(a => a.id === RAW_OF[k]).rows(S.D)} rows → raw`, "in"), i * 300));
+      const steps = 24;
+      for (let s = 1; s <= steps; s++) {
+        await sleep(110); if (!alive(t)) return;
+        SOURCES.forEach(k => { const a = ASSETS.find(x => x.id === RAW_OF[k]); const el = main.querySelector(`[data-cnt="${a.id}"]`); if (el) el.textContent = Math.round(a.rows(S.D) * s / steps).toLocaleString() + " rows"; });
+      }
+      S.ingesting = false; S.ingested = true; drawIngest(); status();
+    }
+
+    /* ---------------- ② TRANSFORM ---------------- */
+    function nodePos(a) {
+      const col = ASSETS.filter(x => x.col === a.col), i = col.indexOf(a), n = col.length, H = 360;
+      const gap = H / n; return { x: [8, 262, 516][a.col], y: gap * i + (gap - 40) / 2 + 4, w: a.col === 2 ? 196 : 176, h: 40 };
+    }
+    function drawTransform() {
+      const edges = ASSETS.flatMap(a => a.deps.map(d => [ASSETS.find(x => x.id === d), a]));
+      const st = id => S.state[id] || "idle";
+      const nChecks = a => a.checks.length, nFail = a => a.checks.filter((c, k) => S.checks[a.id + "#" + k] === "fail").length;
+      pane("transform").innerHTML = `
+        <p class="bx-lead">Each table is a Bruin <b>asset</b>: SQL plus a small header that declares its dependencies and checks. Bruin reads those headers to build the lineage, runs assets in order, and checks each one before anything downstream uses it.</p>
+        <div class="bx-dag-wrap"><svg viewBox="0 0 720 368" class="bx-dag" aria-label="Asset lineage">
+          ${edges.map(([a, b]) => { const p = nodePos(a), q = nodePos(b), x1 = p.x + p.w, y1 = p.y + 20, x2 = q.x, y2 = q.y + 20; return `<path class="bx-edge ${st(b.id) === "ok" || st(b.id) === "run" ? "hot" : ""} ${st(b.id) === "blocked" ? "blk" : ""}" d="M${x1} ${y1} C${x1 + 40} ${y1}, ${x2 - 40} ${y2}, ${x2} ${y2}"/>`; }).join("")}
+          ${ASSETS.map(a => { const p = nodePos(a), s = st(a.id), f = nFail(a); return `<g class="bx-node ${s} ${f ? "fail" : ""} ${S.sel === a.id ? "sel" : ""}" data-a="${a.id}" tabindex="0" role="button" aria-label="${a.id}">
+            <rect x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" rx="10"/>
+            <text x="${p.x + 12}" y="${p.y + 17}" class="t1">${a.id}</text>
+            <text x="${p.x + 12}" y="${p.y + 32}" class="t2">${s === "run" ? "⏳ running…" : s === "blocked" ? "⏸ blocked by upstream check" : s === "ok" ? `✓ ${a.rows(S.D).toLocaleString()} rows · ${f ? `✗ ${f} check failed` : `🛡️ ${nChecks(a)} check${nChecks(a) > 1 ? "s" : ""}`}` : "○ not built"}</text></g>`; }).join("")}
+          <text x="8" y="366" class="bx-colh">RAW</text><text x="262" y="366" class="bx-colh">STAGING</text><text x="516" y="366" class="bx-colh">MARTS</text>
+        </svg></div>
+        <div class="lab-bar"><button class="btn btn-sm" id="bxRun">${S.ran ? "↻ Run pipeline again" : "▶ Run pipeline"}</button><span class="muted bx-note">${S.ingested ? "Click any asset to read its definition." : "Tip: ingest first, or Run pipeline will ingest for you."}</span></div>
+        <div class="bx-sql"><div class="bx-sql-h"><span>📄 assets/${S.sel.replace(".", "/")}.sql</span><span class="bx-dep">${(ASSETS.find(a => a.id === S.sel).deps.join(", ") || "source table")}</span></div><pre>${hl(assetSQL(ASSETS.find(a => a.id === S.sel), S.fixed))}</pre></div>`;
+      $("#bxRun", main).onclick = () => runPipeline();
+      $$(".bx-node", main).forEach(n => { const go = () => { S.sel = n.dataset.a; drawTransform(); }; n.onclick = go; n.onkeydown = e => e.key === "Enter" && go(); });
+    }
+    function hl(sql) {
+      return esc(sql)
+        .replace(/(\/\* @bruin|@bruin \*\/)/g, '<i class="h-m">$1</i>')
+        .replace(/^(name|type|materialization|depends|columns|checks):/gm, '<i class="h-k">$1</i>:')
+        .replace(/\b(SELECT|FROM|JOIN|LEFT|ON|USING|GROUP BY|ORDER BY|UNION ALL|CASE|WHEN|THEN|ELSE|END|AS|COUNT_IF|COUNT|AVG|DESC|NULL)\b/g, '<i class="h-s">$1</i>')
+        .replace(/(--[^\n]*)/g, '<i class="h-c">$1</i>');
+    }
+    async function runPipeline(t) {
+      t = t || ++S.token;
+      if (!S.ingested) { await ingest(); t = S.token; }
+      S.state = {}; S.checks = {}; S.ran = false; tab("transform"); drawTransform(); status();
+      for (const col of [0, 1, 2]) {
+        const assets = ASSETS.filter(a => a.col === col);
+        for (const a of assets) {
+          const blocked = a.deps.some(d => ASSETS.find(x => x.id === d).checks.some((c, k) => S.checks[d + "#" + k] === "fail"));
+          if (blocked) { S.state[a.id] = "blocked"; drawTransform(); continue; }
+          S.state[a.id] = "run"; S.sel = a.id; drawTransform();
+          await sleep(col ? 520 : 260); if (!alive(t)) return;
+          S.state[a.id] = "ok";
+          a.checks.forEach((c, k) => { S.checks[a.id + "#" + k] = c[2] && !S.fixed ? "fail" : "pass"; });
+          drawTransform(); status();
+        }
+      }
+      S.ran = true; drawTransform(); drawQuality(); status();
+      coord.pulse("team", `${ASSETS.length} assets built`, "in");
+    }
+
+    /* ---------------- ③ QUALITY ---------------- */
+    function drawQuality() {
+      const rows = ASSETS.flatMap(a => a.checks.map((c, k) => ({ a, c, k, s: S.checks[a.id + "#" + k] })));
+      const failing = rows.filter(r => r.s === "fail");
+      pane("quality").innerHTML = `
+        <p class="bx-lead">Checks live next to each asset and run every time it builds. If one fails, Bruin stops downstream assets so bad numbers never reach a dashboard or an answer.</p>
+        <div class="bx-checks">${rows.map(r => `<div class="bx-chk ${r.s || "idle"}"><span class="st">${r.s === "pass" ? "✓" : r.s === "fail" ? "✗" : "○"}</span><code>${r.a.id}</code><b>${r.c[0]}</b><span class="v">${esc(r.c[1])}</span></div>`).join("")}</div>
+        ${failing.length ? `<div class="bx-fail">
+          <b>✗ accepted_values failed on <code>stg.messages.kind</code></b>
+          <p>3 rows have <code>kind = 'betrayl'</code>: an agent's LLM misspelled “betray”. If this slipped through, <code>mart.agent_performance</code> would undercount betrayals and every answer about betrayal would be wrong. Bruin blocked that mart until it's fixed.</p>
+          <pre>${hl("CASE WHEN kind = 'betrayl' THEN 'betray' ELSE kind END AS kind  -- fix: LLM typo")}</pre>
+          <button class="btn btn-sm" id="bxFix">🔧 Fix &amp; re-run</button></div>`
+        : S.ran ? `<div class="bx-okmsg">✓ All ${rows.length} checks pass. Every downstream asset is built and safe to query.</div>` : ""}
+        <div class="lab-bar"><button class="btn ${failing.length ? "ghost " : ""}btn-sm" id="bxChk">${S.ran ? "↻ Re-run checks" : "▶ Run pipeline + checks"}</button></div>`;
+      $("#bxChk", main).onclick = () => runPipeline().then(() => tab("quality"));
+      const fx = $("#bxFix", main); if (fx) fx.onclick = async () => { S.fixed = true; S.sel = "stg.messages"; await runPipeline(); tab("quality"); coord.pulse("finch", "typo fixed → betray counted", "out"); };
+    }
+
+    /* ---------------- ④ ASK AI (Slack / Teams / browser) ---------------- */
+    const QS = ["Which agent betrays the most?", "What ending is most common?", "Who scored best in interviews?", "Which Finch skill is used most?", "Which interview skill is weakest?"];
+    function drawAsk() {
+      pane("ask").innerHTML = `
+        <p class="bx-lead">Bruin's AI analyst answers questions about your data in plain English, right where your team already talks. Same answer, three places:</p>
+        <div class="bx-skins">${[["slack", "Slack"], ["teams", "Microsoft Teams"], ["web", "Browser"]].map(([k, l]) => `<button data-skin="${k}" class="${S.skin === k ? "on" : ""}">${l}</button>`).join("")}</div>
+        <div class="bx-chat ${S.skin}">
+          <aside class="bx-side">${S.skin === "slack" ? `<b>Crewbase Hackathon</b><small>Channels</small><span># general</span><span class="on"># hackathon-data</span><span># agents-film</span><small>Apps</small><span>🏛️ Bruin</span>`
+            : S.skin === "teams" ? `<b>Teams</b><span>💬 Chat</span><span class="on">👥 Hackathon · data</span><span>📅 Calendar</span><span>🏛️ Bruin</span>`
+            : `<b>🏛️ Bruin Cloud</b><span>Assets</span><span>Lineage</span><span class="on">AI analyst</span><span>Quality</span>`}</aside>
+          <div class="bx-main">
+            <div class="bx-ch-h">${S.skin === "slack" ? "<b># hackathon-data</b> · Bruin is in this channel" : S.skin === "teams" ? "<b>Hackathon · data</b> · Bruin app" : "<b>AI analyst</b> · connected to hackathon-agents"}</div>
+            <div class="bx-msgs" id="bxMsgs">${S.msgs || `<div class="bx-empty">Ask a question below. Bruin queries the marts you just built.</div>`}</div>
+            <form class="bx-compose" id="bxForm"><input id="bxQ" maxlength="160" placeholder="${S.skin === "web" ? "Ask anything about your data…" : "@Bruin ask a question about the hackathon data…"}" aria-label="Ask Bruin"><button class="btn btn-sm">Send</button></form>
+            <div class="ex-chips bx-ex">${QS.map(q => `<button type="button">${esc(q)}</button>`).join("")}</div>
+          </div>
+        </div>`;
+      $$("[data-skin]", main).forEach(b => b.onclick = () => { S.skin = b.dataset.skin; drawAsk(); });
+      $("#bxForm", main).onsubmit = e => { e.preventDefault(); const q = $("#bxQ", main).value.trim(); if (q) ask(q); };
+      $(".bx-ex", main).onclick = e => { const b = e.target.closest("button"); if (b) ask(b.textContent); };
+      $("#bxMsgs", main).onclick = e => { const l = e.target.closest("[data-lineage]"); if (l) { S.sel = l.dataset.lineage; tab("transform"); drawTransform(); } };
+      const m = $("#bxMsgs", main); m.scrollTop = m.scrollHeight;
     }
     function offline(q, s) {
       q = q.toLowerCase();
-      const top = o => Object.entries(o).sort((a, b) => b[1] - a[1])[0];
-      if (/betray/.test(q)) { const b = STORIES.map(st => [st, s.by_story[st]]).sort((a, b) => b[1].betrayal_rate - a[1].betrayal_rate)[0]; return { answer: `${b[0]} has the highest betrayal rate: ${Math.round(b[1].betrayal_rate * 100)}% of its ${b[1].runs} runs include a betrayal. Overall, ${s.runs_with_betrayal} of ${s.total_runs} runs do.`, chart: "stories", highlight: b[0], sql: "SELECT story, AVG(betrayals > 0) AS rate FROM runs GROUP BY story ORDER BY rate DESC;" }; }
-      if (/who|agent|drive|lead|character/.test(q)) { const t = top(s.lead_agent_runs); return { answer: `${t[0]} leads the action most often: ${t[1]} of ${s.total_runs} runs (${Math.round(t[1] / s.total_runs * 100)}%).`, chart: "agents", highlight: t[0], sql: "SELECT lead_agent, COUNT(*) FROM runs GROUP BY lead_agent ORDER BY 2 DESC;" }; }
-      if (/long|average|length|scenes/.test(q)) return { answer: `An average film runs ${s.avg_scenes} scenes (range 10–20).`, chart: "none", highlight: "", sql: "SELECT AVG(scenes) FROM runs;" };
-      if (/voice/.test(q)) return { answer: `${s.voice_runs} runs used voices. Endings look similar with and without voice in this sample, so voice changes the feel more than the outcome.`, chart: "endings", highlight: "", sql: "SELECT voice, ending, COUNT(*) FROM runs GROUP BY 1, 2;" };
-      const t = top(s.endings); return { answer: `${t[0]} is the most common ending: ${t[1]} of ${s.total_runs} runs (${Math.round(t[1] / s.total_runs * 100)}%).`, chart: "endings", highlight: t[0], sql: "SELECT ending, COUNT(*) FROM runs GROUP BY ending ORDER BY 2 DESC;" };
+      const top = o => Object.entries(o).sort((a, b) => b[1] - a[1]);
+      const total = o => Object.values(o).reduce((a, b) => a + b, 0);
+      if (/betray/.test(q)) { const t = top(s.betrayals_by_agent); return { answer: `${t[0][0]} betrays the most: ${t[0][1]} of ${total(s.betrayals_by_agent)} betrayal messages (${Math.round(t[0][1] / total(s.betrayals_by_agent) * 100)}%), ahead of ${t[1][0]} with ${t[1][1]}.${S.fixed ? "" : " Note: 3 rows are still failing a quality check, so these counts are a little low."}`, chart: "betrayals", highlight: t[0][0], sql: "SELECT agent, betrayals FROM mart.agent_performance ORDER BY betrayals DESC LIMIT 5;", asset: "mart.agent_performance" }; }
+      if (/weak|worst|lowest|improve/.test(q)) { const t = top(s.interview_avg_by_skill).reverse(); return { answer: `${t[0][0]} is the weakest interview skill (avg ${t[0][1]} / 5). ${t[t.length - 1][0]} is the strongest (${t[t.length - 1][1]}). Coach candidates on ${t[0][0].toLowerCase()} first.`, chart: "skills_rubric", highlight: t[0][0], sql: "SELECT skill, AVG(avg_score) FROM mart.interview_scores GROUP BY 1 ORDER BY 2;", asset: "mart.interview_scores" }; }
+      if (/interview|score|candidate|best/.test(q)) { const t = top(s.interview_avg_by_candidate); return { answer: `${t[0][0]} scored best in interviews with an average of ${t[0][1]} / 5 across every rubric skill, followed by ${t[1][0]} (${t[1][1]}).`, chart: "interviews", highlight: t[0][0], sql: "SELECT candidate, AVG(avg_score) AS score FROM mart.interview_scores GROUP BY 1 ORDER BY 2 DESC;", asset: "mart.interview_scores" }; }
+      if (/skill|finch/.test(q)) { const t = top(s.skill_uses); return { answer: `${t[0][0]} is the most-used Finch skill: ${t[0][1]} uses out of ${total(s.skill_uses)}.`, chart: "skills", highlight: t[0][0], sql: "SELECT skill, COUNT(*) FROM stg.decisions WHERE skill IS NOT NULL GROUP BY 1 ORDER BY 2 DESC;", asset: "stg.decisions" }; }
+      const t = top(s.endings); return { answer: `${t[0][0]} is the most common ending: ${t[0][1]} of ${s.film_runs} film runs (${Math.round(t[0][1] / s.film_runs * 100)}%). ${t[1][0]} is next with ${t[1][1]}.`, chart: "endings", highlight: t[0][0], sql: "SELECT ending, runs FROM mart.endings ORDER BY runs DESC;", asset: "mart.endings" };
     }
-    async function ask() {
-      const q = $("#brQ", main).value.trim(); if (!q) return;
-      const s = summarize(runs);
-      $("#brA", main).innerHTML = `<div class="ai-work"><b>🤖 Bruin is querying ${s.total_runs} runs</b><span class="dots3"><i></i><i></i><i></i></span></div>`;
-      const sys = `You are Bruin, an AI data assistant. Answer questions about a dataset of AI-agent film runs using ONLY the JSON summary provided. Be precise, cite numbers, 1-3 sentences.
-Reply with JSON only: {"answer":"...","chart":"endings|agents|stories|none","highlight":"exact bar label to highlight (an ending name, an agent full name, or a story name) or empty","sql":"a plausible SQL query over table runs(run, story, ending, lead_agent, scenes, betrayals, voice) that would answer it"}`;
-      coord.pulse("band", `${s.total_runs * 9} channel events`, "in");
-      coord.pulse("team", `${s.total_runs} runs of decisions`, "in");
+    const CHART = { betrayals: ["Betrayals by agent", s => s.betrayals_by_agent], endings: ["Film endings", s => s.endings], interviews: ["Avg interview score (of 5)", s => s.interview_avg_by_candidate], skills: ["Finch skill uses", s => s.skill_uses], skills_rubric: ["Avg score by interview skill", s => s.interview_avg_by_skill] };
+    function chartCard(kind, highlight, s) {
+      const c = CHART[kind]; if (!c) return "";
+      const rows = Object.entries(c[1](s)).sort((a, b) => b[1] - a[1]).slice(0, 6), max = Math.max(...rows.map(r => r[1]), 1);
+      const h = String(highlight || "").toLowerCase();
+      return `<div class="bx-card"><small>${esc(c[0])}</small>${rows.map(([l, v]) => `<div class="bx-bar ${l.toLowerCase() === h || (h && l.toLowerCase().includes(h)) ? "hl" : ""}"><span>${esc(l)}</span><i style="width:${(v / max) * 100}%"></i><em>${v}</em></div>`).join("")}</div>`;
+    }
+    const ASK_TIME = () => new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    async function ask(q) {
+      if (S.busy) return; S.busy = true;
+      if (!S.ran) { await runPipeline(); tab("ask"); }
+      const s = summarize(S.D, S.fixed);
+      const you = `<div class="bx-msg you"><span class="av">Y</span><div><b>You <small>${ASK_TIME()}</small></b><p>${S.skin === "web" ? "" : "@Bruin "}${esc(q)}</p></div></div>`;
+      S.msgs = (S.msgs || "") + you + `<div class="bx-msg bot typing"><span class="av">🏛️</span><div><b>Bruin <span class="app">APP</span></b><p><span class="dots3"><i></i><i></i><i></i></span> querying marts…</p></div></div>`;
+      drawAsk();
+      const t0 = performance.now();
+      const sys = `You are Bruin's AI data analyst, answering inside a team chat. Use ONLY the JSON data summary (it comes from the hackathon-agents Bruin project: marts mart.agent_performance, mart.endings, mart.interview_scores and staging tables). Be precise, cite numbers, 1-3 short sentences, friendly. If the data_quality field has a WARNING relevant to the question, mention it briefly.
+Reply with JSON only: {"answer":"...","chart":"betrayals|endings|interviews|skills|skills_rubric|none","highlight":"exact label to highlight in that chart or empty","sql":"the SQL you ran against the Bruin assets (use the mart/stg table names)","asset":"main asset you queried, e.g. mart.endings"}`;
+      coord.pulse("band", "question from #hackathon-data", "in");
       const a = await Brain.ask(sys, `DATA SUMMARY: ${JSON.stringify(s)}\nQUESTION: ${q}`, 0.2, () => offline(q, s));
-      coord.pulse("finch", a.chart === "agents" ? "insight: who leads → skills" : "insight → tune skills", "out");
-      hl = { endings: null, agents: null, stories: null };
-      if (a.chart && hl.hasOwnProperty(a.chart) && a.highlight) hl[a.chart] = String(a.highlight);
-      render();
-      const target = a.chart && a.chart !== "none" ? { endings: "#chEndings", agents: "#chAgents", stories: "#chStories" }[a.chart] : null;
-      $$(".br-charts .lab-panel", main).forEach(p => p.classList.toggle("focus", !!target && p.matches(target)));
-      $("#brA", main).innerHTML = `<div class="br-ans"><b>📊 ${esc(Brain.clip(a.answer, 400))}</b>${a.sql ? `<code>${esc(Brain.clip(a.sql, 300))}</code>` : ""}${a._src === "offline" ? `<small class="muted">Answered by the offline rules.</small>` : ""}</div>`;
+      const secs = ((performance.now() - t0) / 1000).toFixed(1);
+      const asset = ASSETS.some(x => x.id === a.asset) ? a.asset : (offline(q, s).asset);
+      S.msgs = S.msgs.replace(/<div class="bx-msg bot typing">[\s\S]*$/, "") + `<div class="bx-msg bot"><span class="av">🏛️</span><div><b>Bruin <span class="app">APP</span> <small>${ASK_TIME()}</small></b>
+        <p>${esc(Brain.clip(a.answer, 420))}</p>${chartCard(a.chart, a.highlight, s)}
+        ${a.sql ? `<details class="bx-q"><summary>SQL Bruin ran</summary><pre>${hl(Brain.clip(a.sql, 400))}</pre></details>` : ""}
+        <div class="bx-meta">⚡ ${secs}s · on <a href="#" data-lineage="${asset}">${asset}</a> · lineage ↗${a._src === "offline" ? " · offline rules" : ""}</div></div></div>`;
+      S.asked++; S.busy = false; drawAsk(); status();
+      coord.pulse("finch", "insight → tune skills", "out");
+      coord.pulse("band", "answer posted to the channel", "out");
     }
-    $("#brAsk", main).onclick = ask;
-    $("#brQ", main).onkeydown = e => { if (e.key === "Enter") ask(); };
-    $("#brEx", main).onclick = e => { const b = e.target.closest("button"); if (b) { $("#brQ", main).value = b.textContent; ask(); } };
-    $("#brMore", main).onclick = () => { const more = makeRuns(10, Date.now() % 100000).map((r, i) => ({ ...r, run: runs.length + i + 1 })); runs = runs.concat(more); render(); };
-    render();
-    return {};
+
+    /* ---------------- ⑤ DASHBOARD ---------------- */
+    function hbar(title, rows, hlKey) {
+      const max = Math.max(...rows.map(r => r[1]), 1);
+      return `<div class="lab-panel"><div class="lp-h">${esc(title)}</div><div class="hb">${rows.map(([l, v, sub]) => `<div class="hb-r ${hlKey === l ? "hl" : ""}" title="${esc(l)}: ${esc(sub || v)}"><span class="hb-l">${esc(l)}</span><span class="hb-t"><i style="width:${(v / max) * 100}%"></i></span><span class="hb-v">${esc(sub || v)}</span></div>`).join("")}</div></div>`;
+    }
+    function drawDash() {
+      const s = summarize(S.D, S.fixed), sorted = o => Object.entries(o).sort((a, b) => b[1] - a[1]);
+      const nChecks = ASSETS.reduce((t, a) => t + a.checks.length, 0), pass = Object.values(S.checks).filter(v => v === "pass").length;
+      pane("dash").innerHTML = `
+        <div class="kpis">${[["Events ingested", totalRows().toLocaleString()], ["Assets", ASSETS.length], ["Checks passing", S.ran ? `${pass}/${nChecks}` : "–"], ["Film runs", s.film_runs]].map(([l, v]) => `<div class="kpi"><b>${v}</b><span>${l}</span></div>`).join("")}</div>
+        <div class="br-charts">
+          ${hbar("FILM ENDINGS · mart.endings", sorted(s.endings))}
+          ${hbar("BETRAYALS BY AGENT · mart.agent_performance", sorted(s.betrayals_by_agent).slice(0, 6))}
+          ${hbar("AVG INTERVIEW SCORE · mart.interview_scores", sorted(s.interview_avg_by_candidate).map(([k, v]) => [k, v, v.toFixed(2)]))}
+          ${hbar("FINCH SKILL USES · stg.decisions", sorted(s.skill_uses).slice(0, 6))}
+        </div>
+        <p class="muted bx-note">${S.fixed ? "Built from checked, fixed data." : "Includes the 3 unfixed 'betrayl' rows. Fix them in ③ Quality and betrayal numbers go up."} AdaL renders: ${s.adal_renders} · BAND messages: ${s.messages_total} · game rounds: ${s.game_rounds}.</p>`;
+    }
+
+    /* ---------------- WHY BRUIN ---------------- */
+    function drawWhy() {
+      const ideas = [
+        ["🎬", "Track 01 · Film", "Log every agent decision as a Bruin asset, then prove to the judges that endings really change: “What ending is most common across 50 runs?” answered in Slack, with the chart."],
+        ["🎮", "Track 02 · Games", "Stream rounds into Bruin and add quality checks that catch agents breaking the rules. Let agents query a mart between rounds to adapt their strategy."],
+        ["🎓", "Track 03 · Grow", "Store every rubric score, track a candidate's progress across sessions, and have the Bruin bot post a coaching summary to Teams after each interview."],
+        ["🧾", "The decision log", "Every project needs a visible decision log. Bruin gives you one with lineage and checks, so you can show exactly where each number came from."]
+      ];
+      pane("why").innerHTML = `
+        <p class="bx-lead"><b>Bruin replaces a stack of tools</b> (ingestion, transformation, orchestration, quality, and an AI analyst) with one workspace, so your team spends the hackathon building agents, not plumbing.</p>
+        <div class="bx-why">${ideas.map(([i, t, d]) => `<div class="bx-idea"><span>${i}</span><b>${t}</b><p>${d}</p></div>`).join("")}</div>
+        <div class="bx-stack"><small>ONE WORKSPACE INSTEAD OF</small>${["Ingestion scripts", "dbt-style transforms", "A scheduler", "Data tests", "A BI tool", "An analytics bot"].map(x => `<span>${x}</span>`).join("")}<b>→ 🏛️ Bruin</b></div>
+        <a class="btn btn-sm" href="https://getbruin.com" target="_blank" rel="noopener">Explore Bruin at getbruin.com ↗</a>`;
+    }
+
+    function drawAll() { drawIngest(); drawTransform(); drawQuality(); drawAsk(); drawDash(); drawWhy(); status(); }
+    $("#bxAll", main).onclick = async () => {
+      const b = $("#bxAll", main); b.disabled = true;
+      try {
+        S.fixed = false; S.msgs = ""; tab("ingest"); await ingest();
+        await sleep(500); await runPipeline();
+        await sleep(600); tab("quality"); drawQuality(); await sleep(2200);
+        if (main.isConnected) { S.fixed = true; await runPipeline(); tab("quality"); await sleep(1400); }
+        if (main.isConnected) { tab("ask"); await ask("Which agent betrays the most?"); }
+      } finally { if (main.isConnected) b.disabled = false; }
+    };
+    drawAll();
+    return { destroy() { S.token++; } };
   }
 
   /* =========================================================

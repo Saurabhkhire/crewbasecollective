@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Submit · Multiplayer AI</title>
+  <meta name="description" content="How to submit your Multiplayer AI Hackathon project on hackathons.crewbasecollective.com: what to include, demo rules and judging checklist." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/aim-hack-visual/styles.css" />
+  <link rel="stylesheet" href="/aim-hack-visual/core.css" />
+  <style>
+    .sb-hero { padding: 56px 0 18px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: center; }
+    @media (max-width: 900px) { .sb-hero { grid-template-columns: 1fr; } }
+    .sb-hero h1 { font-size: clamp(38px, 6vw, 68px); margin: 0 0 12px; }
+    .sb-hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--film), #a46bff, var(--game)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sb-url { display: flex; flex-direction: column; gap: 14px; padding: 26px; border-radius: 22px; border: 1px solid rgba(182, 255, 92, 0.4); background: linear-gradient(135deg, rgba(182, 255, 92, 0.1), rgba(62, 230, 255, 0.06)); }
+    .sb-url small { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.14em; color: var(--grow); }
+    .sb-url .u { font-family: "JetBrains Mono", monospace; font-size: clamp(16px, 2.4vw, 22px); font-weight: 600; word-break: normal; overflow-wrap: normal; }
+    .sb-url .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .sb-timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    @media (max-width: 900px) { .sb-timeline { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .sb-timeline { grid-template-columns: 1fr; } }
+    .sb-timeline .card { padding: 18px; }
+    .sb-timeline b { display: block; font-size: 18px; margin-top: 4px; }
+    .sb-timeline small { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--game); text-transform: uppercase; }
+    .sb-timeline p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+    .sb-two { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+    @media (max-width: 900px) { .sb-two { grid-template-columns: 1fr; } }
+    .sb-check { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .sb-check label { display: flex; gap: 12px; align-items: flex-start; margin: 0; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); cursor: pointer; color: var(--text); font-size: 15px; }
+    .sb-check input { width: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--grow); }
+    .sb-check small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+    .sb-check .req { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--film); margin-left: 6px; }
+    .sb-check label:has(input:checked) { border-color: rgba(182, 255, 92, 0.55); background: rgba(182, 255, 92, 0.07); }
+    .sb-progress { height: 8px; border-radius: 99px; background: rgba(255, 255, 255, 0.08); overflow: hidden; margin: 14px 0 6px; }
+    .sb-progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--grow), var(--game)); transition: width 0.3s; }
+    .sb-demo { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
+    @media (max-width: 620px) { .sb-demo { grid-template-columns: 1fr; } }
+    .sb-demo div { padding: 14px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); font-size: 14px; color: #c9d0ee; }
+    .sb-demo b { display: block; color: var(--text); font-size: 15px; margin-bottom: 4px; }
+    .sb-tips li { margin-bottom: 8px; color: #c9d0ee; }
+    .sb-faq details { border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; background: rgba(255, 255, 255, 0.03); margin-bottom: 8px; }
+    .sb-faq summary { cursor: pointer; font-weight: 700; }
+    .sb-faq p { color: #c9d0ee; margin: 8px 0 0; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="logo" href="/aim-hack-visual/index.html"><span class="logo-dot"></span><span>MULTIPLAYER</span><span>AI</span></a>
+      <nav>
+        <a href="/aim-hack-visual/play.html">▶ Playground</a>
+        <a href="/aim-hack-visual/tracks.html" class="hide-sm">Tracks</a>
+        <a href="/aim-hack-visual/tracks.html#generator" class="hide-sm">Idea generator</a>
+        <a href="/aim-hack-visual/sponsors.html">Sponsors</a>
+        <a href="/aim-hack-visual/submit.html" class="active">📤 Submit</a>
+        <a class="btn btn-sm nav-submit" href="https://hackathons.crewbasecollective.com" target="_blank" rel="noopener">Submit project ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="sb-hero">
+      <div>
+        <p class="eyebrow">// Submission · Nov 23, 2026 · AWS Loft</p>
+        <h1>Ship it. <em>Submit it.</em></h1>
+        <p class="lead">Every project is submitted online, one submission per team. Here's exactly what to send and how judges will look at it.</p>
+        <div class="event-card" id="eventCard"></div>
+      </div>
+      <div class="sb-url">
+        <small>SUBMIT YOUR PROJECT HERE</small>
+        <span class="u">hackathons.<wbr>crewbasecollective.com</span>
+        <p class="muted" style="margin:0">Create your team's submission before the deadline announced at the event. You can keep editing it until then.</p>
+        <div class="row">
+          <a class="btn" href="https://hackathons.crewbasecollective.com" target="_blank" rel="noopener">🚀 Open the submission site ↗</a>
+          <button class="btn ghost" id="copyUrl" type="button">📋 Copy link</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="kicker">On the day</span><h2>How the day runs</h2></div>
+      <div class="sb-timeline">
+        <div class="card"><small>9:30 AM</small><b>Doors &amp; kickoff</b><p>Arrive at the AWS Loft, form teams (solo or up to 4) and pick one track.</p></div>
+        <div class="card"><small>Build</small><b>Hack all day</b><p>Build agents that act as visible characters. Use any stack; sponsor tools are optional extras.</p></div>
+        <div class="card"><small>Deadline</small><b>Submit online</b><p>The exact submission time is announced at the event and on the submission site.</p></div>
+        <div class="card"><small>By 8:30 PM</small><b>Demos &amp; wrap</b><p>Show your project running, or play your demo video. The event wraps at 8:30 PM.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="kicker">Step by step</span><h2>How to submit</h2></div>
+      <div class="submit-grid" id="submitSteps"></div>
+    </section>
+
+    <section class="section sb-two">
+      <div class="card">
+        <h3 class="cfg-h">📦 What to include <small>tick them off as you go (saved in this browser)</small></h3>
+        <div class="sb-progress"><i id="sbBar"></i></div>
+        <p class="muted" id="sbCount" style="margin:0 0 12px;font-size:13px"></p>
+        <ul class="sb-check" id="sbCheck"></ul>
+      </div>
+      <div class="card">
+        <h3 class="cfg-h">🎬 Demo: video, live, or both</h3>
+        <p class="muted" style="margin:0">You need <b>at least one</b> way for judges to see your project working. Both is best.</p>
+        <div class="sb-demo">
+          <div><b>🎥 Demo video</b>1–3 minutes. Upload to YouTube, Loom or Vimeo and paste the link. Make sure it's public or unlisted.</div>
+          <div><b>🌐 Live demo</b>A URL judges can open, or show it running at your table during demos. Keep it running until judging ends.</div>
+          <div><b>⭐ Both</b>A live link plus a short video as backup, in case Wi-Fi or an API has a bad moment.</div>
+        </div>
+        <h3 class="cfg-h" style="margin-top:18px">💡 Make the demo land</h3>
+        <ul class="sb-tips">
+          <li>Open with the agents <b>doing something on screen</b>: moving, talking, deciding.</li>
+          <li>Show the <b>decision log</b>: what each agent decided and why.</li>
+          <li>Run it twice if the outcome changes: that proves the agents decide.</li>
+          <li>Say which <b>track</b> you picked and which <b>sponsor tools</b> you used.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="kicker">Judging</span><h2>What judges look for</h2><p>Every project should hit the five must-haves. Bonuses score higher. <a href="/aim-hack-visual/tracks.html#checklist">Run the eligibility check →</a></p></div>
+      <div id="homeReq"></div>
+    </section>
+
+    <section class="section sb-faq">
+      <div class="section-head"><span class="kicker">FAQ</span><h2>Quick answers</h2></div>
+      <details><summary>Where do we submit?</summary><p>Only on <a href="https://hackathons.crewbasecollective.com" target="_blank" rel="noopener">hackathons.crewbasecollective.com</a>. One submission per team.</p></details>
+      <details><summary>When is the deadline?</summary><p>It's announced at the event and shown on the submission site. Demos happen before the event wraps at 8:30 PM.</p></details>
+      <details><summary>Do we need a video if we demo live?</summary><p>No. You need a demo video, a live demo link, or both. A short video is a good backup.</p></details>
+      <details><summary>Do we have to use the sponsor tools?</summary><p>No, they're optional. If you use them, say which ones and how in your submission. Try them first in the <a href="/aim-hack-visual/sponsors.html">Sponsor Labs</a>.</p></details>
+      <details><summary>How big can a team be?</summary><p>Solo or up to 4 people. Pick one track per project.</p></details>
+      <details><summary>Something else?</summary><p>Ask the organisers at the event.</p></details>
+    </section>
+
+    <section class="section">
+      <div class="cta-panel submit-cta">
+        <h2>Ready to ship?</h2>
+        <p>Open the submission site, fill in your project, add your demo video or live link, and you're done.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://hackathons.crewbasecollective.com" target="_blank" rel="noopener">🚀 Submit your project ↗</a>
+          <a class="btn ghost" href="/aim-hack-visual/tracks.html#generator">🎲 Still need an idea?</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© Multiplayer AI Hackathon</span>
+      <span><a href="/aim-hack-visual/tracks.html">Tracks</a> · <a href="/aim-hack-visual/sponsors.html">Sponsors</a> · <a href="/aim-hack-visual/submit.html">Submit</a></span>
+    </div>
+  </footer>
+
+  <script src="/aim-hack-visual/data.js"></script>
+  <script src="/aim-hack-visual/site.js"></script>
+  <script>
+    (function () {
+      const ITEMS = [
+        ["name", "Project name and a 2–3 sentence description", "What it is and what the agents decide.", true],
+        ["team", "Team members", "Names and emails, solo or up to 4.", true],
+        ["track", "Chosen track", "01 Agent film · 02 Multiplayer game · 03 Grow with agents.", true],
+        ["repo", "Link to your code repository", "GitHub or similar; make sure judges can open it.", true],
+        ["demo", "Demo video (1–3 min), live demo link, or both", "At least one is required.", true],
+        ["tools", "Sponsor tools you used, and how", "Optional tools, but say so if you used them.", false]
+      ];
+      const KEY = "aimp_submit_check";
+      let done = {};
+      try { done = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch {}
+      const ul = document.getElementById("sbCheck");
+      const draw = () => {
+        ul.innerHTML = ITEMS.map(([id, t, sub, req]) => `<li><label><input type="checkbox" data-id="${id}" ${done[id] ? "checked" : ""}><span>${t}${req ? '<span class="req">REQUIRED</span>' : ""}<small>${sub}</small></span></label></li>`).join("");
+        const n = ITEMS.filter(i => done[i[0]]).length;
+        document.getElementById("sbBar").style.width = (n / ITEMS.length * 100) + "%";
+        document.getElementById("sbCount").textContent = n === ITEMS.length ? "All set. Go submit! 🎉" : `${n} of ${ITEMS.length} ready`;
+      };
+      ul.addEventListener("change", e => { const c = e.target.closest("[data-id]"); if (!c) return; done[c.dataset.id] = c.checked; try { localStorage.setItem(KEY, JSON.stringify(done)); } catch {} draw(); });
+      draw();
+      document.getElementById("copyUrl").onclick = e => {
+        const b = e.currentTarget;
+        (navigator.clipboard ? navigator.clipboard.writeText("https://hackathons.crewbasecollective.com") : Promise.reject()).then(() => { b.textContent = "✓ Copied"; }, () => { b.textContent = "hackathons.crewbasecollective.com"; });
+        setTimeout(() => (b.textContent = "📋 Copy link"), 2000);
+      };
+    })();
+  </script>
+</body>
+</html>

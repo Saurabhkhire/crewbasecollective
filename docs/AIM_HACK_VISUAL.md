@@ -8,7 +8,7 @@ The old URL `/aimultiplayerhackathon-visual` redirects here.
 
 ```
 client/public/aim-hack-visual/
-  index.html  tracks.html  sponsors.html (+ Sponsor Labs)  play.html (playground)
+  index.html  tracks.html  sponsors.html (+ Sponsor Labs, coord.js tool views)  submit.html (submission guide)  play.html (playground)
   data.js          hackathon content: tracks, ideas, sponsors
   play-data.js     preset characters, preset scenes, which sponsor tools appear in which track
   puppet.js        parametric animated SVG characters (Puppet.svg / mount / toImage)

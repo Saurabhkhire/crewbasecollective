@@ -52,9 +52,9 @@
     const S = [
       ["🛠️", "Build during the event", `Hack at the ${esc(H.event.venue)} on ${esc(H.event.dateShort)}, ${esc(H.event.time)}. Solo or in a team of up to 4. Pick one track: agent film, multiplayer game, or grow with agents.`],
       ["🚀", "Submit online", `Go to <a href="${url}" target="_blank" rel="noopener">${esc(host)}</a> and create one submission per team before the deadline announced at the event. You can edit it until then.`],
-      ["📦", "What to include", `<ul class="sub-list"><li>Project name and a 2–3 sentence description</li><li>Team members (names + emails)</li><li>Chosen track (01 Film · 02 Game · 03 Grow)</li><li>Link to your code repository</li><li>A 1–3 minute demo video, or a live demo link</li><li>Which sponsor tools you used, and how</li><li>2–4 screenshots, including your agents' decision log</li></ul>`],
+      ["📦", "What to include", `<ul class="sub-list"><li>Project name and a 2–3 sentence description</li><li>Team members (names + emails)</li><li>Chosen track (01 Film · 02 Game · 03 Grow)</li><li>Link to your code repository</li><li><b>A demo video (1–3 min), a live demo link, or both.</b> At least one is required.</li><li>Which sponsor tools you used, and how</li></ul>`],
       ["✅", "Check the judging list", `Judges look for the five must-haves: ${H.checklist.must.map(m => esc(m[0].toLowerCase())).join(", ")}. Bonus points for ${H.checklist.bonus.map(b => esc(b[0])).join(", ")}. <a href="/aim-hack-visual/tracks.html#checklist">Run the eligibility check →</a>`],
-      ["🎤", "Demo", `Be ready to show it running at the end of the day (the event wraps at 8:30 PM). Have the video as a backup.`]
+      ["🎤", "Demo", `Be ready to show it running at the end of the day (the event wraps at 8:30 PM). If you submitted a live link, keep it running; a video is a good backup.`]
     ];
     steps.innerHTML = S.map((x, i) => `<div class="card sub-step"><span class="sub-n">${i + 1}</span><span class="sub-ic">${x[0]}</span><h4>${x[1]}</h4><div>${x[2]}</div></div>`).join("");
   }
@@ -106,7 +106,7 @@
       [1, "Game. Can the agents betray me?", "sly", "raise"],
       [3, "Only if you trust me first.", "sly", "shrug"],
       [2, "Log every decision. Judges want to see why an agent did what it did.", "determined", "point"],
-      [0, "Teams up to four. Submit on hackathons.crewbasecollective.com with a short demo video.", "happy", "nod"],
+      [0, "Teams up to four. Submit on hackathons.crewbasecollective.com with a demo video, a live link, or both.", "happy", "nod"],
       [1, "Then let's start building!", "happy", "jump"]
     ];
     stage.insertAdjacentHTML("beforeend", `
