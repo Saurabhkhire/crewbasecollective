@@ -13,7 +13,7 @@ window.Studio = (function () {
   const EMO = [["happy", "😄"], ["angry", "😠"], ["scared", "😨"], ["sad", "😢"], ["sly", "😏"], ["shocked", "😱"], ["determined", "😤"], ["thinking", "💭"]];
   const BACKDROPS = [{ base: "stage", time: "night" }, { base: "park", time: "day" }, { base: "city", time: "night" }, { base: "office", time: "day" }, { base: "forest", time: "sunset" }, { base: "space", time: "night" }];
   const LABEL = {
-    species: "Species", skin: "Skin", hair: "Hair style", hairColor: "Hair colour", eyes: "Eyes", eyeColor: "Eye colour", facial: "Facial hair",
+    species: "Species (head)", skin: "Skin / fur", pantsColor: "Trousers colour", hair: "Hair style", hairColor: "Hair colour", eyes: "Eyes", eyeColor: "Eye colour", facial: "Facial hair",
     outfit: "Outfit", outfitColor: "Outfit colour", acc: "Accessory", build: "Build", badge: "Badge"
   };
   const NICE = { none: "None", tshirt: "T-shirt", labcoat: "Lab coat", tophat: "Top hat", wizardhat: "Wizard hat", eyepatch: "Eye patch", sunglasses: "Shades" };
@@ -32,13 +32,14 @@ window.Studio = (function () {
   }
   function newChar() { return Object.assign(randomPersona(), { look: Puppet.randomLook() }); }
 
-  const skinsFor = sp => sp === "robot" ? L.robotSkin : sp === "alien" ? L.alienSkin : sp === "cat" || sp === "bear" ? L.furSkin : L.skin;
-  function fixLook(l) {
-    l = Object.assign({}, Puppet.fullLook({ name: "x", look: l }), { badge: l.badge || "" });
-    if (!skinsFor(l.species).includes(l.skin) && !(l.skin && /^#[0-9a-f]{6}$/i.test(l.skin) && l._customSkin)) l.skin = skinsFor(l.species)[0];
-    if (l.species === "robot" || l.species === "cat" || l.species === "bear") { l.hair = "none"; l.facial = "none"; }
+  const skinsFor = sp => sp === "robot" ? L.robotSkin : sp === "alien" ? L.alienSkin : Puppet.isAnimal(sp) ? [Puppet.ANIMAL_SKIN[sp], ...L.furSkin.filter(x => x !== Puppet.ANIMAL_SKIN[sp])] : L.skin;
+  /* fill gaps and drop parts a species can't have; any valid colour is kept */
+  function fixLook(l, speciesChanged) {
+    const src = Object.assign({}, l);
+    if (speciesChanged) delete src.skin;
+    l = Object.assign({}, Puppet.fullLook({ name: "x", look: src }), { badge: l.badge || "" });
+    if (l.species !== "human" && l.species !== "alien") l.hair = "none";
     if (l.species !== "human") l.facial = "none";
-    delete l._customSkin;
     return l;
   }
 
@@ -54,8 +55,15 @@ window.Studio = (function () {
   const KEYWORDS = [
     [/\brobot|android|droid|\bbot\b|cyborg|machine/i, { species: "robot", skin: "#c9d3e0", eyes: "big" }, "Made them a robot with big glowing eyes."],
     [/\balien|martian|extraterrestrial|envoy/i, { species: "alien", skin: "#8fe3a1" }, "Gave them green alien skin and antennae."],
-    [/\bcat\b|kitten|feline/i, { species: "cat", skin: "#f2b36b" }, "Turned them into a cat, ears and whiskers included."],
-    [/\bbear\b|grizzly|panda/i, { species: "bear", skin: "#8a5a3b" }, "Made them a big friendly bear."],
+    [/\blions?\b|lioness|\bmane\b/i, { species: "lion" }, "Gave them a lion's head with a full mane."],
+    [/\btigers?\b/i, { species: "tiger" }, "A tiger's head, stripes included."],
+    [/\bpandas?\b/i, { species: "panda" }, "A panda face with black eye patches."],
+    [/\bfox(es)?\b|vixen/i, { species: "fox" }, "A sly fox face with pointed ears."],
+    [/\b(rabbit|bunny|hare)s?\b/i, { species: "rabbit" }, "Long rabbit ears that twitch when they listen."],
+    [/\b(monkey|ape|chimp|gorilla)s?\b/i, { species: "monkey" }, "A cheeky monkey face."],
+    [/\b(dog|puppy|pup|hound|wolf)s?\b/i, { species: "dog" }, "A loyal dog face with floppy ears."],
+    [/\bcat\b|kitten|feline/i, { species: "cat" }, "Turned them into a cat, ears and whiskers included."],
+    [/\bbear\b|grizzly/i, { species: "bear" }, "Made them a big friendly bear."],
     [/pirate|captain hook|sailor/i, { acc: "eyepatch", outfit: "jacket", outfitColor: "#8b5e3c", facial: "beard" }, "An eye patch and a weathered jacket for the pirate life."],
     [/chef|cook|baker|bakery|kitchen/i, { outfit: "labcoat", outfitColor: "#f2f2f2" }, "A crisp white chef's jacket, ready for service."],
     [/wizard|witch|mage|sorcer|magic/i, { outfit: "robe", acc: "wizardhat", outfitColor: "#5c8dff" }, "A starry wizard hat and a flowing robe."],
@@ -87,11 +95,9 @@ window.Studio = (function () {
       for (const k in patch) if (!taken.has(k)) { look[k] = patch[k]; taken.add(k); used = true; }
       if (used && notes.length < 3) notes.push(note);
     }
-    if (/\bred\b/i.test(idea)) look.outfitColor = "#ff6b6b";
-    if (/\bblue\b/i.test(idea)) look.outfitColor = "#5c8dff";
-    if (/\bgreen\b/i.test(idea)) look.outfitColor = "#3d8a4f";
-    if (/\bblack\b|dark/i.test(idea)) look.outfitColor = "#2d3142";
-    if (!/robot|alien|cat|bear/i.test(idea) && look.species !== "human") { look.species = "human"; look.skin = rand(L.skin); }
+    if (!taken.has("species") && look.species !== "human") { look.species = "human"; look.skin = rand(L.skin); }
+    Object.assign(look, explicitLook(idea));
+    if (taken.has("species")) delete look.skin;
     while (notes.length < 3) notes.push(rand(["Picked colours that pop on any stage.", "Matched the outfit to how they'd spend a normal day.", "Chose a build that fits their attitude.", "Added a small detail people will remember."]));
     // role: a known role word, or the main noun phrase
     const RW = /\b(pirate|chef|robot|wizard|witch|doctor|nurse|scientist|professor|king|queen|prince|princess|soldier|general|knight|superhero|hero|detective|spy|intern|student|ceo|manager|founder|farmer|gardener|mechanic|engineer|singer|musician|astronaut|pilot|hacker|gamer|poet|writer|artist|baker|ranger|teacher|lawyer|cat|bear|alien|dj)\b/gi;
@@ -113,16 +119,44 @@ window.Studio = (function () {
     };
   }
 
+  /* Read explicit wishes like "green jacket", "brown pants", "glasses", "red hair". */
+  const GARMENTS = { jacket: "jacket", coat: "jacket", blazer: "suit", suit: "suit", tuxedo: "suit", hoodie: "hoodie", sweatshirt: "hoodie", sweater: "sweater", jumper: "sweater", cardigan: "sweater",
+    "t-shirt": "tshirt", tshirt: "tshirt", tee: "tshirt", shirt: "tshirt", top: "tshirt", dress: "dress", gown: "dress", robe: "robe", cloak: "robe", armor: "armor", armour: "armor",
+    uniform: "uniform", overalls: "overalls", dungarees: "overalls", "lab coat": "labcoat", labcoat: "labcoat", apron: "labcoat" };
+  const LEGWEAR = /\b(pants|trousers|jeans|shorts|skirt|leggings|slacks|chinos|joggers)\b/i;
+  const ACC_WORDS = [[/sunglasses|shades/i, "sunglasses"], [/glasses|spectacles|specs/i, "glasses"], [/top ?hat/i, "tophat"], [/\bcap\b|baseball hat/i, "cap"], [/crown|tiara/i, "crown"], [/headset|headphones/i, "headset"],
+    [/beanie|woolly hat/i, "beanie"], [/eye ?patch/i, "eyepatch"], [/wizard hat|pointy hat/i, "wizardhat"], [/helmet/i, "helmet"], [/flower/i, "flower"], [/earrings?/i, "earrings"]];
+  const colourWords = Object.keys(Puppet.COLORS).sort((a, b) => b.length - a.length).map(w => w.replace(/ /g, "\\s+")).join("|");
+  function explicitLook(idea) {
+    const out = {}, txt = " " + idea.toLowerCase() + " ";
+    const colorBefore = noun => { const m = txt.match(new RegExp("\\b(" + colourWords + "|#[0-9a-f]{6})(?:[\\s-]+(?:coloured|colored))?\\s+(?:[a-z-]+\\s+)?" + noun, "i")); return m ? Puppet.colorHex(m[1].replace(/\s+/g, " ")) : ""; };
+    for (const g of Object.keys(GARMENTS).sort((a, b) => b.length - a.length)) {
+      if (!new RegExp("\\b" + g.replace(" ", "\\s+") + "s?\\b", "i").test(txt)) continue;
+      out.outfit = GARMENTS[g];
+      const col = colorBefore(g.replace(" ", "\\s+") + "s?"); if (col) out.outfitColor = col;
+      break;
+    }
+    const leg = txt.match(LEGWEAR); if (leg) { const col = colorBefore(leg[1]); if (col) out.pantsColor = col; }
+    const hairCol = colorBefore("(?:hair|mane)"); if (hairCol) out.hairColor = hairCol;
+    const furCol = colorBefore("fur"); if (furCol) out.skin = furCol;
+    const eyeCol = colorBefore("eyes?"); if (eyeCol) out.eyeColor = eyeCol;
+    for (const [re, v] of ACC_WORDS) if (re.test(txt)) { out.acc = v; break; }
+    if (/\bbeard/i.test(txt)) out.facial = "beard"; else if (/mustache|moustache/i.test(txt)) out.facial = "mustache";
+    if (/\b(muscular|strong|big|broad|huge)\b/i.test(txt)) out.build = "broad"; else if (/\b(thin|slim|skinny|small)\b/i.test(txt)) out.build = "slim";
+    return out;
+  }
+
   function lookSpec() {
-    return `species: ${L.species.join(", ")}
-skin (hex; pick from the palette that matches the species): human ${L.skin.join(" ")} | alien ${L.alienSkin.join(" ")} | robot ${L.robotSkin.join(" ")} | cat/bear ${L.furSkin.join(" ")}
+    return `species (this sets the HEAD; the body is always human-shaped and clothed): ${L.species.join(", ")}
+skin (any hex; it is the fur colour for animals). Defaults: human ${L.skin.join(" ")} | alien ${L.alienSkin.join(" ")} | robot ${L.robotSkin.join(" ")} | animals ${Object.entries(Puppet.ANIMAL_SKIN).map(([k, v]) => k + " " + v).join(", ")}
 hair (only shown for human/alien): ${L.hair.join(", ")}
-hairColor (hex): ${L.hairColor.join(" ")}
+hairColor (any hex; for a lion it is the MANE colour)
 eyes: ${L.eyes.join(", ")}
-eyeColor (hex): ${L.eyeColor.join(" ")}
+eyeColor (any hex)
 facial (human only): ${L.facial.join(", ")}
-outfit: ${L.outfit.join(", ")}
-outfitColor (hex): ${L.outfitColor.join(" ")}
+outfit (the top / main garment): ${L.outfit.join(", ")}  (jacket=jacket or coat, tshirt=shirt or tee, suit=blazer)
+outfitColor (any hex): colour of the top garment
+pantsColor (any hex): colour of the trousers/pants/shorts/skirt
 acc: ${L.acc.join(", ")}
 build: ${L.build.join(", ")}
 badge: one emoji shown on the chest, or ""`;
@@ -132,8 +166,9 @@ badge: one emoji shown on the chest, or ""`;
     const system = `You are a character-design agent for an animated film and game playground. Turn the user's idea into ONE memorable character that AI agents can role-play.
 Design the look ONLY from these allowed values:
 ${lookSpec()}
+RULES: honour EVERY explicit detail in the idea before inventing anything. If the idea names an animal head or face (e.g. "face of a lion"), set species to that animal. If it names a garment colour (e.g. "green jacket", "brown pants"), set that garment and give the exact colour as a hex (green #2f8f4e, brown #7b4a2a, black #1d1d22, white #f4f4f4, red #d63c3c, blue #3b6fd6, yellow #f2c94c, grey #8a8f99, navy #1f2f5c, beige #e3cfa8). If it names glasses, a hat etc., set acc. Only invent the details the user did not specify. Mention the honoured details in design_notes.
 Reply with JSON only:
-{"name":"short memorable name","role":"job or archetype, max 3 words","personality":"how they think and talk, max 20 words","secret":"a dramatic secret only they know, max 22 words","goal":"what they want to win in a game, max 14 words","look":{"species":"","skin":"","hair":"","hairColor":"","eyes":"","eyeColor":"","facial":"","outfit":"","outfitColor":"","acc":"","build":"","badge":""},"design_notes":["3 short notes (max 14 words each) explaining the look choices, first person, e.g. 'Gave her a beanie because she writes poetry in cold cafés.'"]}`;
+{"name":"short memorable name","role":"job or archetype, max 3 words","personality":"how they think and talk, max 20 words","secret":"a dramatic secret only they know, max 22 words","goal":"what they want to win in a game, max 14 words","look":{"species":"","skin":"","hair":"","hairColor":"","eyes":"","eyeColor":"","facial":"","outfit":"","outfitColor":"","pantsColor":"","acc":"","build":"","badge":""},"design_notes":["3 short notes (max 14 words each) explaining the look choices, first person, e.g. 'Gave her a beanie because she writes poetry in cold cafés.'"]}`;
     const out = await Brain.ask(system, `Idea: ${idea}`, 0.95, () => offlineCharacter(idea));
     return sanitizeChar(out, idea);
   }
@@ -141,14 +176,20 @@ Reply with JSON only:
     const fb = offlineCharacter(idea || "");
     const lk = Object.assign({}, fb.look);
     const src = o.look || {};
-    for (const k of ["species", "hair", "eyes", "facial", "outfit", "acc", "build"]) if (L[k].includes(src[k])) lk[k] = src[k];
-    for (const k of ["skin", "hairColor", "eyeColor", "outfitColor"]) if (/^#[0-9a-f]{6}$/i.test(src[k] || "")) lk[k] = src[k].toLowerCase();
+    for (const k of ["species", "hair", "eyes", "facial", "outfit", "acc", "build"]) { const v = String(src[k] || "").toLowerCase().trim(); if (L[k].includes(v)) lk[k] = v; }
+    const llmSkin = Puppet.colorHex(src.skin);
+    for (const k of ["skin", "hairColor", "eyeColor", "outfitColor", "pantsColor"]) { const h = Puppet.colorHex(src[k]); if (h) lk[k] = h; }
     lk.badge = typeof src.badge === "string" && [...src.badge].length <= 2 ? src.badge : "";
-    if (!skinsFor(lk.species).map(s => s.toLowerCase()).includes(lk.skin)) lk.skin = skinsFor(lk.species)[0];
+    /* explicit wishes in the idea always win over the model's guesses */
+    const want = explicitLook(idea || "");
+    const sp = (KEYWORDS.slice(0, 9).find(([re]) => re.test(idea || "")) || [])[1];
+    if (sp && sp.species) lk.species = sp.species;
+    Object.assign(lk, want);
+    if (!llmSkin && !want.skin) delete lk.skin;
     return {
       name: clip(o.name, 24) || fb.name, role: clip(o.role, 28) || fb.role,
       personality: clip(o.personality, 220) || fb.personality, secret: clip(o.secret, 220) || fb.secret, goal: clip(o.goal, 160) || fb.goal,
-      look: fixLook(lk),
+      look: fixLook(lk, !lk.skin),
       design_notes: (Array.isArray(o.design_notes) ? o.design_notes : fb.design_notes).map(n => clip(n, 120)).filter(Boolean).slice(0, 3),
       _src: o._src
     };
@@ -158,12 +199,28 @@ Reply with JSON only:
      AI: SCENE
      ========================================================= */
   const SCENE_KW = [
+    [/savanna|savannah|safari|serengeti|lion|grassland|plains/i, "savanna"], [/jungle|rainforest|amazon|tropical forest/i, "jungle"],
+    [/underwater|under the sea|ocean floor|seabed|coral|reef|submarine|aquarium/i, "underwater"], [/cave|cavern|crystal|mine|underground/i, "cave"],
+    [/mars|martian|red planet|moon base|colony/i, "mars"], [/library|bookshop|bookstore|books|study hall/i, "library"],
+    [/hospital|clinic|ward|emergency room|\ber\b|surgery/i, "hospital"], [/caf[eé]|coffee|bakery|tea ?room/i, "cafe"],
     [/office|startup|desk|cubicle|workplace|company/i, "office"], [/forest|woods|jungle|grove|trees/i, "forest"], [/space|starship|spaceship|station|galaxy|rocket/i, "space"],
     [/city|street|downtown|alley|neon|tokyo|new york/i, "city"], [/castle|throne|kingdom|medieval|palace/i, "castle"], [/beach|island|ocean|sea|tropical|shore/i, "beach"],
     [/class|school|lecture|university|lesson/i, "classroom"], [/court|trial|judge|jury/i, "courtroom"], [/kitchen|restaurant|cook|chef|diner/i, "kitchen"],
     [/desert|dune|sahara|wasteland|canyon/i, "desert"], [/snow|mountain|ski|arctic|winter|summit|ice/i, "snow"], [/stage|concert|theater|theatre|show|gig/i, "stage"],
     [/manor|mansion|dinner|dining|mystery|haunted/i, "manor"], [/lab|laboratory|science|experiment/i, "lab"], [/board ?room|meeting|interview|pitch|conference/i, "boardroom"], [/park|garden|pond|picnic|bench/i, "park"]
   ];
+  const PROP_KW = [[/camp ?fire|bonfire|fire pit/i, "campfire"], [/\btents?\b|camping|campsite/i, "tent"], [/rocks?\b|boulders?|stones/i, "rocks"], [/bush(es)?|shrubs?/i, "bush"],
+    [/\btrees?\b|oak/i, "tree"], [/lamp ?posts?|street ?lights?|lanterns?/i, "lamp"], [/crates?|boxes|barrels?/i, "crates"], [/\bcars?\b|taxi|truck|van/i, "car"],
+    [/river|stream|creek|canal/i, "river"], [/fountain/i, "fountain"], [/flowers?|tulips?|roses?/i, "flowers"], [/sign ?posts?|\bsigns?\b/i, "sign"], [/\btables?\b|desk/i, "table"], [/\bplants?\b|potted/i, "plant"]];
+  const colourWordsS = Object.keys(Puppet.COLORS).sort((a, b) => b.length - a.length).map(w => w.replace(/ /g, "\\s+")).join("|");
+  function sceneWishes(idea) {
+    const out = {};
+    const props = PROP_KW.filter(([re]) => re.test(idea)).map(([, p]) => p);
+    if (props.length) out.props = [...new Set(props)].slice(0, 4);
+    const m = idea.toLowerCase().match(new RegExp("\\b(" + colourWordsS + ")\\s+(?:light|lights|lighting|glow|glowing|tint|tinted|mood|neon|walls?|sky|colou?r(?:ed)?|theme)", "i")) || idea.toLowerCase().match(new RegExp("(?:lit|bathed|glowing|painted|tinted)\\s+(?:in\\s+)?(" + colourWordsS + ")", "i"));
+    if (m) out.tint = Puppet.colorHex(m[1].replace(/\s+/g, " "));
+    return out;
+  }
   function offlineScene(idea) {
     const hit = SCENE_KW.find(([re]) => re.test(idea));
     const base = hit ? hit[1] : rand(Scenes.BASES).id;
@@ -171,8 +228,9 @@ Reply with JSON only:
     const weather = /rain|storm|thunder|wet/i.test(idea) ? "rain" : /snow|blizzard|frost/i.test(idea) ? "snow" : /fog|mist|haze|spooky/i.test(idea) ? "fog" : /firefl|magic|enchant/i.test(idea) ? "fireflies" : /fire|ember|burn|lava|volcano|torch/i.test(idea) ? "embers" : "clear";
     const B = Scenes.BASES.find(b => b.id === base);
     const words = idea.replace(/^(a|an|the)\s+/i, "").split(/\s+(?:on|in|at|with|during|full|under|of|near|by|where|that|who)\s+/i)[0].split(/\s+/).slice(0, 4).join(" ");
+    const wish = sceneWishes(idea);
     return {
-      name: clip(words.charAt(0).toUpperCase() + words.slice(1), 32) || B.name, base, time, weather,
+      name: clip(words.charAt(0).toUpperCase() + words.slice(1), 32) || B.name, base, time, weather, props: wish.props || [], tint: wish.tint || "",
       desc: clip(`${B.desc.replace(/\.$/, "")}${time !== "day" ? `, at ${time === "night" ? "night" : "sunset"}` : ""}${weather !== "clear" ? `, with ${weather === "fireflies" ? "fireflies drifting" : weather === "embers" ? "embers in the air" : weather}` : ""}. ${idea}`, 240),
       design_notes: [
         `Started from the ${B.name.toLowerCase()} set because your idea mentions it.`,
@@ -187,14 +245,19 @@ Allowed values:
 base: ${Scenes.BASES.map(b => `${b.id} (${b.desc})`).join("; ")}
 time: ${Scenes.TIMES.join(", ")}
 weather: ${Scenes.WEATHER.join(", ")}
-Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 words","base":"","time":"","weather":"","desc":"one vivid sentence a storyteller can use, max 28 words","design_notes":["3 short first-person notes (max 14 words each) explaining your choices"]}`;
+props (0-4 extra objects placed on the ground): ${Scenes.PROPS.join(", ")}
+tint: optional colour mood as a hex (e.g. "#ff4fa3" for pink neon light), or "" for natural colours
+RULES: honour EVERY explicit detail in the idea first: the place, time of day, weather, any objects that match a prop, and any colour of light or mood (as tint). Pick the closest base when the exact place is not in the list and say so in design_notes. Only invent what the user did not specify.
+Reply with JSON only: {"name":"scene name, max 4 words","base":"","time":"","weather":"","props":[],"tint":"","desc":"one vivid sentence a storyteller can use, max 28 words","design_notes":["3 short first-person notes (max 14 words each) explaining your choices"]}`;
     const o = await Brain.ask(system, `Idea: ${idea}`, 0.9, () => offlineScene(idea));
     const fb = offlineScene(idea);
     return {
       name: clip(o.name, 32) || fb.name,
-      base: Scenes.BASES.some(b => b.id === o.base) ? o.base : fb.base,
-      time: Scenes.TIMES.includes(o.time) ? o.time : fb.time,
+      base: SCENE_KW.some(([re]) => re.test(idea)) ? fb.base : Scenes.BASES.some(b => b.id === o.base) ? o.base : fb.base,
+      time: /night|midnight|sunset|dusk|evening|dawn|golden hour|neon|moon/i.test(idea) ? fb.time : Scenes.TIMES.includes(o.time) ? o.time : fb.time,
       weather: Scenes.WEATHER.includes(o.weather) ? o.weather : fb.weather,
+      props: (fb.props && fb.props.length ? fb.props : Array.isArray(o.props) ? o.props.filter(p => Scenes.PROPS.includes(p)) : []).slice(0, 4),
+      tint: fb.tint || Puppet.colorHex(o.tint) || "",
       desc: clip(o.desc, 240) || fb.desc,
       design_notes: (Array.isArray(o.design_notes) ? o.design_notes : fb.design_notes).map(n => clip(n, 120)).filter(Boolean).slice(0, 3),
       _src: o._src
@@ -266,7 +329,8 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
       const body = opts2.render(val);
       return `<div class="st-grp"><div class="st-gh">${LABEL[key]}${opts2.sub ? `<small>${opts2.sub}</small>` : ""}</div><div class="st-opts ${opts2.cls || ""}">${body}</div></div>`;
     }
-    const swatches = (key, list) => list.map(h => `<button class="sw ${c.look[key] === h ? "on" : ""}" data-k="${key}" data-v="${h}" style="--sw:${h}" title="${h}"></button>`).join("");
+    const swatches = (key, list) => list.map(h => `<button class="sw ${c.look[key] === h ? "on" : ""}" data-k="${key}" data-v="${h}" style="--sw:${h}" title="${h}"></button>`).join("")
+      + `<label class="sw sw-any ${list.includes(c.look[key]) ? "" : "on"}" title="Any colour" style="--sw:${c.look[key]}"><input type="color" data-ck="${key}" value="${c.look[key]}" aria-label="Pick any ${LABEL[key] || key}"><span>🎨</span></label>`;
     const variant = (key, v) => ({ name: c.name, role: c.role, look: key === "species" ? fixLook(Object.assign({}, c.look, { species: v })) : Object.assign({}, c.look, { [key]: v }) });
     const thumbs = (key, list, crop) => list.map(v => `<button class="tb ${c.look[key] === v ? "on" : ""}" data-k="${key}" data-v="${v}" title="${nice(v)}">${thumb(variant(key, v), crop)}<span>${nice(v)}</span></button>`).join("");
     const chips = (key, list) => list.map(v => `<button class="chip ${c.look[key] === v ? "on" : ""}" data-k="${key}" data-v="${v}">${nice(v)}</button>`).join("");
@@ -286,12 +350,13 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
           ${group("species", { render: () => thumbs("species", L.species, "head"), cls: "thumbs" })}
           ${group("skin", { render: () => swatches("skin", skinsFor(sp)) })}
           ${hasHair ? group("hair", { render: () => thumbs("hair", L.hair, "head"), cls: "thumbs" }) : ""}
-          ${hasHair || sp === "human" ? group("hairColor", { render: () => swatches("hairColor", L.hairColor), sub: sp === "human" ? "also beard & brows" : "" }) : ""}
+          ${hasHair || sp === "lion" ? group("hairColor", { render: () => swatches("hairColor", L.hairColor), sub: sp === "human" ? "also beard & brows" : sp === "lion" ? "mane" : "" }) : ""}
           ${group("eyes", { render: () => chips("eyes", L.eyes) })}
           ${sp !== "robot" && sp !== "alien" ? group("eyeColor", { render: () => swatches("eyeColor", L.eyeColor) }) : ""}
           ${sp === "human" ? group("facial", { render: () => chips("facial", L.facial) }) : ""}
           ${group("outfit", { render: () => thumbs("outfit", L.outfit, "body"), cls: "thumbs" })}
-          ${group("outfitColor", { render: () => swatches("outfitColor", L.outfitColor) })}
+          ${group("outfitColor", { render: () => swatches("outfitColor", L.outfitColor), sub: "top / jacket" })}
+          ${c.look.outfit === "dress" || c.look.outfit === "robe" ? "" : group("pantsColor", { render: () => swatches("pantsColor", L.pantsColor) })}
           ${group("acc", { render: () => thumbs("acc", L.acc, "head"), cls: "thumbs" })}
           ${group("build", { render: () => chips("build", L.build) })}
           ${group("badge", { render: () => BADGES.map(b => `<button class="chip em ${c.look.badge === b ? "on" : ""}" data-k="badge" data-v="${b}">${b || "None"}</button>`).join("") })}
@@ -360,6 +425,8 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
       drawPreview(false);
     }
 
+    host.oninput = e => { const ci = e.target.closest && e.target.closest("[data-ck]"); if (!ci) return; c.look[ci.dataset.ck] = ci.value; ci.parentElement.style.setProperty("--sw", ci.value); drawPreview(false); };
+    host.onchange = e => { if (e.target.closest && e.target.closest("[data-ck]")) drawPane(); };
     host.onclick = e => {
       const t = e.target;
       const m = t.closest("[data-mode]"); if (m) { mode = m.dataset.mode; drawPane(); return; }
@@ -367,7 +434,7 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
       if (o) {
         const k = o.dataset.k, v = o.dataset.v;
         c.look[k] = v;
-        if (k === "species") c.look = fixLook(c.look);
+        if (k === "species") c.look = fixLook(c.look, true);
         drawPane(); drawPreview(false);
         if (k === "acc" || k === "outfit" || k === "species") Puppet.gesture(pupEl, "jump", 700);
         return;
@@ -405,6 +472,7 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
      SCENE EDITOR (page + modal)
      ========================================================= */
   const SAMPLE = ["kit", "priya", "bolt"];
+  const PROP_ICON = { campfire: "🔥", tent: "⛺", rocks: "🪨", bush: "🌿", tree: "🌳", lamp: "💡", crates: "📦", car: "🚗", river: "🌊", fountain: "⛲", flowers: "🌷", sign: "🪧", table: "🪑", plant: "🪴" };
   function sceneEditor(host, opts) {
     let s = opts.initial ? clone(opts.initial) : { name: "My scene", base: "office", time: "day", weather: "clear", desc: Scenes.BASES[0].desc };
     const isPreset = !!(opts.initial && opts.initial.id && !opts.initial.custom && PLAY.scenes.some(p => p.id === opts.initial.id));
@@ -445,6 +513,8 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
         <div class="st-grp"><div class="st-gh">Place</div><div class="st-bases">${Scenes.BASES.map(b => `<button class="sb ${s.base === b.id ? "on" : ""}" data-b="${b.id}"><div class="sb-th">${Scenes.svg({ base: b.id, time: s.time })}</div><span>${b.icon} ${esc(b.name)}</span></button>`).join("")}</div></div>
         <div class="st-grp"><div class="st-gh">Time of day</div><div class="st-opts">${Scenes.TIMES.map(t => `<button class="chip ${s.time === t ? "on" : ""}" data-t="${t}">${{ day: "☀️ Day", sunset: "🌇 Sunset", night: "🌙 Night" }[t]}</button>`).join("")}</div></div>
         <div class="st-grp"><div class="st-gh">Weather & mood</div><div class="st-opts">${Scenes.WEATHER.map(w => `<button class="chip ${s.weather === w ? "on" : ""}" data-w="${w}">${{ clear: "✨ Clear", rain: "🌧️ Rain", snow: "❄️ Snow", fog: "🌫️ Fog", fireflies: "🪲 Fireflies", embers: "🔥 Embers" }[w]}</button>`).join("")}</div></div>
+        <div class="st-grp"><div class="st-gh">Props <small>up to 4 objects on the ground</small></div><div class="st-opts">${Scenes.PROPS.map(p => `<button class="chip ${(s.props || []).includes(p) ? "on" : ""}" data-pr="${p}">${PROP_ICON[p] || ""} ${nice(p)}</button>`).join("")}</div></div>
+        <div class="st-grp"><div class="st-gh">Colour mood <small>tints the whole scene</small></div><div class="st-opts">${["", "#ff4fa3", "#3ee6ff", "#b6ff5c", "#ffc857", "#c48bff", "#ff6b6b", "#5c8dff"].map(h => `<button class="sw ${(s.tint || "") === h ? "on" : ""}" data-tint="${h}" style="--sw:${h || "transparent"}" title="${h || "Natural"}">${h ? "" : "∅"}</button>`).join("")}<label class="sw sw-any" title="Any colour" style="--sw:${s.tint || "#888888"}"><input type="color" data-tc value="${s.tint || "#888888"}" aria-label="Pick any mood colour"><span>🎨</span></label></div></div>
         <div class="st-fields">
           <label>Scene name</label><input data-f="name" maxlength="32" value="${esc(s.name)}">
           <label>Description <small>agents read this to understand where they are</small></label><textarea data-f="desc" rows="2" maxlength="240">${esc(s.desc)}</textarea>
@@ -460,7 +530,7 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
         <div id="ssResult">${lastAI ? resultHTML(lastAI) : ""}</div>`;
     }
     function resultHTML(r) {
-      return `<div class="st-result"><div class="st-r-h"><b>${esc(r.name)}</b><span class="role">${esc(r.base)} · ${esc(r.time)} · ${esc(r.weather)}</span>${r._src === "offline" && Brain.mode === "llm" ? `<span class="warn-s">⚠ LLM failed, used offline agent</span>` : ""}</div>
+      return `<div class="st-result"><div class="st-r-h"><b>${esc(r.name)}</b><span class="role">${esc(r.base)} · ${esc(r.time)} · ${esc(r.weather)}${r.props && r.props.length ? " · " + esc(r.props.join(", ")) : ""}</span>${r._src === "offline" && Brain.mode === "llm" ? `<span class="warn-s">⚠ LLM failed, used offline agent</span>` : ""}</div>
         <p>${esc(r.desc)}</p>
         ${r.design_notes.length ? `<div class="st-notes"><small>DESIGN NOTES FROM THE AGENT</small><ul>${r.design_notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul></div>` : ""}
         <div class="st-r-btns"><button class="btn ghost btn-sm" data-tweak>✋ Tweak by hand</button><button class="btn ghost btn-sm" data-again>🔁 Another take</button></div></div>`;
@@ -479,7 +549,7 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
       const r = await UI.aiRun(pane.querySelector("#ssWork"), ["Reading your idea", "Choosing the location", "Setting light & weather", "Writing the description"], aiScene(idea));
       if (mode !== "ai" || !host.isConnected) return;
       lastAI = r;
-      s = Object.assign({}, s, { name: r.name, base: r.base, time: r.time, weather: r.weather, desc: r.desc });
+      s = Object.assign({}, s, { name: r.name, base: r.base, time: r.time, weather: r.weather, props: r.props, tint: r.tint, desc: r.desc });
       const work = pane.querySelector("#ssWork .ai-work");
       if (work) work.querySelectorAll("li").forEach(li => { li.className = "done"; li.querySelector("i").textContent = "✓"; });
       pane.querySelector("#ssResult").innerHTML = resultHTML(r);
@@ -488,7 +558,7 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
     }
     async function conceptArt() {
       const b = host.querySelector("#ssArtBtn"); b.disabled = true; b.textContent = "🎨 Painting…";
-      const url = await Brain.image(`Wide cinematic illustration of a scene for an animated film, vibrant stylised 2D art, no characters, no text: ${s.name}. ${s.desc} Time of day: ${s.time}. Weather: ${s.weather}.`);
+      const url = await Brain.image(`Wide cinematic illustration of a scene for an animated film, vibrant stylised 2D art, no characters, no text: ${s.name}. ${s.desc} Time of day: ${s.time}. Weather: ${s.weather}.${s.props && s.props.length ? " Include: " + s.props.join(", ") + "." : ""}${s.tint ? " Colour mood: " + s.tint + "." : ""}`);
       b.disabled = false; b.textContent = "🎨 AI concept art";
       if (!url) { b.textContent = "🎨 Art failed, retry"; return; }
       art = url; const im = host.querySelector("#ssArt"); im.src = url; im.hidden = false;
@@ -499,6 +569,8 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
       const b = t.closest("[data-b]"); if (b) { const B = Scenes.BASES.find(x => x.id === b.dataset.b); const wasDefault = !s.desc || Scenes.BASES.some(x => x.desc === s.desc); s.base = B.id; if (wasDefault) s.desc = B.desc; if (/^My scene|^Untitled/.test(s.name) || Scenes.BASES.some(x => x.name === s.name)) s.name = B.name; drawPane(); drawPreview(true); return; }
       const tm = t.closest("[data-t]"); if (tm) { s.time = tm.dataset.t; drawPane(); drawPreview(false); return; }
       const w = t.closest("[data-w]"); if (w) { s.weather = w.dataset.w; drawPane(); drawPreview(false); return; }
+      const pr = t.closest("[data-pr]"); if (pr) { const l = (s.props || []).slice(), k = l.indexOf(pr.dataset.pr); if (k >= 0) l.splice(k, 1); else { l.push(pr.dataset.pr); if (l.length > 4) l.shift(); } s.props = l; drawPane(); drawPreview(false); return; }
+      const ti = t.closest("[data-tint]"); if (ti) { s.tint = ti.dataset.tint; drawPane(); drawPreview(false); return; }
       const ex = t.closest("[data-ex]"); if (ex) { pane.querySelector("#ssIdea").value = ex.dataset.ex; return; }
       if (t.closest("#ssGen") || t.closest("[data-again]")) { generate(); return; }
       if (t.closest("[data-tweak]")) { mode = "manual"; drawPane(); return; }
@@ -510,7 +582,8 @@ Pick the base that best fits. Reply with JSON only: {"name":"scene name, max 4 w
         opts.onSave(out);
       }
     };
-    host.oninput = e => { const f = e.target.dataset && e.target.dataset.f; if (f) { s[f] = e.target.value; host.querySelector("#ssNm").textContent = s.name; host.querySelector("#ssDesc").textContent = s.desc; } };
+    host.onchange = e => { if (e.target.matches && e.target.matches("[data-tc]")) drawPane(); };
+    host.oninput = e => { if (e.target.matches && e.target.matches("[data-tc]")) { s.tint = e.target.value; drawPreview(false); return; } const f = e.target.dataset && e.target.dataset.f; if (f) { s[f] = e.target.value; host.querySelector("#ssNm").textContent = s.name; host.querySelector("#ssDesc").textContent = s.desc; } };
     drawPane(); drawPreview(true);
   }
 

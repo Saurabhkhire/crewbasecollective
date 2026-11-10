@@ -129,3 +129,9 @@
 dialog.sp-modal.st-modal { max-width: 1020px; width: calc(100% - 24px); max-height: calc(100vh - 32px); padding: 22px; overflow-y: auto; }
 .st-modal h3 { margin-bottom: 14px !important; }
 @media (max-width: 560px) { dialog.sp-modal.st-modal { padding: 16px; } .st-ed.compact .st-stage { height: 240px; } }
+
+/* "any colour" swatch: a native colour picker hidden behind a swatch */
+.sw.sw-any { position: relative; display: inline-grid; place-items: center; cursor: pointer; background: conic-gradient(#ff4f6d, #ffc857, #b6ff5c, #3ee6ff, #5c8dff, #c48bff, #ff4f6d); overflow: hidden; }
+.sw.sw-any::after { content: ""; position: absolute; inset: 5px; border-radius: inherit; background: var(--sw); }
+.sw.sw-any span { position: relative; z-index: 1; font-size: 12px; filter: drop-shadow(0 0 2px #000); }
+.sw.sw-any input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; padding: 0; border: 0; }

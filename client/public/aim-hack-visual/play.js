@@ -55,7 +55,7 @@ window.UI = (function () {
   /* ---------- LLM status banner ---------- */
   U.banner = function () {
     const b = U.$("#modeBanner"), B = window.Brain;
-    if (B.mode === "llm") b.innerHTML = `<span class="pill ok">● LIVE AI AGENTS</span> Every character is a separate OpenAI agent (<b>${U.esc(B.model)}</b>) deciding for itself.${B.images ? ` Image generation is on.` : ""}`;
+    if (B.mode === "llm") b.innerHTML = `<span class="pill ok">● LIVE AI AGENTS</span> Every character is a separate ${B.provider === "adal" ? "AdaL cloud agent" : "OpenAI agent"} (<b>${U.esc(B.model)}</b>) deciding for itself.${B.images ? ` Image generation is on${B.mediaProvider === "adal" ? " (AdaL)" : " (OpenAI)"}.` : ""}`;
     else b.innerHTML = `<span class="pill warn">● OFFLINE DEMO AGENTS</span> ${U.esc(B.reason || "")} Agents are simulated from their personalities.`;
   };
   U.srcLabel = () => (Brain.mode === "llm" ? "🧠 " + U.esc(Brain.model) : "🧪 offline agents");

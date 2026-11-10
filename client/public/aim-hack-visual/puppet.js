@@ -15,11 +15,12 @@
    ========================================================= */
 window.Puppet = (function () {
   const LOOK = {
-    species: ["human", "robot", "alien", "cat", "bear"],
+    species: ["human", "robot", "alien", "cat", "bear", "lion", "tiger", "dog", "fox", "rabbit", "panda", "monkey"],
     skin: ["#ffe0c7", "#f6c9a4", "#e8b08a", "#d29a6c", "#b97a56", "#8d5a3b", "#6b4229", "#4a2c1d"],
     alienSkin: ["#8fe3a1", "#9ad4ff", "#c9a7ff", "#ffb3d9"],
     robotSkin: ["#c9d3e0", "#9fb0c4", "#e6c27a", "#7f8ea3"],
-    furSkin: ["#f2b36b", "#9b9b9b", "#3b3b3b", "#f4efe6", "#8a5a3b"],
+    furSkin: ["#f2b36b", "#e0a24a", "#f08a2c", "#c8955a", "#e8742c", "#9b9b9b", "#3b3b3b", "#f4efe6", "#8a5a3b", "#5a3a22"],
+    pantsColor: ["#23283d", "#30476b", "#7b4a2a", "#5a3a22", "#c2a878", "#2d2d2d", "#6b6b6b", "#2e6b3f", "#8a2c2c", "#e9e4d8"],
     hair: ["none", "buzz", "short", "side", "curly", "afro", "long", "bob", "bun", "ponytail", "spiky", "mohawk"],
     hairColor: ["#1d1410", "#3d2618", "#6b3e22", "#a8642f", "#d9a441", "#f1d27a", "#b5462f", "#e8e8e8", "#7a7a7a", "#6b4fa0", "#2f7dd1", "#ff5fa2"],
     eyes: ["normal", "big", "sleepy"],
@@ -31,6 +32,27 @@ window.Puppet = (function () {
     build: ["slim", "regular", "broad"]
   };
   const PANTS = ["#23283d", "#3b2f4a", "#1f3a3a", "#4a3326", "#2d2d2d", "#30476b"];
+  /* default fur colour per animal; any hex is allowed */
+  const ANIMAL_SKIN = { cat: "#f2b36b", bear: "#8a5a3b", lion: "#e0a24a", tiger: "#f08a2c", dog: "#c8955a", fox: "#e8742c", rabbit: "#f1ebe4", panda: "#f7f7f7", monkey: "#8a5a3b" };
+  const ANIMALS = Object.keys(ANIMAL_SKIN);
+  const isAnimal = sp => ANIMALS.includes(sp);
+  /* colour words to hex, used to honour "green jacket, brown pants" */
+  const COLORS = {
+    red: "#d63c3c", crimson: "#b3202f", maroon: "#7a1f2b", pink: "#ff7eb6", magenta: "#d63cc8", purple: "#7b4fc4", violet: "#8f5fe0", lavender: "#c4a8ff",
+    blue: "#3b6fd6", navy: "#1f2f5c", "navy blue": "#1f2f5c", "sky blue": "#7cc8ff", "light blue": "#9fd0ff", "dark blue": "#22397a", teal: "#1f9c94", turquoise: "#3ed1c5", cyan: "#3ee6ff",
+    green: "#2f8f4e", "dark green": "#1f5c35", "forest green": "#22603a", olive: "#6b7a2f", lime: "#9be04a", "light green": "#8fd18a", mint: "#9fe8c8", emerald: "#1fa36a",
+    yellow: "#f2c94c", gold: "#d9a441", golden: "#d9a441", mustard: "#c9a227", orange: "#f08a2c", peach: "#ffb38a", coral: "#ff7f6b",
+    brown: "#7b4a2a", "dark brown": "#4e2e19", "light brown": "#a8774a", tan: "#c8a27a", beige: "#e3cfa8", khaki: "#c2a878", cream: "#f4ead2", chocolate: "#5a3a22", caramel: "#b9783c",
+    black: "#1d1d22", white: "#f4f4f4", grey: "#8a8f99", gray: "#8a8f99", silver: "#c9d0d8", "dark grey": "#4a4d55", "dark gray": "#4a4d55", charcoal: "#33363d",
+    denim: "#3d5a8a", blonde: "#f1d27a", ginger: "#c0612b", auburn: "#8f3b1f"
+  };
+  const colorHex = v => {
+    if (!v) return "";
+    v = String(v).trim().toLowerCase();
+    if (/^#[0-9a-f]{6}$/.test(v)) return v;
+    if (/^#[0-9a-f]{3}$/.test(v)) return "#" + v.slice(1).split("").map(c => c + c).join("");
+    return COLORS[v] || COLORS[v.replace(/[^a-z ]/g, "").trim()] || "";
+  };
   const INK = "#1b1530";
 
   const hash = s => { let h = 7; for (const ch of String(s)) h = (h * 31 + ch.codePointAt(0)) >>> 0; return h; };
@@ -57,6 +79,7 @@ window.Puppet = (function () {
       outfitColor: c.color || pick(LOOK.outfitColor, h >>> 15),
       acc: (h >>> 17) % 3 === 0 ? pick(LOOK.acc.slice(1), h >>> 19) : "none",
       build: pick(LOOK.build, h >>> 21),
+      pantsColor: pick(PANTS, h >>> 4),
       badge: ""
     };
   }
@@ -64,24 +87,24 @@ window.Puppet = (function () {
     const base = deriveLook(c || {});
     const l = Object.assign({}, base, (c && c.look) || {});
     for (const k of ["species", "hair", "eyes", "facial", "outfit", "acc", "build"]) if (!LOOK[k].includes(l[k])) l[k] = base[k];
-    if (!/^#[0-9a-f]{6}$/i.test(l.skin || "")) l.skin = base.skin;
-    if (!/^#[0-9a-f]{6}$/i.test(l.hairColor || "")) l.hairColor = base.hairColor;
-    if (!/^#[0-9a-f]{6}$/i.test(l.outfitColor || "")) l.outfitColor = base.outfitColor;
-    if (!/^#[0-9a-f]{6}$/i.test(l.eyeColor || "")) l.eyeColor = base.eyeColor;
+    for (const k of ["skin", "hairColor", "outfitColor", "eyeColor", "pantsColor"]) l[k] = colorHex(l[k]) || (k === "skin" && isAnimal(l.species) ? ANIMAL_SKIN[l.species] : base[k]);
+    if (l.species === "lion" && !(c && c.look && c.look.hairColor)) l.hairColor = "#a8642f";
+    if (!(c && c.look && colorHex(c.look.skin)) && l.species !== base.species) l.skin = isAnimal(l.species) ? ANIMAL_SKIN[l.species] : l.species === "robot" ? LOOK.robotSkin[0] : l.species === "alien" ? LOOK.alienSkin[0] : LOOK.skin[2];
+    if (l.species !== "human" && l.species !== "alien") { l.hair = "none"; l.facial = "none"; }
     return l;
   }
   function randomLook(seed) {
     const r = seed == null ? () => Math.random() : (() => { let s = hash(seed); return () => ((s = (s * 1103515245 + 12345) >>> 0) / 4294967296); })();
     const R = a => a[Math.floor(r() * a.length)];
-    const species = r() < 0.78 ? "human" : R(["robot", "alien", "cat", "bear"]);
+    const species = r() < 0.7 ? "human" : R(["robot", "alien", ...ANIMALS]);
     return {
       species,
-      skin: R(species === "robot" ? LOOK.robotSkin : species === "alien" ? LOOK.alienSkin : species === "human" ? LOOK.skin : LOOK.furSkin),
+      skin: species === "robot" ? R(LOOK.robotSkin) : species === "alien" ? R(LOOK.alienSkin) : species === "human" ? R(LOOK.skin) : ANIMAL_SKIN[species],
       hair: species === "human" || species === "alien" ? R(LOOK.hair) : "none",
       hairColor: R(LOOK.hairColor), eyes: R(LOOK.eyes), eyeColor: R(LOOK.eyeColor),
       facial: species === "human" && r() < 0.25 ? R(LOOK.facial.slice(1)) : "none",
       outfit: R(LOOK.outfit), outfitColor: R(LOOK.outfitColor),
-      acc: r() < 0.45 ? R(LOOK.acc.slice(1)) : "none", build: R(LOOK.build), badge: ""
+      acc: r() < 0.45 ? R(LOOK.acc.slice(1)) : "none", build: R(LOOK.build), pantsColor: R(LOOK.pantsColor), badge: ""
     };
   }
 
@@ -126,15 +149,35 @@ window.Puppet = (function () {
   function headShape(l) {
     const sk = l.skin, dk = shade(sk, -0.12), s = `stroke="${INK}" stroke-width="2.2"`;
     if (l.species === "robot") return `<rect x="30" y="27" width="60" height="60" rx="16" fill="${sk}" ${s}/><rect x="30" y="27" width="60" height="22" rx="16" fill="#fff" opacity=".18"/><rect x="37" y="46" width="46" height="22" rx="10" fill="#0b1630"/><circle cx="27" cy="58" r="5" fill="${dk}" ${s}/><circle cx="93" cy="58" r="5" fill="${dk}" ${s}/>`;
-    const ears = l.species === "cat"
-      ? `<path d="M32 44 L30 14 L54 32 Z" fill="${sk}" ${s}/><path d="M36 38 L35 22 L48 32 Z" fill="#ff9fb5"/><path d="M88 44 L90 14 L66 32 Z" fill="${sk}" ${s}/><path d="M84 38 L85 22 L72 32 Z" fill="#ff9fb5"/>`
-      : l.species === "bear" ? `<circle cx="34" cy="32" r="11" fill="${sk}" ${s}/><circle cx="34" cy="32" r="5" fill="${dk}"/><circle cx="86" cy="32" r="11" fill="${sk}" ${s}/><circle cx="86" cy="32" r="5" fill="${dk}"/>`
-      : l.species === "alien" ? `<line x1="46" y1="30" x2="38" y2="10" stroke="${INK}" stroke-width="2"/><circle cx="38" cy="9" r="4" fill="${sk}" ${s}/><line x1="74" y1="30" x2="82" y2="10" stroke="${INK}" stroke-width="2"/><circle cx="82" cy="9" r="4" fill="${sk}" ${s}/>`
+    const sp = l.species, inner = "#ff9fb5", lite = shade(sk, 0.22);
+    let mane = "";
+    if (sp === "lion") {
+      let pts = "";
+      for (let i = 0; i < 26; i++) { const a = (i / 26) * Math.PI * 2, rr = i % 2 ? 40 : 49; pts += `${(60 + Math.cos(a) * rr).toFixed(1)},${(60 + Math.sin(a) * rr * 0.96).toFixed(1)} `; }
+      mane = `<polygon points="${pts}" fill="${l.hairColor}" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><circle cx="60" cy="60" r="37" fill="${shade(l.hairColor, 0.1)}"/>`;
+    }
+    const ears = sp === "cat" || sp === "tiger"
+      ? `<path d="M32 44 L30 14 L54 32 Z" fill="${sk}" ${s}/><path d="M36 38 L35 22 L48 32 Z" fill="${inner}"/><path d="M88 44 L90 14 L66 32 Z" fill="${sk}" ${s}/><path d="M84 38 L85 22 L72 32 Z" fill="${inner}"/>`
+      : sp === "fox" ? `<path d="M30 46 L26 6 L56 30 Z" fill="${sk}" ${s}/><path d="M34 38 L32 16 L48 30 Z" fill="#2b1d14"/><path d="M90 46 L94 6 L64 30 Z" fill="${sk}" ${s}/><path d="M86 38 L88 16 L72 30 Z" fill="#2b1d14"/>`
+      : sp === "rabbit" ? `<ellipse cx="46" cy="10" rx="9" ry="26" fill="${sk}" ${s} transform="rotate(-10 46 10)"/><ellipse cx="46" cy="12" rx="4.5" ry="18" fill="${inner}" transform="rotate(-10 46 12)"/><ellipse cx="74" cy="10" rx="9" ry="26" fill="${sk}" ${s} transform="rotate(10 74 10)"/><ellipse cx="74" cy="12" rx="4.5" ry="18" fill="${inner}" transform="rotate(10 74 12)"/>`
+      : sp === "dog" ? `<ellipse cx="29" cy="62" rx="10" ry="22" fill="${dk}" ${s} transform="rotate(15 29 62)"/><ellipse cx="91" cy="62" rx="10" ry="22" fill="${dk}" ${s} transform="rotate(-15 91 62)"/>`
+      : sp === "bear" || sp === "panda" || sp === "lion" ? `<circle cx="34" cy="31" r="11" fill="${sp === "panda" ? "#1d1d22" : sk}" ${s}/><circle cx="34" cy="31" r="5" fill="${sp === "panda" ? "#3a3a40" : dk}"/><circle cx="86" cy="31" r="11" fill="${sp === "panda" ? "#1d1d22" : sk}" ${s}/><circle cx="86" cy="31" r="5" fill="${sp === "panda" ? "#3a3a40" : dk}"/>`
+      : sp === "monkey" ? `<circle cx="28" cy="60" r="12" fill="${sk}" ${s}/><circle cx="28" cy="60" r="6" fill="${lite}"/><circle cx="92" cy="60" r="12" fill="${sk}" ${s}/><circle cx="92" cy="60" r="6" fill="${lite}"/>`
+      : sp === "alien" ? `<line x1="46" y1="30" x2="38" y2="10" stroke="${INK}" stroke-width="2"/><circle cx="38" cy="9" r="4" fill="${sk}" ${s}/><line x1="74" y1="30" x2="82" y2="10" stroke="${INK}" stroke-width="2"/><circle cx="82" cy="9" r="4" fill="${sk}" ${s}/>`
       : `<ellipse cx="30" cy="61" rx="5" ry="7" fill="${sk}" ${s}/><ellipse cx="90" cy="61" rx="5" ry="7" fill="${sk}" ${s}/>`;
-    const face = l.species === "alien" ? `<ellipse cx="60" cy="58" rx="31" ry="32" fill="${sk}" ${s}/>` : `<circle cx="60" cy="58" r="30" fill="${sk}" ${s}/>`;
-    const muzzle = l.species === "cat" || l.species === "bear" ? `<ellipse cx="60" cy="72" rx="13" ry="9" fill="${shade(sk, 0.18)}"/><path d="M57 66 L63 66 L60 70 Z" fill="${INK}"/>` : "";
-    const whisk = l.species === "cat" ? `<g stroke="${INK}" stroke-width="1" opacity=".6"><line x1="44" y1="70" x2="30" y2="67"/><line x1="44" y1="73" x2="30" y2="75"/><line x1="76" y1="70" x2="90" y2="67"/><line x1="76" y1="73" x2="90" y2="75"/></g>` : "";
-    return ears + face + `<ellipse cx="60" cy="44" rx="20" ry="9" fill="#fff" opacity=".12"/>` + muzzle + whisk;
+    const face = sp === "alien" ? `<ellipse cx="60" cy="58" rx="31" ry="32" fill="${sk}" ${s}/>` : `<circle cx="60" cy="58" r="30" fill="${sk}" ${s}/>`;
+    const marks = sp === "tiger" ? `<g fill="${INK}" opacity=".85"><path d="M56 29 L60 42 L64 29Z"/><path d="M44 33 L49 42 L50 32Z"/><path d="M76 33 L71 42 L70 32Z"/><path d="M31 56 L42 59 L31 62Z"/><path d="M89 56 L78 59 L89 62Z"/></g>`
+      : sp === "panda" ? `<ellipse cx="48" cy="58" rx="9" ry="11" fill="#1d1d22" transform="rotate(20 48 58)"/><ellipse cx="72" cy="58" rx="9" ry="11" fill="#1d1d22" transform="rotate(-20 72 58)"/>`
+      : sp === "fox" ? `<path d="M31 62 Q46 64 56 82 Q38 82 31 62Z" fill="#fff"/><path d="M89 62 Q74 64 64 82 Q82 82 89 62Z" fill="#fff"/>`
+      : sp === "monkey" ? `<path d="M40 60 Q40 44 52 46 Q60 50 68 46 Q80 44 80 60 Q82 86 60 87 Q38 86 40 60Z" fill="${lite}"/>`
+      : "";
+    const white = sp === "panda" || sp === "tiger" || sp === "fox";
+    const muzzle = isAnimal(sp) && sp !== "monkey"
+      ? `<ellipse cx="60" cy="73" rx="${sp === "dog" ? 15 : 13}" ry="${sp === "dog" ? 11 : 9}" fill="${white ? "#fff" : lite}"/><path d="M56 66 L64 66 L60 71 Z" fill="${INK}"/>${sp === "dog" ? `<ellipse cx="60" cy="67" rx="6" ry="4" fill="${INK}"/>` : ""}${sp === "rabbit" ? `<rect x="57" y="78" width="6" height="6" rx="1" fill="#fff" stroke="${INK}" stroke-width="1"/>` : ""}`
+      : sp === "monkey" ? `<ellipse cx="57" cy="70" rx="1.6" ry="1.2" fill="${INK}"/><ellipse cx="63" cy="70" rx="1.6" ry="1.2" fill="${INK}"/>` : "";
+    const whisk = ["cat", "tiger", "fox", "rabbit", "lion"].includes(sp) ? `<g stroke="${INK}" stroke-width="1" opacity=".6"><line x1="44" y1="72" x2="30" y2="69"/><line x1="44" y1="75" x2="30" y2="77"/><line x1="76" y1="72" x2="90" y2="69"/><line x1="76" y1="75" x2="90" y2="77"/></g>` : "";
+    return mane + ears + face + `<ellipse cx="60" cy="44" rx="20" ry="9" fill="#fff" opacity=".12"/>` + marks + muzzle + whisk;
+
   }
   function facial(l) {
     const c = l.hairColor;
@@ -174,7 +217,7 @@ window.Puppet = (function () {
       case "armor": extra = `<path d="M40 96 Q60 88 80 96 L78 124 Q60 132 42 124 Z" fill="#c9d1dc" ${s}/><path d="M48 104 L72 104 M46 114 L74 114" stroke="#8b96a6" stroke-width="2"/><circle cx="${33 - w}" cy="96" r="9" fill="#c9d1dc" ${s}/><circle cx="${87 + w}" cy="96" r="9" fill="#c9d1dc" ${s}/>`; break;
       case "uniform": extra = `<line x1="60" y1="90" x2="60" y2="148" stroke="${dk}" stroke-width="2"/><circle cx="60" cy="104" r="2" fill="#ffd34d"/><circle cx="60" cy="118" r="2" fill="#ffd34d"/><circle cx="60" cy="132" r="2" fill="#ffd34d"/><rect x="40" y="100" width="12" height="4" fill="#ffd34d"/><path d="M${36 - w} 92 L44 86 L48 94Z M${84 + w} 92 L76 86 L72 94Z" fill="#ffd34d"/>`; break;
       case "sweater": extra = `<path d="M44 89 Q60 99 76 89" fill="none" stroke="${dk}" stroke-width="5"/><path d="M38 116 L82 116 M37 124 L83 124" stroke="${shade(c, 0.2)}" stroke-width="3" stroke-dasharray="4 3"/>`; break;
-      case "overalls": extra = `<path d="M42 110 L78 110 L82 146 Q60 152 38 146Z" fill="#30476b" ${s}/><line x1="46" y1="90" x2="46" y2="112" stroke="#30476b" stroke-width="5"/><line x1="74" y1="90" x2="74" y2="112" stroke="#30476b" stroke-width="5"/><circle cx="46" cy="112" r="2.5" fill="#ffd34d"/><circle cx="74" cy="112" r="2.5" fill="#ffd34d"/>`; break;
+      case "overalls": extra = `<path d="M42 110 L78 110 L82 146 Q60 152 38 146Z" fill="${l.pantsColor}" ${s}/><line x1="46" y1="90" x2="46" y2="112" stroke="${l.pantsColor}" stroke-width="5"/><line x1="74" y1="90" x2="74" y2="112" stroke="${l.pantsColor}" stroke-width="5"/><circle cx="46" cy="112" r="2.5" fill="#ffd34d"/><circle cx="74" cy="112" r="2.5" fill="#ffd34d"/>`; break;
       case "robe": extra = `<path d="M50 88 L60 150 L70 88" fill="none" stroke="${shade(c, 0.25)}" stroke-width="3"/><path d="M${30 - w} 130 L${90 + w} 130" stroke="#ffd34d" stroke-width="3"/>`; break;
       case "jacket": extra = `<path d="M52 88 L60 100 L68 88" fill="#f2f2f2"/><line x1="60" y1="100" x2="60" y2="148" stroke="${INK}" stroke-width="2"/><path d="M${36 - w} 92 L52 88 L56 108 L${34 - w} 112Z" fill="${dk}"/><path d="M${84 + w} 92 L68 88 L64 108 L${86 + w} 112Z" fill="${dk}"/>`; break;
       case "dress": extra = `<path d="M${30 - w} 128 Q60 136 ${90 + w} 128" fill="none" stroke="${shade(c, 0.25)}" stroke-width="3"/><circle cx="60" cy="96" r="3" fill="#fff"/>`; break;
@@ -192,7 +235,7 @@ window.Puppet = (function () {
     const t = torso(l);
     const sleeve = l.outfit === "armor" ? "#c9d1dc" : l.outfit === "labcoat" ? "#f4f7ff" : l.outfitColor;
     const hand = l.species === "robot" ? shade(l.skin, -0.1) : l.skin;
-    const pants = l.outfit === "overalls" ? "#30476b" : pick(PANTS, hash(c.name || "") >>> 4);
+    const pants = l.pantsColor;
     const s = `stroke="${INK}" stroke-width="2.2"`;
     const eyeR = l.eyes === "big" ? 6.2 : 4.6;
     const eyeFill = l.species === "robot" ? "#3ee6ff" : l.species === "alien" ? "#111" : l.eyeColor;
@@ -221,7 +264,7 @@ window.Puppet = (function () {
           </g>
           <path class="brow l" d="M42 46 L55 45" stroke="${brow}" stroke-width="3.5" stroke-linecap="round"/>
           <path class="brow r" d="M65 45 L78 46" stroke="${brow}" stroke-width="3.5" stroke-linecap="round"/>
-          ${l.species === "human" || l.species === "cat" ? `<ellipse cx="40" cy="68" rx="5.5" ry="3" fill="#ff6b8a" opacity=".3"/><ellipse cx="80" cy="68" rx="5.5" ry="3" fill="#ff6b8a" opacity=".3"/>` : ""}
+          ${l.species === "human" || l.species === "cat" || l.species === "rabbit" ? `<ellipse cx="40" cy="68" rx="5.5" ry="3" fill="#ff6b8a" opacity=".3"/><ellipse cx="80" cy="68" rx="5.5" ry="3" fill="#ff6b8a" opacity=".3"/>` : ""}
           ${l.species === "human" ? `<path d="M59 62 Q57 68 61 68" fill="none" stroke="${shade(l.skin, -0.25)}" stroke-width="1.8" stroke-linecap="round"/>` : ""}
           ${facial(l)}
           <path class="mouth" d="${MOUTH.neutral}" stroke="${ink}" stroke-width="3" fill="none" stroke-linecap="round"/>
@@ -233,7 +276,7 @@ window.Puppet = (function () {
     return html;
   }
 
-  const P = { LOOK, svg, fullLook, randomLook };
+  const P = { LOOK, svg, fullLook, randomLook, COLORS, colorHex, ANIMALS, ANIMAL_SKIN, isAnimal };
   P.mount = function (el, c) {
     el.classList.add("pup");
     el.innerHTML = `<div class="flip">${svg(c)}</div>`;

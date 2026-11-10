@@ -20,6 +20,9 @@ window.Brain = (function () {
       B.mode = j.llm ? "llm" : "offline";
       B.model = j.model;
       B.images = !!j.images;
+      B.provider = j.provider || null;          // "openai" | "adal" (agents)
+      B.mediaProvider = j.mediaProvider || null; // "openai" | "adal" (images)
+      B.providerName = B.provider === "adal" ? "AdaL" : "OpenAI";
       B.reason = j.llm ? "" : "The AI endpoint has no OPENAI_API_KEY configured.";
     } catch {
       B.mode = "offline";
@@ -36,6 +39,7 @@ window.Brain = (function () {
     });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(j.error || "LLM request failed");
+    B.lastProvider = j.fallback ? j.provider + " (fallback)" : j.provider;
     return JSON.parse(j.content);
   }
 

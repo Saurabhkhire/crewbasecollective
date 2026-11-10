@@ -45,10 +45,17 @@ without a key the playground uses offline (simulated) agents.
 
 ## Env (Vercel, main project)
 
-- `OPENAI_API_KEY` — required for LLM mode
-- `OPENAI_MODEL` — optional, default `gpt-4.1-mini`
-- `OPENAI_IMAGE_MODEL` — optional, default `gpt-image-1-mini` (used by AdaL poster/image/video features)
-- `AIMP_IMAGES=off` — optional, disables image generation
-- `AIMP_ALLOWED_ORIGINS` — optional, default `crewbasecollective.com,localhost,127.0.0.1`
+Pick who powers the agents. Both switches default to OpenAI.
+
+| Variable | Values | Controls |
+|---|---|---|
+| `AGENT_PROVIDER` | `openai` (default) or `adal` | Every agent decision and every "describe it" generator: film, games, interviews, studio characters and scenes, sponsor labs |
+| `MEDIA_PROVIDER` | `openai` (default) or `adal` | Generated images: film posters, character portraits, scene concept art, AdaL lab images and video frames |
+
+OpenAI: `OPENAI_API_KEY` (needed for OpenAI mode and as the fallback), `OPENAI_MODEL` (default `gpt-4.1-mini`), `OPENAI_IMAGE_MODEL` (default `gpt-image-1-mini`).
+
+AdaL Cloud Agents (cloud.adal.sylph.ai, API spec at `/openapi.json`): `ADAL_API_KEY` (token from the cloud app's API tab, a JWT), `ADAL_AGENT_ID` (the agent you created there), optional `ADAL_API_URL`, `ADAL_MODEL`, `ADAL_TIMEOUT_MS` (default 40000). Flow: create session → provision → `chat/stream`; the reply must be JSON. If AdaL fails or times out and `OPENAI_API_KEY` is set, the request falls back to OpenAI and logs a warning.
+
+Other: `AIMP_IMAGES=off` disables image generation; `AIMP_ALLOWED_ORIGINS` (default `crewbasecollective.com,localhost,127.0.0.1`).
 
 The endpoint checks Origin/Referer and rate-limits per IP (90 chat calls/min, 8 images/min); set a spending limit on the OpenAI key.

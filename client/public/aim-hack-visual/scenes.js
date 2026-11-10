@@ -170,6 +170,116 @@ window.Scenes = (function () {
     }
   };
 
+
+  /* ---------- extra places ---------- */
+  Object.assign(DRAW, {
+    savanna(t) {
+      const g = t === "night" ? "#3a3420" : t === "sunset" ? "#c9853a" : "#d8b45a";
+      const acacia = (x, s) => `<g transform="translate(${x} 640) scale(${s})"><path d="M-6 0 L-4 -150 L-40 -200 M-4 -150 L30 -210" stroke="#4a3020" stroke-width="12" fill="none"/><ellipse cx="-10" cy="-215" rx="130" ry="26" fill="${t === "night" ? "#1d2a18" : "#3f6b2a"}"/><ellipse cx="20" cy="-232" rx="90" ry="20" fill="${t === "night" ? "#22301c" : "#4f7d33"}"/></g>`;
+      return `${r(0, 0, 1600, 900, "url(#sky)")}${sunMoon(t)}<path d="M0 600 Q400 560 800 590 T1600 580 L1600 900 L0 900Z" fill="${g}" opacity=".7"/>${acacia(260, 1.1)}${acacia(1300, 0.9)}${acacia(900, 0.55)}
+        ${r(0, 640, 1600, 260, g)}${Array.from({ length: 40 }, (_, i) => `<path d="M${i * 41} 660 l6 -26 l6 26" fill="${t === "night" ? "#4a4228" : "#b8913c"}"/>`).join("")}
+        <path d="M1050 640 Q1130 560 1250 600 Q1300 620 1310 640Z" fill="${t === "night" ? "#2a2418" : "#a8874a"}"/>`;
+    },
+    jungle(t) {
+      const d = t === "night" ? ["#071a12", "#0c2a1c", "#123a26"] : ["#1f5c3a", "#2f7a4a", "#3f9a5a"];
+      const leaf = (x, y, s, c, rot) => `<path transform="translate(${x} ${y}) rotate(${rot}) scale(${s})" d="M0 0 Q60 -40 140 0 Q60 30 0 0Z" fill="${c}"/>`;
+      let leaves = ""; for (let i = 0; i < 26; i++) leaves += leaf((i * 167) % 1600, 80 + (i * 97) % 520, 0.8 + (i % 4) * 0.3, d[i % 3], (i * 53) % 360);
+      return `${r(0, 0, 1600, 900, t === "night" ? "#04100a" : "#a8d8a0")}${r(0, 0, 1600, 900, d[0], 'opacity=".55"')}
+        ${[120, 520, 980, 1380].map(x => r(x, 0, 46, 660, t === "night" ? "#1a120a" : "#5a3a22")).join("")}${leaves}
+        <path d="M0 40 Q300 160 520 60 T1000 120 T1600 50" stroke="#2f5a1f" stroke-width="10" fill="none"/>
+        ${r(0, 640, 1600, 260, d[1])}${Array.from({ length: 10 }, (_, i) => leaf(i * 170 - 40, 700 + (i % 3) * 40, 1.4, d[2], -20 + (i % 2) * 200)).join("")}`;
+    },
+    underwater(t) {
+      const top = t === "night" ? "#06203a" : "#2aa5d8", bot = t === "night" ? "#020812" : "#0b3a66";
+      const weed = (x, h, c) => `<path d="M${x} 900 Q${x - 30} ${900 - h / 2} ${x} ${900 - h} Q${x + 30} ${900 - h / 2} ${x + 8} 900Z" fill="${c}"/>`;
+      return `<defs><linearGradient id="uw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bot}"/></linearGradient></defs>${r(0, 0, 1600, 900, "url(#uw)")}
+        ${[200, 520, 900, 1240].map((x, i) => `<path d="M${x} 0 L${x - 120} 640 L${x + 60} 640 L${x + 90} 0Z" fill="#fff" opacity=".06"/>`).join("")}
+        ${Array.from({ length: 24 }, (_, i) => `<circle cx="${(i * 137) % 1600}" cy="${100 + (i * 89) % 500}" r="${3 + i % 6}" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>`).join("")}
+        <g fill="#ff9f43"><path d="M1100 300 q30 -20 60 0 q-30 20 -60 0Z"/><path d="M1160 300 l20 -14 v28Z"/></g><g fill="#ffd34d"><path d="M380 230 q24 -16 48 0 q-24 16 -48 0Z"/><path d="M428 230 l16 -11 v22Z"/></g>
+        <path d="M0 650 Q400 610 800 640 T1600 630 L1600 900 L0 900Z" fill="#d9c08a"/>${weed(120, 260, "#2f9e5b")}${weed(170, 200, "#3fb36b")}${weed(1420, 300, "#2f9e5b")}${weed(1480, 220, "#3fb36b")}
+        ${[600, 1000].map(x => `<g transform="translate(${x} 680)"><circle r="34" fill="#ff6b8a"/><circle r="22" cx="40" cy="10" fill="#ff8fa8"/><circle r="18" cx="-36" cy="14" fill="#ff4f6d"/></g>`).join("")}`;
+    },
+    cave(t) {
+      return `${r(0, 0, 1600, 900, "#1a1512")}<path d="M0 0 L1600 0 L1600 220 Q1400 120 1200 200 Q1000 90 800 180 Q600 80 400 190 Q200 110 0 230Z" fill="#2a221c"/>
+        ${Array.from({ length: 14 }, (_, i) => `<path d="M${60 + i * 115} ${150 + (i % 3) * 30} l20 ${70 + (i % 4) * 30} l20 -${70 + (i % 4) * 30}Z" fill="#3a2f26"/>`).join("")}
+        <ellipse cx="800" cy="420" rx="460" ry="260" fill="#0a0806"/>${[[520, 360, "#3ee6ff"], [1080, 330, "#c48bff"], [700, 520, "#b6ff5c"], [960, 560, "#3ee6ff"]].map(([x, y, c]) => `<path d="M${x} ${y} l14 -40 l14 40 l-14 14Z" fill="${c}" opacity=".85"/><circle cx="${x + 14}" cy="${y - 10}" r="40" fill="${c}" opacity=".12"/>`).join("")}
+        ${r(0, 640, 1600, 260, "#2a221c")}${Array.from({ length: 9 }, (_, i) => `<ellipse cx="${i * 200 + 60}" cy="${680 + (i % 2) * 30}" rx="${50 + (i % 3) * 20}" ry="22" fill="#3a2f26"/>`).join("")}`;
+    },
+    mars(t) {
+      return `${r(0, 0, 1600, 900, t === "night" ? "#120814" : "#e0905a")}${t === "night" ? stars(70) : `<circle cx="1320" cy="160" r="46" fill="#fff3d6" opacity=".8"/>`}
+        <path d="M0 560 L200 470 L380 540 L600 430 L820 520 L1050 450 L1300 530 L1600 470 L1600 900 L0 900Z" fill="${t === "night" ? "#4a1e14" : "#b8532e"}"/>
+        ${r(0, 640, 1600, 260, t === "night" ? "#5a2618" : "#c8653a")}${[[300, 720, 60], [1200, 760, 90], [820, 820, 40]].map(([x, y, rr]) => `<ellipse cx="${x}" cy="${y}" rx="${rr}" ry="${rr * 0.3}" fill="#000" opacity=".2"/>`).join("")}
+        <g transform="translate(1180 640)"><path d="M-120 0 Q0 -170 120 0Z" fill="#e8ecf2" stroke="#9aa6b2" stroke-width="6"/><rect x="-26" y="-50" width="52" height="50" fill="#5c6f99"/><circle cx="0" cy="-95" r="14" fill="#3ee6ff"/></g>`;
+    },
+    library(t) {
+      let books = "";
+      for (let sh = 0; sh < 4; sh++) for (let i = 0; i < 24; i++) {
+        const x = 70 + i * 52 + (i >= 12 ? 160 : 0), h = 92 - ((i + sh) * 7) % 26;
+        if (x > 1500) continue;
+        books += r(x, 140 + sh * 120 + (92 - h), 42, h, ["#b5303c", "#2f5fb5", "#3d8a4f", "#d9a441", "#7b4fc4", "#8b5e3c"][(i + sh) % 6]);
+      }
+      return `${r(0, 0, 1600, 900, "#4a2e1c")}${[0, 1, 2, 3, 4].map(sh => r(50, 232 + sh * 120, 1500, 14, "#2e1c10")).join("")}${books}
+        ${r(740, 120, 120, 380, windowView(t), 'stroke="#2e1c10" stroke-width="12"')}
+        ${r(0, 640, 1600, 260, "#6b4a32")}<path d="M300 640 L1300 640 L1380 690 L220 690Z" fill="#8a1f2e" opacity=".7"/>
+        <g transform="translate(1300 600)"><rect x="-6" y="-120" width="12" height="160" fill="#2b2e36"/><path d="M-40 -150 L40 -150 L24 -118 L-24 -118Z" fill="#3d8a4f"/><circle cy="-110" r="70" fill="#ffd96b" opacity=".14"/></g>`;
+    },
+    hospital(t) {
+      return `${r(0, 0, 1600, 900, "#e6f2f2")}${r(0, 470, 1600, 170, "#c9e3e3")}${r(0, 460, 1600, 12, "#9cc9c9")}
+        ${r(160, 140, 260, 200, windowView(t), 'stroke="#b8c8c8" stroke-width="12"')}
+        <g transform="translate(1200 230)"><rect x="-70" y="-70" width="140" height="140" rx="20" fill="#fff" stroke="#d63c3c" stroke-width="8"/><rect x="-14" y="-46" width="28" height="92" fill="#d63c3c"/><rect x="-46" y="-14" width="92" height="28" fill="#d63c3c"/></g>
+        <g transform="translate(700 600)"><rect x="-220" y="-40" width="440" height="30" rx="10" fill="#f4f4f4" stroke="#9aa6ad" stroke-width="4"/><rect x="-220" y="-80" width="90" height="44" rx="14" fill="#fff" stroke="#9aa6ad" stroke-width="4"/><rect x="-200" y="-10" width="10" height="60" fill="#9aa6ad"/><rect x="190" y="-10" width="10" height="60" fill="#9aa6ad"/></g>
+        <g transform="translate(1000 520)"><rect x="-4" y="-160" width="8" height="200" fill="#9aa6ad"/><rect x="-30" y="-180" width="60" height="70" rx="10" fill="#20242f"/><path d="M-22 -150 L-10 -150 L-4 -164 L4 -136 L10 -150 L22 -150" stroke="#b6ff5c" stroke-width="3" fill="none"/></g>
+        ${r(0, 640, 1600, 260, "#b8d0d4")}${Array.from({ length: 9 }, (_, i) => r(i * 200, 640, 2, 260, "#a8c2c6")).join("")}`;
+    },
+    cafe(t) {
+      return `${r(0, 0, 1600, 900, "#3a2a22")}${r(0, 0, 1600, 360, "#5a3a2a")}
+        ${r(120, 90, 560, 300, windowView(t), 'stroke="#2a1c14" stroke-width="14"')}${t !== "night" ? "" : `<g opacity=".8">${[0, 1, 2, 3].map(i => r(160 + i * 130, 260 - i * 20, 60, 130 + i * 20, "#1f2a55")).join("")}</g>`}
+        <g transform="translate(1100 110)"><rect x="-200" y="0" width="400" height="230" rx="10" fill="#1d1d22" stroke="#8b5e3c" stroke-width="10"/><text x="0" y="56" fill="#f4ead2" font-family="Comic Sans MS, cursive" font-size="40" text-anchor="middle">MENU</text><text x="0" y="110" fill="#f4ead2" opacity=".8" font-family="Comic Sans MS, cursive" font-size="28" text-anchor="middle">Latte ... 4</text><text x="0" y="160" fill="#f4ead2" opacity=".8" font-family="Comic Sans MS, cursive" font-size="28" text-anchor="middle">Croissant ... 3</text></g>
+        ${[300, 700, 1100].map(x => `<g><line x1="${x}" y1="0" x2="${x}" y2="70" stroke="#222" stroke-width="3"/><path d="M${x - 30} 70 L${x + 30} 70 L${x + 18} 100 L${x - 18} 100Z" fill="#d9a441"/><circle cx="${x}" cy="110" r="60" fill="#ffd96b" opacity=".12"/></g>`).join("")}
+        ${r(0, 470, 1600, 170, "#6b4a32")}${r(0, 460, 1600, 16, "#8b5e3c")}<g transform="translate(1350 430)"><rect x="-60" y="-60" width="120" height="70" rx="10" fill="#c9d0d8"/><rect x="-20" y="-80" width="40" height="22" fill="#33363d"/></g>
+        ${r(0, 640, 1600, 260, "#2a1c14")}${Array.from({ length: 16 }, (_, i) => r(i * 100, 640, 50, 260, "#33241a")).join("")}`;
+    }
+  });
+  BASES.push(
+    { id: "savanna", name: "Savanna", icon: "🦁", indoor: false, desc: "Golden grassland with acacia trees, home of lions." },
+    { id: "jungle", name: "Jungle", icon: "🌴", indoor: false, desc: "A dense, steamy rainforest full of giant leaves and vines." },
+    { id: "underwater", name: "Underwater", icon: "🐠", indoor: false, desc: "A sunlit sea floor with coral, seaweed and fish." },
+    { id: "cave", name: "Crystal cave", icon: "💎", indoor: true, desc: "A dark cave lit by glowing crystals." },
+    { id: "mars", name: "Mars base", icon: "🪐", indoor: false, desc: "Red Martian rocks and a dome habitat." },
+    { id: "library", name: "Library", icon: "📚", indoor: true, desc: "Tall shelves of books and a warm reading lamp." },
+    { id: "hospital", name: "Hospital ward", icon: "🏥", indoor: true, desc: "A clean hospital ward with a bed and a heart monitor." },
+    { id: "cafe", name: "Café", icon: "☕", indoor: true, desc: "A cosy café with a chalk menu and a coffee machine." }
+  );
+
+  /* ---------- props: optional extras placed on the ground ---------- */
+  const PROPS = {
+    campfire: x => `<g transform="translate(${x} 700)"><ellipse rx="70" ry="14" fill="#000" opacity=".3"/><path d="M-40 0 L40 -16 M-40 -16 L40 0" stroke="#6b4a2a" stroke-width="14"/><path d="M0 -20 Q-34 -60 -6 -110 Q2 -70 22 -84 Q34 -40 0 -20Z" fill="#ff8a3a"/><path d="M0 -24 Q-14 -50 0 -76 Q14 -50 0 -24Z" fill="#ffd34d"/><circle cy="-50" r="140" fill="#ff8a3a" opacity=".12"/></g>`,
+    tent: x => `<g transform="translate(${x} 700)"><path d="M-130 0 L0 -170 L130 0Z" fill="#e8742c" stroke="#7a3a14" stroke-width="5"/><path d="M0 -170 L-30 0 L30 0Z" fill="#7a3a14"/></g>`,
+    rocks: x => `<g transform="translate(${x} 700)"><ellipse cx="-30" cy="-20" rx="60" ry="40" fill="#7a7f88"/><ellipse cx="40" cy="-14" rx="44" ry="30" fill="#8a8f99"/><ellipse cx="-40" cy="-34" rx="22" ry="10" fill="#fff" opacity=".2"/></g>`,
+    bush: x => `<g transform="translate(${x} 700)"><circle cx="-40" cy="-30" r="44" fill="#2f7a4a"/><circle cx="20" cy="-46" r="54" fill="#3f9a5a"/><circle cx="70" cy="-26" r="40" fill="#2f7a4a"/></g>`,
+    tree: x => `<g transform="translate(${x} 700)"><rect x="-16" y="-220" width="32" height="220" fill="#6b4a2a"/><circle cy="-260" r="100" fill="#3f9a4a"/><circle cx="-70" cy="-220" r="66" fill="#4aa856"/><circle cx="70" cy="-220" r="66" fill="#4aa856"/></g>`,
+    lamp: x => `<g transform="translate(${x} 700)"><rect x="-6" y="-260" width="12" height="260" fill="#2b2e36"/><rect x="-30" y="-280" width="60" height="26" rx="8" fill="#2b2e36"/><circle cy="-250" r="90" fill="#ffd96b" opacity=".18"/><circle cy="-258" r="10" fill="#ffd96b"/></g>`,
+    crates: x => `<g transform="translate(${x} 700)"><rect x="-90" y="-80" width="80" height="80" fill="#a8774a" stroke="#5a3a22" stroke-width="5"/><rect x="-10" y="-80" width="80" height="80" fill="#b9874f" stroke="#5a3a22" stroke-width="5"/><rect x="-50" y="-160" width="80" height="80" fill="#a8774a" stroke="#5a3a22" stroke-width="5"/></g>`,
+    car: x => `<g transform="translate(${x} 700)"><path d="M-170 -20 L-150 -70 L-80 -110 L60 -110 L120 -70 L180 -60 L180 -20Z" fill="#d63c3c" stroke="#5a1414" stroke-width="5"/><path d="M-70 -100 L50 -100 L100 -70 L-130 -70Z" fill="#9fd8ff"/><circle cx="-100" cy="-16" r="30" fill="#222"/><circle cx="110" cy="-16" r="30" fill="#222"/></g>`,
+    river: () => `<path d="M0 760 Q400 720 800 770 T1600 750 L1600 830 Q1200 860 800 830 T0 840Z" fill="#4aa8e0" opacity=".85"/><path d="M100 790 Q300 776 500 795 M900 800 Q1100 786 1300 805" stroke="#fff" stroke-opacity=".5" stroke-width="4" fill="none"/>`,
+    fountain: x => `<g transform="translate(${x} 700)"><ellipse rx="120" ry="26" fill="#9aa6ad"/><ellipse cy="-6" rx="100" ry="18" fill="#5ab0e0"/><rect x="-12" y="-110" width="24" height="104" fill="#c9d0d8"/><path d="M0 -110 Q-50 -150 -70 -60 M0 -110 Q50 -150 70 -60" stroke="#9fd8ff" stroke-width="6" fill="none"/></g>`,
+    flowers: x => `<g transform="translate(${x} 700)">${[-80, -40, 0, 40, 80].map((d, i) => `<line x1="${d}" y1="0" x2="${d}" y2="-50" stroke="#2f7a4a" stroke-width="4"/><circle cx="${d}" cy="-56" r="12" fill="${["#ff7eb6", "#ffd34d", "#c48bff", "#ff6b6b", "#7cc8ff"][i]}"/>`).join("")}</g>`,
+    sign: x => `<g transform="translate(${x} 700)"><rect x="-6" y="-170" width="12" height="170" fill="#6b4a2a"/><path d="M-80 -170 L80 -170 L100 -145 L80 -120 L-80 -120Z" fill="#a8774a" stroke="#5a3a22" stroke-width="4"/></g>`,
+    table: x => `<g transform="translate(${x} 700)"><rect x="-110" y="-90" width="220" height="16" rx="5" fill="#8b5e3c"/><rect x="-100" y="-74" width="12" height="74" fill="#5a3a22"/><rect x="88" y="-74" width="12" height="74" fill="#5a3a22"/><rect x="-20" y="-120" width="22" height="30" rx="4" fill="#f4f4f4"/></g>`,
+    plant: x => `<g transform="translate(${x} 700)"><path d="M-34 0 L34 0 L26 -66 L-26 -66Z" fill="#c76b3e"/><g fill="#3c9c58"><ellipse cx="0" cy="-110" rx="24" ry="54"/><ellipse cx="-34" cy="-100" rx="18" ry="48" transform="rotate(-25 -34 -100)"/><ellipse cx="34" cy="-100" rx="18" ry="48" transform="rotate(25 34 -100)"/></g></g>`
+  };
+  const PROP_SLOTS = [180, 1420, 420, 1180];
+
+  function props(s) {
+    const list = (Array.isArray(s.props) ? s.props : []).filter(p => PROPS[p]).slice(0, 4);
+    let slot = 0;
+    return list.map(p => p === "river" ? PROPS.river() : PROPS[p](PROP_SLOTS[slot++ % PROP_SLOTS.length])).join("");
+  }
+  /* optional colour mood, e.g. { tint: "#ff4fa3" } for a pink-lit scene */
+  function mood(s) {
+    const h = /^#[0-9a-f]{6}$/i.test(s.tint || "") ? s.tint : "";
+    return h ? `<rect width="1600" height="900" fill="${h}" opacity=".22" style="mix-blend-mode:color"/><rect width="1600" height="900" fill="${h}" opacity=".08"/>` : "";
+  }
   function svg(scene) {
     const s = Object.assign({ base: "office", time: "day", weather: "clear" }, scene || {});
     const draw = DRAW[s.base] || DRAW.office;
@@ -178,7 +288,7 @@ window.Scenes = (function () {
     return `<svg class="scene-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
       <defs>${skyRect(time)}<radialGradient id="plan" cx="35%" cy="35%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></radialGradient>
       <linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset=".4" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient></defs>
-      ${draw(time)}${tint}<rect width="1600" height="900" fill="url(#vig)"/></svg>`;
+      ${draw(time)}${props(s)}${tint}${mood(s)}<rect width="1600" height="900" fill="url(#vig)"/></svg>`;
   }
 
   function particles(weather) {
@@ -202,7 +312,7 @@ window.Scenes = (function () {
 
   const imgCache = new Map();
   function toImage(scene, w, h) {
-    const key = JSON.stringify([scene && scene.base, scene && scene.time, w, h]);
+    const key = JSON.stringify([scene && scene.base, scene && scene.time, scene && scene.props, scene && scene.tint, w, h]);
     if (imgCache.has(key)) return imgCache.get(key);
     const markup = svg(scene).replace('<svg class="scene-svg"', `<svg width="${w}" height="${h}"`);
     const p = new Promise(res => { const img = new Image(); img.onload = () => res(img); img.onerror = () => res(null); img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(markup); });
@@ -210,5 +320,5 @@ window.Scenes = (function () {
     return p;
   }
 
-  return { BASES, TIMES, WEATHER, svg, mount, toImage, FLOOR: 0.12 };
+  return { BASES, TIMES, WEATHER, PROPS: Object.keys(PROPS), svg, mount, toImage, FLOOR: 0.12 };
 })();

@@ -467,7 +467,7 @@ Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 2
     if (m) m.innerHTML = `<span class="pill">● Checking for the AI server…</span>`;
     await Brain.init();
     if (m) m.innerHTML = Brain.mode === "llm"
-      ? `<span class="pill ok">● LIVE AI AGENTS</span> Labs run on <b>${esc(Brain.model)}</b>.${Brain.images ? " Image generation is on." : " Image generation is off, so AdaL renders offline vector previews."}`
+      ? `<span class="pill ok">● LIVE AI AGENTS</span> Labs run on ${Brain.provider === "adal" ? "AdaL cloud agents" : "OpenAI"} (<b>${esc(Brain.model)}</b>).${Brain.images ? ` Image generation is on (${Brain.mediaProvider === "adal" ? "AdaL" : "OpenAI"}).` : " Image generation is off, so AdaL renders offline vector previews."}`
       : `<span class="pill warn">● OFFLINE DEMO AGENTS</span> ${esc(Brain.reason || "")} The labs still work with simulated agents.`;
     const want = (location.hash.match(/^#lab-(\w+)/) || [])[1];
     open(want || "band", !!want);
