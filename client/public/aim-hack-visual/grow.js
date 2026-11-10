@@ -10,7 +10,8 @@ window.Grow = (function () {
   const C = "#b6ff5c";
   const STEPS = ["Scenario", "Panel", "Session", "Verdict"];
   const EMOS = ["happy", "calm", "thinking", "sad", "angry", "sly", "shocked", "determined", "neutral"];
-  const FINCH_SKILLS = ["STAR method", "Clarity", "Confidence", "Domain depth"];
+  /* Finch: examiner skills from the shared library (PLAY.allSkills), changeable by clicking the badge */
+  const GROW_SKILLS = ["examine", "investigate", "coach", "summarize"];
 
   /* rubric kinds drive the offline scorer: clarity | evidence | depth | confidence | polite | fluency */
   const SCENARIOS = [
@@ -323,7 +324,7 @@ window.Grow = (function () {
   function newSession() {
     const sc = scen();
     const sceneObj = UI.Lib.scene((S.sceneSel && S.sceneSel.sc === S.sc && S.sceneSel.ids[0]) || sc.scene) || UI.Lib.scene(sc.scene) || { base: "office", time: "day" };
-    const panel = S.panel.map((id, i) => ({ ...UI.Lib.char(id), xrole: S.roles[id] || sc.roles[i] || UI.Lib.char(id).role, skill: FINCH_SKILLS[i % FINCH_SKILLS.length], color: PLAY.colors[(i * 2 + 2) % PLAY.colors.length], vi: i }));
+    const panel = S.panel.map((id, i) => ({ ...UI.Lib.char(id), xrole: S.roles[id] || sc.roles[i] || UI.Lib.char(id).role, skill: UI.skill((S.skillPick || {})[id] || GROW_SKILLS[i % GROW_SKILLS.length]), color: PLAY.colors[(i * 2 + 2) % PLAY.colors.length], vi: i }));
     return {
       sc, ctx: ctxOf(sc), scene: sceneObj, panel, nq: S.nq,
       level: DIFF[S.diff].d, diffLabel: DIFF[S.diff].label, rubric: sc.rubric.map(r => r[0]),
@@ -351,7 +352,7 @@ window.Grow = (function () {
             ${G.panel.map((p, i) => `<div class="gr-seat" id="seat-${i}" style="left:${seatX(i, G.panel.length)}%;--c:${p.color}">
               <div class="gr-pup"></div><div class="gr-score"></div></div>`).join("")}
             <div class="gr-desk"></div>
-            ${G.panel.map((p, i) => `<div class="gr-name" style="left:${seatX(i, G.panel.length)}%;--c:${p.color}"><b>${esc(p.name)}</b><span>${esc(p.xrole)}</span><span class="sp-badge gr-skill" style="--c:#ff9f43">🪶 ${esc(p.skill)}</span></div>`).join("")}
+            ${G.panel.map((p, i) => `<div class="gr-name" style="left:${seatX(i, G.panel.length)}%;--c:${p.color}"><b>${esc(p.name)}</b><span>${esc(p.xrole)}</span><span class="gr-skill" data-sk="${i}">${UI.skillBadge(p.skill, "pick")}</span></div>`).join("")}
             <div class="gr-sub" id="sub"></div>
             <div class="gr-closed" id="closed"><span>🚪 Behind closed doors…</span></div>
             <div class="gr-badges" id="badges"></div>
@@ -367,7 +368,13 @@ window.Grow = (function () {
       </div>`;
     G.panel.forEach((p, i) => { const el = $(`#seat-${i} .gr-pup`); Puppet.mount(el, p); p.el = el; });
     Scenes.mount($("#stage"), G.scene);
-    UI.sponsorBar($("#spBar"), "grow", S.tools, applyTools);
+    G.live = UI.toolsLive($("#stage"), "grow", S.tools);
+    UI.sponsorBar($("#spBar"), "grow", S.tools, applyTools, { live: G.live });
+    $("#stage").addEventListener("click", e => {
+      const b = e.target.closest("[data-sk]"); if (!b) return;
+      const p = G.panel[+b.dataset.sk];
+      UI.chooseSkill(p.name, p.skill.id, sk => { p.skill = sk; (S.skillPick = S.skillPick || {})[p.id] = sk.id; b.innerHTML = UI.skillBadge(sk, "pick"); drawRubric(); G.live.fx("finch", { text: `${p.name} will score with ${sk.icon} ${sk.name}`, from: $(`#seat-${p.vi}`), n: 0 }); });
+    });
     applyTools();
     drawRubric(); drawBruin(); setMeter();
     $("#voiceT").onclick = () => { UI.ctl.voice = !UI.ctl.voice; $("#voiceT").textContent = UI.ctl.voice ? "🔊 Voices on" : "🔇 Voices off"; if (!UI.ctl.voice) UI.stopVoice(); };
@@ -386,6 +393,14 @@ window.Grow = (function () {
     if (!on("band")) $("#lines").innerHTML = "";
     $("#badges").innerHTML = on("casuro") ? `<span class="sp-badge" style="--c:#ff6b6b">🎙️ CASURO · voice interview · evidence-based scoring</span>` : "";
     drawRubric(); drawBruin(); drawAnswerHint();
+    if (G.live) { G.live.refresh(); bruinDash(); }
+  }
+  function bruinDash() {
+    if (!G.live || !on("bruin")) return;
+    const done = G.qa.filter(x => x.scores);
+    const avg = done.length ? done.reduce((a, x) => a + x.total, 0) / done.length : 0;
+    G.live.dash(`<div class="k"><div><b>${done.length}/${G.nq}</b><small>answered</small></div><div><b>${avg ? avg.toFixed(1) : "–"}</b><small>avg /5</small></div><div><b>${Math.round(G.level)}</b><small>level</small></div></div>
+      ${UI.miniBars(G.rubric.map(r => ({ label: r, value: +avgSkill(r).toFixed(1), color: "#ffc857" })))}<small class="muted">score per question</small>${UI.spark(done.map(x => x.total), "#ffc857")}`);
   }
 
   function setMeter() {
@@ -405,7 +420,11 @@ window.Grow = (function () {
     $("#rubric").innerHTML = `<div class="log-head mono"><span>${on("casuro") ? "🎙️ EVIDENCE-BASED RUBRIC" : "SCORED ON"}</span><span>${G.qa.filter(x => x.scores).length}/${G.nq}</span></div>
       ${G.rubric.map(r => { const v = avgSkill(r); return `<div class="gr-rb"><span>${esc(r)}</span><div class="bar"><i style="width:${v * 20}%"></i></div><b>${v ? v.toFixed(1) : "–"}</b></div>`; }).join("")}
       ${on("casuro") ? `<p class="muted gr-note">Every score must point to something you actually said. Quotes appear in the verdict.</p>` : ""}
-      ${on("finch") ? `<div class="gr-fskills">${G.panel.map(p => `<span class="sp-badge" style="--c:#ff9f43">🪶 ${esc(p.name)}: ${esc(p.skill)}</span>`).join("")}</div>` : ""}`;
+      ${on("finch") ? `<div class="gr-fskills">${G.panel.map(p => `<span class="gr-fs">${esc(p.name)}: ${UI.skillBadge(p.skill)}</span>`).join("")}</div>` : ""}`;
+  }
+  /* Casuro: light up the rubric rows that just got evidence */
+  function flashRubric(scores) {
+    document.querySelectorAll("#rubric .gr-rb").forEach((row, i) => { const r = G.rubric[i]; if (scores && scores[r] != null) { row.classList.remove("lit"); void row.offsetWidth; row.classList.add("lit"); } });
   }
   function drawBruin() {
     if (!$("#bruin") || !on("bruin")) return;
@@ -430,6 +449,7 @@ window.Grow = (function () {
     G.panel.forEach(x => $(`#seat-${x.vi}`).classList.remove("active"));
     seat.classList.add("active");
     $("#sub").innerHTML = `<b style="color:${p.color}">${esc(p.name)}:</b> ${esc(text)}`;
+    if (G.live && on("casuro")) G.live.stat("casuro", `🔊 ${p.name.split(" ")[0]} speaking`);
     $("#sub").classList.add("on");
     Puppet.talk(p.el, Math.min(9000, 600 + text.length * 55));
     Puppet.gesture(p.el, UI.rand(["point", "out", "nod"]), 1800);
@@ -466,7 +486,7 @@ window.Grow = (function () {
     };
     const system = `You are running a practice session where AI agents play expert roles and test a human.
 Session: ${sc.id === "custom" ? sc.title + " — " + (sc.focus || "") : sc.title}. Topic/context: ${G.ctx}.${sc.id === "language" ? ` Speak ONLY in simple ${G.ctx} (adapt vocabulary to the human's level).` : ""}
-Panel: ${G.panel.map(p => `${p.name} (${p.xrole}; personality: ${p.personality})${on("finch") ? ` [scoring skill: ${p.skill}]` : ""}`).join("; ")}.
+Panel: ${G.panel.map(p => `${p.name} (${p.xrole}; personality: ${p.personality})${on("finch") ? ` [Finch skill ${p.skill.name}: ${p.skill.instructions}]` : ""}`).join("; ")}.
 Difficulty now: ${G.level}/5. Scored on: ${G.rubric.join(", ")}.
 Pick which panelist asks next (rotate, but the same person may follow up) and write ONE question in that character's voice.
 If the instruction is follow_up, quote the human's own words back and push for specifics.
@@ -500,6 +520,7 @@ ${G.qa.map((x, i) => `Q${i + 1} (${x.by}): ${x.q}\nA: ${x.answer}`).join("\n") |
           <button class="btn btn-sm" id="send">Answer ✓</button>
         </div>`;
       drawAnswerHint();
+      if (G.live && on("casuro")) G.live.stat("casuro", "🎙️ listening to you");
       const ta = $("#ans");
       ta.oninput = () => ($("#wc").textContent = (ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0) + " words");
       ta.onkeydown = e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) $("#send").click(); };
@@ -548,7 +569,7 @@ ${G.qa.map((x, i) => `Q${i + 1} (${x.by}): ${x.q}\nA: ${x.answer}`).join("\n") |
       const vague = x.answer.split(/\s+/).length < 18 || scores[weak] <= 2;
       const emo = total >= 3.8 ? "happy" : total >= 3 ? "calm" : total >= 2.2 ? "thinking" : "sad";
       const notes = G.panel.map((p, i) => {
-        const focus = on("finch") ? p.skill : sc.rubric[i % sc.rubric.length][0];
+        const focus = on("finch") ? p.skill.name : sc.rubric[i % sc.rubric.length][0];
         const good = total >= 3.2;
         return {
           name: p.name,
@@ -573,7 +594,7 @@ ${G.qa.map((x, i) => `Q${i + 1} (${x.by}): ${x.q}\nA: ${x.answer}`).join("\n") |
     };
     const system = `You are a panel of AI experts conferring IN PRIVATE about a human's answer during a practice session.
 Session: ${sc.title}${sc.focus ? " — " + sc.focus : ""}. Context: ${G.ctx}. Difficulty ${G.level}/5 (${G.diffLabel}).${sc.id === "language" ? ` The human should answer in ${G.ctx}; judge their ${G.ctx}.` : ""}
-Panel: ${G.panel.map(p => `${p.name} (${p.xrole})${on("finch") ? ` scores mainly through the "${p.skill}" skill` : ""}`).join("; ")}.
+Panel: ${G.panel.map(p => `${p.name} (${p.xrole})${on("finch") ? ` uses the Finch skill "${p.skill.name}" (${p.skill.instructions})` : ""}`).join("; ")}.
 Score ONLY from evidence in the answer${on("casuro") ? " (evidence-based scoring: every judgement must point to the human's words)" : ""}. Be honest: vague answers score 1-2, specific answers with examples/numbers score 4-5.
 Rubric (1-5 each): ${G.rubric.join(", ")}.
 Reply with JSON only:
@@ -608,7 +629,7 @@ Reply with JSON only:
       if (!a || !b) continue;
       const x1 = seatX(a.vi, G.panel.length), x2 = seatX(b.vi, G.panel.length);
       const mid = (x1 + x2) / 2;
-      svg.innerHTML = `<path d="M${x1} 38 Q${mid} ${10} ${x2} 38" class="gr-link" style="stroke:${a.color}"/>`;
+      if (G.live) G.live.fx("band", { text: `${a.name} → ${b.name}: ${m.msg}`, from: $(`#seat-${a.vi}`), to: $(`#seat-${b.vi}`), callout: false });
       const li = document.createElement("li");
       li.innerHTML = `<span class="gr-from" style="color:${a.color}">${esc(a.name)}</span> → <span style="color:${b.color}">${esc(b.name)}</span><span>${esc(m.msg)}</span>`;
       $("#bandFeed").prepend(li);
@@ -674,7 +695,12 @@ Reply with JSON only:
       // adapt
       G.next = r.next; G.quote = r.next === "follow_up" ? r.quote : "";
       G.level = Math.max(1, Math.min(5, G.level + (r.next === "harder" ? 1 : r.next === "easier" ? -1 : 0)));
-      setMeter(); drawRubric(); drawBruin();
+      setMeter(); drawRubric(); drawBruin(); bruinDash();
+      if (G.live) {
+        if (on("casuro")) { G.live.stat("casuro", null); G.live.fx("casuro", { text: `Evidence: "${Brain.clip(r.quote || x.answer, 60)}" → ${x.total.toFixed(1)}/5` }); flashRubric(r.scores); }
+        if (on("finch")) r.panel.forEach((n, i) => { const p = G.panel.find(z => z.name === n.name); if (!p) return; G.live.fx("finch", { text: `${p.name} · ${p.skill.icon} ${p.skill.name}: ${n.note}`, from: $(`#seat-${p.vi}`), callout: i === 0 }); });
+        if (on("bruin")) G.live.fx("bruin", { text: `Logged Q${k + 1}: ${x.total.toFixed(1)}/5 · next ${r.next.replace("_", "-")}`, callout: false });
+      }
       await showBackchannel(r.backchannel, token);
       await UI.sleep(S.demo ? 600 : 1600, token);
     }

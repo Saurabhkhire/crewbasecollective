@@ -268,3 +268,13 @@
 .br-tbl td { padding: 5px 4px; border-bottom: 1px solid var(--line); vertical-align: top; }
 .br-tbl td:first-child { font-family: "JetBrains Mono", monospace; color: var(--gold); white-space: nowrap; }
 .br-tbl .mask { color: #ff8a9b; font-family: "JetBrains Mono", monospace; }
+
+/* tools live layer inside game stages */
+.sl-wrap .tl-left, .rps-wrap .tl-left { top: 12px; }
+.z-wrap .tl-left { top: 44px; }
+.sl-wrap .tl-right { top: 12px; }
+.z-wrap .tl-right { top: 44px; }
+.rps-wrap .tl-right { top: auto; bottom: 120px; left: 12px; right: auto; align-items: flex-start; }
+.rps-wrap .tl-dash { width: 170px; }
+.rps-wrap .tl-dash .tl-bars, .rps-wrap .tl-dash .tl-spark { display: none; }
+@media (max-width: 700px) { .rps-wrap .tl-right { bottom: 90px; } .rps-wrap .tl-dash { width: 120px; } }

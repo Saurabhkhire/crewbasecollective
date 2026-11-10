@@ -124,6 +124,173 @@
     renderGen(false);
   }
 
+  /* ---------- ✨ agentic idea generator (LLM via Brain, offline fallback from the slots) ---------- */
+  const ai = $("#aiGen");
+  if (ai && window.Brain) {
+    const HKEY = "aimp_ideas";
+    const loadH = () => { try { return JSON.parse(localStorage.getItem(HKEY) || "[]"); } catch { return []; } };
+    const saveH = list => { try { localStorage.setItem(HKEY, JSON.stringify(list.slice(0, 12))); } catch {} };
+    const STEPS = ["Reading your interests", "Picking a world", "Casting the agents", "Choosing sponsor tools", "Writing build steps"];
+    const EX = ["I love cooking and robots", "space, mystery and voice acting", "football and strategy games", "learning Spanish", "job interviews for nurses", "music festivals"];
+    let aiTrack = cur, current = null, busy = false;
+    const playHref = id => `/aim-hack-visual/play.html#${id}`;
+    const trackOf = id => H.tracks.find(t => t.id === id) || H.tracks[0];
+
+    ai.innerHTML = `
+      <div class="ag-head">
+        <div><span class="kicker">New · agentic</span><h3>✨ Generate with an AI agent</h3>
+        <p class="muted">Tell the agent what you're into. It designs a complete project idea: world, cast, the moment agents decide, sponsor tools and your first build steps.</p></div>
+        <div class="ag-banner" id="agBanner"><span class="pill">● Checking the AI server…</span></div>
+      </div>
+      <div class="ag-form">
+        <div class="ag-tracks" id="agTracks">${H.tracks.map(t => `<button type="button" data-t="${t.id}" style="--c:${t.hex}">${t.icon} ${esc(t.short)}</button>`).join("")}</div>
+        <div class="ag-row"><input id="agIn" maxlength="160" placeholder="Your interests or a theme (optional), e.g. I love cooking and robots"><button class="btn ai" id="agGo">✨ Generate idea</button></div>
+        <div class="ex-chips" id="agEx">${EX.map(e => `<button type="button">${esc(e)}</button>`).join("")}</div>
+      </div>
+      <div id="agWork"></div>
+      <div id="agOut"></div>
+      <div class="ag-hist" id="agHist"></div>`;
+
+    const banner = () => {
+      const b = $("#agBanner");
+      if (Brain.mode === "llm") { b.innerHTML = `<span class="pill ok">● LIVE AI AGENT</span><span class="ag-pp" id="agPick"></span>`; Brain.picker($("#agPick"), banner); }
+      else b.innerHTML = `<span class="pill warn">● OFFLINE AGENT</span><span class="muted" style="font-size:13px">Ideas come from the built-in generator.</span>`;
+    };
+    Brain.init().then(banner);
+    window.addEventListener("brain:adal", banner);
+
+    const setTrack = id => { aiTrack = id; ai.querySelectorAll("[data-t]").forEach(b => b.classList.toggle("on", b.dataset.t === id)); };
+    setTrack(aiTrack);
+
+    function work(on) {
+      const w = $("#agWork");
+      if (!on) { w.innerHTML = ""; return null; }
+      w.innerHTML = `<div class="ag-work"><b>🤖 ${Brain.mode === "llm" ? "Agent at work" : "Offline agent at work"}</b><ol>${STEPS.map((s, i) => `<li data-i="${i}"><i>○</i>${esc(s)}</li>`).join("")}</ol></div>`;
+      const lis = [...w.querySelectorAll("li")];
+      const set = k => lis.forEach((li, i) => { li.className = i < k ? "done" : i === k ? "on" : ""; li.querySelector("i").textContent = i < k ? "✓" : i === k ? "●" : "○"; });
+      let k = 0; set(0);
+      const t = setInterval(() => { if (k < STEPS.length - 1) set(++k); }, 850);
+      return { done() { clearInterval(t); set(STEPS.length); } };
+    }
+
+    function offlineIdea(trackId, interest) {
+      roll(trackId, true);
+      const v = state[trackId].vals, t = trackOf(trackId), sps = H.sponsors.slice(0, 3);
+      const words = String(interest || "").replace(/^i (love|like|enjoy)\s+/i, "").trim();
+      const base = rand(t.ideas);
+      const goals = ["wants to win at any cost", "is hiding a secret", "protects the group", "plays both sides", "wants to be the hero", "tests the humans"];
+      const cast = (base.cast || []).slice(0, 4).map(r => ({ role: r, goal: rand(goals) }));
+      const cap = w => w ? w[0].toUpperCase() + w.slice(1) : w;
+      const logline = trackId === "film" ? `A short film set in ${v[0]} with ${v[1]}. It opens when ${v[2]}; the twist: ${v[3]}.`
+        : trackId === "game" ? `A co-op game in ${v[0]} where humans try to ${v[2]} alongside ${v[1]}, who can trigger ${v[3]} on their own.`
+        : `Practise ${v[0]} in ${v[2]} with ${v[1]}; ${v[3]}.`;
+      return {
+        title: words ? `${base.t}: ${words.split(/[ ,]+/).filter(Boolean).slice(0, 3).map(cap).join(" ")} Edition` : base.t,
+        logline: logline + (words ? ` Themed around ${words}.` : ""),
+        track: trackId, world: v[0], cast,
+        agent_decides: base.key,
+        coordination: trackId === "grow" ? "Panelists confer privately after every answer and agree how to adapt the next question." : "Agents message each other privately, form alliances and react to each other's moves every turn.",
+        sponsors: sps.map(s => ({ id: s.id, how: s.buildIdea })),
+        stretch: ["3D: " + (base.up || "move the scene into a simple 3D space"), "Voice: give each agent its own TTS voice", "ML: agents remember the last run and change strategy"],
+        steps: ["Write each agent as a JSON profile: goal, personality, secret, memory", "Build the loop: observe → decide (LLM, JSON output) → act on screen → log", "Show the decision log next to the visuals and run it twice to prove outcomes change"],
+        _src: "offline"
+      };
+    }
+
+    async function generate(remixOf) {
+      if (busy) return; busy = true;
+      const interest = $("#agIn").value.trim();
+      const t = trackOf(aiTrack);
+      const go = $("#agGo"); go.disabled = true; go.textContent = "Thinking…";
+      $("#agOut").innerHTML = "";
+      const w = work(true);
+      const sponsors = H.sponsors.map(s => `${s.id}: ${s.name} — ${s.blurb.split(". ")[0]}`).join("\n") || "(none)";
+      const system = `You are an idea agent for the "Multiplayer AI" hackathon (${H.event.date}, ${H.event.time}, ${H.event.venue}; ${H.event.format}). Projects must have: ${H.checklist.must.map(m => m[0] + " (" + m[1] + ")").join("; ")}. Bonus: ${H.checklist.bonus.map(b => b[0]).join(", ")}.
+Track: ${t.name}. ${t.pitch}
+Must-haves for this track: ${t.musts.join("; ")}.
+Sponsor tools available (use ONLY these ids, pick 1-3 that genuinely fit):
+${sponsors}
+Design ONE specific, buildable-in-a-day project idea that fits the person's interests. Be concrete and visual, no generic chatbots.
+Reply with JSON only: {"title":"max 6 words","logline":"one vivid sentence, max 30 words","track":"${t.id}","world":"the setting, max 14 words","cast":[{"role":"agent role","goal":"one-line goal or secret"}],"agent_decides":"the key moment the agents decide, max 22 words","coordination":"how the agents coordinate with each other, max 26 words","sponsors":[{"id":"sponsor id","how":"how it is used in this project, max 20 words"}],"stretch":["3 stretch goals: one 3D, one voice, one ML/memory"],"steps":["first 3 build steps, max 16 words each"]}`;
+      const user = remixOf
+        ? `Remix this idea into a fresh variation (keep the spirit, change the world and the twist): ${JSON.stringify({ title: remixOf.title, logline: remixOf.logline, world: remixOf.world })}. Interests: ${interest || "(none given)"}`
+        : `Interests / theme: ${interest || "(none given: surprise me)"}`;
+      let idea = await Brain.ask(system, user, 1.0, () => offlineIdea(t.id, interest));
+      w && w.done();
+      idea = clean(idea, t.id, interest);
+      current = idea;
+      const hist = loadH(); hist.unshift({ ...idea, at: Date.now() }); saveH(hist);
+      show(idea); renderHist();
+      go.disabled = false; go.textContent = "✨ Generate idea"; busy = false;
+    }
+    function clean(o, trackId, interest) {
+      const fb = offlineIdea(trackId, interest);
+      const clip = (x, n) => String(x == null ? "" : x).trim().slice(0, n);
+      const arr = (x, n) => (Array.isArray(x) ? x : []).slice(0, n);
+      const vis = id => H.sponsors.some(s => s.id === id);
+      const cast = arr(o.cast, 5).map(c => ({ role: clip(c && (c.role || c.name), 40), goal: clip(c && c.goal, 120) })).filter(c => c.role);
+      const sps = arr(o.sponsors, 3).filter(s => s && vis(s.id)).map(s => ({ id: s.id, how: clip(s.how, 160) }));
+      const stretch = arr(o.stretch, 3).map(x => clip(x, 140)).filter(Boolean);
+      const steps = arr(o.steps, 3).map(x => clip(x, 140)).filter(Boolean);
+      return {
+        title: clip(o.title, 60) || fb.title, logline: clip(o.logline, 260) || fb.logline, track: trackId, world: clip(o.world, 120) || fb.world,
+        cast: cast.length ? cast : fb.cast,
+        agent_decides: clip(o.agent_decides, 200) || fb.agent_decides, coordination: clip(o.coordination, 220) || fb.coordination,
+        sponsors: sps.length ? sps : fb.sponsors,
+        stretch: stretch.length ? stretch : fb.stretch,
+        steps: steps.length ? steps : fb.steps,
+        _src: o._src
+      };
+    }
+    function asText(i) {
+      const t = trackOf(i.track);
+      return `${i.title}\n${i.logline}\n\nTrack: ${t.name}\nWorld: ${i.world}\nCast:\n${i.cast.map(c => `- ${c.role}: ${c.goal}`).join("\n")}\nAgents decide: ${i.agent_decides}\nCoordination: ${i.coordination}\nSponsor tools:\n${i.sponsors.map(s => `- ${(H.allSponsors.find(x => x.id === s.id) || {}).name || s.id}: ${s.how}`).join("\n")}\nStretch goals:\n${i.stretch.map(x => "- " + x).join("\n")}\nFirst build steps:\n${i.steps.map((x, k) => `${k + 1}. ${x}`).join("\n")}\n\nSubmit on ${H.submitUrl}`;
+    }
+    function show(i) {
+      const t = trackOf(i.track);
+      $("#agOut").innerHTML = `
+        <article class="card ag-card" style="--c:${t.hex}">
+          <div class="ag-top"><span class="kicker">${t.icon} Track ${t.num} · ${esc(t.short)}${i._src === "offline" && Brain.mode === "llm" ? " · offline fallback" : ""}</span><h3>${esc(i.title)}</h3><p class="ag-log">${esc(i.logline)}</p></div>
+          <div class="ag-grid">
+            <div><h5>🌍 World</h5><p>${esc(i.world)}</p><h5>🎭 Agent cast</h5><ul class="ag-cast">${i.cast.map(c => `<li><b>${esc(c.role)}</b><span>${esc(c.goal)}</span></li>`).join("")}</ul></div>
+            <div><h5>⚡ The agents decide</h5><p>${esc(i.agent_decides)}</p><h5>🔗 How agents coordinate</h5><p>${esc(i.coordination)}</p>
+              <h5>🧩 Sponsor tools</h5><div class="ag-sps">${i.sponsors.map(s => { const sp = H.allSponsors.find(x => x.id === s.id) || {}; return `<div class="ag-sp" style="--c:${sp.color}"><span>${sp.icon || "•"}</span><div><b>${esc(sp.name || s.id)}</b><small>${esc(s.how)}</small></div></div>`; }).join("") || `<p class="muted">No sponsor tools shown. <a href="#" data-open-tools>Choose tools</a></p>`}</div></div>
+            <div><h5>🚀 Stretch goals</h5><ul class="ag-list">${i.stretch.map(x => `<li>${esc(x)}</li>`).join("")}</ul><h5>🛠️ First build steps</h5><ol class="ag-list">${i.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol></div>
+          </div>
+          <div class="ag-btns"><button class="btn btn-sm" data-ag="again">🔁 Another idea</button><button class="btn ghost btn-sm" data-ag="remix">🎛️ Remix this</button><button class="btn ghost btn-sm" data-ag="copy">📋 Copy</button><a class="btn ghost btn-sm" href="${playHref(i.track)}">▶ Try it in the playground</a></div>
+        </article>`;
+      $("#agOut").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    function renderHist() {
+      const h = loadH();
+      $("#agHist").innerHTML = h.length ? `<div class="ag-hh"><span class="kicker">Your recent ideas</span><button class="lnk-btn" data-ag="clear">clear</button></div><div class="ag-hl">${h.map((x, k) => { const t = trackOf(x.track); return `<button class="ag-hi" data-h="${k}" style="--c:${t.hex}">${t.icon} ${esc(x.title)}</button>`; }).join("")}</div>` : "";
+    }
+    function copy(btn) {
+      const txt = asText(current);
+      const done = () => { btn.textContent = "✓ Copied"; setTimeout(() => (btn.textContent = "📋 Copy"), 1500); };
+      const legacy = () => { const ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch {} ta.remove(); done(); };
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, legacy); else legacy();
+    }
+    ai.addEventListener("click", e => {
+      const tb = e.target.closest("[data-t]"); if (tb) { setTrack(tb.dataset.t); return; }
+      const ex = e.target.closest("#agEx button"); if (ex) { $("#agIn").value = ex.textContent; return; }
+      if (e.target.closest("#agGo")) { generate(); return; }
+      const a = e.target.closest("[data-ag]");
+      if (a) {
+        const k = a.dataset.ag;
+        if (k === "again") generate();
+        else if (k === "remix" && current) generate(current);
+        else if (k === "copy" && current) copy(a);
+        else if (k === "clear") { saveH([]); renderHist(); }
+        return;
+      }
+      const h = e.target.closest("[data-h]"); if (h) { current = loadH()[+h.dataset.h]; if (current) { setTrack(current.track); show(current); } }
+    });
+    $("#agIn").addEventListener("keydown", e => { if (e.key === "Enter") generate(); });
+    if (genTabs) genTabs.addEventListener("click", e => { const b = e.target.closest("button"); if (b && !busy) setTrack(b.dataset.id); });
+    renderHist();
+  }
+
   /* ---------- readiness checklist ---------- */
   const ck = $("#checkRoot");
   if (ck) {

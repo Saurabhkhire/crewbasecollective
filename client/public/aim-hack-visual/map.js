@@ -155,7 +155,8 @@
 
   /* ---------- agents ---------- */
   const agentLayer = el("g");
-  const startPool = mode === "sponsors" ? nodes.filter(n => n.kind === "sponsor") : nodes;
+  const sponsorNodes = nodes.filter(n => n.kind === "sponsor");
+  const startPool = mode === "sponsors" && sponsorNodes.length ? sponsorNodes : nodes;
   const agents = H.agents.map((a, i) => {
     const at = startPool[i % startPool.length];
     const g = el("g", { class: "agent" }, agentLayer);

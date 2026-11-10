@@ -89,6 +89,40 @@ window.PLAY = {
     ]
   },
 
+  /* Finch skill library: reusable abilities you can equip on any agent.
+     Users can create more in Sponsor Labs → Finch (stored in localStorage "aimp_skills").
+     Use PLAY.allSkills() to get presets + custom ones. */
+  skills: [
+    { id: "negotiate", name: "Negotiate", icon: "🤝", color: "#ff9f43", desc: "Finds a deal both sides can accept.", instructions: "Before answering, state what each side wants, then propose a concrete trade-off with numbers.", good: "markets, heists, sales pitches" },
+    { id: "persuade", name: "Persuade", icon: "🗣️", color: "#ff4fa3", desc: "Changes minds with one strong argument.", instructions: "Lead with the listener's interest, give one vivid reason, end with a clear ask.", good: "films, debates, pitches" },
+    { id: "investigate", name: "Investigate", icon: "🔎", color: "#3ee6ff", desc: "Spots the lie and follows the clue.", instructions: "List what is known, what does not add up, and the single question that would expose the truth.", good: "mysteries, interviews" },
+    { id: "plan", name: "Plan", icon: "🗺️", color: "#5c8dff", desc: "Breaks a goal into 3 clear steps with owners.", instructions: "Answer as a numbered 3-step plan; each step has an owner and a deadline.", good: "team games, heists, projects" },
+    { id: "summarize", name: "Summarize", icon: "🧾", color: "#b6ff5c", desc: "Turns a long mess into three crisp bullets.", instructions: "Answer in at most 3 bullets of max 12 words each.", good: "reports, meetings" },
+    { id: "examine", name: "Examine", icon: "📋", color: "#c48bff", desc: "Scores an answer against a rubric with evidence.", instructions: "Score 1-5 on clarity, evidence and impact; quote the exact words that justify each score.", good: "interviews, exams" },
+    { id: "coach", name: "Coach", icon: "🧑‍🏫", color: "#4fd1c5", desc: "Gives one kind, specific tip to improve.", instructions: "Name one thing that worked, one thing to change, and a sentence to practise.", good: "Track 3 sessions" },
+    { id: "translate", name: "Translate", icon: "🌐", color: "#ffc857", desc: "Says it in another language, simply.", instructions: "Answer in the target language first, then a plain English gloss in brackets.", good: "language café" },
+    { id: "deceive", name: "Deceive", icon: "🎭", color: "#ff6b6b", desc: "Hides the truth behind a believable story.", instructions: "Give a plausible cover story with one true detail so it sounds real.", good: "films, social deduction" },
+    { id: "inspire", name: "Inspire", icon: "✨", color: "#f2f2f2", desc: "Rallies the team when hope is low.", instructions: "Name the shared goal, one past win, and a bold next move.", good: "films, co-op games" },
+    { id: "heal", name: "Medic", icon: "🩹", color: "#b6ff5c", desc: "Prioritises keeping teammates alive.", instructions: "Always check who is weakest first and act to protect them.", good: "zombie survival" },
+    { id: "predict", name: "Predict", icon: "🔮", color: "#c48bff", desc: "Reads patterns to guess the next move.", instructions: "Look at the last moves, name the pattern, and bet on what comes next.", good: "rock-paper-scissors, strategy" }
+  ],
+  allSkills() {
+    let mine = [];
+    try { mine = JSON.parse(localStorage.getItem("aimp_skills") || "[]"); } catch {}
+    return mine.map(s => ({ ...s, custom: true })).concat(this.skills);
+  },
+  saveSkill(sk) {
+    let mine = [];
+    try { mine = JSON.parse(localStorage.getItem("aimp_skills") || "[]"); } catch {}
+    sk = { ...sk, id: sk.id || "sk-" + Math.random().toString(36).slice(2, 8) };
+    mine = [sk, ...mine.filter(x => x.id !== sk.id)].slice(0, 40);
+    try { localStorage.setItem("aimp_skills", JSON.stringify(mine)); } catch {}
+    return sk;
+  },
+  removeSkill(id) {
+    try { localStorage.setItem("aimp_skills", JSON.stringify(JSON.parse(localStorage.getItem("aimp_skills") || "[]").filter(x => x.id !== id))); } catch {}
+  },
+
   emotions: ["happy", "angry", "scared", "sad", "sly", "shocked", "calm", "determined", "thinking", "neutral"],
   inspiration: ["trust", "greed", "sacrifice", "a lie", "an old debt", "a misunderstanding", "redemption", "jealousy", "a hidden weapon", "an unexpected kindness", "panic", "a confession"]
 };

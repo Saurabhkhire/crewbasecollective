@@ -11,13 +11,7 @@ window.Film = (function () {
   const TONES = ["Thriller", "Comedy", "Noir", "Heartfelt", "Absolute chaos"];
   const EMOTIONS = ["happy", "angry", "scared", "sad", "sly", "shocked", "calm", "determined"];
   const GESTURES = ["none", "point", "wave", "raise", "shrug", "slump", "jump", "nod", "cross", "out"];
-  const SKILLS = [
-    { id: "Persuade", icon: "🗣️", hint: "talk someone into doing what you want" },
-    { id: "Deceive", icon: "🎭", hint: "tell a convincing lie" },
-    { id: "Investigate", icon: "🔍", hint: "uncover a hidden clue or secret" },
-    { id: "Inspire", icon: "✨", hint: "rally others to act bravely" },
-    { id: "Sabotage", icon: "💣", hint: "secretly ruin someone's plan" }
-  ];
+  /* Finch skills come from the shared library (PLAY.allSkills), auto-assigned by personality, changeable on stage */
 
   const PRESETS = [
     { icon: "🚀", title: "The Last Escape Pod", scenes: ["s-ship"], tone: 0, cast: ["vega", "rook", "imani", "bolt"],
@@ -41,6 +35,7 @@ window.Film = (function () {
     tools: new Set(),
     endings: (() => { try { return JSON.parse(localStorage.getItem("mpai_endings") || "[]"); } catch { return []; } })(),
     pendingTwist: null,
+    skillPick: {},
     st: null
   };
   const saveEndings = () => { try { localStorage.setItem("mpai_endings", JSON.stringify(S.endings.slice(-40))); } catch {} };
@@ -219,15 +214,16 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
     if (!scenes.length) scenes.push(PLAY.scenes[0]);
     const chars = S.castIds.map(id => UI.Lib.char(id)).filter(Boolean);
     const n = chars.length;
-    const skills = SKILLS.slice().sort(() => Math.random() - 0.5);
-    const cast = chars.map((c, k) => ({
-      ...c, vi: k, color: PLAY.colors[k % PLAY.colors.length], x: slotX(k, n), mood: "neutral", exited: false,
-      skill: skills[k % skills.length], inbox: []
-    }));
+    const taken = [];
+    const cast = chars.map((c, k) => {
+      const sk = S.skillPick[c.id] ? UI.skill(S.skillPick[c.id]) : UI.skillFor(c, taken);
+      taken.push(sk.id);
+      return { ...c, vi: k, color: PLAY.colors[k % PLAY.colors.length], x: slotX(k, n), mood: "neutral", exited: false, skill: sk, inbox: [] };
+    });
     return {
       title: S.story.title || "Untitled", opening: S.story.opening || "Something goes terribly wrong.", plannedTwist: S.story.twist,
       tone: TONES[S.story.tone], beats: S.story.beats, scenes, cast, beat: 0, act: -1, log: [], seed: rand(PLAY.inspiration), twist: null,
-      stats: Object.fromEntries(chars.map(c => [c.name, { lines: 0, actions: 0, skills: 0, dms: 0 }])), moods: [], channel: [], poster: null
+      stats: Object.fromEntries(chars.map(c => [c.name, { lines: 0, actions: 0, skills: 0, dms: 0 }])), moods: [], channel: [], poster: null, frames: 0, perBeat: []
     };
   }
   const slotX = (k, n) => n === 1 ? 50 : 16 + (k * 68) / (n - 1);
@@ -248,7 +244,7 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
                   <div class="fm-bubble"></div>
                   <div class="fm-think">💭</div>
                   <div class="fm-pup"></div>
-                  <div class="fm-name">${esc(c.name)}<span class="fm-skill" title="Finch skill: ${esc(c.skill.id)}">${c.skill.icon} ${esc(c.skill.id)}</span></div>
+                  <div class="fm-name">${esc(c.name)}<span class="fm-skill" data-sk="${c.vi}">${UI.skillBadge(c.skill, "pick")}</span></div>
                 </div>`).join("")}</div>
             </div>
             <div class="fm-bar top"></div><div class="fm-bar bot"></div>
@@ -292,6 +288,7 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
     sc.classList.toggle("band-on", tool("band"));
     tabs();
     if (tool("bruin")) insights(st);
+    if (st.live) { st.live.refresh(); if (tool("bruin")) bruinDash(st); }
   }
 
   async function run() {
@@ -300,7 +297,13 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
     const token = ++UI.ctl.token;
     UI.ctl.paused = false; S.pendingTwist = null;
     UI.app().innerHTML = stageHTML(st);
-    UI.sponsorBar($("#fTools"), "film", S.tools, () => applyTools(st));
+    st.live = UI.toolsLive($("#fScreen"), "film", S.tools);
+    UI.sponsorBar($("#fTools"), "film", S.tools, () => applyTools(st), { live: st.live });
+    $("#fScreen").addEventListener("click", e => {
+      const b = e.target.closest("[data-sk]"); if (!b) return;
+      const c = st.cast[+b.dataset.sk];
+      UI.chooseSkill(c.name, c.skill.id, sk => { c.skill = sk; S.skillPick[c.id] = sk.id; b.innerHTML = UI.skillBadge(sk, "pick"); st.live.fx("finch", { text: `${c.name} now has ${sk.icon} ${sk.name}`, from: el(c), n: 0 }); });
+    });
     st.cast.forEach(c => { const e = el(c); Puppet.mount(e.querySelector(".fm-pup"), c); Puppet.face(e.querySelector(".fm-pup"), c.x > 50 ? -1 : 1); });
     bindControls(st);
     applyTools(st);
@@ -314,6 +317,8 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
         st.poster = await makePoster(st);
         if (token !== UI.ctl.token) return;
         $("#fPosterSlot").innerHTML = posterHTML(st.poster, st);
+        st.live.fx("adal", { text: st.poster && st.poster.url ? "Movie poster generated" : "Vector poster rendered (image model unavailable)", callout: false });
+        st.live.frame(st.poster && st.poster.url ? st.poster.url : vecFrame(st), "Poster");
         await UI.sleep(2200, token);
       }
       await UI.sleep(2600, token);
@@ -433,7 +438,9 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
     if (d.skill_used && tool("finch")) {
       stt.skills++;
       e.classList.remove("skill"); void e.offsetWidth; e.classList.add("skill");
-      flash(`<small>FINCH SKILL · ${esc(actor.name)}</small>${actor.skill.icon} ${esc(actor.skill.id)}`);
+      flash(`<small>FINCH SKILL · ${esc(actor.name)}</small>${actor.skill.icon} ${esc(actor.skill.name)}`);
+      const bd = e.querySelector(".sk-badge"); if (bd) { bd.classList.remove("used"); void bd.offsetWidth; bd.classList.add("used"); }
+      st.live.fx("finch", { text: `${actor.name} used ${actor.skill.icon} ${actor.skill.name}: ${d.skill_effect || actor.skill.desc}`, from: e, to: target ? el(target) : null });
     }
 
     // speech
@@ -464,13 +471,17 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
         st.channel.push({ from: actor, to, text: d.dm, beat: st.beat + 1 });
         bandLink(actor, to);
         addChannel(actor, to, d.dm, st);
+        st.live.fx("band", { text: `${actor.name} → ${to.name} (private): "${d.dm}"`, from: el(actor), to: el(to), line: false });
         dmLine = ` [privately told ${to.name}: "${d.dm}"]`;
       }
     }
 
-    st.log.push(`${actor.name}: ${d.action}${d.say ? ` (says: "${d.say}")` : ""}${d.skill_used && tool("finch") ? ` [uses skill ${actor.skill.id}]` : ""}${dmLine}`);
+    if (tool("band") && target && d.say && !dmLine) st.live.link(el(actor), el(target), "band", "says to " + target.name);
+    st.log.push(`${actor.name}: ${d.action}${d.say ? ` (says: "${d.say}")` : ""}${d.skill_used && tool("finch") ? ` [uses skill ${actor.skill.name}]` : ""}${dmLine}`);
     addLog({ actor, d, beat: st.beat + 1 });
-    if (tool("bruin")) insights(st);
+    st.perBeat.push((d.say ? 1 : 0) + (d.skill_used ? 1 : 0) + (dmLine ? 1 : 0) + (["angry", "shocked", "scared"].includes(d.emotion) ? 2 : 0));
+    if (tool("bruin")) { insights(st); bruinDash(st); st.live.fx("bruin", { text: `Logged scene ${st.beat + 1}: ${actor.name} · ${d.emotion}${d.skill_used ? " · skill" : ""}${dmLine ? " · DM" : ""}`, callout: false }); }
+    if (tool("adal")) adalFrame(st, actor, d);
     await UI.sleep(talkMs, token);
     sub(null, ""); narr("");
     camera(null);
@@ -518,7 +529,7 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
       const { actor, d } = x;
       li.innerHTML = `<span class="ts">#${x.beat} · ${esc(loc(S.st).name)}</span>
         <span><b style="color:${actor.color}">${esc(actor.name)}</b> ${UI.MOOD[d.emotion] || ""}${d.move_to && d.move_to !== "stay" ? ` <span class="mv">→ ${esc(d.move_to)}</span>` : ""}
-        ${d.skill_used && tool("finch") ? `<span class="sp-badge" style="--c:#ff9f43">${actor.skill.icon} ${esc(actor.skill.id)}</span>` : ""}
+        ${d.skill_used && tool("finch") ? `${UI.skillBadge(actor.skill)}` : ""}
         ${d.dm && tool("band") && d.dm_to ? `<span class="sp-badge" style="--c:#5c8dff">📡 DM ${esc(d.dm_to)}</span>` : ""}</span>
         <span class="act">${esc(d.action)}</span>
         ${d.say ? `<span class="say">“${esc(d.say)}”</span>` : ""}
@@ -547,12 +558,36 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
       <div class="bi-bars">${Object.keys(types).length ? Object.entries(types).sort((a, b) => b[1] - a[1]).map(([t, n]) => `<div class="bi-row"><span>${esc(t)}</span><div class="bi-bar"><i style="width:${(n / tmax) * 100}%"></i></div><em>${n}</em></div>`).join("") : `<p class="muted">Finish a run to start collecting endings.</p>`}</div>`;
   }
 
+  function bruinDash(st) {
+    if (!st.live) return;
+    const rows = st.cast.map(c => ({ label: c.name.split(" ")[0], value: st.stats[c.name].actions, color: c.color }));
+    const sum = k => st.cast.reduce((a, c) => a + st.stats[c.name][k], 0);
+    st.live.dash(`<div class="k"><div><b>${st.log.filter(l => !l.startsWith("DIRECTOR")).length}</b><small>decisions</small></div><div><b>${sum("lines")}</b><small>lines</small></div><div><b>${st.channel.length}</b><small>DMs</small></div></div>
+      ${UI.miniBars(rows)}<small class="muted">drama per scene</small>${UI.spark(st.perBeat, "#ffc857")}`);
+  }
+  /* AdaL: a key frame every few scenes (max 4 per run, incl. the poster) */
+  function vecFrame(st, actor) {
+    const sc = loc(st) || st.scenes[0];
+    const who = actor ? [actor] : st.cast.slice(0, 3);
+    return `<svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice">${Scenes.svg(sc).replace('<svg class="scene-svg"', '<svg x="0" y="0" width="160" height="90"')}${who.map((c, i) => Puppet.svg(c).replace('<svg class="puppet"', `<svg x="${(actor ? 64 : 30 + i * 36)}" y="30" width="34" height="62"`)).join("")}</svg>`;
+  }
+  async function adalFrame(st, actor, d) {
+    const every = Math.max(2, Math.ceil(st.beats / 4));
+    if ((st.beat + 1) % every !== 0 || st.frames >= (st.poster ? 3 : 4)) return;
+    st.frames++;
+    const k = st.frames, sc = loc(st);
+    st.live.fx("adal", { text: `Rendering key frame ${k}: ${d.action}`, from: el(actor) });
+    const url = await Brain.image(`Cinematic still from an animated short film, colourful stylised 3D cartoon, no text. Location: ${sc.name}, ${sc.desc || ""}. ${actor.name} (${actor.role}) ${d.action.replace(/^\S+\s/, "")}. Mood: ${d.emotion}.`);
+    if (!st.live || !st.live.stage.isConnected) return;
+    st.live.frame(url || vecFrame(st, actor), `Scene ${st.beat + 1}${url ? "" : " · vector"}`);
+  }
+
   function bindControls(st) {
     $("#fPause").onclick = () => { UI.ctl.paused = !UI.ctl.paused; $("#fPause").textContent = UI.ctl.paused ? "▶ Resume" : "⏸ Pause"; $("#fScreen").classList.toggle("paused", UI.ctl.paused); if (UI.ctl.paused) UI.stopVoice(); };
     $("#fSpeed").onclick = () => { UI.ctl.speed = UI.ctl.speed === 1 ? 2 : UI.ctl.speed === 2 ? 3 : 1; $("#fSpeed").textContent = `⏩ ${UI.ctl.speed}×`; $("#fScreen").style.setProperty("--spd", 1 / UI.ctl.speed); };
     $("#fVoice").onclick = () => { UI.ctl.voice = !UI.ctl.voice; $("#fVoice").textContent = UI.ctl.voice ? "🔊 Voices on" : "🔇 Voices off"; if (!UI.ctl.voice) UI.stopVoice(); };
     $("#fTwistForm").onsubmit = e => { e.preventDefault(); const v = $("#fTwistIn").value.trim(); if (!v) return; S.pendingTwist = v; $("#fTwistIn").value = ""; $("#fTwistIn").placeholder = "✓ Queued. The agents will react next scene."; };
-    $("#fStop").onclick = () => { UI.ctl.token++; UI.stopVoice(); castScreen(); };
+    $("#fStop").onclick = () => { UI.ctl.token++; UI.stopVoice(); if (st.live) st.live.destroy(); castScreen(); };
     $("#fMinds").onchange = e => $("#fLog").classList.toggle("hide-minds", !e.target.checked);
     $("#fScreen").style.setProperty("--spd", 1 / UI.ctl.speed);
   }
@@ -574,9 +609,9 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
 Personality: ${actor.personality}
 Secret goal (private; reveal only if it is dramatically right): ${actor.secret || actor.goal || "survive and come out on top"}
 Film tone: ${st.tone}. Current location: ${sc.name}: ${sc.desc || ""}
-${finch ? `You have a special SKILL (via Finch): ${actor.skill.id}, the ability to ${actor.skill.hint}. Use it when it matters and set "skill_used": true.\n` : ""}${band ? `You can also send ONE private message through the BAND agent channel to another character ("dm_to" + "dm"). Nobody else sees it. Use it to plot, warn, bribe or confess. Leave both empty if not needed.\n` : ""}Make bold, specific, visual choices that move the plot. Stay in character. Keep it short and cinematic.
+${finch ? `${UI.skillPrompt(actor.skill)} Use it when it matters, set "skill_used": true and describe its effect in "skill_effect".\n` : ""}${band ? `You can also send ONE private message through the BAND agent channel to another character ("dm_to" + "dm"). Nobody else sees it. Use it to plot, warn, bribe or confess. Leave both empty if not needed.\n` : ""}Make bold, specific, visual choices that move the plot. Stay in character. Keep it short and cinematic.
 Reply with JSON only:
-{"thought":"one sentence of private reasoning","action":"what you physically do, third person present tense, max 16 words","say":"your spoken line, max 22 words, may be empty","move_to":"one of: ${places.join(" | ")}","target":"name of the character you act on, or empty","emotion":"one of: ${EMOTIONS.join(", ")}","gesture":"one of: ${GESTURES.join(", ")}"${finch ? `,"skill_used":true|false` : ""}${band ? `,"dm_to":"character name or empty","dm":"private message, max 18 words, or empty"` : ""}}`;
+{"thought":"one sentence of private reasoning","action":"what you physically do, third person present tense, max 16 words","say":"your spoken line, max 22 words, may be empty","move_to":"one of: ${places.join(" | ")}","target":"name of the character you act on, or empty","emotion":"one of: ${EMOTIONS.join(", ")}","gesture":"one of: ${GESTURES.join(", ")}"${finch ? `,"skill_used":true|false,"skill_effect":"what the skill changed, max 10 words, or empty"` : ""}${band ? `,"dm_to":"character name or empty","dm":"private message, max 18 words, or empty"` : ""}}`;
     const user = `OPENING EVENT: ${st.opening}
 CHARACTERS:
 ${st.cast.map(c => `- ${c.name} (${c.role})${c === actor ? " ← YOU" : ""}: mood ${c.mood || "neutral"}${c.exited ? ", has LEFT the story" : ""}`).join("\n")}
@@ -597,6 +632,7 @@ Hidden theme for this run: ${st.seed}.`;
     out.dm = Brain.clip(out.dm, 160);
     out.dm_to = others.some(o => o.name === out.dm_to) ? out.dm_to : "";
     out.skill_used = !!out.skill_used;
+    out.skill_effect = Brain.clip(out.skill_effect, 80);
     return out;
   }
   const GESTURE_FOR = { angry: "point", happy: "wave", sad: "slump", scared: "raise", shocked: "raise", sly: "cross", determined: "point", calm: "nod" };

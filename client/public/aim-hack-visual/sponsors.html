@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/aim-hack-visual/styles.css" />
   <link rel="stylesheet" href="/aim-hack-visual/core.css" />
   <link rel="stylesheet" href="/aim-hack-visual/labs.css" />
+  <link rel="stylesheet" href="/aim-hack-visual/coord.css" />
 </head>
 <body>
   <header class="nav">
@@ -21,7 +22,7 @@
         <a href="/aim-hack-visual/tracks.html" class="hide-sm">Tracks</a>
         <a href="/aim-hack-visual/tracks.html#generator" class="hide-sm">Idea generator</a>
         <a href="/aim-hack-visual/sponsors.html" class="active">Sponsors</a>
-        <a class="btn btn-sm" data-register href="/aim-hack-visual/index.html#register">Register</a>
+        <a class="btn btn-sm nav-submit" href="https://hackathons.crewbasecollective.com" target="_blank" rel="noopener">Submit project ↗</a>
       </nav>
     </div>
   </header>
@@ -30,14 +31,22 @@
     <p class="eyebrow">// Sponsors &amp; partners</p>
     <h1>Meet the sponsors. <em class="grad">Then play with their tools.</em></h1>
     <p class="lead">Every sponsor is a building in the Sponsor District. Click one to see who they are, or jump into the <b>Sponsor Labs</b> below: wire agents together in a BAND channel, generate images and video with AdaL, query agent data with Bruin, equip Finch skills, and take a Casuro voice interview.</p>
-    <div class="cta-row" style="justify-content:flex-start;margin-top:18px"><a class="btn" href="#labs">🧪 Open the Sponsor Labs</a></div>
+    <div class="cta-row" style="justify-content:flex-start;margin-top:18px"><a class="btn" href="#labs">🧪 Open the Sponsor Labs</a><button class="btn ghost" type="button" data-open-tools>⚙️ Choose which tools to show</button></div>
     <div class="view-toggle" id="viewToggle">
-      <button class="on" data-view="map">🗺️ Map view</button>
+      <button class="on" data-view="flow">🔗 How the tools work together</button>
+      <button data-view="map">🗺️ Map view</button>
       <button data-view="grid">▦ Grid view</button>
     </div>
   </section>
 
-  <section class="wrap" id="mapView">
+  <section class="wrap" id="flowView">
+    <div class="world-frame">
+      <div class="world-bar mono"><span class="live-dot"></span> TOOL COORDINATION <span class="muted">· see every tool on its own, then all of them working together</span></div>
+      <div id="coordNet"></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="mapView" hidden>
     <div class="world-frame">
       <div class="world-bar mono"><span class="live-dot"></span> SPONSOR DISTRICT <span class="muted">· click a building</span></div>
       <div class="sp-map-grid">
@@ -86,6 +95,8 @@
   <script src="/aim-hack-visual/puppet.js"></script>
   <script src="/aim-hack-visual/scenes.js"></script>
   <script src="/aim-hack-visual/brain.js"></script>
+  <script src="/aim-hack-visual/coord.js"></script>
+  <script>window.Coord && document.getElementById("coordNet") && Coord.tools(document.getElementById("coordNet"));</script>
   <script src="/aim-hack-visual/labs.js"></script>
   <script src="/aim-hack-visual/labs2.js"></script>
 </body>

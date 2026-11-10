@@ -22,7 +22,8 @@
   const ease = t => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
   const charById = id => P.characters.find(c => c.id === id);
   const first = c => String(c.name).replace(/^(Dr\.|Prof\.|Captain|General|Lady|Old)\s+/, "").split(" ")[0];
-  const sp = id => H.sponsors.find(s => s.id === id);
+  const sp = id => H.sponsors.find(s => s.id === id) || (H.allSponsors || []).find(s => s.id === id);
+  const visibleLabs = () => LABS.filter(l => !H.sponsorVisible || H.sponsorVisible(l.id));
   const TRACK_NAMES = { film: "Track 01 · Film", game: "Track 02 · Games", grow: "Track 03 · Grow" };
 
   function speak(text, i, onend) {
@@ -143,6 +144,7 @@
             <canvas width="640" height="360"></canvas>
             <div class="demo-ctl"><button class="demo-play" aria-label="Pause demo">❚❚</button><div class="demo-bar"><i></i></div></div>
           </div>
+          <div class="lab-coord" id="labCoord"></div>
           <div class="lab-how"><h4>How it works</h4><ol>${lab.how.map(h => `<li>${h}</li>`).join("")}</ol></div>
           ${uses.length ? `<div class="lab-inplay"><h4>In the playground</h4><ul>${uses.join("")}</ul><a href="/aim-hack-visual/play.html#${lab.playLink || "film"}">Open the playground →</a></div>` : ""}
         </aside>
@@ -151,12 +153,19 @@
   }
 
   async function open(id, scroll) {
-    const lab = LABS.find(l => l.id === id) || LABS[0];
-    if (current) { try { current.destroy && current.destroy(); } catch {} try { current.demo && current.demo.destroy(); } catch {} }
+    const vis = visibleLabs();
+    if (!vis.length) {
+      host.innerHTML = `<div class="card lab-empty"><span>🙈</span><h3>All sponsor tools are hidden</h3><p class="muted">You switched every sponsor tool off. Turn some back on to play with the labs.</p><button class="btn" data-open-tools>⚙️ Choose sponsor tools</button></div>`;
+      return;
+    }
+    const lab = vis.find(l => l.id === id) || vis[0];
+    if (current) { try { current.destroy && current.destroy(); } catch {} try { current.demo && current.demo.destroy(); } catch {} try { current.coord && current.coord.destroy(); } catch {} }
     hush();
     $$("button", nav).forEach(b => b.classList.toggle("on", b.dataset.lab === lab.id));
     host.innerHTML = shell(lab);
-    const inst = lab.build($("#labMain")) || {};
+    const coord = window.Coord ? Coord.strip($("#labCoord"), lab.id) : { pulse() {}, destroy() {} };
+    const inst = lab.build($("#labMain"), coord) || {};
+    inst.coord = coord;
     current = inst;
     const A = await loadAssets(lab.demoChars || [], lab.demoScenes || {});
     if (current !== inst) return;
@@ -194,7 +203,7 @@
   function bandLine(ctx, x1, y1, x2, y2) { ctx.save(); ctx.strokeStyle = "#5c8dff"; ctx.lineWidth = 4; ctx.shadowColor = "#5c8dff"; ctx.shadowBlur = 14; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.restore(); }
   function bandPacket(ctx, x, y) { ctx.save(); ctx.fillStyle = "#fff"; ctx.shadowColor = "#3ee6ff"; ctx.shadowBlur = 18; ctx.beginPath(); ctx.arc(x, y, 8, 0, 7); ctx.fill(); ctx.restore(); }
 
-  function buildBand(main) {
+  function buildBand(main, coord) {
     const COLOR = sp("band").color;
     const S = {
       agents: [{ uid: "a1", id: "vega", x: 30, y: 93 }, { uid: "a2", id: "jax", x: 70, y: 93 }],
@@ -386,6 +395,7 @@ Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 2
         bubble(from, text);
         await packet(from, to, 900);
         logMsg(from, to, text, "", "", "", true);
+        coord.pulse("team", "your message routed", "out");
         $("#bdMsg", main).value = "";
         if ($("#bdReply", main).checked) {
           const c = charById(to.id), goal = $("#bdGoal", main).value.trim() || GOALS[0];
@@ -442,8 +452,12 @@ Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 2
         await packet(me, toAg, 900);
         if (token !== S.token) return;
         last = logMsg(me, toAg, text, del, d.thought, d._src);
+        coord.pulse("team", `${first(charById(me.id))} → ${first(charById(toAg.id))}`, "in");
+        if (del) coord.pulse("team", `hand-off: ${del}`, "out");
         await wait(1500);
       }
+      coord.pulse("bruin", `${S.msgs.length} messages logged`, "out");
+      if (S.dels.length) coord.pulse("finch", `${S.dels.length} tasks need skills`, "out");
       S.running = false; $("#bdRun", main).textContent = "▶ Run simulation again"; board.classList.remove("running");
       $$(".ag-bub", board).forEach(b => b.classList.remove("on"));
     }
@@ -461,7 +475,7 @@ Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 2
   let booted = false;
   async function boot() {
     if (booted) return; booted = true;
-    nav.innerHTML = LABS.map(l => { const s = sp(l.id); return `<button data-lab="${l.id}" style="--c:${s.color}"><span>${s.icon}</span><b>${esc(s.name)}</b><small>${esc(l.tool)}</small></button>`; }).join("");
+    nav.innerHTML = visibleLabs().map(l => { const s = sp(l.id); return `<button data-lab="${l.id}" style="--c:${s.color}"><span>${s.icon}</span><b>${esc(s.name)}</b><small>${esc(l.tool)}</small></button>`; }).join("");
     nav.onclick = e => { const b = e.target.closest("[data-lab]"); b && open(b.dataset.lab, false); };
     const m = document.getElementById("labMode");
     if (m) m.innerHTML = `<span class="pill">● Checking for the AI server…</span>`;
@@ -476,7 +490,7 @@ Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 2
     banner();
     window.addEventListener("brain:adal", banner);
     const want = (location.hash.match(/^#lab-(\w+)/) || [])[1];
-    open(want || "band", !!want);
+    open(want || (visibleLabs()[0] || {}).id, !!want);
     window.addEventListener("hashchange", () => { const w = (location.hash.match(/^#lab-(\w+)/) || [])[1]; if (w && (!current || !$("#lab-" + w))) open(w, true); });
   }
 })();

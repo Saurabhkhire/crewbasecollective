@@ -1,12 +1,63 @@
-/* Shared behaviour: sponsor modal, home sections, sponsors page */
+/* Shared behaviour: sponsor tool settings, sponsor modal, home sections, sponsors page */
 (function () {
   const H = window.HACK;
   const $ = s => document.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-  /* ---------- register links ---------- */
-  if (H.registerUrl && H.registerUrl !== "#register")
-    document.querySelectorAll("[data-register]").forEach(a => (a.href = H.registerUrl));
+  /* ---------- ⚙️ sponsor tool visibility (nav button on every page) ---------- */
+  const TOOL_LINE = { band: "Agent channels: agents message each other along links you draw.", adal: "Images & video: posters, frames and short videos from a sentence.", bruin: "Data & insights: every agent decision into a pipeline and dashboard.", finch: "Skills: reusable abilities you equip on agents, or create with AI.", casuro: "Voice interviews: speak your answers, get evidence-based scores." };
+  function openTools() {
+    let d = $("#toolsDlg");
+    if (!d) { d = document.createElement("dialog"); d.id = "toolsDlg"; d.className = "sp-modal tools-dlg"; document.body.appendChild(d); d.addEventListener("click", e => { if (e.target === d) d.close(); }); }
+    const hidden = new Set(H.hiddenSponsors);
+    const draw = () => {
+      d.innerHTML = `<button class="close" aria-label="Close">✕</button>
+        <span class="lm">Sponsor tools</span><h3>Choose which tools to show</h3>
+        <p class="muted">Hidden tools disappear from the maps, the Sponsor Labs and the toolbars in every track. Saved in this browser only.</p>
+        <div class="tg-list">${H.allSponsors.map(s => `<label class="tg-row" style="--c:${s.color}"><span class="tg-ic">${s.icon}</span><span class="tg-tx"><b>${esc(s.name)}</b><small>${esc(TOOL_LINE[s.id] || s.blurb.split(". ")[0])}</small></span>
+          <input type="checkbox" class="tg-sw" data-id="${s.id}" ${hidden.has(s.id) ? "" : "checked"} aria-label="Show ${esc(s.name)}"></label>`).join("")}</div>
+        <div class="row tg-btns"><button class="btn ghost btn-sm" data-all="1">Show all</button><button class="btn ghost btn-sm" data-all="0">Hide all</button><span style="flex:1"></span><button class="btn btn-sm" data-save>Save & reload</button></div>`;
+      d.querySelector(".close").onclick = () => d.close();
+    };
+    draw();
+    d.onchange = e => { const c = e.target.closest(".tg-sw"); if (c) c.checked ? hidden.delete(c.dataset.id) : hidden.add(c.dataset.id); };
+    d.onclick = e => {
+      if (e.target === d) return d.close();
+      const a = e.target.closest("[data-all]"); if (a) { H.allSponsors.forEach(s => (a.dataset.all === "1" ? hidden.delete(s.id) : hidden.add(s.id))); draw(); return; }
+      if (e.target.closest("[data-save]")) { H.setHiddenSponsors([...hidden]); location.reload(); }
+    };
+    if (!d.open) d.showModal();
+  }
+  window.openSponsorTools = openTools;
+  const navEl = document.querySelector(".nav nav");
+  if (navEl && H.allSponsors) {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "nav-tools"; b.title = "Choose which sponsor tools to show";
+    b.innerHTML = `⚙️ <span class="hide-xs">Tools</span>${H.hiddenSponsors.length ? `<i>${H.allSponsors.length - H.hiddenSponsors.length}/${H.allSponsors.length}</i>` : ""}`;
+    b.onclick = openTools;
+    const submit = navEl.querySelector(".nav-submit");
+    navEl.insertBefore(b, submit || null);
+  }
+  document.addEventListener("click", e => { const t = e.target.closest("[data-open-tools]"); if (t) { e.preventDefault(); openTools(); } });
+
+  const spCount = $("#spCount"); if (spCount) spCount.textContent = H.sponsors.length;
+  /* ---------- home: event card + submission steps ---------- */
+  const ev = $("#eventCard");
+  if (ev && H.event) {
+    ev.innerHTML = `<div><small>📅 Date</small><b>${esc(H.event.date)}</b></div><div><small>⏰ Time</small><b>${esc(H.event.time)}</b></div><div><small>📍 Venue</small><b>${esc(H.event.venue)}</b></div><div><small>👥 Teams</small><b>${esc(H.event.format)}</b></div>`;
+  }
+  const steps = $("#submitSteps");
+  if (steps) {
+    const url = H.submitUrl || "https://hackathons.crewbasecollective.com", host = url.replace(/^https?:\/\//, "");
+    const S = [
+      ["🛠️", "Build during the event", `Hack at the ${esc(H.event.venue)} on ${esc(H.event.dateShort)}, ${esc(H.event.time)}. Solo or in a team of up to 4. Pick one track: agent film, multiplayer game, or grow with agents.`],
+      ["🚀", "Submit online", `Go to <a href="${url}" target="_blank" rel="noopener">${esc(host)}</a> and create one submission per team before the deadline announced at the event. You can edit it until then.`],
+      ["📦", "What to include", `<ul class="sub-list"><li>Project name and a 2–3 sentence description</li><li>Team members (names + emails)</li><li>Chosen track (01 Film · 02 Game · 03 Grow)</li><li>Link to your code repository</li><li>A 1–3 minute demo video, or a live demo link</li><li>Which sponsor tools you used, and how</li><li>2–4 screenshots, including your agents' decision log</li></ul>`],
+      ["✅", "Check the judging list", `Judges look for the five must-haves: ${H.checklist.must.map(m => esc(m[0].toLowerCase())).join(", ")}. Bonus points for ${H.checklist.bonus.map(b => esc(b[0])).join(", ")}. <a href="/aim-hack-visual/tracks.html#checklist">Run the eligibility check →</a>`],
+      ["🎤", "Demo", `Be ready to show it running at the end of the day (the event wraps at 8:30 PM). Have the video as a backup.`]
+    ];
+    steps.innerHTML = S.map((x, i) => `<div class="card sub-step"><span class="sub-n">${i + 1}</span><span class="sub-ic">${x[0]}</span><h4>${x[1]}</h4><div>${x[2]}</div></div>`).join("");
+  }
 
   /* ---------- sponsor modal ---------- */
   let dlg;
@@ -34,34 +85,69 @@
     dlg.showModal();
   };
 
-  /* ---------- home: hero cast ---------- */
+  /* ---------- home: hero LIVE CAST (a short, believable conversation) ---------- */
   const stage = $("#heroStage");
   if (stage && window.Puppet && window.Scenes && window.PLAY) {
-    Scenes.mount(stage, { base: "stage", time: "night", weather: "clear" });
+    Scenes.mount(stage, { base: "office", time: "sunset", weather: "clear" });
     const CAST = [
-      { id: "vega", c: "var(--film)", tag: "Track 01 · Film", lines: ["I'll decide how this film ends.", "Nobody scripted this. Not even you.", "Plot twist incoming…"] },
-      { id: "bolt", c: "var(--game)", tag: "Track 02 · Games", lines: ["Snakes & Ladders? I never lose.", "Cover me. Zombies at six o'clock!", "Rock, paper… I remember your last move."] },
-      { id: "priya", c: "var(--grow)", tag: "Track 03 · Grow", lines: ["Tell me about a project you're proud of.", "Give me a concrete example.", "We'll confer, then you get a verdict."] },
-      { id: "zorp", c: "#c48bff", tag: "Studio", lines: ["Describe me and an agent will draw me.", "I was made from one sentence.", "Office, forest or space? Pick a scene."] }
+      { id: "priya", x: 18, c: "var(--grow)", tag: "Mentor" },
+      { id: "kit", x: 40, c: "var(--game)", tag: "First-time hacker" },
+      { id: "jax", x: 62, c: "var(--film)", tag: "Engineer" },
+      { id: "bolt", x: 83, c: "#c48bff", tag: "AI agent" }
     ];
-    stage.insertAdjacentHTML("beforeend", CAST.map((x, i) => `<div class="hs-actor ${i === 0 ? "first" : i === CAST.length - 1 ? "last" : ""}" style="--c:${x.c};--d:${i * 0.18}s;left:${16 + i * 23}%"><div class="hs-bub"></div><div class="hs-pup"></div><span class="hs-t">${esc(x.tag)}</span></div>`).join(""));
+    const ev = H.event || {};
+    const SCRIPT = [
+      [0, `Welcome to the ${ev.venue || "AWS Loft"}! Doors at 9:30, demos wrap by 8:30.`, "happy", "wave"],
+      [1, "Okay, honest question: is this just another chatbot hackathon?", "thinking", "shrug"],
+      [2, "Nope. Agents that move, decide and act on screen. No text boxes.", "determined", "point"],
+      [3, "Correct. I am an agent. I decided to attend.", "happy", "nod"],
+      [1, "Ha. So what do we actually build?", "happy", "out"],
+      [0, "Pick a track: an agent film, a game with AI players, or agents that coach you.", "calm", "out"],
+      [1, "Game. Can the agents betray me?", "sly", "raise"],
+      [3, "Only if you trust me first.", "sly", "shrug"],
+      [2, "Log every decision. Judges want to see why an agent did what it did.", "determined", "point"],
+      [0, "Teams up to four. Submit on hackathons.crewbasecollective.com with a short demo video.", "happy", "nod"],
+      [1, "Then let's start building!", "happy", "jump"]
+    ];
+    stage.insertAdjacentHTML("beforeend", `
+      <div class="hs-light"></div>
+      <div class="hs-cam">${CAST.map((x, i) => `<div class="hs-actor" style="--c:${x.c};--d:${i * 0.15}s;left:${x.x}%"><div class="hs-pup"></div><span class="hs-t">${esc(PLAY.characters.find(c => c.id === x.id).name.split(" ")[0])}</span></div>`).join("")}</div>
+      <div class="hs-sub" aria-live="polite"><b class="hs-who"></b><span class="hs-line"></span></div>`);
     const actors = [...stage.querySelectorAll(".hs-actor")];
-    actors.forEach((a, i) => Puppet.mount(a.querySelector(".hs-pup"), PLAY.characters.find(c => c.id === CAST[i].id)));
-    let k = 0;
+    const pups = actors.map((a, i) => { Puppet.mount(a.querySelector(".hs-pup"), PLAY.characters.find(c => c.id === CAST[i].id)); return a.querySelector(".pup"); });
+    const who = stage.querySelector(".hs-who"), lineEl = stage.querySelector(".hs-line"), cam = stage.querySelector(".hs-cam"), light = stage.querySelector(".hs-light");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let k = 0, typer = null;
     const beat = () => {
-      const i = k % CAST.length, a = actors[i], line = CAST[i].lines[Math.floor(k / CAST.length) % CAST[i].lines.length];
-      actors.forEach(x => x.classList.remove("on"));
-      a.classList.add("on");
-      a.querySelector(".hs-bub").textContent = line;
-      const pup = a.querySelector(".pup");
-      Puppet.talk(pup, 1400 + line.length * 25);
-      Puppet.gesture(pup, ["point", "wave", "nod", "raise"][i], 1800);
-      Puppet.emotion(pup, ["determined", "sly", "happy", "happy"][i]);
+      const [i, text, emo, gest] = SCRIPT[k % SCRIPT.length];
+      const sx = CAST[i].x;
+      actors.forEach((a, j) => {
+        a.classList.toggle("on", j === i);
+        if (j !== i) {
+          Puppet.face(pups[j], CAST[j].x > sx ? -1 : 1);   // listeners turn to the speaker
+          Puppet.emotion(pups[j], Math.random() < 0.5 ? "neutral" : "calm");
+        }
+      });
+      Puppet.face(pups[i], sx > 50 ? -1 : 1);
+      Puppet.emotion(pups[i], emo);
+      Puppet.gesture(pups[i], gest, 1800);
+      const talkMs = Math.min(3600, 900 + text.length * 32);
+      Puppet.talk(pups[i], talkMs);
+      // a listener reacts halfway through
+      const listener = (i + 1 + (k % 3)) % CAST.length;
+      if (listener !== i) setTimeout(() => Puppet.gesture(pups[listener], ["nod", "nod", "shrug"][k % 3], 1200), talkMs * 0.55);
+      stage.style.setProperty("--sx", sx + "%");
+      light.style.left = sx + "%";
+      if (!reduce) cam.style.transform = `scale(1.045) translateX(${(50 - sx) * 0.06}%)`;
+      who.textContent = PLAY.characters.find(c => c.id === CAST[i].id).name.split(" ")[0] + " · " + CAST[i].tag;
+      who.style.color = CAST[i].c;
+      clearInterval(typer);
+      if (reduce) lineEl.textContent = text;
+      else { let n = 0; lineEl.textContent = ""; typer = setInterval(() => { n += 2; lineEl.textContent = text.slice(0, n); if (n >= text.length) clearInterval(typer); }, 28); }
       k++;
+      setTimeout(beat, talkMs + 1500);
     };
-    beat();
-    if (!reduce) setInterval(beat, 2800);
+    setTimeout(beat, 900);
   }
 
   /* ---------- home: try-it cards ---------- */
@@ -149,8 +235,7 @@
       const b = e.target.closest("button");
       if (!b) return;
       toggle.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
-      $("#mapView").hidden = b.dataset.view !== "map";
-      $("#gridView").hidden = b.dataset.view !== "grid";
+      ["flow", "map", "grid"].forEach(v => { const sec = $("#" + v + "View"); if (sec) sec.hidden = b.dataset.view !== v; });
     });
   }
 })();

@@ -32,11 +32,13 @@
         <div class="z-paused" id="zPaused" hidden><b>⏸ Paused</b><small>Press Resume (or click here) to continue</small></div>
         <div class="z-help">🕹️ <b>WASD / arrows</b> or drag to move · shooting is automatic · stand on a downed teammate to revive</div></div>
         <div class="z-team" id="zTeam"></div>`,
+      ownLines: true,
       onRadio: (from, to) => { const a = P.find(p => p.name === from); if (!a) return; const tgts = to ? P.filter(p => p.name === to) : P.filter(p => p !== a); tgts.forEach(b => links.push({ a, b, t: 1.8 })); }
     });
     document.getElementById("zPaused").onclick = () => { UI.ctl.paused = false; const b = document.getElementById("gmPause"); if (b) b.textContent = "⏸ Pause"; pauseOverlay(false); };
 
     const cv = document.getElementById("zc"), ctx = cv.getContext("2d");
+    api.stage(document.querySelector(".z-wrap"), () => null);
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     cv.width = W * dpr; cv.height = H * dpr; ctx.scale(dpr, dpr);
 
@@ -225,7 +227,7 @@ ${wave ? `LAST WAVE: team kills ${P.reduce((s, p) => s + p.stat.kills, 0)}, revi
         moveTo(a, gx, gy, 150 * (sk && sk.id === "scout" ? 1.35 : 1), dt);
         // dodge enemies that get too close
         for (const e of E) { const d = dist(a, e); if (d < e.r + 34 && d > 0) { a.x += (a.x - e.x) / d * 90 * dt; a.y += (a.y - e.y) / d * 90 * dt; } }
-        if (sk && sk.id === "medic") for (const m of P) if (!m.down && dist(m, a) < 95 && m.hp < m.maxHp) m.hp = Math.min(m.maxHp, m.hp + 5 * dt);
+        if (sk && sk.id === "medic") for (const m of P) if (!m.down && dist(m, a) < 95 && m.hp < m.maxHp) { m.hp = Math.min(m.maxHp, m.hp + 5 * dt); if (m !== a) { a.skT = 0.6; api.skillUsed(a.name, `healing ${m.name}`); } }
       }
       // keep apart + in bounds
       for (const p of P) {
@@ -241,6 +243,7 @@ ${wave ? `LAST WAVE: team kills ${P.reduce((s, p) => s + p.stat.kills, 0)}, revi
         const e = nearestEnemy(p, range);
         if (e && p.cd <= 0) {
           p.cd = (sk && sk.id === "sharp" ? 0.36 : 0.55) * (p.human ? 0.9 : 1);
+          if (sk && sk.id === "sharp" && dist(p, e) > 220) { p.skT = 0.5; api.skillUsed(p.name, "long-range shot only a Sharpshooter can make"); }
           const d = dist(p, e) || 1;
           B.push({ x: p.x, y: p.y - 26, vx: (e.x - p.x) / d * 640, vy: (e.y - p.y + 26) / d * 640, owner: p, life: 0.7 });
           p.face = e.x < p.x ? -1 : 1;
@@ -281,6 +284,7 @@ ${wave ? `LAST WAVE: team kills ${P.reduce((s, p) => s + p.stat.kills, 0)}, revi
           if (helper) {
             const sk = skillOf(helper);
             p.revive += dt * (sk && sk.id === "scout" ? 1.6 : 1);
+            if (sk && sk.id === "scout") { helper.skT = 0.6; api.skillUsed(helper.name, `fast revive on ${p.name}`); }
             if (p.revive >= 2.4) { p.down = false; p.hp = p.maxHp * 0.45; helper.stat.revives++; floats.push({ x: p.x, y: p.y - 60, text: "REVIVED", t: 1.2, c: "#b6ff5c" }); api.log(`<b style="color:${helper.color}">${UI.esc(helper.name)}</b> <span class="act">revived ${UI.esc(p.name)} 💚</span>`); renderTeam(); }
           } else p.revive = Math.max(0, p.revive - dt * 0.5);
         }
@@ -318,6 +322,9 @@ ${wave ? `LAST WAVE: team kills ${P.reduce((s, p) => s + p.stat.kills, 0)}, revi
         ctx.save(); ctx.globalAlpha = Math.min(1, l.t); ctx.strokeStyle = "#5c8dff"; ctx.lineWidth = 3; ctx.shadowColor = "#5c8dff"; ctx.shadowBlur = 14;
         ctx.setLineDash([8, 8]); ctx.lineDashOffset = -t * 60;
         ctx.beginPath(); ctx.moveTo(l.a.x, l.a.y - 30); ctx.quadraticCurveTo((l.a.x + l.b.x) / 2, Math.min(l.a.y, l.b.y) - 90, l.b.x, l.b.y - 30); ctx.stroke(); ctx.restore();
+        { const k = 1 - ((l.t * 1.4) % 1), cx = (l.a.x + l.b.x) / 2, cy = Math.min(l.a.y, l.b.y) - 90, ax = l.a.x, ay = l.a.y - 30, bx = l.b.x, by = l.b.y - 30;
+          const px = (1 - k) * (1 - k) * ax + 2 * (1 - k) * k * cx + k * k * bx, py = (1 - k) * (1 - k) * ay + 2 * (1 - k) * k * cy + k * k * by;
+          ctx.save(); ctx.globalAlpha = Math.min(1, l.t); ctx.fillStyle = "#fff"; ctx.shadowColor = "#5c8dff"; ctx.shadowBlur = 14; ctx.beginPath(); ctx.arc(px, py, 5, 0, 7); ctx.fill(); ctx.restore(); }
       }
       // entities sorted by y
       const ents = E.map(e => ({ y: e.y, e })).concat(P.map(p => ({ y: p.y, p }))).sort((a, b) => a.y - b.y);
@@ -367,6 +374,14 @@ ${wave ? `LAST WAVE: team kills ${P.reduce((s, p) => s + p.stat.kills, 0)}, revi
       const h = 86, w = h * 120 / 218;
       ctx.fillStyle = "rgba(0,0,0,.45)"; ctx.beginPath(); ctx.ellipse(p.x, p.y + 4, 20, 7, 0, 0, 7); ctx.fill();
       ctx.strokeStyle = p.color; ctx.lineWidth = p.human ? 3 : 2; ctx.setLineDash(p.human ? [] : [4, 4]); ctx.globalAlpha = 0.85; ctx.beginPath(); ctx.ellipse(p.x, p.y + 4, 24, 9, 0, 0, 7); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
+      const skA = !p.human && !p.down && skillOf(p);
+      if (skA) {
+        p.skT = Math.max(0, (p.skT || 0) - 1 / 60);
+        const glow = 0.35 + (p.skT || 0) * 1.1 + Math.sin(t * 4 + p.i) * 0.1;
+        ctx.save(); ctx.globalAlpha = Math.min(1, glow); ctx.strokeStyle = skA.color || "#ff9f43"; ctx.lineWidth = 3; ctx.shadowColor = skA.color || "#ff9f43"; ctx.shadowBlur = 16;
+        ctx.beginPath(); ctx.ellipse(p.x, p.y + 4, 30 + (p.skT || 0) * 14, 11 + (p.skT || 0) * 5, 0, 0, 7); ctx.stroke(); ctx.restore();
+        ctx.font = "15px sans-serif"; ctx.textAlign = "center"; ctx.fillText(skA.icon, p.x + 24, p.y - 70);
+      }
       ctx.save(); ctx.translate(p.x, p.y + 6);
       if (p.down) { ctx.rotate(Math.PI / 2 * 0.95); ctx.globalAlpha = 0.55; ctx.filter = "grayscale(1)"; }
       else { const bob = p.moving ? Math.abs(Math.sin(t * 12)) * 4 : Math.sin(t * 2 + p.i) * 1.2; ctx.translate(0, -bob); ctx.scale(p.face < 0 ? -1 : 1, 1); }

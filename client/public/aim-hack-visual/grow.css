@@ -154,3 +154,11 @@ textarea.shake { animation: shake 0.4s; border-color: #ff6b6b; }
   .gr-badges .sp-badge { font-size: 9px; }
   .gr-ans-row .btn { padding: 8px 12px; }
 }
+
+/* tools live (Finch skills from the shared library, Casuro evidence) */
+.gr-skill .sk-badge { font-size: 10.5px; }
+.gr-name { pointer-events: auto; }
+.gr-fs { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); margin: 2px 6px 2px 0; }
+#rubric .gr-rb.lit { animation: grLit 1.4s ease 2; border-radius: 6px; }
+@keyframes grLit { 50% { background: rgba(255, 107, 107, 0.22); box-shadow: 0 0 0 1px #ff6b6b; } }
+.gr-stage .tl-layer { z-index: 9; }

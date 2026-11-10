@@ -75,7 +75,8 @@
     build: buildAdal
   });
 
-  function buildAdal(main) {
+  function buildAdal(main, coord) {
+    coord = coord || { pulse() {} };
     const EX = ["a robot and a bear chef open a noodle bar in a rainy neon city", "a wizard teaches a cat to fly over a misty forest at sunset", "an astronaut captain finds an alien on the starship bridge", "a detective confronts a heiress at a candle-lit manor dinner", "a pop star's final concert on a stage full of lights"];
     const S = { mode: "image", style: "3d", busy: false, video: null, token: 0, images: [] };
     main.innerHTML = `
@@ -124,6 +125,9 @@
       if (!ai && Brain.images) w.why("The image model didn't answer, so this is an offline vector preview.");
       S.images.unshift({ src, ai, prompt }); S.images = S.images.slice(0, 6);
       renderOut();
+      coord.pulse("team", "prompt from an agent", "in");
+      coord.pulse("band", ai ? "image shared on #channel" : "preview shared on #channel", "out");
+      coord.pulse("bruin", "1 render counted", "out");
     }
 
     async function genVideo(prompt) {
@@ -174,6 +178,9 @@ Use 4 to 6 shots with a clear beginning, middle and end. Vary the camera moves.`
       S.video && S.video.destroy();
       S.video = VideoPlayer(shots, sb.title || "Untitled");
       renderOut();
+      coord.pulse("team", `storyboard: ${shots.length} shots`, "in");
+      coord.pulse("band", `${shots.length} frames shared`, "out");
+      coord.pulse("bruin", `${aiUsed} AI + ${shots.length - aiUsed} vector renders`, "out");
     }
 
     $("#adGo", main).onclick = async () => {
@@ -322,7 +329,8 @@ Use 4 to 6 shots with a clear beginning, middle and end. Vary the camera moves.`
     data.forEach(([l, v], i) => { const y = 50 + i * 34, w = (v / 14) * (W - 230) * ease(clamp(p * 1.4 - i * 0.08, 0, 1)); ctx.fillStyle = "#c9d0ee"; ctx.fillText(l, 40, y + 16); ctx.fillStyle = hl && l !== hl ? "rgba(255,200,87,.35)" : `rgba(255,200,87,${dim || 1})`; rr(ctx, 140, y + 2, Math.max(4, w), 20, 4); ctx.fill(); ctx.fillStyle = "#eaf0ff"; ctx.fillText(String(v), 148 + w, y + 17); });
   }
 
-  function buildBruin(main) {
+  function buildBruin(main, coord) {
+    coord = coord || { pulse() {} };
     let runs = makeRuns(50, 42), hl = { endings: null, agents: null, stories: null };
     const QS = ["Which ending happens most?", "Which story ends in betrayal most often?", "Who drives the plot the most?", "How long is an average film?", "Do voice runs end differently?"];
     main.innerHTML = `
@@ -364,7 +372,10 @@ Use 4 to 6 shots with a clear beginning, middle and end. Vary the camera moves.`
       $("#brA", main).innerHTML = `<div class="ai-work"><b>🤖 Bruin is querying ${s.total_runs} runs</b><span class="dots3"><i></i><i></i><i></i></span></div>`;
       const sys = `You are Bruin, an AI data assistant. Answer questions about a dataset of AI-agent film runs using ONLY the JSON summary provided. Be precise, cite numbers, 1-3 sentences.
 Reply with JSON only: {"answer":"...","chart":"endings|agents|stories|none","highlight":"exact bar label to highlight (an ending name, an agent full name, or a story name) or empty","sql":"a plausible SQL query over table runs(run, story, ending, lead_agent, scenes, betrayals, voice) that would answer it"}`;
+      coord.pulse("band", `${s.total_runs * 9} channel events`, "in");
+      coord.pulse("team", `${s.total_runs} runs of decisions`, "in");
       const a = await Brain.ask(sys, `DATA SUMMARY: ${JSON.stringify(s)}\nQUESTION: ${q}`, 0.2, () => offline(q, s));
+      coord.pulse("finch", a.chart === "agents" ? "insight: who leads → skills" : "insight → tune skills", "out");
       hl = { endings: null, agents: null, stories: null };
       if (a.chart && hl.hasOwnProperty(a.chart) && a.highlight) hl[a.chart] = String(a.highlight);
       render();
@@ -383,25 +394,37 @@ Reply with JSON only: {"answer":"...","chart":"endings|agents|stories|none","hig
   /* =========================================================
      4 · Finch — agent skills
      ========================================================= */
-  const SKILLS = [
-    { id: "negotiate", icon: "🤝", name: "Negotiate", how: "State both sides' interests, then propose one concrete trade-off.", off: t => `Both sides want this resolved fast. Offer: a partial fix today in exchange for a firm follow-up date.` },
-    { id: "examine", icon: "🔍", name: "Examine", how: "Check facts and list the two biggest risks or gaps.", off: t => `Risks: (1) we don't know the root cause yet, (2) the deadline assumes nothing else breaks.` },
-    { id: "summarize", icon: "📝", name: "Summarize", how: "Compress everything into three short points.", off: t => `① What happened ② What we'll do ③ When it's done.` },
-    { id: "translate", icon: "🌐", name: "Translate", how: "Also give the key message in Spanish.", off: t => `ES: «Lo resolvemos hoy y te confirmamos el viernes.»` },
-    { id: "plan", icon: "🗺️", name: "Plan", how: "Break the work into three timed steps with an owner each.", off: t => `Today: triage (me) → Tomorrow: fix (team) → Friday: confirm (me).` },
-    { id: "persuade", icon: "🎯", name: "Persuade", how: "Lead with the benefit, add one proof point and a clear ask.", off: t => `You'll save a week. We did this for 3 clients last month. Can you approve by 5pm?` }
-  ];
+  /* Skills come from the shared library in play-data.js (PLAY.allSkills()): presets + ones users create.
+     OFF = what the offline agent "produces" when it applies a preset skill. */
+  const OFF = {
+    negotiate: t => `Both sides want this closed fast. Offer: a partial fix today in exchange for a firm follow-up date.`,
+    persuade: t => `You'll save a week of back-and-forth. We did exactly this for three clients last month. Can you approve it by 5pm?`,
+    investigate: t => `Known: the request and the deadline. Doesn't add up: nobody has checked the root cause. Key question: what changed right before it went wrong?`,
+    plan: t => `1) Today: triage and confirm the facts (me). 2) Tomorrow: fix or decide (team). 3) Friday: follow up and close (me).`,
+    summarize: t => `• What happened • What we'll do about it • When it will be done`,
+    examine: t => `Clarity 4/5 ("the facts are stated"), evidence 2/5 (no numbers yet), impact 3/5 (customer still waiting).`,
+    coach: t => `What worked: you owned the problem. Change: lead with the fix, not the apology. Practise: "Here's what I'll do by Friday."`,
+    translate: t => `ES: «Lo resolvemos hoy y te lo confirmamos el viernes.» (We'll solve it today and confirm on Friday.)`,
+    deceive: t => `Cover story: "The courier lost a whole batch, so we're already rushing a replacement." One true detail: the courier really was late.`,
+    inspire: t => `We've fixed harder things this quarter. Same team, same grit: let's turn this into the best support story we tell all year.`,
+    heal: t => `First check who's hurting most: the customer. Refund them today, then check on the team member handling it.`,
+    predict: t => `Pattern: this happens every time a deadline is tight. Next move: they'll escalate tomorrow unless we act today.`
+  };
+  const offFor = (sk, task) => (OFF[sk.id] ? OFF[sk.id](task) : `Applying ${sk.name}: ${String(sk.instructions || sk.desc || "").replace(/\.$/, "")} → for "${task.slice(0, 50)}${task.length > 50 ? "…" : ""}".`);
   const TASKS = ["A customer wants a refund for an order that arrived late", "Plan the team offsite for 12 people next month", "Review this startup idea: Uber for dog walkers", "Tell a Madrid client their launch slips by one week"];
+  const SKILL_IDEAS = ["Explain anything like I'm 5", "Turn a complaint into an apology plus a fix", "Write every answer as a haiku", "Check an idea for risks like a lawyer", "Haggle like a market trader"];
+  const AGENT_IDEAS = ["a calm customer-support lead who negotiates refunds", "a sarcastic detective who never trusts the first answer", "a cheerful teacher who coaches beginners", "a startup founder who pitches everything"];
 
   LABS.push({
     id: "finch", tool: "Agent skills", playLink: "game",
     title: "Give an agent skills and watch its answer change",
-    pitch: "Skills are reusable procedures an agent can apply. Drag skills onto an agent, give it a task, and compare the answer with and without them.",
+    pitch: "Skills are reusable procedures any agent can apply. Equip them, invent new ones with AI, create agents that come with the right skills, and compare answers with and without.",
     how: [
-      "<b>Pick an agent.</b> Its personality stays the same.",
-      "<b>Drag skill cards</b> onto its three slots (or tap a card). Tap an equipped skill to remove it.",
-      "<b>Pick a task</b> or write your own.",
-      "<b>Run</b>: the same agent answers twice, without skills and with them, so you can see exactly what each skill added."
+      "<b>Pick an agent</b>, or ✨ describe one and let AI create it with matching skills.",
+      "<b>Browse the skill library.</b> Each card shows what the skill does, where it shines, and the exact instruction it adds to the agent's prompt.",
+      "<b>Equip up to 3 skills</b>: drag a card onto the slots or tap it. Tap an equipped skill to remove it.",
+      "<b>✨ Create your own skill</b>: describe it in plain words and an AI agent writes the skill card for you.",
+      "<b>Run</b>: the same agent answers twice, without and with skills, so you see exactly what each skill changed."
     ],
     demoChars: ["imani"], demoScenes: { bg: { base: "lab", time: "night" } },
     demo: [
@@ -422,63 +445,209 @@ Reply with JSON only: {"answer":"...","chart":"endings|agents|stories|none","hig
     ctx.globalAlpha = 1;
   }
 
-  function buildFinch(main) {
-    const S = { agent: "imani", eq: ["negotiate", "plan"], busy: false };
+  /* small "agent at work" steps box (play.js isn't loaded on this page) */
+  function workSteps(el, labels, title) {
+    el.innerHTML = `<div class="ai-work"><b>🤖 ${esc(title || "Agent at work")}</b><ol>${labels.map(l => `<li><i>○</i>${esc(l)}</li>`).join("")}</ol><div class="why"></div></div>`;
+    const lis = $$("li", el);
+    const set = k => lis.forEach((li, i) => { li.className = i < k ? "done" : i === k ? "on" : ""; li.querySelector("i").textContent = i < k ? "✓" : i === k ? "●" : "○"; });
+    set(0);
+    let k = 0; const t = setInterval(() => { if (k < labels.length - 1) set(++k); }, 800);
+    return { done(why) { clearInterval(t); set(labels.length); if (why) $(".why", el).textContent = "“" + why + "”"; }, stop() { clearInterval(t); } };
+  }
+  const EMOJI_KW = [[/lawyer|legal|risk/, "⚖️"], [/haiku|poem|poet|rhyme/, "🪶"], [/kid|child|5|simple|explain/, "🧸"], [/haggle|market|price|deal|trade/, "🏷️"], [/apolog|complaint|support|customer/, "💐"], [/code|bug|debug/, "🐞"], [/joke|funny|humou?r/, "😂"], [/math|number|calc/, "🧮"], [/story|narrat/, "📖"], [/sales|pitch/, "📣"]];
+  const COLORS = ["#ff9f43", "#ff4fa3", "#3ee6ff", "#b6ff5c", "#c48bff", "#ffc857", "#5c8dff", "#4fd1c5"];
+  const titleCase = t => t.replace(/\b\w/g, c => c.toUpperCase());
+
+  async function aiSkill(idea) {
+    const sys = `You are Finch, a skill designer for AI agents. Turn the user's idea into ONE reusable agent skill.
+A skill is a short procedure an agent applies to any task. Reply with JSON only:
+{"name":"1-3 words, Title Case","icon":"one emoji","color":"a bright hex colour","desc":"what it does, max 12 words","instructions":"the exact instruction added to the agent's prompt, imperative, max 35 words","good":"where it shines, 2-4 short use cases comma separated","why":"one sentence on your design"}`;
+    const o = await Brain.ask(sys, `Idea: ${idea}`, 0.8, () => {
+      const words = idea.replace(/^(a|an|the|make|turn|write|explain)\s+/i, "").split(/\s+/).slice(0, 3).join(" ");
+      return { name: titleCase(words).slice(0, 24) || "Custom Skill", icon: (EMOJI_KW.find(([re]) => re.test(idea.toLowerCase())) || [0, "🧩"])[1], color: rand(COLORS),
+        desc: idea.slice(0, 70), instructions: `Before answering, ${idea.charAt(0).toLowerCase() + idea.slice(1).replace(/\.$/, "")}. Keep the result short and concrete.`, good: "support, pitches, team chats", why: "Built from your words so the agent applies it the same way every time." };
+    });
+    const icon = [...String(o.icon || "")].slice(0, 2).join("") || "🧩";
+    return {
+      name: Brain.clip(o.name, 28) || "Custom Skill", icon, color: /^#[0-9a-f]{6}$/i.test(o.color || "") ? o.color : rand(COLORS),
+      desc: Brain.clip(o.desc, 100), instructions: Brain.clip(o.instructions, 260) || Brain.clip(idea, 200), good: Brain.clip(o.good, 80), why: Brain.clip(o.why, 160), _src: o._src
+    };
+  }
+  async function aiAgent(idea) {
+    const lib = P.allSkills();
+    const sys = `You design AI agents for a playground. Turn the idea into ONE agent and pick its skills ONLY from this library (use the ids):
+${lib.map(s => `${s.id}: ${s.name} - ${s.desc}`).join("\n")}
+Look options: species ${Puppet.LOOK.species.join("/")}; outfit ${Puppet.LOOK.outfit.join("/")}; acc ${Puppet.LOOK.acc.join("/")}; outfitColor any hex.
+Reply with JSON only: {"name":"short name","role":"max 3 words","personality":"max 18 words","skills":["1 to 3 skill ids"],"look":{"species":"","outfit":"","outfitColor":"#hex","acc":""},"why":"one sentence on why these skills"}`;
+    const o = await Brain.ask(sys, `Idea: ${idea}`, 0.9, () => {
+      const t = idea.toLowerCase(), pick = [];
+      [[/negotiat|refund|deal|support|haggl/, "negotiate"], [/pitch|sales|founder|persuad|sell/, "persuade"], [/detective|investig|spy|trust|lie/, "investigate"], [/teach|coach|mentor|beginner/, "coach"], [/plan|manager|organi|project/, "plan"], [/summar|report|analyst/, "summarize"], [/exam|interview|review|judge/, "examine"], [/translat|language|spanish|french/, "translate"], [/doctor|nurse|medic|heal/, "heal"], [/inspir|leader|captain|rally/, "inspire"], [/predict|strateg|chess|gamer/, "predict"], [/liar|con|trick|thief/, "deceive"]]
+        .forEach(([re, id]) => { if (re.test(t) && pick.length < 3) pick.push(id); });
+      if (!pick.length) pick.push("plan", "summarize");
+      const role = (idea.match(/\b(support lead|detective|teacher|founder|doctor|manager|analyst|chef|pilot|lawyer|coach|engineer)\b/i) || [0, "Specialist"])[1];
+      return { name: rand(["Ava", "Milo", "Juno", "Rex", "Tess", "Kai", "Nova", "Ozzy"]), role: titleCase(role), personality: idea.charAt(0).toUpperCase() + idea.slice(1, 120), skills: pick,
+        look: { species: /robot|bot/.test(t) ? "robot" : /cat/.test(t) ? "cat" : "human", outfit: /detective|lawyer|founder|manager/.test(t) ? "suit" : /teacher/.test(t) ? "sweater" : /doctor/.test(t) ? "labcoat" : "jacket", outfitColor: rand(COLORS), acc: /detective/.test(t) ? "tophat" : /teacher/.test(t) ? "glasses" : "none" },
+        why: `Picked ${pick.join(", ")} because your description mentions what they do all day.` };
+    });
+    const ids = new Set(lib.map(s => s.id));
+    const look = Object.assign(Puppet.randomLook(String(o.name || idea)), {});
+    const L0 = o.look || {};
+    if (Puppet.LOOK.species.includes(L0.species)) look.species = L0.species;
+    if (Puppet.LOOK.outfit.includes(L0.outfit)) look.outfit = L0.outfit;
+    if (Puppet.LOOK.acc.includes(L0.acc)) look.acc = L0.acc;
+    if (Puppet.colorHex && Puppet.colorHex(L0.outfitColor)) look.outfitColor = Puppet.colorHex(L0.outfitColor);
+    if (look.species !== "human" && look.species !== "alien") { look.hair = "none"; look.facial = "none"; delete look.skin; }
+    return {
+      id: "fa-" + Math.random().toString(36).slice(2, 7), name: Brain.clip(o.name, 22) || "Agent", role: Brain.clip(o.role, 28) || "Specialist",
+      personality: Brain.clip(o.personality, 160) || idea, skills: (Array.isArray(o.skills) ? o.skills : []).filter(id => ids.has(id)).slice(0, 3), look, why: Brain.clip(o.why, 180), _src: o._src
+    };
+  }
+
+  function buildFinch(main, coord) {
+    coord = coord || { pulse() {} };
+    const S = { agent: "imani", eq: ["negotiate", "plan"], busy: false, filter: "all", custom: [], open: "" };
+    const lib = () => P.allSkills();
+    const sk = id => lib().find(s => s.id === id);
+    const agentById = id => S.custom.find(a => a.id === id) || charById(id);
     main.innerHTML = `
       <div class="fi-top">
         <div class="fi-agent">
-          <select id="fiAg" aria-label="Agent">${P.characters.map(c => `<option value="${c.id}" ${c.id === S.agent ? "selected" : ""}>${esc(c.name)} · ${esc(c.role)}</option>`).join("")}</select>
+          <select id="fiAg" aria-label="Agent"></select>
           <div class="fi-fig"><div id="fiPup"></div></div>
           <p class="muted small" id="fiPers"></p>
+          <button class="btn ghost btn-sm fi-mk" data-open="agent">✨ Create an agent with AI</button>
         </div>
         <div>
-          <div class="lp-h">EQUIPPED SKILLS · drop here</div>
+          <div class="lp-h">EQUIPPED SKILLS · max 3 · drop here</div>
           <div class="fi-slots" id="fiSlots"></div>
-          <div class="lp-h" style="margin-top:14px">SKILL CARDS · drag or tap</div>
+          <div class="fi-libhead">
+            <div class="lp-h">SKILL LIBRARY · drag or tap to equip</div>
+            <div class="fi-filter" id="fiFilter"><button data-f="all" class="on">All</button><button data-f="built">Built-in</button><button data-f="mine">Yours</button></div>
+            <button class="btn btn-sm fi-mk ai" data-open="skill">✨ Create a skill with AI</button>
+          </div>
+          <div class="fi-maker" id="fiMaker" hidden></div>
           <div class="fi-deck" id="fiDeck"></div>
         </div>
       </div>
-      <label class="lab-l" for="fiTask">Task</label>
-      <div class="lab-bar"><input id="fiTask" maxlength="200" value="${esc(TASKS[0])}"><button class="btn btn-sm" id="fiRun">▶ Run both</button></div>
+      <label class="lab-l" for="fiTask">Task for the agent</label>
+      <div class="lab-bar"><input id="fiTask" maxlength="200" value="${esc(TASKS[0])}"><button class="btn btn-sm" id="fiRun">▶ Run with & without skills</button></div>
       <div class="ex-chips" id="fiEx">${TASKS.map(t => `<button>${esc(t)}</button>`).join("")}</div>
       <div class="fi-out" id="fiOut"></div>`;
-    const sk = id => SKILLS.find(s => s.id === id);
-    function draw() {
-      const c = charById(S.agent);
-      Puppet.mount($("#fiPup", main), c); $("#fiPers", main).textContent = c.personality;
-      $("#fiSlots", main).innerHTML = [0, 1, 2].map(i => { const s = sk(S.eq[i]); return s ? `<button class="fi-card on" data-rm="${i}" title="Remove ${esc(s.name)}"><span>${s.icon}</span><b>${esc(s.name)}</b><small>${esc(s.how)}</small></button>` : `<div class="fi-slot" data-slot="${i}">Empty slot</div>`; }).join("");
-      $("#fiDeck", main).innerHTML = SKILLS.map(s => `<button class="fi-card ${S.eq.includes(s.id) ? "used" : ""}" draggable="true" data-sk="${s.id}"><span>${s.icon}</span><b>${esc(s.name)}</b><small>${esc(s.how)}</small></button>`).join("");
+
+    function drawAgents() {
+      const sel = $("#fiAg", main);
+      sel.innerHTML = (S.custom.length ? `<optgroup label="Created with AI">${S.custom.map(a => `<option value="${a.id}">✨ ${esc(a.name)} · ${esc(a.role)}</option>`).join("")}</optgroup>` : "") +
+        `<optgroup label="Cast">${P.characters.map(c => `<option value="${c.id}">${esc(c.name)} · ${esc(c.role)}</option>`).join("")}</optgroup>`;
+      sel.value = S.agent;
     }
-    const equip = id => { if (!id || S.eq.includes(id)) return; if (S.eq.length >= 3) S.eq.shift(); S.eq.push(id); draw(); Puppet.gesture($("#fiPup", main), "jump", 1200); };
-    $("#fiAg", main).onchange = e => { S.agent = e.target.value; draw(); };
-    $("#fiDeck", main).addEventListener("click", e => { const b = e.target.closest("[data-sk]"); b && equip(b.dataset.sk); });
+    function card(s, mode) {
+      const used = S.eq.includes(s.id);
+      return `<div class="fi-card2 ${mode === "slot" ? "on" : used ? "used" : ""}" style="--k:${s.color || "#ff9f43"}" ${mode === "slot" ? `data-rm="${s.id}" title="Tap to unequip"` : `draggable="true" data-sk="${s.id}" tabindex="0" role="button" aria-label="Equip ${esc(s.name)}"`}>
+        <div class="fc-top"><span class="fc-ico">${s.icon || "🧩"}</span><b>${esc(s.name)}</b>${s.custom ? `<span class="fc-mine">yours</span>` : ""}${s.custom && mode !== "slot" ? `<button class="fc-del" data-del="${s.id}" title="Delete skill" aria-label="Delete ${esc(s.name)}">✕</button>` : ""}</div>
+        <p>${esc(s.desc || "")}</p>
+        ${mode === "slot" ? "" : `${s.good ? `<small class="fc-good">Good for: ${esc(s.good)}</small>` : ""}<details><summary>Adds to the prompt</summary><q>${esc(s.instructions || "")}</q></details>`}
+      </div>`;
+    }
+    function draw() {
+      const c = agentById(S.agent);
+      Puppet.mount($("#fiPup", main), c); $("#fiPers", main).textContent = c.personality;
+      $("#fiSlots", main).innerHTML = [0, 1, 2].map(i => { const s = sk(S.eq[i]); return s ? card(s, "slot") : `<div class="fi-slot">Empty slot</div>`; }).join("");
+      const list = lib().filter(s => S.filter === "all" || (S.filter === "mine" ? s.custom : !s.custom));
+      $("#fiDeck", main).innerHTML = list.length ? list.map(s => card(s)).join("") : `<p class="muted">No skills of your own yet. Press ✨ Create a skill with AI.</p>`;
+    }
+    const equip = id => {
+      const s = sk(id); if (!s || S.eq.includes(id)) return;
+      if (S.eq.length >= 3) S.eq.shift();
+      S.eq.push(id); draw(); Puppet.gesture($("#fiPup", main), "jump", 1200);
+      coord.pulse("team", `${s.icon} ${s.name} equipped`, "out");
+    };
+
+    /* ---------- AI makers ---------- */
+    function makerHTML(kind) {
+      const ideas = kind === "skill" ? SKILL_IDEAS : AGENT_IDEAS;
+      return `<div class="fi-mkbox">
+        <div class="fi-mkh"><b>${kind === "skill" ? "✨ Create a skill with AI" : "✨ Create an agent with AI"}</b><button class="fc-del" data-close aria-label="Close">✕</button></div>
+        <p class="muted small">${kind === "skill" ? "Describe what the skill should make an agent do. Finch's AI writes the skill card and the exact prompt instruction." : "Describe the agent. AI creates it, gives it a look and equips matching skills from the library."}</p>
+        <div class="lab-bar"><input id="fiIdea" maxlength="160" placeholder="${kind === "skill" ? "e.g. explain anything like I'm 5" : "e.g. a calm support lead who negotiates refunds"}"><button class="btn btn-sm ai" id="fiMake" data-kind="${kind}">${kind === "skill" ? "Create skill" : "Create agent"}</button></div>
+        <div class="ex-chips" id="fiIdeas">${ideas.map(t => `<button>${esc(t)}</button>`).join("")}</div>
+        <div id="fiWork"></div><div id="fiMade"></div></div>`;
+    }
+    async function make(kind) {
+      const idea = $("#fiIdea", main).value.trim(); if (!idea) { $("#fiIdea", main).focus(); return; }
+      const btn = $("#fiMake", main); btn.disabled = true;
+      const w = workSteps($("#fiWork", main), kind === "skill" ? ["Reading your idea", "Writing the procedure", "Choosing icon & colour", "Adding it to the library"] : ["Reading your idea", "Writing a personality", "Picking skills from the library", "Designing the look"], kind === "skill" ? "Finch skill designer at work" : "Agent designer at work");
+      try {
+        if (kind === "skill") {
+          const r = await aiSkill(idea);
+          const saved = P.saveSkill({ name: r.name, icon: r.icon, color: r.color, desc: r.desc, instructions: r.instructions, good: r.good });
+          w.done(r.why);
+          $("#fiMade", main).innerHTML = `<div class="fi-made">${card({ ...saved, custom: true })}<div><b>Saved to your library.</b><p class="muted small">It's also available to agents in the playground's Finch mode.</p><button class="btn btn-sm" data-equip="${saved.id}">Equip on ${esc(agentById(S.agent).name)}</button></div></div>`;
+          S.filter = "all"; $$("#fiFilter button", main).forEach(b => b.classList.toggle("on", b.dataset.f === "all"));
+          draw();
+          coord.pulse("team", `new skill: ${saved.name}`, "out");
+          coord.pulse("bruin", "skill registered", "out");
+        } else {
+          const a = await aiAgent(idea);
+          S.custom.unshift(a); S.agent = a.id; S.eq = a.skills.slice();
+          w.done(a.why);
+          drawAgents(); draw();
+          Puppet.gesture($("#fiPup", main), "wave", 2000);
+          $("#fiMade", main).innerHTML = `<div class="fi-made"><div class="fi-made-p" id="fiMadeP"></div><div><b>${esc(a.name)}</b> <span class="muted">· ${esc(a.role)}</span><p class="small">${esc(a.personality)}</p>
+            <div class="fi-chips">${a.skills.map(id => { const s = sk(id); return s ? `<span style="--k:${s.color}">${s.icon} ${esc(s.name)}</span>` : ""; }).join("")}</div><p class="muted small">Equipped and selected. Press ▶ Run to test them.</p></div></div>`;
+          Puppet.mount($("#fiMadeP", main), a);
+          coord.pulse("team", `${a.name} joins with ${a.skills.length} skills`, "out");
+        }
+      } catch (e) { w.stop(); console.error(e); }
+      btn.disabled = false;
+    }
+
+    /* ---------- events ---------- */
+    $("#fiAg", main).onchange = e => { S.agent = e.target.value; const a = S.custom.find(x => x.id === S.agent); if (a) S.eq = a.skills.slice(); draw(); };
+    main.addEventListener("click", e => {
+      const t = e.target;
+      const del = t.closest("[data-del]");
+      if (del) { e.stopPropagation(); P.removeSkill(del.dataset.del); S.eq = S.eq.filter(x => x !== del.dataset.del); draw(); return; }
+      if (t.closest("summary") || t.closest("details")) return;
+      const op = t.closest("[data-open]");
+      if (op) { const m = $("#fiMaker", main); if (S.open === op.dataset.open && !m.hidden) { m.hidden = true; S.open = ""; return; } S.open = op.dataset.open; m.innerHTML = makerHTML(S.open); m.hidden = false; $("#fiIdea", main).focus(); m.scrollIntoView({ behavior: "smooth", block: "nearest" }); return; }
+      if (t.closest("[data-close]")) { $("#fiMaker", main).hidden = true; S.open = ""; return; }
+      const idea = t.closest("#fiIdeas button"); if (idea) { $("#fiIdea", main).value = idea.textContent; return; }
+      const mk = t.closest("#fiMake"); if (mk) { make(mk.dataset.kind); return; }
+      const eqb = t.closest("[data-equip]"); if (eqb) { equip(eqb.dataset.equip); return; }
+      const rm = t.closest("[data-rm]"); if (rm) { S.eq = S.eq.filter(x => x !== rm.dataset.rm); draw(); return; }
+      const c = t.closest("#fiDeck [data-sk]"); if (c) { equip(c.dataset.sk); return; }
+      const f = t.closest("#fiFilter [data-f]"); if (f) { S.filter = f.dataset.f; $$("#fiFilter button", main).forEach(b => b.classList.toggle("on", b === f)); draw(); return; }
+      const ex = t.closest("#fiEx button"); if (ex) { $("#fiTask", main).value = ex.textContent; return; }
+    });
+    main.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.id === "fiIdea") { e.preventDefault(); $("#fiMake", main).click(); } const c = e.target.closest && e.target.closest("#fiDeck [data-sk]"); if (c && (e.key === "Enter" || e.key === " ") && e.target === c) { e.preventDefault(); equip(c.dataset.sk); } });
     $("#fiDeck", main).addEventListener("dragstart", e => { const b = e.target.closest("[data-sk]"); b && e.dataTransfer.setData("text/plain", b.dataset.sk); });
-    const zone = $(".fi-top", main);
-    zone.addEventListener("dragover", e => { e.preventDefault(); $("#fiSlots", main).classList.add("over"); });
-    zone.addEventListener("dragleave", () => $("#fiSlots", main).classList.remove("over"));
-    zone.addEventListener("drop", e => { e.preventDefault(); $("#fiSlots", main).classList.remove("over"); equip(e.dataTransfer.getData("text/plain")); });
-    $("#fiSlots", main).addEventListener("click", e => { const b = e.target.closest("[data-rm]"); if (b) { S.eq.splice(+b.dataset.rm, 1); draw(); } });
-    $("#fiEx", main).onclick = e => { const b = e.target.closest("button"); if (b) $("#fiTask", main).value = b.textContent; };
+    const zone = $("#fiSlots", main);
+    zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("over"); });
+    zone.addEventListener("dragleave", () => zone.classList.remove("over"));
+    zone.addEventListener("drop", e => { e.preventDefault(); zone.classList.remove("over"); equip(e.dataTransfer.getData("text/plain")); });
+
     $("#fiRun", main).onclick = async () => {
       if (S.busy) return;
-      const task = $("#fiTask", main).value.trim() || TASKS[0], c = charById(S.agent), skills = S.eq.map(sk);
+      const task = $("#fiTask", main).value.trim() || TASKS[0], c = agentById(S.agent), skills = S.eq.map(sk).filter(Boolean);
       S.busy = true; $("#fiRun", main).disabled = true;
-      $("#fiOut", main).innerHTML = `<div class="ai-work"><b>🤖 ${esc(c.name)} is working the task twice</b><span class="dots3"><i></i><i></i><i></i></span></div>`;
+      $("#fiOut", main).innerHTML = `<div class="ai-work"><b>🤖 ${esc(c.name)} is doing the task twice: plain, then with ${skills.length} skill${skills.length === 1 ? "" : "s"}</b><span class="dots3"><i></i><i></i><i></i></span></div>`;
       Puppet.emotion($("#fiPup", main), "thinking");
       const base = `You are ${c.name}, the ${c.role}. Personality: ${c.personality}`;
       const [plain, withS] = await Promise.all([
         Brain.ask(`${base}\nYou have NO special skills. Just answer the task in your own voice.\nReply with JSON only: {"final":"max 50 words"}`, `TASK: ${task}`, 0.8, () => ({ final: `Hmm. ${task}? I'd say sorry and try to sort it out somehow. Let me get back to you.` })),
-        skills.length ? Brain.ask(`${base}\nYou have these Finch skills installed. Each is a reusable procedure you MUST apply, in this order:\n${skills.map(s => `- ${s.name}: ${s.how}`).join("\n")}\nStay in character.\nReply with JSON only: {"steps":[{"skill":"skill name","output":"what applying it produced, max 30 words"}],"final":"your final answer combining the steps, max 60 words"}`, `TASK: ${task}`, 0.8,
-          () => ({ steps: skills.map(s => ({ skill: s.name, output: s.off(task) })), final: `Here's my answer: ${skills.map(s => s.off(task)).join(" ")}` })) : Promise.resolve(null)
+        skills.length ? Brain.ask(`${base}\nYou have these Finch skills installed. Each is a reusable procedure you MUST apply, in this order:\n${skills.map(s => `- ${s.name}: ${s.instructions || s.desc}`).join("\n")}\nStay in character.\nReply with JSON only: {"steps":[{"skill":"skill name","output":"what applying it produced, max 30 words"}],"final":"your final answer combining the steps, max 60 words"}`, `TASK: ${task}`, 0.8,
+          () => ({ steps: skills.map(s => ({ skill: s.name, output: offFor(s, task) })), final: skills.map(s => offFor(s, task)).join(" ") })) : Promise.resolve(null)
       ]);
       Puppet.emotion($("#fiPup", main), "happy"); Puppet.talk($("#fiPup", main), 1500);
+      const wordsA = String(plain.final || "").split(/\s+/).length, wordsB = withS ? String(withS.final || "").split(/\s+/).length : 0;
       $("#fiOut", main).innerHTML = `
-        <div class="lab-panel"><div class="lp-h">WITHOUT SKILLS</div><p>${esc(Brain.clip(plain.final, 400))}</p></div>
-        <div class="lab-panel good"><div class="lp-h">WITH ${skills.length ? skills.map(s => s.icon + " " + s.name.toUpperCase()).join(" + ") : "NO SKILLS EQUIPPED"}</div>
-          ${withS ? `<ol class="fi-steps">${(withS.steps || []).slice(0, 4).map(st => `<li><b>${esc(Brain.clip(st.skill, 30))}</b> ${esc(Brain.clip(st.output, 240))}</li>`).join("")}</ol><p class="fi-final">${esc(Brain.clip(withS.final, 500))}</p>` : `<p class="muted">Equip at least one skill to compare.</p>`}</div>`;
+        <div class="lab-panel fi-col"><div class="lp-h">WITHOUT SKILLS</div><p>${esc(Brain.clip(plain.final, 400))}</p><small class="muted">${wordsA} words · no procedure</small></div>
+        <div class="lab-panel good fi-col"><div class="lp-h">WITH ${skills.length ? skills.map(s => s.icon + " " + esc(s.name).toUpperCase()).join(" + ") : "NO SKILLS EQUIPPED"}</div>
+          ${withS ? `<ol class="fi-steps">${(withS.steps || []).slice(0, 4).map((st, i) => { const s = skills[i] || {}; return `<li style="--k:${s.color || "#ff9f43"}"><b>${s.icon || "🧩"} ${esc(Brain.clip(st.skill, 30))}</b> ${esc(Brain.clip(st.output, 240))}</li>`; }).join("")}</ol><p class="fi-final">${esc(Brain.clip(withS.final, 500))}</p><small class="muted">${wordsB} words · ${skills.length} procedure${skills.length === 1 ? "" : "s"} applied</small>` : `<p class="muted">Equip at least one skill to compare.</p>`}</div>`;
+      if (withS) { coord.pulse("band", "skilled answer shared", "out"); coord.pulse("bruin", "with vs without logged", "out"); }
       S.busy = false; $("#fiRun", main).disabled = false;
     };
-    draw();
+    drawAgents(); draw();
     return {};
   }
 
@@ -510,7 +679,8 @@ Reply with JSON only: {"answer":"...","chart":"endings|agents|stories|none","hig
     build: buildCasuro
   });
 
-  function buildCasuro(main) {
+  function buildCasuro(main, coord) {
+    coord = coord || { pulse() {} };
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     const S = { role: "Software engineer", q: -1, answers: [], rec: null, listening: false, token: 0 };
     main.innerHTML = `
@@ -556,6 +726,7 @@ Reply with JSON only: {"answer":"...","chart":"endings|agents|stories|none","hig
       S.q++;
       if (S.q < 3) { Puppet.emotion(pup, "calm"); return ask(); }
       $("#caAns", main).hidden = true; $("#caQ", main).textContent = "SCORING";
+      coord.pulse("team", "3 answers + transcript", "out");
       Puppet.emotion(pup, "thinking");
       say("Thank you! Give me a moment to review your answers…", "Thank you! Give me a moment to review your answers.");
       await score();
@@ -587,6 +758,8 @@ Reply with JSON only: {"scores":{"clarity":0-10,"evidence":0-10,"relevance":0-10
       });
       const verdict = ["Strong yes", "Yes", "Maybe", "Not yet"].includes(r.verdict) ? r.verdict : "Maybe";
       Puppet.emotion(pup, /yes/i.test(verdict) ? "happy" : "calm");
+      coord.pulse("bruin", `verdict: ${verdict} + quotes`, "out");
+      coord.pulse("finch", "suggest skill: Coach", "out");
       say(`My verdict: <b>${esc(verdict)}</b>. Details below.`, `My verdict: ${verdict}.`);
       $("#caQ", main).textContent = "RESULT";
       $("#caOut", main).innerHTML = `<div class="ca-res">

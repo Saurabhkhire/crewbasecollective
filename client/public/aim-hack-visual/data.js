@@ -6,8 +6,16 @@
    ========================================================= */
 window.HACK = {
   name: "Multiplayer AI",
-  dates: "Dates TBA",
-  registerUrl: "#register", // TODO: replace with your registration link
+  /* event details: shown on the home page, tracks page and submission section */
+  event: {
+    date: "Monday, November 23, 2026",
+    dateShort: "Nov 23, 2026",
+    time: "9:30 AM – 8:30 PM",
+    venue: "AWS Loft",
+    format: "Solo or teams of up to 4"
+  },
+  dates: "Nov 23, 2026 · 9:30 AM – 8:30 PM · AWS Loft",
+  submitUrl: "https://hackathons.crewbasecollective.com",
 
   tracks: [
     {
@@ -225,3 +233,17 @@ window.HACK = {
     { name: "Nova", color: "#4fd1c5", trait: "analyst" }
   ]
 };
+
+/* ---------- sponsor tool visibility (per visitor) ----------
+   HACK.allSponsors = every sponsor; HACK.sponsors = only the ones this visitor shows.
+   Everything (maps, labs, track toolbars) reads HACK.sponsors, so hiding a tool
+   removes it everywhere. Changed from the "⚙️ Tools" panel in the nav (site.js). */
+(function (H) {
+  H.allSponsors = H.sponsors.slice();
+  let hidden = [];
+  try { hidden = JSON.parse(localStorage.getItem("aimp_sponsors_hidden") || "[]"); } catch {}
+  H.hiddenSponsors = Array.isArray(hidden) ? hidden.filter(id => H.allSponsors.some(s => s.id === id)) : [];
+  H.sponsors = H.allSponsors.filter(s => !H.hiddenSponsors.includes(s.id));
+  H.sponsorVisible = id => !H.hiddenSponsors.includes(id);
+  H.setHiddenSponsors = ids => { try { localStorage.setItem("aimp_sponsors_hidden", JSON.stringify(ids || [])); } catch {} };
+})(window.HACK);

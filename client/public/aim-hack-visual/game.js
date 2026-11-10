@@ -25,23 +25,24 @@ window.Games = (function () {
   const loadGames = () => { try { return JSON.parse(localStorage.getItem("aimp_games") || "[]"); } catch { return []; } };
   const saveGames = g => { try { localStorage.setItem("aimp_games", JSON.stringify(g.slice(0, 20))); } catch {} };
 
-  /* ---------- Finch skills per engine ---------- */
+  /* ---------- Finch skills per engine (game mechanics; shown with UI.skillBadge) ----------
+     demo routes: #game/<id>?demo · #game/<id>?demo-tools (all sponsor tools on) */
   const SKILLS = {
     zombie: [
-      { id: "medic", icon: "💉", name: "Medic", does: "Slowly heals teammates nearby." },
-      { id: "sharp", icon: "🎯", name: "Sharpshooter", does: "Fires 60% faster, longer range." },
-      { id: "tank", icon: "🛡️", name: "Tank", does: "+60% max health." },
-      { id: "scout", icon: "👟", name: "Scout", does: "Moves 35% faster, revives faster." }
+      { id: "medic", icon: "💉", name: "Medic", color: "#b6ff5c", does: "Slowly heals teammates nearby." },
+      { id: "sharp", icon: "🎯", name: "Sharpshooter", color: "#ff6b6b", does: "Fires 60% faster, longer range." },
+      { id: "tank", icon: "🛡️", name: "Tank", color: "#5c8dff", does: "+60% max health." },
+      { id: "scout", icon: "👟", name: "Scout", color: "#ffc857", does: "Moves 35% faster, revives faster." }
     ],
     snakes: [
-      { id: "lucky", icon: "🍀", name: "Lucky", does: "Rolls of 1 or 2 get +1." },
-      { id: "climber", icon: "🧗", name: "Climber", does: "Ladders lift you 3 squares further." },
-      { id: "slippery", icon: "🧈", name: "Slippery", does: "Snakes only drop you half the way." }
+      { id: "lucky", icon: "🍀", name: "Lucky", color: "#b6ff5c", does: "Rolls of 1 or 2 get +1." },
+      { id: "climber", icon: "🧗", name: "Climber", color: "#ffc857", does: "Ladders lift you 3 squares further." },
+      { id: "slippery", icon: "🧈", name: "Slippery", color: "#3ee6ff", does: "Snakes only drop you half the way." }
     ],
     rps: [
-      { id: "psychic", icon: "🔮", name: "Psychic", does: "Reads your patterns much more accurately." },
-      { id: "bluffer", icon: "🃏", name: "Bluffer", does: "Taunts hint at a throw it won't play." },
-      { id: "stubborn", icon: "🪨", name: "Stubborn", does: "Repeats winning throws, never panics." }
+      { id: "psychic", icon: "🔮", name: "Psychic", color: "#c48bff", does: "Reads your patterns much more accurately." },
+      { id: "bluffer", icon: "🃏", name: "Bluffer", color: "#ff4fa3", does: "Taunts hint at a throw it won't play." },
+      { id: "stubborn", icon: "🪨", name: "Stubborn", color: "#8a8f99", does: "Repeats winning throws, never panics." }
     ]
   };
   function assignSkills(engine, agents) {
@@ -344,8 +345,10 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
        transformation (pipeline) · data quality (checks) · observability (volume) · governance (column access) */
     const BR = { tab: "metrics", events: [], rows: [], t0: Date.now(), lastRender: 0, ran: null, showPrivate: false };
     const plain = h => String(h).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    let apiRef = null;
     function record(kind, who, text, extra) {
       BR.events.push(Object.assign({ ts: Date.now(), kind, who: who || "", text: plain(text || "").slice(0, 200) }, extra || {}));
+      if (apiRef && apiRef.live && cfg.tools.has("bruin") && Date.now() - (apiRef._dashT || 0) > 900) { apiRef._dashT = Date.now(); apiRef.bruinDash(); }
       if (BR.events.length > 2000) BR.events.shift();
       if (cfg.tools.has("bruin") && BR.tab !== "metrics" && Date.now() - BR.lastRender > 800) renderBruin();
     }
@@ -428,8 +431,44 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
       status: t => { const s = $("#gmStatus"); if (s) s.textContent = t; },
       log(html, cls) { if (cls !== "think") record(cls === "event" ? "world_event" : cls === "sys" ? "system" : "action", (html.match(/<b[^>]*>([^<]*)<\/b>/) || [])[1], html); const l = $("#gmLog"); if (!l) return; const li = document.createElement("li"); if (cls) li.className = cls; li.innerHTML = html; l.prepend(li); while (l.children.length > 60) l.lastChild.remove(); },
       think(who, color2, text, src) { record("decision", who, text, { src: src || "llm" }); api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
+      /* the engine tells the shell which element is the stage and how to find a player's element */
+      stage(el, locate) {
+        api.live = UI.toolsLive(el, "game", cfg.tools);
+        api.locate = locate || (() => null);
+        if (cfg.tools.has("adal")) api.adalFrame();
+        if (cfg.tools.has("bruin")) api.bruinDash();
+        return api.live;
+      },
+      adalFrame() {
+        if (!api.live || api._framed) return;
+        api._framed = true;
+        const sc = cfg.scene || PLAY.scenes[0];
+        const vec = `<svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice">${Scenes.svg(sc).replace('<svg class="scene-svg"', '<svg x="0" y="0" width="160" height="90"')}${cfg.agents.slice(0, 3).map((c, i) => Puppet.svg(c).replace('<svg class="puppet"', `<svg x="${30 + i * 36}" y="30" width="34" height="62"`)).join("")}</svg>`;
+        api.live.frame(cfg.cover || vec, cfg.cover ? "Cover art" : "Cover · vector");
+        api.live.fx("adal", { text: cfg.cover ? "Showing your AdaL cover art" : "Cover rendered from your scene and players", callout: false });
+      },
+      bruinDash() {
+        if (!api.live || !cfg.tools.has("bruin")) return;
+        const grp = (BR.rows || [])[0] || { title: "", rows: [] };
+        const rows = (grp.rows || []).slice(0, 4).map((r, i) => ({ label: String(r.k || "").split(" ")[0], value: Math.round((+r.v || 0) * 10) / 10, color: r.c || PLAY.colors[i] }));
+        const kinds = {}; BR.events.forEach(e => (kinds[e.kind] = (kinds[e.kind] || 0) + 1));
+        const buckets = []; const now = Date.now(); for (let i = 9; i >= 0; i--) buckets.push(BR.events.filter(e => e.ts > now - (i + 1) * 4000 && e.ts <= now - i * 4000).length);
+        api.live.dash(`<div class="k"><div><b>${BR.events.length}</b><small>events</small></div><div><b>${kinds.decision || 0}</b><small>decisions</small></div><div><b>${kinds.radio || 0}</b><small>radio</small></div></div>
+          ${rows.length ? `<small class="muted">${esc(String(grp.title || "").toLowerCase())}</small>${UI.miniBars(rows)}` : ""}<small class="muted">events / 4 s</small>${UI.spark(buckets, "#ffc857")}`);
+        api.live.stat("bruin", `${BR.events.length} events`);
+      },
+      /* engines call this when a Finch skill actually changes something */
+      skillUsed(name, text) {
+        const sk = api.skill(name); if (!sk || !api.live) return;
+        const k = "_sk" + name; if (api[k] && Date.now() - api[k] < 4500) return; api[k] = Date.now();
+        api.live.fx("finch", { text: `${name} · ${sk.icon} ${sk.name}: ${text || sk.does}`, from: api.locate(name), callout: !!api.locate(name) });
+      },
       radio(from, to, text, color2) {
         record("radio", from, `${to ? "→ " + to + ": " : ""}${text}`);
+        if (cfg.tools.has("band") && api.live) {
+          const a = api.locate(from), b = to ? api.locate(to) : null;
+          api.live.fx("band", { text: `${from} → ${to || "#team"}: ${text}`, from: a, to: b, line: o.ownLines ? false : undefined, callout: !!a && !o.ownLines });
+        }
         if (!cfg.tools.has("band")) return false;
         const l = $("#gmRadioL"); if (!l) return false;
         const li = document.createElement("li");
@@ -441,18 +480,21 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
       stats(rows) {
         BR.rows = rows;
         if (!cfg.tools.has("bruin")) return;
+        if (!api._dashT || Date.now() - api._dashT > 900) { api._dashT = Date.now(); api.bruinDash(); }
         if (BR.tab === "metrics" || Date.now() - BR.lastRender > 1500) renderBruin();
       },
       refreshTools() {
         $("#gmRadio").hidden = !cfg.tools.has("band");
         $("#gmStats").hidden = !cfg.tools.has("bruin");
-        if (cfg.tools.has("bruin")) renderBruin();
+        if (cfg.tools.has("bruin")) { renderBruin(); api.bruinDash && api.bruinDash(); }
+        if (api.live) { api.live.refresh(); if (cfg.tools.has("adal")) api.adalFrame(); }
         o.onTools && o.onTools(cfg.tools);
       },
       skill: name => (cfg.tools.has("finch") ? cfg.skills[name] : null),
-      skillBadge(name) { const s = api.skill(name); return s ? `<span class="sp-badge" style="--c:#ff9f43" title="${esc(s.does)}">${s.icon} ${esc(s.name)}</span>` : ""; }
+      skillBadge(name) { const s = api.skill(name); return s ? UI.skillBadge({ ...s, desc: s.does }) : ""; }
     };
-    UI.sponsorBar($("#gmBar"), "game", cfg.tools, () => api.refreshTools());
+    UI.sponsorBar($("#gmBar"), "game", cfg.tools, () => api.refreshTools(), { live: { refresh: () => api.live && api.live.refresh() } });
+    apiRef = api;
     $("#brTabs").onclick = ev => { const t = ev.target.closest("[data-bt]"); if (t) { BR.tab = t.dataset.bt; renderBruin(); } };
     $("#gmMinds").onchange = ev => $("#gmLog").classList.toggle("hide-minds", !ev.target.checked);
     $("#gmVoice").onclick = () => { UI.ctl.voice = !UI.ctl.voice; $("#gmVoice").textContent = `${UI.ctl.voice ? "🔊" : "🔇"} Voices`; if (!UI.ctl.voice) UI.stopVoice(); };
@@ -483,6 +525,7 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
     start(sub) {
       const [id, q] = String(sub || "").split("?");
       if (id === "custom") return creator(null);
+      if (/tools/.test(q || "")) ["band", "finch", "bruin", "adal"].forEach(t => S.tools.add(t));
       if (ENGINES[id]) return setup(id, null, /demo/.test(q || ""));
       picker();
     },

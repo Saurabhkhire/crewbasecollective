@@ -62,6 +62,8 @@
       document.querySelectorAll(".rps-op .op-fig").forEach((el, i) => Puppet.mount(el, opps[i].char));
     };
     const sleep = ms => UI.sleep(ms, api.token);
+    /* tools live: the whole game area is the stage; players are the line-up cards and the two arena sides */
+    api.stage(document.querySelector(".rps-wrap"), name => name === cfg.human.name ? document.querySelector(".rps-side.you") : cur && name === cur.name ? document.querySelector(".rps-side.ag") : document.querySelector(`.rps-op[data-n="${CSS.escape(name)}"]`));
     const pAg = document.getElementById("pAg");
     const say = (o, text, ms) => {
       const b = document.getElementById("bAg"); if (!b) return;
@@ -160,6 +162,7 @@ CURRENT SCORE vs you: human ${o.w}, you ${o.l}. First to ${need}.`;
           stat.you[you]++; stat.rounds++; if (result === "agent") stat.predicted++;
           history.push({ opp: cur.name, you, agent: d.throw, result });
           if (result === "you") cur.w++; else if (result === "agent") cur.l++; else cur.d++;
+          { const sk = api.skill(cur.name); if (sk) api.skillUsed(cur.name, sk.id === "psychic" ? (result === "agent" ? "read your pattern and called it" : "tried to read you, but you broke the pattern") : sk.id === "bluffer" ? `taunt was a bluff, threw ${d.throw}` : `stuck with ${d.throw}`); }
           arena.classList.add(result === "you" ? "win" : result === "agent" ? "lose" : "draw");
           document.getElementById("sYou").textContent = cur.w; document.getElementById("sAg").textContent = cur.l;
           Puppet.emotion(pAg, result === "agent" ? "happy" : result === "you" ? "angry" : "shocked");

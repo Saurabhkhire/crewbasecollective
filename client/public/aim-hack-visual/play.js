@@ -176,19 +176,170 @@ window.UI = (function () {
   /* ---------- sponsor tool bar ----------
      const bar = UI.sponsorBar(el, "film", activeSet, onChange)
      activeSet is a Set of sponsor ids; bar.on("band") → boolean */
-  U.sponsorBar = function (el, track, active, onChange) {
+  U.sponsorBar = function (el, track, active, onChange, opts) {
+    opts = opts || {};
     const tools = (PLAY.tools[track] || []).map(t => ({ ...t, sp: HACK.sponsors.find(s => s.id === t.id) })).filter(t => t.sp);
     const draw = () => {
       const on = tools.filter(t => active.has(t.id));
-      el.innerHTML = `<div class="toolbar-sp"><span class="lbl">SPONSOR TOOLS</span>
-        ${tools.map(t => `<button class="sp-tog ${active.has(t.id) ? "on" : ""}" data-t="${t.id}" style="--c:${t.sp.color}" title="${U.esc(t.does)}">${t.sp.icon} ${U.esc(t.sp.name)} <small>${U.esc(t.label)}</small></button>`).join("")}
-        <span class="sp-hint">${on.length ? on.map(t => `<b>${U.esc(t.sp.name)}:</b> ${U.esc(t.does)}`).join(" · ") : "Switch on a sponsor's tool to see what it adds to this track."}</span></div>`;
+      el.classList.toggle("tl-sticky", !!opts.live);
+      el.innerHTML = `<div class="toolbar-sp ${opts.live ? "live" : ""}"><span class="lbl">${opts.live ? "● LIVE · TAP TOOLS ON/OFF" : "SPONSOR TOOLS"}</span>
+        ${tools.map(t => `<button class="sp-tog ${active.has(t.id) ? "on" : ""}" data-t="${t.id}" style="--c:${t.sp.color}" title="${U.esc(t.does)}" aria-pressed="${active.has(t.id)}">${t.sp.icon} ${U.esc(t.sp.name)} <small>${U.esc(t.label)}</small></button>`).join("")}
+        <span class="sp-hint">${on.length ? on.map(t => `<b style="color:${t.sp.color}">${t.sp.icon} ${U.esc(t.sp.name)}:</b> ${U.esc(t.does)}`).join(" · ") : opts.live ? "Tap any tool, even mid-run: its effect appears on the stage immediately. Several at once is fine." : "Switch on a sponsor's tool to see what it adds to this track."}</span></div>`;
     };
-    el.onclick = e => { const b = e.target.closest("[data-t]"); if (!b) return; const id = b.dataset.t; active.has(id) ? active.delete(id) : active.add(id); draw(); onChange && onChange(active); };
+    el.onclick = e => { const b = e.target.closest("[data-t]"); if (!b) return; const id = b.dataset.t; active.has(id) ? active.delete(id) : active.add(id); draw(); if (opts.live) opts.live.refresh(); onChange && onChange(active); };
     draw();
     return { on: id => active.has(id), redraw: draw };
   };
   U.sponsor = id => HACK.sponsors.find(s => s.id === id);
+
+  /* =========================================================
+     TOOLS LIVE: on-stage layer that makes sponsor tools visible
+     const live = UI.toolsLive(stageEl, "film", activeSet)
+       live.fx(id, { text, from, to, n, line })  callout + agent rings (+ BAND line if from & to)
+       live.link(fromEl, toEl, id, label)         glowing line with a travelling packet
+       live.dash(html)                             Bruin mini dashboard (top-right)
+       live.frame(src|html, caption)               AdaL filmstrip (bottom-right, max 4)
+       live.stat(id, text)                         override a chip's counter text
+       live.refresh()                              re-sync with the active set (call after toggles)
+     UI.toolFx(stageEl, id, opts) = stageEl._live.fx(id, opts)
+     ========================================================= */
+  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored" };
+  U.toolsLive = function (stage, track, active) {
+    if (!stage) return null;
+    if (stage._live) stage._live.destroy();
+    const order = (PLAY.tools[track] || []).map(t => t.id);
+    const counts = {}, stats = {};
+    const layer = document.createElement("div");
+    layer.className = "tl-layer";
+    layer.innerHTML = `<svg class="tl-svg"></svg><div class="tl-left"><div class="tl-hud"></div><div class="tl-ticker"></div></div><div class="tl-right"><div class="tl-dash" hidden></div><div class="tl-strip" hidden></div></div>`;
+    stage.appendChild(layer);
+    const $l = s => layer.querySelector(s);
+    const color = id => (U.sponsor(id) || {}).color || "#ffc857";
+    const icon = id => (U.sponsor(id) || {}).icon || "★";
+    const name = id => (U.sponsor(id) || {}).name || id;
+    const center = elx => {
+      const r = stage.getBoundingClientRect(), b = elx.getBoundingClientRect();
+      return { x: b.left - r.left + b.width / 2, y: b.top - r.top + Math.min(b.height * 0.35, 60) };
+    };
+    const live = {
+      stage, active, counts,
+      refresh() {
+        const on = order.filter(id => active.has(id));
+        $l(".tl-hud").innerHTML = on.map(id => `<span class="tl-chip" style="--tc:${color(id)}" data-id="${id}">${icon(id)} <b>${U.esc(name(id))}</b><i>${stats[id] != null ? U.esc(stats[id]) : (counts[id] || 0) + " " + (UNIT[id] || "")}</i></span>`).join("");
+        layer.classList.toggle("any", on.length > 0);
+        order.forEach(id => stage.classList.toggle("tl-" + id, active.has(id)));
+        $l(".tl-dash").hidden = !active.has("bruin") || !$l(".tl-dash").innerHTML;
+        $l(".tl-strip").hidden = !active.has("adal") || !$l(".tl-strip").children.length;
+        if (!active.has("band")) $l(".tl-svg").innerHTML = "";
+      },
+      stat(id, text) { stats[id] = text; live.refresh(); },
+      fx(id, o) {
+        o = o || {};
+        if (!active.has(id)) return;
+        counts[id] = (counts[id] || 0) + (o.n == null ? 1 : o.n);
+        live.refresh();
+        const chip = $l(`.tl-chip[data-id="${id}"]`);
+        if (chip) { chip.classList.remove("pulse"); void chip.offsetWidth; chip.classList.add("pulse"); }
+        if (o.text) {
+          const t = $l(".tl-ticker"), row = document.createElement("div");
+          row.style.setProperty("--tc", color(id));
+          row.innerHTML = `<span>${icon(id)}</span>${U.esc(o.text)}`;
+          t.prepend(row);
+          while (t.children.length > 3) t.lastChild.remove();
+          setTimeout(() => row.classList.add("old"), 5000);
+          if (o.callout !== false) {
+            const c = document.createElement("div");
+            c.className = "tl-callout";
+            c.style.setProperty("--tc", color(id));
+            c.innerHTML = `<small>${icon(id)} ${U.esc(name(id).toUpperCase())}</small>${U.esc(o.text)}`;
+            const p = o.from ? center(o.from) : { x: stage.clientWidth / 2, y: 70 };
+            c.style.left = Math.max(90, Math.min(stage.clientWidth - 90, p.x)) + "px";
+            c.style.top = Math.max(40, p.y - 34) + "px";
+            layer.appendChild(c);
+            setTimeout(() => c.classList.add("gone"), 2600);
+            setTimeout(() => c.remove(), 3300);
+          }
+        }
+        [o.from, o.to].filter(Boolean).forEach(e => {
+          e.style.setProperty("--tc", color(id));
+          e.classList.remove("tl-ring"); void e.offsetWidth; e.classList.add("tl-ring");
+          clearTimeout(e._tlr); e._tlr = setTimeout(() => e.classList.remove("tl-ring"), 2600);
+        });
+        if (o.from && o.to && o.line !== false && (o.line || id === "band")) live.link(o.from, o.to, id, o.label);
+      },
+      link(a, b, id, label) {
+        if (!a || !b || !active.has(id || "band")) return;
+        const svg = $l(".tl-svg"), p = center(a), q = center(b), col = color(id || "band");
+        svg.setAttribute("viewBox", `0 0 ${stage.clientWidth} ${stage.clientHeight}`);
+        const mx = (p.x + q.x) / 2, my = Math.min(p.y, q.y) - 40 - Math.abs(p.x - q.x) * 0.12;
+        const d = `M${p.x} ${p.y} Q${mx} ${my} ${q.x} ${q.y}`;
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttribute("class", "tl-link");
+        g.innerHTML = `<path d="${d}" fill="none" stroke="${col}" stroke-width="9" stroke-opacity=".22" stroke-linecap="round"/>
+          <path d="${d}" fill="none" stroke="${col}" stroke-width="3" stroke-dasharray="7 7" class="tl-dash-anim" stroke-linecap="round"/>
+          <circle r="6" fill="#fff" style="filter:drop-shadow(0 0 6px ${col})"><animateMotion dur="1s" repeatCount="3" path="${d}"/></circle>
+          ${label ? `<text x="${mx}" y="${my + 8}" text-anchor="middle" class="tl-link-t" fill="#fff">${U.esc(label).slice(0, 40)}</text>` : ""}`;
+        svg.appendChild(g);
+        setTimeout(() => g.classList.add("gone"), 3600 / U.ctl.speed);
+        setTimeout(() => g.remove(), 4400 / U.ctl.speed);
+      },
+      dash(html) { $l(".tl-dash").innerHTML = `<div class="tl-dash-h" style="--tc:${color("bruin")}">${icon("bruin")} BRUIN · LIVE</div>${html}`; live.refresh(); },
+      frame(src, caption) {
+        const s = $l(".tl-strip");
+        const f = document.createElement("figure");
+        f.innerHTML = (/^(data:|https?:|blob:)/.test(src) ? `<img src="${src}" alt="">` : src) + `<figcaption>🎨 ${U.esc(caption || "AdaL frame")}</figcaption>`;
+        s.prepend(f);
+        while (s.children.length > 4) s.lastChild.remove();
+        live.refresh();
+      },
+      destroy() { layer.remove(); stage._live = null; order.forEach(id => stage.classList.remove("tl-" + id)); }
+    };
+    stage._live = live;
+    live.refresh();
+    return live;
+  };
+  U.toolFx = (stage, id, o) => stage && stage._live && stage._live.fx(id, o);
+  /* tiny charts for Bruin dashboards */
+  U.miniBars = rows => {
+    const max = Math.max(1, ...rows.map(r => r.value));
+    return `<div class="tl-bars">${rows.map(r => `<div><span>${U.esc(r.label)}</span><i style="width:${(r.value / max) * 100}%;background:${r.color || "#ffc857"}"></i><b>${r.value}</b></div>`).join("")}</div>`;
+  };
+  U.spark = (vals, color) => {
+    if (!vals.length) return "";
+    const w = 160, h = 34, max = Math.max(1, ...vals), min = Math.min(0, ...vals);
+    const pts = vals.map((v, i) => `${(i / Math.max(1, vals.length - 1)) * w},${h - ((v - min) / (max - min || 1)) * (h - 4) - 2}`).join(" ");
+    return `<svg class="tl-spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${color || "#ffc857"}" stroke-width="2.5" stroke-linejoin="round"/></svg>`;
+  };
+
+  /* =========================================================
+     FINCH skills (shared library in PLAY.skills / PLAY.allSkills())
+     ========================================================= */
+  const SKILL_HINTS = [
+    [/detective|investig|spy|sharp|notices|observ|curious|analy/i, "investigate"], [/smuggl|thief|manipul|liar|trickster|sly|schem|impossible to read/i, "deceive"],
+    [/doctor|medic|nurse|heal|compassion/i, "heal"], [/captain|general|leader|duty|orders|soldier/i, "plan"], [/pop star|singer|dramatic|brave|inspir|hero/i, "inspire"],
+    [/merchant|trader|banker|deal|shrewd|business|founder|ceo/i, "negotiate"], [/professor|teacher|exam|scientist|fair|demanding/i, "examine"],
+    [/hiring|manager|recruit|coach|mentor|patient|kind/i, "coach"], [/robot|android|logic|literal|bot/i, "predict"], [/alien|envoy|language|translat/i, "translate"],
+    [/charm|talk|persuad|pitch|polite|elegant/i, "persuade"], [/grump|blunt|engineer|builder/i, "summarize"]
+  ];
+  U.skills = () => PLAY.allSkills();
+  U.skill = id => PLAY.allSkills().find(s => s.id === id) || PLAY.skills[0];
+  /* pick a fitting skill from personality/role; avoid duplicates when `taken` is given */
+  U.skillFor = function (c, taken) {
+    const txt = `${c.role || ""} ${c.personality || ""} ${c.goal || ""}`;
+    const all = PLAY.allSkills(), used = new Set(taken || []);
+    for (const [re, id] of SKILL_HINTS) if (re.test(txt) && !used.has(id) && all.some(s => s.id === id)) return U.skill(id);
+    return all.find(s => !used.has(s.id)) || all[0];
+  };
+  U.skillBadge = (sk, extra) => sk ? `<span class="sk-badge ${extra || ""}" style="--sk:${sk.color || "#ff9f43"}" title="${U.esc(sk.name)}: ${U.esc(sk.desc || "")}">${sk.icon || "🪶"} ${U.esc(sk.name)}</span>` : "";
+  U.skillPrompt = sk => sk ? `You have the Finch skill "${sk.name}" (${sk.desc}). How to use it: ${sk.instructions}` : "";
+  /* modal to choose a skill for one agent */
+  U.chooseSkill = function (agentName, currentId, onPick) {
+    const all = PLAY.allSkills();
+    U.modal(`<span class="lm">🪶 Finch skills</span><h3>Give ${U.esc(agentName)} a skill</h3>
+      <p class="muted">Skills are reusable abilities. The agent gets the skill's instructions in its prompt and uses it when it matters. Create your own in <a href="/aim-hack-visual/sponsors.html#lab-finch" target="_blank">Sponsor Labs → Finch</a>.</p>
+      <div class="sk-grid">${all.map(s => `<button class="sk-card ${s.id === currentId ? "on" : ""}" data-sk="${U.esc(s.id)}" style="--sk:${s.color || "#ff9f43"}"><span class="sk-i">${s.icon || "🪶"}</span><b>${U.esc(s.name)}${s.custom ? " <em>yours</em>" : ""}</b><small>${U.esc(s.desc || "")}</small>${s.good ? `<i>Good for: ${U.esc(s.good)}</i>` : ""}</button>`).join("")}</div>`,
+      d => { d.querySelector(".sk-grid").onclick = e => { const b = e.target.closest("[data-sk]"); if (!b) return; d.close(); onPick(U.skill(b.dataset.sk)); }; }, "sk-modal");
+  };
 
   /* =========================================================
      LANDING

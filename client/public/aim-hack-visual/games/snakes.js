@@ -92,7 +92,7 @@
       status: "First to 100 wins",
       main: `<div class="sl-wrap"><div class="sl-board" id="slBoard">${boardSVG(S, L)}<div class="sl-tokens" id="slTok"></div></div></div>
         <div class="card sl-turn" id="slTurn"></div>`,
-      onRadio: (from, to) => line(from, to)
+      onRadio: (from, to) => line(from, to), ownLines: true
     });
     const wrap = document.querySelector(".sl-wrap");
     Scenes.mount(wrap, cfg.scene);
@@ -112,6 +112,7 @@
       if (instant) { void p.el.offsetWidth; p.el.style.transition = ""; }
     };
     P.forEach(p => place(p, true));
+    api.stage(document.querySelector(".sl-wrap"), name => (P.find(p => p.name === name) || {}).el || null);
 
     function bubble(p, text, ms) {
       const b = p.el.querySelector(".sl-bub"); b.textContent = text; b.classList.add("on");
@@ -210,7 +211,7 @@ YOU are on ${a.at}. Snake heads within 12 squares ahead of you: ${snakesAhead.jo
       await showDice(vals);
       let steps = vals.reduce((a, b) => a + b, 0);
       const sk = skill(p);
-      if (sk && sk.id === "lucky" && vals.length === 1 && vals[0] <= 2) { steps++; bubble(p, "🍀 Lucky +1!", 1400); }
+      if (sk && sk.id === "lucky" && vals.length === 1 && vals[0] <= 2) { steps++; bubble(p, "🍀 Lucky +1!", 1400); api.skillUsed(p.name, `rolled ${vals[0]}, Lucky made it ${vals[0] + 1}`); }
       p.stat.rolls += vals.length; p.stat.sum += vals.reduce((a, b) => a + b, 0);
       api.log(`<b style="color:${p.color}">${esc(p.name)}</b> <span class="act">rolls ${vals.join(" + ")}${power === "double" ? " (⚡ double)" : ""} → moves ${steps}</span>`);
       const target = Math.min(100, p.at + steps);
@@ -222,6 +223,7 @@ YOU are on ${a.at}. Snake heads within 12 squares ahead of you: ${snakesAhead.jo
         const up = Math.min(100, L[p.at] + (sk && sk.id === "climber" ? 3 : 0));
         await sleep(250); p.stat.ladders++;
         api.log(`<b style="color:${p.color}">${esc(p.name)}</b> <span class="act">climbs a 🪜 ladder ${p.at} → ${up}!</span>`);
+        if (sk && sk.id === "climber") api.skillUsed(p.name, "the ladder lifted them 3 extra squares");
         p.el.classList.add("slide"); p.at = up; place(p); await sleep(850); p.el.classList.remove("slide");
         Puppet.gesture(pupEl, "jump", 1400); Puppet.emotion(pupEl, "happy");
         bubble(p, p.human ? "Up we go! 🪜" : rand(["Wheee! 🪜", "See you at the top!", "Ladders love me."]));
@@ -234,6 +236,7 @@ YOU are on ${a.at}. Snake heads within 12 squares ahead of you: ${snakesAhead.jo
           const drop = p.at - S[p.at], down = sk && sk.id === "slippery" ? p.at - Math.ceil(drop / 2) : S[p.at];
           await sleep(250); p.stat.snakes++;
           api.log(`<b style="color:${p.color}">${esc(p.name)}</b> <span class="act">hits a 🐍 snake ${p.at} → ${down}${sk && sk.id === "slippery" ? " (🧈 Slippery: half the drop)" : ""}.</span>`, "event");
+          if (sk && sk.id === "slippery") api.skillUsed(p.name, "slid only half the way down");
           p.el.classList.add("slide"); p.at = down; place(p); await sleep(900); p.el.classList.remove("slide");
           Puppet.emotion(pupEl, "shocked"); Puppet.gesture(pupEl, "slump", 1600);
           bubble(p, p.human ? "Nooo! 🐍" : rand(["NOOOO!", "I hate snakes.", "That was rigged.", "Ugh, back down…"]));

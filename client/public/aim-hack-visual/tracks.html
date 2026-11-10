@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/aim-hack-visual/styles.css" />
+  <link rel="stylesheet" href="/aim-hack-visual/core.css" />
 </head>
 <body>
   <header class="nav">
@@ -19,13 +20,13 @@
         <a href="/aim-hack-visual/tracks.html" class="active hide-sm">Tracks</a>
         <a href="#generator" class="hide-sm">Idea generator</a>
         <a href="/aim-hack-visual/sponsors.html">Sponsors</a>
-        <a class="btn btn-sm" data-register href="/aim-hack-visual/index.html#register">Register</a>
+        <a class="btn btn-sm nav-submit" href="https://hackathons.crewbasecollective.com" target="_blank" rel="noopener">Submit project ↗</a>
       </nav>
     </div>
   </header>
 
   <section class="page-hero wrap">
-    <p class="eyebrow">// Tracks &amp; ideas</p>
+    <p class="eyebrow">// Tracks &amp; ideas · Nov 23, 2026 · AWS Loft · 9:30 AM – 8:30 PM</p>
     <h1>What should you build?</h1>
     <p class="lead">Pick one of three tracks and build a working, visual, multi-agent experience: characters that think, act, move and decide on screen. Here's everything you need to choose, plus 36 ideas to steal.</p>
 
@@ -36,7 +37,7 @@
     </div>
   </section>
 
-  <div class="tabs track-tabs"><div class="wrap" id="trackTabs"></div></div>
+  <div class="track-tabs"><div class="wrap" id="trackTabs"></div></div>
 
   <div id="tracksRoot"></div>
 
@@ -54,6 +55,7 @@
       <button class="btn" id="genRoll">🎲 Roll again</button>
       <span class="hint">Tip: add a score booster (3D, voice, or agents that learn between runs) to make it stand out.</span>
     </div>
+    <div class="ai-gen" id="aiGen"></div>
   </section>
 
   <!-- CHECKLIST -->
@@ -103,8 +105,8 @@
   <section class="section wrap">
     <div class="cta-panel">
       <h2>Got your world in mind?</h2>
-      <p>Grab a team of up to four and register interest.</p>
-      <div class="cta-row"><a class="btn" data-register href="/aim-hack-visual/index.html#register">Register interest</a><a class="btn ghost" href="/aim-hack-visual/index.html">← Back to the world map</a></div>
+      <p>Build it on <b>Monday, November 23, 2026 at the AWS Loft (9:30 AM – 8:30 PM)</b>, solo or in a team of up to four, then submit it on hackathons.crewbasecollective.com.</p>
+      <div class="cta-row"><a class="btn" href="https://hackathons.crewbasecollective.com" target="_blank" rel="noopener">🚀 Submit your project ↗</a><a class="btn ghost" href="/aim-hack-visual/index.html#submit">📋 Submission instructions</a><a class="btn ghost" href="/aim-hack-visual/index.html">← Back to the world map</a></div>
     </div>
   </section>
 
@@ -117,6 +119,7 @@
 
   <script src="/aim-hack-visual/data.js"></script>
   <script src="/aim-hack-visual/site.js"></script>
+  <script src="/aim-hack-visual/brain.js"></script>
   <script src="/aim-hack-visual/tracks.js"></script>
 </body>
 </html>
