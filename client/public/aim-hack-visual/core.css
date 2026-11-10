@@ -167,3 +167,5 @@ input[type="range"] { padding: 0; accent-color: var(--film); background: none; b
 .prov-seg button { font: inherit; font-size: 12.5px; padding: 4px 11px; border-radius: 99px; border: 0; background: transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
 .prov-seg button.on { background: var(--text); color: #0a0d1a; font-weight: 700; }
 .prov-seg button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.prov-note { flex-basis: 100%; font-size: 12.5px; color: var(--gold); }

@@ -63,6 +63,7 @@ window.Brain = (function () {
     const j = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(j.error || "LLM request failed");
     B.lastProvider = j.fallback ? j.provider + " (fallback)" : j.provider;
+    if (j.fallback) { B.adalError = j.adalError || "AdaL did not answer"; window.dispatchEvent(new CustomEvent("brain:fallback", { detail: B.adalError })); }
     return JSON.parse(j.content);
   }
 

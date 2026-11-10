@@ -23,7 +23,7 @@
  *   ADAL_AGENT_ID         id of the agent you created in the AdaL cloud app
  *   ADAL_API_URL          optional, default https://cloud.adal.sylph.ai
  *   ADAL_MODEL            optional model name for new sessions (AdaL default if empty)
- *   ADAL_TIMEOUT_MS       optional, default 40000
+ *   ADAL_TIMEOUT_MS       optional, default 25000 (then falls back to OpenAI, inside Vercel's 60 s limit)
  * Other:
  *   AIMP_IMAGES           optional, set to "off" to disable image generation
  *   AIMP_ALLOWED_ORIGINS  optional, comma list of allowed hostnames
@@ -123,42 +123,65 @@ async function adalFetch(path, init, signal) {
   }
   return r;
 }
-/* Pull the final assistant text out of a streamed body (SSE "data:" lines or NDJSON). */
-function textFromStream(raw) {
-  let answer = "", deltas = "";
-  for (let line of String(raw).split(/\r?\n/)) {
+/* Read the SSE stream. AdaL events look like {"type":"command.started"|"command.progress"|"command.completed"|"command.failed"|"ui.message.appended"|...}.
+   Text arrives in message/answer/delta style events; a failure ends the stream with command.failed. */
+async function readStream(r, signal) {
+  const rd = r.body.getReader(), dec = new TextDecoder();
+  let buf = "", answer = "", deltas = "", err = "";
+  const take = line => {
     line = line.trim();
-    if (!line || line.startsWith("event:") || line === "data: [DONE]") continue;
-    if (line.startsWith("data:")) line = line.slice(5).trim();
-    let ev; try { ev = JSON.parse(line); } catch { continue; }
-    const type = String(ev.type || ev.event || "").toLowerCase();
-    const val = ev.content ?? ev.answer ?? ev.text ?? ev.delta ?? ev.message ?? ev.data?.content ?? ev.data?.text;
-    if (typeof val !== "string") continue;
-    if (/answer|final|complete|assistant_message|message_end/.test(type)) answer = val;
-    else if (/delta|token|chunk|text/.test(type) || !type) deltas += val;
+    if (!line.startsWith("data:")) return;
+    let ev; try { ev = JSON.parse(line.slice(5).trim()); } catch { return; }
+    const type = String(ev.type || "").toLowerCase();
+    if (type === "command.failed") { err = ev.error?.message || "AdaL command failed"; return; }
+    const msg = ev.message && typeof ev.message === "object" ? ev.message : null;
+    if (msg && msg.level === "error") { err = err || msg.text; return; }
+    const val = [ev.content, ev.answer, ev.text, ev.delta, msg && msg.text, msg && msg.content, ev.result && ev.result.answer, ev.data && ev.data.content]
+      .find(v => typeof v === "string" && v.trim());
+    if (!val) return;
+    if (/answer|final|assistant|completed|message\.appended/.test(type)) answer = val;
+    else if (/delta|token|chunk|text/.test(type)) deltas += val;
+  };
+  while (true) {
+    if (signal.aborted) throw new Error("AdaL timed out");
+    const { value, done } = await rd.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let i; while ((i = buf.indexOf("\n")) >= 0) { take(buf.slice(0, i)); buf = buf.slice(i + 1); }
+    if (err) { try { rd.cancel(); } catch {} throw new Error("AdaL: " + err); }
   }
+  take(buf);
+  if (err) throw new Error("AdaL: " + err);
   return answer || deltas;
+}
+/* A provisioned session takes ~40 s to start, so reuse one that is already "ready". */
+let cachedSession = null;
+async function adalSession(signal) {
+  if (cachedSession) return cachedSession;
+  const ls = await (await adalFetch("/v1/sessions?limit=20", { method: "GET" }, signal)).json();
+  const list = Array.isArray(ls) ? ls : ls.items || [];
+  const ready = list.find(x => x.agent_config_id === env("ADAL_AGENT_ID") && x.worker_status === "ready" && x.status === "active");
+  if (ready) return (cachedSession = ready.id);
+  const body = { agent_config_id: env("ADAL_AGENT_ID"), title: "Multiplayer AI playground" };
+  if (env("ADAL_MODEL")) body.model = env("ADAL_MODEL");
+  const s = await (await adalFetch("/v1/sessions", { method: "POST", body: JSON.stringify(body) }, signal)).json();
+  const id = s.id || s.session_id;
+  if (!id) throw new Error("AdaL: no session id");
+  await adalFetch(`/v1/sessions/${id}/provision`, { method: "POST", body: "{}" }, signal);
+  return (cachedSession = id);
 }
 async function adalRun(message) {
   const ctl = new AbortController();
-  const timer = setTimeout(() => ctl.abort(), Number(env("ADAL_TIMEOUT_MS")) || 40000);
+  const timer = setTimeout(() => ctl.abort(), Number(env("ADAL_TIMEOUT_MS")) || 25000);
   try {
-    const body = { agent_config_id: env("ADAL_AGENT_ID"), title: "Multiplayer AI playground" };
-    if (env("ADAL_MODEL")) body.model = env("ADAL_MODEL");
-    const s = await (await adalFetch("/v1/sessions", { method: "POST", body: JSON.stringify(body) }, ctl.signal)).json();
-    const id = s.id || s.session_id;
-    if (!id) throw new Error("AdaL: no session id");
-    try { await adalFetch(`/v1/sessions/${id}/provision`, { method: "POST", body: "{}" }, ctl.signal); } catch (e) { if (ctl.signal.aborted) throw e; }
+    const id = await adalSession(ctl.signal);
     const r = await adalFetch(`/v1/sessions/${id}/chat/stream`, { method: "POST", body: JSON.stringify({ message }) }, ctl.signal);
-    let text = textFromStream(await r.text());
-    if (!text) {
-      const msgs = await (await adalFetch(`/v1/sessions/${id}/messages`, { method: "GET" }, ctl.signal)).json();
-      const list = Array.isArray(msgs) ? msgs : msgs.items || msgs.messages || [];
-      const last = list.filter(m => /assistant|agent/i.test(m.role || "")).pop();
-      text = last && typeof last.content === "string" ? last.content : "";
-    }
+    const text = await readStream(r, ctl.signal);
     if (!text) throw new Error("AdaL: empty reply");
     return text;
+  } catch (e) {
+    if (/not found|404|expired|stopped/i.test(String(e && e.message))) cachedSession = null;
+    throw e.name === "AbortError" ? new Error("AdaL timed out") : e;
   } finally { clearTimeout(timer); }
 }
 /* First balanced {...} block in a reply. */
@@ -209,6 +232,7 @@ export default async function handler(req, res) {
   let body = req.body;
   if (typeof body === "string") { try { body = JSON.parse(body); } catch { return res.status(400).json({ error: "Bad JSON" }); } }
   const chosen = pick(String(body?.provider || "").toLowerCase());
+  let adalErr = "";
 
   if (body?.kind === "image") {
     if (!IMAGES_ON()) return res.status(503).json({ error: "Image generation is off." });
@@ -217,9 +241,9 @@ export default async function handler(req, res) {
     if (!prompt) return res.status(400).json({ error: "prompt required" });
     if (chosen === "adal") {
       try { return res.status(200).json({ ...(await adalImage(prompt)), provider: "adal" }); }
-      catch (e) { if (!KEY()) return res.status(502).json({ error: e?.message || "AdaL image failed" }); console.warn("[aim-hack] AdaL image failed, using OpenAI:", e?.message); }
+      catch (e) { adalErr = e?.message || "AdaL image failed"; if (!KEY()) return res.status(502).json({ error: adalErr }); console.warn("[aim-hack] AdaL image failed, using OpenAI:", adalErr); }
     }
-    try { return res.status(200).json({ ...(await openaiImage(prompt)), provider: "openai", fallback: chosen === "adal" }); }
+    try { return res.status(200).json({ ...(await openaiImage(prompt)), provider: "openai", fallback: chosen === "adal", adalError: adalErr }); }
     catch (e) { return res.status(502).json({ error: e?.message || "Image generation failed" }); }
   }
 
@@ -229,8 +253,8 @@ export default async function handler(req, res) {
 
   if (chosen === "adal") {
     try { return res.status(200).json({ content: await adalJSON(sys, usr), provider: "adal" }); }
-    catch (e) { if (!KEY()) return res.status(502).json({ error: e?.message || "AdaL error" }); console.warn("[aim-hack] AdaL failed, using OpenAI:", e?.message); }
+    catch (e) { adalErr = e?.message || "AdaL error"; if (!KEY()) return res.status(502).json({ error: adalErr }); console.warn("[aim-hack] AdaL failed, using OpenAI:", adalErr); }
   }
-  try { return res.status(200).json({ content: await openaiJSON(sys, usr, body.temperature), provider: "openai", fallback: chosen === "adal" }); }
+  try { return res.status(200).json({ content: await openaiJSON(sys, usr, body.temperature), provider: "openai", fallback: chosen === "adal", adalError: adalErr }); }
   catch (e) { return res.status(502).json({ error: "OpenAI: " + (e?.message || "unknown") }); }
 }

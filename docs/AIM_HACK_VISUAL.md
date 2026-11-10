@@ -51,7 +51,7 @@ Where the keys go:
 
 OpenAI: `OPENAI_API_KEY`, optional `OPENAI_MODEL` (default `gpt-4.1-mini`), `OPENAI_IMAGE_MODEL` (default `gpt-image-1-mini`).
 
-AdaL Cloud Agents (cloud.adal.sylph.ai, API spec at `/openapi.json`): `ADAL_API_KEY` (token from the cloud app's API tab, a JWT) and `ADAL_AGENT_ID` (the agent you created there), optional `ADAL_API_URL`, `ADAL_MODEL`, `ADAL_TIMEOUT_MS` (default 40000). Flow: create session → provision → `chat/stream`; the reply must be JSON.
+AdaL Cloud Agents (cloud.adal.sylph.ai, API spec at `/openapi.json`): `ADAL_API_KEY` (token from the cloud app's API tab, a JWT) and `ADAL_AGENT_ID` (the agent you created there), optional `ADAL_API_URL`, `ADAL_MODEL`, `ADAL_TIMEOUT_MS` (default 25000). Flow: create session → provision → `chat/stream`; the reply must be JSON.
 
 **Choosing the provider is done in the page, not in env:** the banner on play.html and sponsors.html has *Agents: OpenAI | AdaL* and *Images: OpenAI | AdaL*. The choice is saved per visitor (localStorage `aimp_provider`) and sent with each request as `provider`. A provider is greyed out until its keys are set. If AdaL fails or times out and `OPENAI_API_KEY` is set, the request falls back to OpenAI.
 
