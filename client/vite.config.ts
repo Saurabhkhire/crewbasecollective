@@ -79,8 +79,8 @@ function aimHackVisualDev(): Plugin {
     apply: "serve",
     configureServer(server) {
       const env = loadEnv(server.config.mode, __dirname, "");
-      for (const k of ["OPENAI_API_KEY", "OPENAI_MODEL", "AIMP_ALLOWED_ORIGINS"]) {
-        if (env[k] && !process.env[k]) process.env[k] = env[k];
+      for (const k of Object.keys(env)) {
+        if (/^(OPENAI_|ADAL_|AIMP_)/.test(k) && env[k] && !process.env[k]) process.env[k] = env[k];
       }
       server.middlewares.use(async (req: any, res: any, next) => {
         const pathname = (req.url || "").split("?")[0];

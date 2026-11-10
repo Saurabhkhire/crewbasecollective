@@ -157,3 +157,13 @@ input[type="range"] { padding: 0; accent-color: var(--film); background: none; b
 .labs-link > span:first-child { font-size: 36px; }
 .labs-link p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
 .labs-link .go { margin-left: auto; font-weight: 700; color: var(--gold); white-space: nowrap; }
+
+/* provider picker in the banner (OpenAI | AdaL) */
+.mb-txt { flex: 1; min-width: 220px; }
+.mb-pick { display: inline-flex; gap: 10px; flex-wrap: wrap; margin-left: auto; }
+.prov { display: inline-flex; align-items: center; gap: 6px; }
+.prov small { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.prov-seg { display: inline-flex; padding: 3px; border-radius: 99px; border: 1px solid var(--line); background: rgba(0, 0, 0, 0.3); }
+.prov-seg button { font: inherit; font-size: 12.5px; padding: 4px 11px; border-radius: 99px; border: 0; background: transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.prov-seg button.on { background: var(--text); color: #0a0d1a; font-weight: 700; }
+.prov-seg button:disabled { opacity: 0.4; cursor: not-allowed; }

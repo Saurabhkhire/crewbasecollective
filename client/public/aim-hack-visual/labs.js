@@ -466,9 +466,14 @@ Reply with JSON only: {"to":"exact name of ONE connected agent","message":"max 2
     const m = document.getElementById("labMode");
     if (m) m.innerHTML = `<span class="pill">● Checking for the AI server…</span>`;
     await Brain.init();
-    if (m) m.innerHTML = Brain.mode === "llm"
-      ? `<span class="pill ok">● LIVE AI AGENTS</span> Labs run on ${Brain.provider === "adal" ? "AdaL cloud agents" : "OpenAI"} (<b>${esc(Brain.model)}</b>).${Brain.images ? ` Image generation is on (${Brain.mediaProvider === "adal" ? "AdaL" : "OpenAI"}).` : " Image generation is off, so AdaL renders offline vector previews."}`
-      : `<span class="pill warn">● OFFLINE DEMO AGENTS</span> ${esc(Brain.reason || "")} The labs still work with simulated agents.`;
+    const banner = () => {
+      if (!m) return;
+      m.innerHTML = Brain.mode === "llm"
+        ? `<span class="pill ok">● LIVE AI AGENTS</span><span class="mb-txt">Labs run on ${Brain.provider === "adal" ? "AdaL cloud agents" : "OpenAI"} (<b>${esc(Brain.model)}</b>).${Brain.images ? "" : " Image generation is off, so AdaL renders offline vector previews."}</span><span class="mb-pick" id="provPick"></span>`
+        : `<span class="pill warn">● OFFLINE DEMO AGENTS</span> ${esc(Brain.reason || "")} The labs still work with simulated agents.`;
+      Brain.picker(document.getElementById("provPick"), banner);
+    };
+    banner();
     const want = (location.hash.match(/^#lab-(\w+)/) || [])[1];
     open(want || "band", !!want);
     window.addEventListener("hashchange", () => { const w = (location.hash.match(/^#lab-(\w+)/) || [])[1]; if (w && (!current || !$("#lab-" + w))) open(w, true); });

@@ -3,16 +3,16 @@
  * AI agents endpoint for the AI Multiplayer Hackathon visual site.
  * Only used by client/public/aim-hack-visual/.
  *
- *   GET  /api/aim-hack-chat  → { ok, llm, model, images, provider, mediaProvider }
- *   POST /api/aim-hack-chat  { system, user, temperature } → { content, provider }  (agent JSON reply as a string)
- *   POST /api/aim-hack-chat  { kind: "image", prompt }      → { b64, format, provider } (one generated image)
+ *   GET  /api/aim-hack-chat  → { ok, llm, images, providers: { openai, adal }, model, adalModel }
+ *   POST /api/aim-hack-chat  { system, user, temperature, provider } → { content, provider }  (agent JSON reply as a string)
+ *   POST /api/aim-hack-chat  { kind: "image", prompt, provider }      → { b64, format, provider } (one generated image)
+ *
+ * The visitor picks the provider in the page ("openai" or "adal"); a provider can only be used
+ * when its keys are set below. If AdaL fails or times out, the request falls back to OpenAI.
  *
  * The browser calls /api/aim-hack-chat directly (no rewrites needed).
  *
- * Choose who powers the agents (Vercel → Settings → Environment Variables):
- *   AGENT_PROVIDER        "openai" (default) or "adal"  → agent decisions, story/character/scene/game design
- *   MEDIA_PROVIDER        "openai" (default) or "adal"  → generated images (posters, portraits, video frames)
- *   If AdaL is chosen but fails or times out, the request falls back to OpenAI when OPENAI_API_KEY is set.
+ * Keys: locally in client/.env.local (template: client/.env.example), live in Vercel → Settings → Environment Variables.
  *
  * OpenAI:
  *   OPENAI_API_KEY        needed for OpenAI mode (and as the AdaL fallback)
@@ -35,10 +35,10 @@ const KEY = () => env("OPENAI_API_KEY");
 const IMAGE_MODEL = () => env("OPENAI_IMAGE_MODEL") || "gpt-image-1-mini";
 const ADAL_URL = () => (env("ADAL_API_URL") || "https://cloud.adal.sylph.ai").replace(/\/+$/, "");
 const ADAL_READY = () => !!(env("ADAL_API_KEY") && env("ADAL_AGENT_ID"));
-const AGENT_PROVIDER = () => (env("AGENT_PROVIDER").toLowerCase() === "adal" && ADAL_READY() ? "adal" : "openai");
-const MEDIA_PROVIDER = () => (env("MEDIA_PROVIDER").toLowerCase() === "adal" && ADAL_READY() ? "adal" : "openai");
-const LLM_ON = () => AGENT_PROVIDER() === "adal" || !!KEY();
-const IMAGES_ON = () => env("AIMP_IMAGES") !== "off" && (MEDIA_PROVIDER() === "adal" || !!KEY());
+/* the visitor's choice, if that provider is configured; otherwise whatever is available */
+const pick = want => (want === "adal" && ADAL_READY() ? "adal" : want === "openai" && KEY() ? "openai" : KEY() ? "openai" : ADAL_READY() ? "adal" : null);
+const LLM_ON = () => !!KEY() || ADAL_READY();
+const IMAGES_ON = () => env("AIMP_IMAGES") !== "off" && LLM_ON();
 
 export const config = { maxDuration: 60 };
 
@@ -191,17 +191,16 @@ async function adalImage(prompt) {
 /* ======================= handler ======================= */
 export default async function handler(req, res) {
   res.setHeader("cache-control", "no-store");
-  const agentP = AGENT_PROVIDER(), mediaP = MEDIA_PROVIDER();
-
   if (req.method === "GET") {
     return res.status(200).json({
       ok: true, llm: LLM_ON(), images: IMAGES_ON(),
-      provider: LLM_ON() ? agentP : null, mediaProvider: IMAGES_ON() ? mediaP : null,
-      model: !LLM_ON() ? null : agentP === "adal" ? "AdaL agent" + (env("ADAL_MODEL") ? ` (${env("ADAL_MODEL")})` : "") : MODEL()
+      providers: { openai: !!KEY(), adal: ADAL_READY() },
+      model: KEY() ? MODEL() : null,
+      adalModel: ADAL_READY() ? "AdaL agent" + (env("ADAL_MODEL") ? ` (${env("ADAL_MODEL")})` : "") : null
     });
   }
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
-  if (!LLM_ON()) return res.status(503).json({ error: "No AI provider configured (set OPENAI_API_KEY, or AGENT_PROVIDER=adal with ADAL_API_KEY and ADAL_AGENT_ID)." });
+  if (!LLM_ON()) return res.status(503).json({ error: "No AI provider configured (set OPENAI_API_KEY and/or ADAL_API_KEY + ADAL_AGENT_ID)." });
   if (!hostAllowed(req)) return res.status(403).json({ error: "Origin not allowed." });
 
   const ip = String(req.headers?.["x-forwarded-for"] || req.socket?.remoteAddress || "").split(",")[0].trim() || "unknown";
@@ -209,17 +208,18 @@ export default async function handler(req, res) {
 
   let body = req.body;
   if (typeof body === "string") { try { body = JSON.parse(body); } catch { return res.status(400).json({ error: "Bad JSON" }); } }
+  const chosen = pick(String(body?.provider || "").toLowerCase());
 
   if (body?.kind === "image") {
     if (!IMAGES_ON()) return res.status(503).json({ error: "Image generation is off." });
     if (limited(ip, imageHits, 8)) return res.status(429).json({ error: "Too many images. Wait a minute." });
     const prompt = typeof body.prompt === "string" ? body.prompt.trim().slice(0, 1500) : "";
     if (!prompt) return res.status(400).json({ error: "prompt required" });
-    if (mediaP === "adal") {
+    if (chosen === "adal") {
       try { return res.status(200).json({ ...(await adalImage(prompt)), provider: "adal" }); }
       catch (e) { if (!KEY()) return res.status(502).json({ error: e?.message || "AdaL image failed" }); console.warn("[aim-hack] AdaL image failed, using OpenAI:", e?.message); }
     }
-    try { return res.status(200).json({ ...(await openaiImage(prompt)), provider: "openai", fallback: mediaP === "adal" }); }
+    try { return res.status(200).json({ ...(await openaiImage(prompt)), provider: "openai", fallback: chosen === "adal" }); }
     catch (e) { return res.status(502).json({ error: e?.message || "Image generation failed" }); }
   }
 
@@ -227,10 +227,10 @@ export default async function handler(req, res) {
   if (typeof system !== "string" || typeof user !== "string") return res.status(400).json({ error: "system and user strings required" });
   const sys = system.slice(0, 12000), usr = user.slice(0, 20000);
 
-  if (agentP === "adal") {
+  if (chosen === "adal") {
     try { return res.status(200).json({ content: await adalJSON(sys, usr), provider: "adal" }); }
     catch (e) { if (!KEY()) return res.status(502).json({ error: e?.message || "AdaL error" }); console.warn("[aim-hack] AdaL failed, using OpenAI:", e?.message); }
   }
-  try { return res.status(200).json({ content: await openaiJSON(sys, usr, body.temperature), provider: "openai", fallback: agentP === "adal" }); }
+  try { return res.status(200).json({ content: await openaiJSON(sys, usr, body.temperature), provider: "openai", fallback: chosen === "adal" }); }
   catch (e) { return res.status(502).json({ error: "OpenAI: " + (e?.message || "unknown") }); }
 }

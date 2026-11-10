@@ -43,18 +43,17 @@ npm run dev     # → http://localhost:5173/aim-hack-visual
 Put `OPENAI_API_KEY` (optional `OPENAI_MODEL`, `AIMP_ALLOWED_ORIGINS`) in `client/.env.local` (git-ignored);
 without a key the playground uses offline (simulated) agents.
 
-## Env (Vercel, main project)
+## Keys and providers
 
-Pick who powers the agents. Both switches default to OpenAI.
+Where the keys go:
+- **Local:** `client/.env.local` (git-ignored). Copy the template `client/.env.example`. The Vite dev plugin loads every `OPENAI_*`, `ADAL_*` and `AIMP_*` value from it.
+- **Live site:** Vercel → crewbasecollective-client → Settings → Environment Variables (same names), then redeploy.
 
-| Variable | Values | Controls |
-|---|---|---|
-| `AGENT_PROVIDER` | `openai` (default) or `adal` | Every agent decision and every "describe it" generator: film, games, interviews, studio characters and scenes, sponsor labs |
-| `MEDIA_PROVIDER` | `openai` (default) or `adal` | Generated images: film posters, character portraits, scene concept art, AdaL lab images and video frames |
+OpenAI: `OPENAI_API_KEY`, optional `OPENAI_MODEL` (default `gpt-4.1-mini`), `OPENAI_IMAGE_MODEL` (default `gpt-image-1-mini`).
 
-OpenAI: `OPENAI_API_KEY` (needed for OpenAI mode and as the fallback), `OPENAI_MODEL` (default `gpt-4.1-mini`), `OPENAI_IMAGE_MODEL` (default `gpt-image-1-mini`).
+AdaL Cloud Agents (cloud.adal.sylph.ai, API spec at `/openapi.json`): `ADAL_API_KEY` (token from the cloud app's API tab, a JWT) and `ADAL_AGENT_ID` (the agent you created there), optional `ADAL_API_URL`, `ADAL_MODEL`, `ADAL_TIMEOUT_MS` (default 40000). Flow: create session → provision → `chat/stream`; the reply must be JSON.
 
-AdaL Cloud Agents (cloud.adal.sylph.ai, API spec at `/openapi.json`): `ADAL_API_KEY` (token from the cloud app's API tab, a JWT), `ADAL_AGENT_ID` (the agent you created there), optional `ADAL_API_URL`, `ADAL_MODEL`, `ADAL_TIMEOUT_MS` (default 40000). Flow: create session → provision → `chat/stream`; the reply must be JSON. If AdaL fails or times out and `OPENAI_API_KEY` is set, the request falls back to OpenAI and logs a warning.
+**Choosing the provider is done in the page, not in env:** the banner on play.html and sponsors.html has *Agents: OpenAI | AdaL* and *Images: OpenAI | AdaL*. The choice is saved per visitor (localStorage `aimp_provider`) and sent with each request as `provider`. A provider is greyed out until its keys are set. If AdaL fails or times out and `OPENAI_API_KEY` is set, the request falls back to OpenAI.
 
 Other: `AIMP_IMAGES=off` disables image generation; `AIMP_ALLOWED_ORIGINS` (default `crewbasecollective.com,localhost,127.0.0.1`).
 
