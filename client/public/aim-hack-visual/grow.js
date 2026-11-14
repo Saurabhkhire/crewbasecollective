@@ -674,6 +674,7 @@ Reply with JSON only: {"findings":[{"source":"provider + endpoint, e.g. Apollo c
       await UI.waitWhilePaused(token);
       $("#qLbl").textContent = `Question ${k + 1} of ${G.nq}`;
       if (on("glasser") && !G.research) await glasserResearch(token);
+      if (on("october")) { const st = UI.octoberStep(G.live, "grow", null); if (st) gLog(`<b style="color:#3ddc97">🧩 October</b><span class="act">${esc(st[0])} → ${esc(st[1])}: ${esc(st[2])}</span><span class="thought">simulated coding-agent run</span>`); }
       $("#answerBox").innerHTML = `<div class="thinking-row"><span class="think-chip" style="--c:${C}">The panel is choosing the next question<span class="dots3"><i></i><i></i><i></i></span></span></div>`;
       G.panel.forEach(p => Puppet.emotion(p.el, "thinking"));
       const q = await nextQuestion(k);
@@ -812,7 +813,7 @@ Reply with JSON only: {"result":"label","summary":"2 sentences","strengths":[{"p
     S.demo = false;
     if (sub === "demo" || sub === "demo-tools") {
       S.demo = true; S.sc = "interview"; S.panel = null; S.nq = 4; UI.ctl.speed = 3;
-      if (sub === "demo-tools") ["band", "bruin", "finch", "casuro", "glasser"].forEach(t => S.tools.add(t));
+      if (sub === "demo-tools") PLAY.tools.grow.forEach(t => S.tools.add(t.id));
       const sc = scen(); S.panel = sc.panel.slice(); S.panel.forEach((id, i) => (S.roles[id] = sc.roles[i]));
       return session();
     }

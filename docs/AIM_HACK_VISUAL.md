@@ -39,9 +39,10 @@ Plus one pointer line each in `AGENTS.md` and `docs/CODE_MAP.md`.
 
 ```
 client/public/aim-hack-visual/
-  index.html  tracks.html  sponsors.html (+ Sponsor Labs, coord.js tool views)  submit.html (submission guide)  play.html (playground)
-  data.js          hackathon content: event, tracks, ideas, sponsors (+ HIDDEN_SPONSORS: organisers hide a sponsor here)
-  play-data.js     preset characters, preset scenes, which sponsor tools appear in which track
+  index.html  tracks.html  sponsors.html (+ Sponsor Labs, coord.js tool views)  partners.html  submit.html (submission guide)  play.html (playground)
+  data.js          hackathon content: event, tracks, ideas, sponsors, partners, each with a `mascot` (name, action, home island)
+                   (+ HIDDEN_SPONSORS / HIDDEN_PARTNERS: organisers hide one here)
+  play-data.js     preset characters, preset scenes; PLAY.tools is derived from each sponsor's `tracks` in data.js
   puppet.js        parametric animated SVG characters (Puppet.svg / mount / toImage)
   scenes.js        16 illustrated backdrops × time of day × weather (Scenes.svg / mount / toImage)
   brain.js         Brain.ask (LLM JSON with offline fallback) + Brain.image
@@ -51,13 +52,20 @@ client/public/aim-hack-visual/
   game.js/.css     Track 2 · game hub; games/zombie.js, snakes.js, rps.js       → play.html#game
   grow.js/.css     Track 3 · expert panel interviews/coaches you                → play.html#grow
   studio.js/.css   character & scene creator (manual + AI)                      → play.html#studio
-  labs*.js, labs.css           Sponsor Labs (BAND, AdaL, Bruin, Finch, Casuro, Glasser) → sponsors.html#labs
+  labs*.js, labs.css           Sponsor Labs (BAND, AdaL, Bruin, Finch, Casuro, Glasser, October) → sponsors.html#labs
   coord.js/.css                "How the tools work together" + per-tool views on sponsors.html
-  map.js, site.js  home/sponsor living map and shared page behaviour
+  mascots.js       one SVG character per sponsor/partner + its looping "what it does" panel (Mascots.svg / body / act)
+  world.js/.css    the world map: AWS Loft town hall island + 3 track islands, mascots roam and act.
+                   <div data-world="film"> = island view of one track (tracks page, playground landing)
+  livecast.js      LiveCast.mount(el, cast): looping on-stage conversation (home hero; per track from tracks[].cast)
+  site.js          shared page behaviour: sponsor/partner card, home sponsor + partner strips, sponsor grid, partners page rows
+  img/             mascot artwork shown in cards (adal-mascot.png, 2percent-mascot.jpg)
 client/api/aim-hack-chat.ts       ← Vercel function → OpenAI chat + images (key stays server-side)
 ```
 
-Demo routes for quick checks: `play.html#film/demo`, `#grow/demo`, `#game/zombie?demo`, `#game/snakes?demo`, `#game/rps?demo`.
+Demo routes for quick checks: `play.html#film/demo`, `#grow/demo`, `#game/zombie?demo`, `#game/snakes?demo`, `#game/rps?demo` (add `-tools` / `?demo-tools` to switch every sponsor tool on).
+
+**Add / remove a sponsor or partner:** edit one entry in `data.js` (the recipe is at the top of that file). A sponsor entry carries its track toggles (`tracks`), its coordination node (`role`, `tag`) and its `mascot`; a partner entry carries `brings`, `scene` and `mascot`. Delete the entry (or list its id in `HIDDEN_SPONSORS` / `HIDDEN_PARTNERS`) to remove it everywhere. Optional: custom art in `mascots.js` (`ART[id]`, otherwise a generic robot), a lab in `labs*.js`, a custom tool view in `coord.js`.
 
 Vercel's Root Directory is `client/`, so only files inside `client/` deploy. **No rewrites / no vercel.json** are used:
 `/aim-hack-visual/` is served by its `index.html`; the plugin in `client/aim-hack-visual.vite.ts` also writes

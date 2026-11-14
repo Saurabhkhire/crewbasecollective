@@ -3,7 +3,7 @@
      Coord.network(el)        → full animated network (sponsors.html "Tools together" view)
      Coord.strip(el, focusId) → compact "Works with" strip inside a lab
                                 returns { pulse(otherId, label, dir), note(text) }
-   Nodes: finch, band, adal, casuro, bruin, glasser (+ team = the agents, you = the human).
+   Nodes: finch, band, adal, casuro, bruin, glasser, october (+ team = the agents, you = the human).
    Needs data.js (HACK.sponsors), play-data.js, puppet.js.
    ========================================================= */
 window.Coord = (function () {
@@ -12,9 +12,12 @@ window.Coord = (function () {
   const NS = "http://www.w3.org/2000/svg";
   const sp = id => H.sponsors.find(s => s.id === id) || (H.allSponsors || []).find(s => s.id === id) || {};
   /* respects the visitor's "⚙️ Tools" setting: hidden sponsor tools drop out of every view */
-  const vis = id => id === "team" || id === "you" || !H.sponsorVisible || H.sponsorVisible(id);
+  /* every node comes from HACK.sponsors (data.js): add/remove a sponsor there and the views follow */
+  const vis = id => id === "team" || id === "you" || H.sponsors.some(s => s.id === id);
+  const IDS = () => H.sponsors.map(s => s.id);
   const stepsOf = k => SCENARIOS[k].steps.filter(s => vis(s.f) && vis(s.t));
-  const ROLE = { finch: "Skills", band: "Channels", adal: "Images & video", casuro: "Voice & evaluation", bruin: "Data & insights", glasser: "Real-world data", team: "Agent team", you: "You (human)" };
+  const ROLE = { team: "Agent team", you: "You (human)" };
+  H.sponsors.forEach(s => (ROLE[s.id] = s.role || "Sponsor tool"));
   const nodeColor = id => id === "team" ? "#eaf0ff" : id === "you" ? "#b6ff5c" : sp(id).color || "#fff";
   const nodeIcon = id => id === "team" ? "🤖" : id === "you" ? "🧑" : sp(id).icon || "•";
   const nodeName = id => id === "team" ? "Agents" : id === "you" ? "You" : sp(id).name || id;
@@ -33,7 +36,9 @@ window.Coord = (function () {
         { f: "adal", t: "band", label: "🖼️ poster on #film", detail: "AdaL shares the poster and frames on the team channel so every agent sees the same visuals." },
         { f: "you", t: "casuro", label: "🎙️ your spoken review", detail: "You review the film out loud; Casuro transcribes it and scores it with evidence from your words." },
         { f: "casuro", t: "bruin", label: "📊 score + quotes", detail: "Casuro sends the scored review, with quotes, into Bruin." },
-        { f: "band", t: "bruin", label: "🧾 54 events", detail: "Every message, skill use and frame lands in Bruin's pipeline: who drove the plot, which ending happens most." }
+        { f: "band", t: "bruin", label: "🧾 54 events", detail: "Every message, skill use and frame lands in Bruin's pipeline: who drove the plot, which ending happens most." },
+        { f: "adal", t: "october", label: "🖼️ poster + trailer frames", detail: "The poster and frames go onto October's canvas, where a team of coding agents is building the film's premiere page." },
+        { f: "october", t: "you", label: "🧩 premiere page shipped", detail: "Claude Code builds the page, Cursor styles it, Codex reviews it, a browser block checks it. You get one card back: the page is live." }
       ]
     },
     game: {
@@ -47,11 +52,13 @@ window.Coord = (function () {
         { f: "band", t: "team", label: "📻 callouts synced", detail: "Every agent gets the callout and re-plans its next wave." },
         { f: "adal", t: "team", label: "🎨 cover art + theme", detail: "AdaL generates the art for the custom game you designed." },
         { f: "team", t: "bruin", label: "📈 kills · damage · rounds", detail: "Every hit, heal and decision streams into Bruin's live stats and quality checks." },
-        { f: "bruin", t: "finch", label: "💡 “Medic used 9× — keep it”", detail: "Bruin's numbers feed back into which Finch skills to equip next round." }
+        { f: "bruin", t: "finch", label: "💡 “Medic used 9× — keep it”", detail: "Bruin's numbers feed back into which Finch skills to equip next round." },
+        { f: "you", t: "october", label: "🧩 drag: “add level 2”", detail: "Between rounds you drag Claude Code and Codex blocks onto October's canvas and connect them to the game build." },
+        { f: "october", t: "team", label: "🚀 level 2 hot-reloaded", detail: "One coding agent writes the level, another reviews it, checks pass, and the agents get a new map to play on." }
       ]
     },
     grow: {
-      label: "🎓 Interview", title: "An agent panel interviews a human",
+      label: "🎓 Grow session", title: "An agent panel tests and coaches a human",
       steps: [
         { f: "finch", t: "team", label: "📋 Examine · 🧑‍🏫 Coach", detail: "Finch gives each panelist a scoring skill: one examines evidence, one coaches." },
         { f: "team", t: "glasser", label: "🏢 research the company", detail: "Before the first question the panel looks up the company and role: Apollo company search, BuiltWith tech stack, Crustdata headcount growth." },
@@ -62,7 +69,8 @@ window.Coord = (function () {
         { f: "team", t: "band", label: "🔒 “Push on the numbers”", detail: "Panelists confer privately in a BAND back-channel you never see during the session." },
         { f: "band", t: "team", label: "⬆️ next question: harder", detail: "The agreed plan comes back: the next questioner adapts to you." },
         { f: "team", t: "adal", label: "🏅 certificate image", detail: "AdaL renders a certificate for your result." },
-        { f: "casuro", t: "bruin", label: "📊 scores per skill", detail: "Every score lands in Bruin: charts per question and per skill, ready to compare sessions." }
+        { f: "casuro", t: "bruin", label: "📊 scores per skill", detail: "Every score lands in Bruin: charts per question and per skill, ready to compare sessions." },
+        { f: "october", t: "you", label: "🧑‍💻 take-home PR to review", detail: "For a tech role, a team of coding agents on October's canvas builds a starter app and opens a pull request. Reviewing it is your interview task." }
       ]
     }
   };
@@ -105,7 +113,9 @@ window.Coord = (function () {
   /* =========================================================
      FULL NETWORK
      ========================================================= */
-  const POS = { finch: { x: 175, y: 150 }, band: { x: 500, y: 82 }, adal: { x: 825, y: 150 }, casuro: { x: 825, y: 420 }, bruin: { x: 175, y: 420 }, glasser: { x: 825, y: 285 }, team: { x: 500, y: 285 }, you: { x: 500, y: 505 } };
+  /* sponsors sit on an arc around the agent team; "you" sits at the bottom */
+  const POS = { team: { x: 500, y: 285 }, you: { x: 500, y: 505 } };
+  IDS().forEach((id, i, a) => { const k = a.length === 1 ? 0.5 : i / (a.length - 1), ang = (150 + 240 * k) * Math.PI / 180; POS[id] = { x: Math.round(500 + 345 * Math.cos(ang)), y: Math.round(285 + 215 * Math.sin(ang)) }; });
   const TEAM = ["vega", "rook", "bolt"];
 
   function network(root) {
@@ -125,7 +135,7 @@ window.Coord = (function () {
             <div class="cg-info"><small>Tip: click any tool to see what it sends and receives.</small></div>
           </aside>
         </div>
-        <div class="cg-legend">${["finch", "band", "adal", "casuro", "bruin", "glasser"].filter(vis).map(id => `<span style="--c:${nodeColor(id)}"><i></i>${nodeIcon(id)} <b>${esc(nodeName(id))}</b> ${esc(ROLE[id])}</span>`).join("")}<span style="--c:#eaf0ff"><i></i>🤖 <b>Agents</b> do the work</span></div>
+        <div class="cg-legend">${IDS().map(id => `<span style="--c:${nodeColor(id)}"><i></i>${nodeIcon(id)} <b>${esc(nodeName(id))}</b> ${esc(ROLE[id])}</span>`).join("")}<span style="--c:#eaf0ff"><i></i>🤖 <b>Agents</b> do the work</span></div>
       </div>`;
     const svg = root.querySelector(".cg-svg");
     defs(svg);
@@ -147,7 +157,7 @@ window.Coord = (function () {
         el("rect", { x: -76, y: -40, width: 152, height: 80, rx: 18, fill: "#10172f", stroke: c, "stroke-width": 2 }, g);
         el("text", { x: -52, y: 9, "font-size": 30, "text-anchor": "middle" }, g, nodeIcon(id));
         el("text", { x: -22, y: -4, class: "cg-nm" }, g, nodeName(id));
-        el("text", { x: -22, y: 18, class: "cg-rl", fill: c }, g, ({ finch: "SKILLS", band: "CHANNELS", adal: "MEDIA", casuro: "VOICE · EVAL", bruin: "DATA", glasser: "REAL DATA", you: "HUMAN" })[id] || "");
+        el("text", { x: -22, y: 18, class: "cg-rl", fill: c }, g, (id === "you" ? "HUMAN" : sp(id).tag || ""));
       }
       nodes[id] = g;
       const pick = () => { selected = selected === id ? null : id; info(); };
@@ -242,16 +252,16 @@ window.Coord = (function () {
   /* =========================================================
      COMPACT STRIP (inside each lab)
      ========================================================= */
-  const SPOT = [{ x: 60, y: 40 }, { x: 60, y: 120 }, { x: 420, y: 40 }, { x: 420, y: 120 }, { x: 165, y: 145 }, { x: 315, y: 145 }];
+  const SPOT = [{ x: 60, y: 40 }, { x: 60, y: 120 }, { x: 420, y: 40 }, { x: 420, y: 120 }, { x: 150, y: 168 }, { x: 330, y: 168 }, { x: 240, y: 168 }];
   function strip(root, focus) {
-    const others = ["team", "finch", "band", "adal", "casuro", "bruin", "glasser"].filter(id => id !== focus && vis(id)).slice(0, 6);
+    const others = ["team"].concat(IDS()).filter(id => id !== focus && vis(id)).slice(0, SPOT.length);
     const pos = Object.fromEntries(others.map((id, i) => [id, SPOT[i]]));
     pos[focus] = { x: 240, y: 70 };
     // canned hand-offs involving this tool, from every scenario
     const canned = Object.values(SCENARIOS).flatMap(S => S.steps).filter(s => (s.f === focus || s.t === focus) && pos[s.f] && pos[s.t]);
     root.innerHTML = `<div class="cs" style="--c:${nodeColor(focus)}">
       <div class="cs-h"><b>🔗 Works with</b><small>how ${esc(nodeName(focus))} hands off to the other tools</small></div>
-      <svg class="cs-svg" viewBox="0 0 480 170"></svg>
+      <svg class="cs-svg" viewBox="0 0 480 208"></svg>
       <ol class="cs-log"><li class="muted">Use the lab: real hand-offs appear here.</li></ol></div>`;
     const svg = root.querySelector(".cs-svg");
     defs(svg);
@@ -329,9 +339,10 @@ window.Coord = (function () {
     adal: { title: "AdaL · images and video", job: "An agent turns a prompt into a storyboard, renders frames one by one, and assembles a poster or short video the other agents can use.", lab: "adal" },
     bruin: { title: "Bruin · data from every agent", job: "Every message, skill use, render and score streams into Bruin: ingested into raw tables, transformed into assets with lineage, guarded by quality checks, then answered in plain English in Slack.", lab: "bruin" },
     casuro: { title: "Casuro · voice interview & scoring", job: "A human answers out loud. Casuro transcribes the voice, scores each rubric item with evidence quotes, and hands the verdict to the panel.", lab: "casuro" },
+    october: { title: "October · coding agents as a team", job: "Drag coding agents (Claude Code, Codex, Cursor…) and apps (browser, website preview, phone screen) onto one canvas and connect them. Each wire is a hand-off: one agent builds, another reviews, a browser block checks the result, and the finished work comes back as one card.", lab: "october" },
     glasser: { title: "Glasser · real-world data for agents", job: "Agents need real data. Glasser gives them 2,000+ endpoints (people, companies, search, SEO, social, e-commerce) through one key: the agent picks a provider, sees the price before the call, pays per call and gets the rows back. No subscriptions.", lab: "glasser" }
   };
-  const ORDER = ["band", "finch", "adal", "bruin", "casuro", "glasser"];
+  const ORDER = { filter: f => IDS().filter(f) };
   const wait = ms => new Promise(r => setTimeout(r, ms));
   const pick = a => a[Math.floor(Math.random() * a.length)];
   const charOf = id => P.characters.find(c => c.id === id);
@@ -361,18 +372,20 @@ window.Coord = (function () {
 
   /* shared frame for one tool view */
   function toolView(host, id) {
-    const info = VIEW_INFO[id], c = nodeColor(id);
+    const info = VIEW_INFO[id] || { title: `${nodeName(id)} · ${ROLE[id]}`, job: sp(id).blurb || "", lab: id };
+    const hasLab = !!(window.__LABS__ && __LABS__.LABS.some(l => l.id === info.lab));
+    const c = nodeColor(id);
     const inPlay = (P.tools ? ["film", "game", "grow"].map(t => (P.tools[t] || []).find(x => x.id === id) ? `<li><b>${{ film: "Track 01 · Film", game: "Track 02 · Games", grow: "Track 03 · Grow" }[t]}:</b> ${esc(P.tools[t].find(x => x.id === id).does)}</li>` : "").join("") : "");
     host.innerHTML = `<div class="tv" style="--c:${c}">
       <div class="tv-stage"><div class="tv-layer"></div><svg class="tv-svg" viewBox="0 0 100 100" preserveAspectRatio="none"></svg><div class="tv-cap"><b></b><span></span></div>
         <div class="tv-ctl"><button data-tv="play" aria-label="Pause">❚❚</button></div></div>
       <aside class="tv-side">
-        <div class="tv-h"><span class="tv-ic">${nodeIcon(id)}</span><div><small>INDIVIDUAL VIEW</small><b>${esc(info.title)}</b></div></div>
+        <div class="tv-h"><span class="tv-ic${window.Mascots ? " has-m" : ""}">${window.Mascots ? Mascots.svg(id) : nodeIcon(id)}</span><div><small>INDIVIDUAL VIEW</small><b>${esc(info.title)}</b></div></div>
         <p class="tv-job">${esc(info.job)}</p>
         <div class="tv-kpis"></div>
         <div class="tv-fh">LIVE FEED</div><ol class="tv-feed"></ol>
         ${inPlay ? `<div class="tv-fh">IN THE PLAYGROUND</div><ul class="tv-play">${inPlay}</ul>` : ""}
-        <a class="btn btn-sm" href="#lab-${info.lab}" data-lab-open="${info.lab}">🧪 Try ${esc(nodeName(id))} in the lab</a>
+        ${hasLab ? `<a class="btn btn-sm" href="#lab-${info.lab}" data-lab-open="${info.lab}">🧪 Try ${esc(nodeName(id))} in the lab</a>` : `<a class="btn btn-sm" href="${sp(id).url}" target="_blank" rel="noopener">Visit ${esc(nodeName(id))} ↗</a>`}
       </aside></div>`;
     const stage = host.querySelector(".tv-stage"), layer = host.querySelector(".tv-layer"), svg = host.querySelector(".tv-svg");
     const ctx = {
@@ -396,13 +409,13 @@ window.Coord = (function () {
         p.remove();
       }
     };
-    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom", glasser: "office" }[id], time: "night", weather: "clear" });
+    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom", glasser: "office", october: "lab" }[id] || "office", time: "night", weather: "clear" });
     host.querySelector(".tv").addEventListener("click", e => {
       const b = e.target.closest("[data-tv]"); if (b) { ctx.paused = !ctx.paused; b.textContent = ctx.paused ? "▶" : "❚❚"; return; }
       const lab = e.target.closest("[data-lab-open]");
       if (lab) { e.preventDefault(); location.hash = "#lab-" + lab.dataset.labOpen; const t = document.getElementById("labs"); t && t.scrollIntoView({ behavior: "smooth" }); }
     });
-    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro, glasser: viewGlasser }[id];
+    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro, glasser: viewGlasser, october: viewOctober }[id] || viewGeneric;
     run(ctx).catch(() => {});
     return { destroy() { ctx.alive = false; } };
   }
@@ -662,6 +675,99 @@ window.Coord = (function () {
       x.kpis([["calls", calls], ["spent", "$" + spent.toFixed(3)], ["subscriptions skipped", subs.size]]);
       await x.tick(2200);
       Puppet.emotion(a.pup, "neutral");
+    }
+  }
+
+  /* ---------- any sponsor without a custom view: its character acting + where it shows up in the tracks ---------- */
+  async function viewGeneric(x) {
+    const o = sp(x.id), uses = Object.entries(o.tracks || {});
+    const box = document.createElement("div"); box.className = "tv-gen";
+    box.innerHTML = window.Mascots ? `<div class="org-mascot">${Mascots.svg(x.id, { act: true })}</div>` : "";
+    x.layer.appendChild(box);
+    x.kpis([["tracks", uses.length], ["tool", o.role || "Sponsor"]]);
+    for (let k = 0; ; k++) {
+      const u = uses[k % Math.max(1, uses.length)];
+      if (u) { x.cap(`${o.name} · ${u[1].label}`, u[1].does); x.feed(`${o.icon || "•"} <b>${esc(u[0])}</b> · ${esc(u[1].label)}`); }
+      else x.cap(o.name, o.buildIdea || o.blurb || "");
+      await x.tick(3600);
+    }
+  }
+
+  /* ---------- October: drag coding-agent blocks onto a canvas, wire them, hand work along the wires ---------- */
+  async function viewOctober(x) {
+    const O = P.october;
+    if (!O) return;
+    const B = id => O.agents.concat(O.apps).find(b => b.id === id);
+    const box = document.createElement("div"); box.className = "tv-oc";
+    box.innerHTML = `<div class="oc-pal"><small>BLOCKS</small>${O.agents.concat(O.apps).map(b => `<span class="oc-pb" data-b="${b.id}" style="--k:${b.color}">${b.icon} ${esc(b.name)}</span>`).join("")}</div>
+      <div class="oc-cv"><svg class="oc-w" viewBox="0 0 100 100" preserveAspectRatio="none"></svg><div class="oc-task"></div></div>`;
+    x.layer.appendChild(box);
+    const dir = x.agent("kit", 12, 86, 0.8);
+    const cv = box.querySelector(".oc-cv"), wsvg = box.querySelector(".oc-w"), task = box.querySelector(".oc-task");
+    const JOBS = [
+      { t: "Build a premiere page for “One Seat Left”", blocks: [["claude", 18, 24], ["cursor", 18, 78], ["codex", 48, 52], ["website", 80, 30], ["browser", 80, 80]],
+        wires: [["claude", "website", "build page"], ["cursor", "website", "style poster"], ["claude", "codex", "review?"], ["codex", "website", "approve ✓"], ["website", "browser", "open & check"]], out: ["ONE SEAT LEFT", "An agent film · premiere tonight", "▶ Trailer"] },
+      { t: "Add level 2 to the zombie game", blocks: [["memory", 18, 24], ["claude", 18, 78], ["opencode", 48, 24], ["codex", 48, 78], ["website", 82, 52]],
+        wires: [["memory", "claude", "game rules"], ["claude", "website", "new level"], ["opencode", "website", "fix ladder bug"], ["claude", "codex", "review?"], ["codex", "website", "tests pass ✓"]], out: ["LEVEL 2", "Night at the north gate", "▶ Play"] },
+      { t: "Build the take-home app for the interview", blocks: [["gemini", 18, 24], ["claude", 18, 78], ["codex", 48, 52], ["website", 80, 30], ["mobile", 80, 80]],
+        wires: [["gemini", "claude", "spec + README"], ["claude", "website", "build app"], ["claude", "codex", "open PR #12"], ["codex", "website", "checks ✓"], ["website", "mobile", "phone preview"]], out: ["SIGN UP", "Take-home · ready for review", "Review PR"] }
+    ];
+    let hand = 0, reviews = 0, nBlocks = 0;
+    const kp = () => x.kpis([["blocks on canvas", nBlocks], ["hand-offs", hand], ["reviews", reviews]]);
+    for (let k = 0; ; k++) {
+      const J = JOBS[k % JOBS.length];
+      cv.querySelectorAll(".oc-b, .oc-wl, .oc-pk, .oc-hand").forEach(n => n.remove()); wsvg.innerHTML = ""; nBlocks = 0; kp();
+      task.innerHTML = `<small>TASK</small>${esc(J.t)}`;
+      Puppet.talk(dir.pup, 1400); Puppet.gesture(dir.pup, "point", 1200);
+      x.cap(`${dir.name} → October`, J.t);
+      await x.tick(1200);
+      const els = {};
+      const handEl = document.createElement("i"); handEl.className = "oc-hand"; handEl.textContent = "👆"; cv.appendChild(handEl);
+      for (const [id, px, py] of J.blocks) {
+        const b = B(id), d = document.createElement("div");
+        d.className = "oc-b"; d.style.setProperty("--k", b.color); d.style.left = "-12%"; d.style.top = py + "%";
+        d.innerHTML = `<b>${b.icon} ${esc(b.name)}</b><small>${esc(b.role)}</small>`;
+        cv.appendChild(d); els[id] = { el: d, x: px, y: py };
+        box.querySelectorAll(".oc-pb").forEach(p => p.classList.toggle("hot", p.dataset.b === id));
+        handEl.style.left = "-6%"; handEl.style.top = py + "%"; void d.offsetWidth;
+        d.style.left = px + "%"; handEl.style.left = px + "%";
+        nBlocks++; kp();
+        x.cap("Drag & drop", `${b.name} dropped on the canvas`);
+        await x.tick(650);
+      }
+      box.querySelectorAll(".oc-pb").forEach(p => p.classList.remove("hot")); handEl.remove();
+      const wires = J.wires.map(([a, b, label]) => {
+        const A = els[a], Bb = els[b], mx = (A.x + Bb.x) / 2;
+        const p = document.createElementNS(NS, "path");
+        p.setAttribute("d", `M${A.x} ${A.y} C${mx} ${A.y} ${mx} ${Bb.y} ${Bb.x} ${Bb.y}`); p.setAttribute("class", "oc-wire"); p.setAttribute("vector-effect", "non-scaling-stroke");
+        wsvg.appendChild(p);
+        const l = document.createElement("span"); l.className = "oc-wl"; l.textContent = label;
+        const mid = p.getPointAtLength(p.getTotalLength() / 2); l.style.left = mid.x + "%"; l.style.top = mid.y + "%"; cv.appendChild(l);
+        return { p, l, a, b, label };
+      });
+      x.cap("Connect", "Wires between blocks = who hands work to whom");
+      await x.tick(1100);
+      for (const w of wires) {
+        const from = els[w.a].el, to = els[w.b].el;
+        from.classList.add("on"); w.p.classList.add("hot"); w.l.classList.add("hot");
+        x.cap(`${B(w.a).name} → ${B(w.b).name}`, w.label);
+        const pk = document.createElement("i"); pk.className = "oc-pk"; cv.appendChild(pk);
+        const L = w.p.getTotalLength(), t0 = performance.now();
+        await new Promise(res => { (function step(now) { const q = Math.min(1, (now - t0) / 900), pt = w.p.getPointAtLength(L * q); pk.style.left = pt.x + "%"; pk.style.top = pt.y + "%"; if (q < 1 && x.alive) requestAnimationFrame(step); else res(); })(t0); setTimeout(res, 1400); });
+        pk.remove(); from.classList.remove("on"); to.classList.add("got"); setTimeout(() => to.classList.remove("got"), 700);
+        hand++; if (/review|PR|✓/.test(w.label)) reviews++;
+        x.feed(`🧩 <b>${esc(B(w.a).name)}</b> → ${esc(B(w.b).name)}: ${esc(w.label)}`); kp();
+        await x.tick(500);
+        w.p.classList.remove("hot"); w.l.classList.remove("hot");
+      }
+      const site = els.website.el;
+      site.classList.add("out");
+      site.innerHTML = `<div class="oc-site"><i></i><b>${esc(J.out[0])}</b><small>${esc(J.out[1])}</small><span>${esc(J.out[2])}</span></div><em>✓ shipped</em>`;
+      Puppet.emotion(dir.pup, "happy"); Puppet.gesture(dir.pup, "jump", 1200);
+      x.cap("October · one card back", "Built, reviewed and checked by a team of coding agents");
+      x.feed(`✅ <b>${esc(J.out[0])}</b> shipped · ${J.wires.length} hand-offs`);
+      await x.tick(3200);
+      Puppet.emotion(dir.pup, "neutral");
     }
   }
 

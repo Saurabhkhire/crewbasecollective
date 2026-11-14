@@ -1,8 +1,15 @@
 /* =========================================================
    Multiplayer AI — site content
    Edit this file to change tracks, ideas, sponsors, dates.
-   Sponsors are fully data-driven: add/remove entries and
-   the map, grid and home strip all update.
+   ADD / REMOVE A SPONSOR OR PARTNER = edit ONE entry below.
+   - Sponsor (a tool in the tracks): copy an entry in `sponsors`. Fields: id, name, tier, url, icon, color,
+     landmark, blurb, buildIdea, role + tag (tool-coordination node), tracks { film|game|grow: { label, does } }
+     (= its toggle in each track), mascot { name, look, action, home: center|film|game|grow }.
+   - Partner (not a tool): copy an entry in `partners`. Fields: id, name, url, icon, color, scene, blurb, brings, mascot.
+   - Remove: delete the entry (or add its id to HIDDEN_SPONSORS / HIDDEN_PARTNERS at the bottom).
+   Everything else follows automatically: world map + island views, home, sponsors/partners pages,
+   track toolbars, tool coordination, labs list. Optional extras: custom art in mascots.js (ART[id], else a
+   generic robot), a Sponsor Lab (labs*.js), a custom tool view (coord.js), on-stage effects (film/game/grow.js).
    ========================================================= */
 window.HACK = {
   name: "Multiplayer AI",
@@ -38,6 +45,22 @@ window.HACK = {
         "Final output: a 1–3 minute animated short"
       ],
       keyLabel: "Agents decide",
+      /* live cast on the tracks page: who is on stage and what they say. actor ids = PLAY.characters */
+      cast: {
+        scene: { base: "manor", time: "night", weather: "rain" },
+        actors: [{ id: "kit", tag: "You · director" }, { id: "marlowe", tag: "Agent · detective" }, { id: "ashford", tag: "Agent · heiress" }, { id: "rook", tag: "Agent · smuggler" }],
+        script: [
+          [0, "Opening event: the lights go out at the Ashford dinner. That's all I write. Action!", "happy", "point"],
+          [1, "Nobody leaves. Someone in this room knows where the necklace went.", "determined", "point"],
+          [2, "How dare you. I was standing at the window the whole time.", "angry", "cross"],
+          [3, "(privately, over a BAND channel) Back my story, Ashford, and we split it.", "sly", "shrug"],
+          [1, "Investigate skill: your story changed twice, my lady.", "thinking", "raise"],
+          [2, "…Fine. Rook took it. I'm done covering for him.", "sad", "slump"],
+          [3, "Then I'm out the back door. Plan B.", "scared", "jump"],
+          [0, "I didn't write that ending! Run it again and the agents might choose differently.", "shocked", "out"],
+          [1, "Every choice is in the decision log. AdaL is cutting the trailer now.", "calm", "nod"]
+        ]
+      },
       map: { x: 230, y: 175, rx: 180, ry: 92 },
       agentReasons: [
         "wants to direct a heist where the traitor picks the ending",
@@ -63,12 +86,12 @@ window.HACK = {
     },
     {
       id: "game", num: "02", icon: "🎮", hex: "#3ee6ff",
-      name: "Co-op Multiplayer Game", short: "Game", island: "Arena Island",
-      tagline: "Humans and AI as equal players in one world.",
-      pitch: "Build a multiplayer game where humans and AI agents share the same world as equal players. Agents aren't NPCs waiting for instructions. They have their own goals, memories and plans, and they act whether or not a human is involved.",
+      name: "Create Co-op Games with Agents", short: "Game", island: "Arena Island",
+      tagline: "Create the game. AI agents play it with you, as teammates and rivals.",
+      pitch: "Create a co-op multiplayer game where humans and AI agents share one world as equal players. You design the world, the rules and the win condition. The agents aren't NPCs waiting for instructions: they have their own goals, memories and plans, they team up with you, compete with you, and keep playing whether or not a human is watching.",
       forYou: "Game devs, systems designers, multiplayer and simulation nerds",
       flow: [
-        ["Build the world", "A map, resources and rules that humans and agents both play by."],
+        ["Create the game", "A map, resources, rules and a win condition that humans and agents both play by."],
         ["Give agents lives", "Goals, memories and plans. They act even when no human is watching."],
         ["Let humans in", "2+ humans join as equal players, not as the main character."],
         ["Watch it emerge", "Alliances, betrayals, and at least one world event the agents caused."]
@@ -80,6 +103,21 @@ window.HACK = {
         "At least one major world event is caused by agents alone"
       ],
       keyLabel: "Agent-caused event",
+      cast: {
+        scene: { base: "city", time: "night", weather: "rain" },
+        actors: [{ id: "kit", tag: "You · game creator" }, { id: "bolt", tag: "Agent · teammate" }, { id: "hale", tag: "Agent · teammate" }, { id: "nyx", tag: "Agent · rival" }],
+        script: [
+          [0, "I made this map ten minutes ago: a neon city, one supply drop, zombies at midnight.", "happy", "out"],
+          [1, "Teammate online. I already have a plan for the north gate.", "calm", "nod"],
+          [2, "Team radio: I hold the gate, BOLT covers the roof. Nobody goes solo.", "determined", "point"],
+          [3, "Nobody? I'm taking the supply drop for my own team.", "sly", "shrug"],
+          [1, "Medic skill equipped. Kit, you're at 30% health. Healing you first.", "calm", "raise"],
+          [0, "Wait, the agents changed the plan without me?", "shocked", "out"],
+          [2, "You weren't watching. The world doesn't pause.", "angry", "cross"],
+          [3, "Truce for one wave? Then I betray you. Probably.", "sly", "wave"],
+          [0, "Okay, coding agents, add level 2. They're too good at level 1.", "happy", "jump"]
+        ]
+      },
       map: { x: 970, y: 175, rx: 180, ry: 92 },
       agentReasons: [
         "is forming an alliance against the human players",
@@ -106,8 +144,8 @@ window.HACK = {
     {
       id: "grow", num: "03", icon: "🎓", hex: "#b6ff5c",
       name: "Grow with Agents", short: "Grow", island: "Academy Island",
-      tagline: "For once, the agents train the humans.",
-      pitch: "The roles are reversed. Usually humans train AI. Here, agents step into expert roles such as interviewer, examiner, professor, coach, boss or client, and the human learns, practises, gets tested and improves through a visual, interactive simulation.",
+      tagline: "Agents that teach, coach, test and challenge you. For once, they train the human.",
+      pitch: "The roles are reversed. Usually humans train AI. Here, a team of agents steps into expert roles (tutor, coach, examiner, interviewer, sparring partner, boss, client or language buddy) and the human learns, practises and improves through a visual, interactive simulation: a language café, a sales call, a pitch to investors, an exam, a negotiation, a hard conversation, a talk on stage, or a job interview.",
       forYou: "Edtech builders, product people, coaches, and anyone who has sat through a tough interview",
       flow: [
         ["Pick a skill", "Interviewing, selling, driving, a language: something people want to get better at."],
@@ -116,13 +154,28 @@ window.HACK = {
         ["Deliver the verdict", "A clear result plus feedback backed by evidence from the session."]
       ],
       musts: [
-        "Agents play expert roles (interviewer, examiner, coach, boss…) as visible characters",
+        "Agents play expert roles (tutor, coach, examiner, interviewer, client…) as visible characters",
         "At least 2–3 agents coordinate about the human",
         "Agents adapt to how the human is performing",
         "The session ends with a clear result and evidence-based feedback"
       ],
       keyLabel: "Session ends with",
-      map: { x: 600, y: 622, rx: 190, ry: 80 },
+      cast: {
+        scene: { base: "classroom", time: "day", weather: "clear" },
+        actors: [{ id: "jax", tag: "You · learner" }, { id: "okafor", tag: "Agent · tutor" }, { id: "priya", tag: "Agent · coach" }, { id: "zorp", tag: "Agent · language buddy" }],
+        script: [
+          [1, "Today you choose: Spanish at the café, a sales pitch, or your thesis defense.", "happy", "out"],
+          [0, "Can I do all three? I have a pitch on Friday and a trip next month.", "thinking", "shrug"],
+          [3, "¡Hola! One coffee, please, in Spanish. I will take every idiom literally.", "happy", "wave"],
+          [0, "Un café, por favor… y un croissant?", "calm", "nod"],
+          [3, "Bien! Slowing down for you. Now ask me for directions.", "happy", "nod"],
+          [2, "Pitch time. You have 60 seconds. I'm a skeptical buyer.", "determined", "cross"],
+          [0, "We cut onboarding from two weeks to two days for 40 teams.", "determined", "point"],
+          [2, "That's a number I can use. Your opening was vague, though.", "calm", "raise"],
+          [1, "Our verdict: language B1, pitch 4/5. Here are the exact quotes behind each score.", "calm", "nod"]
+        ]
+      },
+      map: { x: 600, y: 634, rx: 190, ry: 78 },
       agentReasons: [
         "volunteered to sit on tonight's interview panel",
         "is coaching a human through a sales pitch",
@@ -184,48 +237,146 @@ window.HACK = {
     ]
   },
 
+  /* Sponsors = tools you can use in the tracks and the Sponsor Labs.
+     mascot: the character that walks around the world map (art in mascots.js, keyed by id).
+       home = the island it hangs around most (center = AWS Loft town hall, or a track id).
+     image (optional): a picture of the mascot shown in the sponsor card. */
   sponsors: [
     {
       id: "bruin", name: "Bruin", tier: "main", url: "https://getbruin.com",
       landmark: "Bruin HQ · Data Plaza", icon: "🏛️", color: "#ffc857",
       blurb: "Bruin is an all-in-one data and AI platform that eliminates fragmented data tools by bringing everything into one unified workspace. It transforms raw data into actionable AI-powered insights in seconds, directly within Slack, Microsoft Teams and your browser.",
       buildIdea: "Pipe every agent decision into one place and ask questions about your runs, like which ending happened most, right from Slack.",
-      map: { x: 600, y: 352, w: 46, h: 72 }
+      role: "Data & insights", tag: "DATA",
+      tracks: {
+        film: { label: "Insights", does: "A live dashboard of who spoke, who acted, and how endings compare across runs." },
+        game: { label: "Analytics", does: "Analytics panel: live metrics, a data pipeline, quality checks and data governance for the run." },
+        grow: { label: "Score analytics", does: "Charts of your scores per question and per skill." }
+      },
+      mascot: { name: "Bru the Data Bear", look: "A bear in a gold hoodie holding a live dashboard", action: "Pulls every agent's data into one place, models it and answers questions in Slack: an all-in-one agentic data platform.", home: "center" }
     },
     {
       id: "adal", name: "AdaL", tier: "sponsor", url: "https://adalagent.ai",
       landmark: "AdaL's Workshop", icon: "🤖", color: "#c48bff",
+      image: "/aim-hack-visual/img/adal-mascot.png",
       blurb: "AdaL is an automation-first agent harness designed to get more done with less of your time. She combines personality, skills and memory to become a personalized agent that can work alongside you.",
       buildIdea: "Give characters a persistent personality, skills and memory so they feel like the same person across sessions.",
-      map: { x: 470, y: 335, w: 26, h: 34 }
+      role: "Images & video", tag: "MEDIA",
+      tracks: {
+        film: { label: "Poster & frames", does: "Generates a movie poster and key frames for your film." },
+        game: { label: "Custom art", does: "Generates cover art for the game you create." }
+      },
+      mascot: { name: "AdaL", look: "Black bob with pink highlights, a black dress with sheer pink sleeves", action: "Turns a line of text into frames and a video: clapperboard, film strip, render bar.", home: "film" }
     },
     {
       id: "band", name: "BAND", tier: "sponsor", url: "https://www.band.ai",
-      landmark: "BAND Tower", icon: "📡", color: "#5c8dff", tower: true,
+      landmark: "BAND Tower", icon: "📡", color: "#5c8dff",
       blurb: "BAND helps AI agents and people work together in a shared environment. Its platform lets agents built with different tools communicate, delegate tasks and keep context in sync, while giving teams visibility and control over how that work gets done.",
       buildIdea: "Let agents built with different tools talk, delegate and stay in sync inside one shared world.",
-      map: { x: 728, y: 330, w: 15, h: 82 }
+      role: "Channels", tag: "CHANNELS",
+      tracks: {
+        film: { label: "Agent channel", does: "Agents send each other private messages; glowing lines show who is talking to whom." },
+        game: { label: "Team radio", does: "Agent teammates coordinate in a shared channel; lines show callouts between them." },
+        grow: { label: "Panel back-channel", does: "See the panel's private messages to each other while you answer." }
+      },
+      mascot: { name: "Volt", look: "A blue-headed alien with two glowing antennae", action: "Shoots electricity to the agents and people around him: messages, hand-offs and shared context.", home: "film" }
     },
     {
       id: "finch", name: "Finch", tier: "sponsor", url: "https://www.finchtech.ai",
       landmark: "Finch Skill Shop", icon: "🪶", color: "#ff9f43",
       blurb: "Finch provides agent skills that give AI agents reusable capabilities for performing specific tasks. Skills can help make agents more useful, structured and consistent.",
       buildIdea: "Give agents reusable skills like negotiate, examine and trade instead of hand-coding every behaviour.",
-      map: { x: 752, y: 418, w: 25, h: 30 }
+      role: "Skills", tag: "SKILLS",
+      tracks: {
+        film: { label: "Skills", does: "Each agent gets a skill (Persuade, Deceive, Investigate…) and uses it on screen." },
+        game: { label: "Skills", does: "Agents get a special skill (Medic, Sharpshooter, Lucky…) that changes how they play." },
+        grow: { label: "Examiner skills", does: "Each panelist uses a scoring skill (STAR method, clarity, confidence…)." }
+      },
+      mascot: { name: "Pip the Finch", look: "A little orange finch with a skill card in its beak", action: "Flies over the islands, picks up a skill card and drops it on an agent.", home: "game" }
     },
     {
       id: "casuro", name: "Casuro", tier: "sponsor", url: "https://casuro.ai",
       landmark: "Casuro Interview House", icon: "🎙️", color: "#ff6b6b",
       blurb: "Casuro.ai is an AI-powered recruitment platform that helps companies streamline hiring through intelligent assessments, voice AI interviews and real-world case study challenges, evaluating candidates on their skills, problem-solving and how well they work with AI.",
       buildIdea: "Inspiration for Track 3: voice interviews, case challenges and fair, evidence-based evaluation.",
-      map: { x: 600, y: 455, w: 26, h: 28 }
+      role: "Voice & evaluation", tag: "VOICE · EVAL",
+      tracks: {
+        grow: { label: "Voice interview", does: "Answer out loud with your microphone and hear the panel speak. Fair, evidence-based scoring." }
+      },
+      mascot: { name: "Cass the Cassowary", look: "A cassowary interviewer with a microphone and a clipboard", action: "Runs a voice interview and scores each answer with evidence.", home: "grow" }
     },
     {
       id: "glasser", name: "Glasser", tier: "sponsor", url: "https://glasser.ai",
       landmark: "Glasser Data Exchange", icon: "🔭", color: "#7cc8ff",
       blurb: "Glasser gives AI agents real-world data through one API key: 2,000+ endpoints for people, companies, web search, SEO, social and e-commerce data. Agents see the price before each call and pay as they go, with no subscriptions. Connect it as a Skill, an MCP server or a CLI.",
       buildIdea: "Ground your agents in reality: let a character research a real company before an interview, price real products in a trading game, or look up real facts mid-story, and show the cost of every call in the decision log.",
-      map: { x: 452, y: 418, w: 30, h: 22 }
+      role: "Real-world data", tag: "REAL DATA",
+      tracks: {
+        film: { label: "Real-world facts", does: "Characters pull one real-world fact or statistic into a scene through Glasser; every lookup shows its provider and price (simulated)." },
+        game: { label: "Real data", does: "Agents look up real-world data (prices, trends, places) mid-game and cite it in their plans; each call shows its cost (simulated)." },
+        grow: { label: "Company research", does: "Before you start, the panel researches the company and role through Glasser and grounds its questions in what it found (simulated)." }
+      },
+      mascot: { name: "Gus the Lookout Monkey", look: "An orange monkey in black glasses with a telescope", action: "Spots the right data source, shows the price before the call, then brings back real rows.", home: "grow" }
+    },
+    {
+      id: "october", name: "October", tier: "sponsor", url: "https://www.october.dev",
+      landmark: "October Canvas Works", icon: "🧩", color: "#3ddc97",
+      blurb: "October is where your coding agents work as a team. Drag coding agents (Claude Code, Codex, Cursor, Gemini and more), browsers and app previews onto one shared canvas and connect them so they share work. Or give October a task: it proposes a team and a plan, then handles the hand-offs, reviews and checks.",
+      buildIdea: "Build your hackathon project with a team of coding agents: drag Claude Code, Codex and Cursor onto a canvas, connect them to a browser and a website preview, and let them build, review and ship while you direct.",
+      role: "Coding-agent canvas", tag: "CODING TEAM",
+      tracks: {
+        film: { label: "Premiere site", does: "While the film plays, a team of coding agents on an October canvas (Claude Code builds, Codex reviews, Cursor styles) ships a premiere web page for it (simulated)." },
+        game: { label: "Build the game", does: "Coding agents wired together on an October canvas add a level, patch a bug and review each other's code between rounds (simulated)." },
+        grow: { label: "Coding challenge", does: "For tech roles, an October team of coding agents builds a take-home starter app on a shared canvas, and the panel asks you to review its pull request (simulated)." }
+      },
+      mascot: { name: "Okto the Builder Fox", look: "An autumn fox in a mint hard hat carrying a code block", action: "Drags coding-agent blocks onto a canvas, wires them together and ships a website.", home: "game" }
+    }
+  ],
+
+  /* Partners = communities and companies that support the event (not tools in the tracks).
+     Same mascot fields as sponsors. "brings" = what they bring to the hackathon. */
+  partners: [
+    {
+      id: "aws", name: "AWS", kind: "Partner", url: "https://aws.amazon.com/startups/lofts",
+      icon: "☁️", color: "#ff9900", scene: { base: "office", time: "day" },
+      blurb: "Amazon Web Services hosts the hackathon at the AWS Loft, a space where builders and startups meet, learn and ship. For one day it is the town hall of our world: every track island is a bridge away.",
+      brings: "The venue: the AWS Loft, our town hall for the day (9:30 AM – 8:30 PM).",
+      mascot: { name: "Nimbus the Cloud", look: "A friendly cloud in an orange scarf carrying the Loft's key", action: "Opens the Loft doors in the morning and spins up servers for every team.", home: "center" }
+    },
+    {
+      id: "twopercent", name: "2% Tech", kind: "Partner", url: "https://www.2percent.tech",
+      icon: "🔥", color: "#ff7a1a", image: "/aim-hack-visual/img/2percent-mascot.jpg", scene: { base: "stage", time: "night" },
+      blurb: "2%Tech is Silicon Valley's AI builders community: a network of 170K+ AI builders, founders and investors, with hackathons, conferences, research salons and private dinners, including AWS Builder Nights at the AWS Builder Loft.",
+      brings: "Brings builders from its network into the room and helps spread the word.",
+      mascot: { name: "Blaze", look: "A flame with white goggles and a white scarf", action: "Sparks up the crowd: the builder community gathering at the Loft.", home: "center" }
+    },
+    {
+      id: "nerdconf", name: "NerdConf", kind: "Partner", url: "https://www.nerdconf.com",
+      icon: "🤓", color: "#8fe3a1", scene: { base: "classroom", time: "day" },
+      blurb: "NerdConf is a community for tech nerds and builders: talks, meetups and events for people who love making things.",
+      brings: "Brings speakers, mentors and community energy.",
+      mascot: { name: "Nerdo", look: "A green alien with big taped glasses, a bow tie and a conference badge", action: "Gives lightning talks on a pocket projector.", home: "grow" }
+    },
+    {
+      id: "marvelous", name: "Marvelous", kind: "Partner", url: "https://www.themarvelo.us",
+      icon: "🦸", color: "#e05cff", scene: { base: "manor", time: "night" },
+      blurb: "Marvelous is an agent-first GTM platform for real-world B2B activations. Its agent, Maven, finds and prioritises the right guests, prepares outreach and coordinates execution, while the team approves every brand-sensitive decision.",
+      brings: "Helps get the right people into the room.",
+      mascot: { name: "Maven the Marvelous", look: "An original caped hero in purple and gold with a star emblem", action: "Flies over the islands inviting the right guests and builds the right room.", home: "film" }
+    },
+    {
+      id: "hirey", name: "Hirey", kind: "Partner", url: "https://www.hirey.com",
+      icon: "🐙", color: "#4fd1c5", scene: { base: "cafe", time: "day" },
+      blurb: "Hirey is an agent-native introduction network: AI agents find the people you should meet (cofounders, early hires, mentors, design partners) and explain why it's a good match.",
+      brings: "Helps hackers find teammates, mentors and warm intros.",
+      mascot: { name: "Ollie the Intro Octopus", look: "A teal octopus in a bow tie, a contact card in every arm", action: "Has an arm for everyone: finds who should meet (cofounder, mentor, first hire) and ties them together with a warm intro.", home: "center" }
+    },
+    {
+      id: "partnr", name: "Partnr Network", kind: "Partner", url: "https://www.partnr.network",
+      icon: "🌉", color: "#ff8fab", scene: { base: "beach", time: "sunset" },
+      blurb: "Partnr Network is a talent layer for borderless societies. It connects skilled talent from emerging economies with startup societies, special economic zones and digital nomad hubs, with SkillGraph proof-of-work profiles.",
+      brings: "Connects builders with global opportunities after the hackathon.",
+      mascot: { name: "Brix the Bridge Beaver", look: "A beaver in a hard hat with a passport and a plank", action: "Builds bridges plank by plank between islands so talent can cross to new opportunities.", home: "game" }
     }
   ],
 
@@ -244,12 +395,18 @@ window.HACK = {
 /* ---------- sponsor visibility (ORGANISERS ONLY, not shown to visitors) ----------
    To hide a sponsor everywhere (maps, labs, home strip, track toolbars), add its id to
    HIDDEN_SPONSORS below and redeploy. Example: ["casuro"]. Leave [] to show all.
+   Partners work the same way with HIDDEN_PARTNERS.
    HACK.allSponsors = every sponsor; HACK.sponsors = the visible ones (what every page reads). */
 (function (H) {
   const HIDDEN_SPONSORS = [];
+  const HIDDEN_PARTNERS = [];
   H.allSponsors = H.sponsors.slice();
   H.hiddenSponsors = HIDDEN_SPONSORS.filter(id => H.allSponsors.some(s => s.id === id));
   H.sponsors = H.allSponsors.filter(s => !H.hiddenSponsors.includes(s.id));
   H.sponsorVisible = id => !H.hiddenSponsors.includes(id);
+  H.allPartners = (H.partners || []).slice();
+  H.partners = H.allPartners.filter(p => !HIDDEN_PARTNERS.includes(p.id));
+  /* sponsor or partner by id (visible ones only) */
+  H.findOrg = id => H.sponsors.find(s => s.id === id) || H.partners.find(p => p.id === id);
   try { localStorage.removeItem("aimp_sponsors_hidden"); } catch {}
 })(window.HACK);

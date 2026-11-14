@@ -5,6 +5,8 @@
      Bruin  → ask questions about agent decision data
      Finch  → equip skills and see output change
      Casuro → mini voice interview with evidence-based scoring
+     Glasser → real-world data APIs, price before each call (labs3.js)
+     October → coding agents on one canvas: drag, connect, run (labs4.js)
    Every lab = interactive area + "How it works" + a looping demo "video".
    Needs: data.js, play-data.js, puppet.js, scenes.js, brain.js (+ core.css, labs.css)
    ========================================================= */
@@ -23,7 +25,7 @@
   const charById = id => P.characters.find(c => c.id === id);
   const first = c => String(c.name).replace(/^(Dr\.|Prof\.|Captain|General|Lady|Old)\s+/, "").split(" ")[0];
   const sp = id => H.sponsors.find(s => s.id === id) || (H.allSponsors || []).find(s => s.id === id);
-  const visibleLabs = () => LABS.filter(l => !H.sponsorVisible || H.sponsorVisible(l.id));
+  const visibleLabs = () => LABS.filter(l => H.sponsors.some(s => s.id === l.id));   /* a lab shows only while its sponsor is in data.js */
   const TRACK_NAMES = { film: "Track 01 · Film", game: "Track 02 · Games", grow: "Track 03 · Grow" };
 
   function speak(text, i, onend) {
@@ -132,7 +134,7 @@
     const uses = Object.entries(P.tools || {}).flatMap(([tr, list]) => list.filter(t => t.id === lab.id).map(t => `<li><b>${TRACK_NAMES[tr]}:</b> ${esc(t.label)}. ${esc(t.does)}</li>`));
     return `<article class="lab" id="lab-${lab.id}" style="--c:${s.color}">
       <header class="lab-head">
-        <span class="lab-ico">${s.icon}</span>
+        <span class="lab-ico${window.Mascots ? " has-m" : ""}" title="${esc((s.mascot || {}).name || "")}">${window.Mascots ? Mascots.svg(lab.id) : s.icon}</span>
         <div><span class="kicker">${esc(s.name)} · ${esc(lab.tool)}</span><h3>${esc(lab.title)}</h3><p>${esc(lab.pitch)}</p></div>
         <a class="btn ghost btn-sm" href="${s.url}" target="_blank" rel="noopener">Visit ${esc(s.name)} ↗</a>
       </header>

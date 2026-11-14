@@ -430,7 +430,7 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
       alive: () => api.token === UI.ctl.token && document.body.contains(api.main),
       status: t => { const s = $("#gmStatus"); if (s) s.textContent = t; },
       log(html, cls) { if (cls !== "think") record(cls === "event" ? "world_event" : cls === "sys" ? "system" : "action", (html.match(/<b[^>]*>([^<]*)<\/b>/) || [])[1], html); const l = $("#gmLog"); if (!l) return; const li = document.createElement("li"); if (cls) li.className = cls; li.innerHTML = html; l.prepend(li); while (l.children.length > 60) l.lastChild.remove(); },
-      think(who, color2, text, src) { record("decision", who, text, { src: src || "llm" }); api.glasserIntel(who, color2); api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
+      think(who, color2, text, src) { record("decision", who, text, { src: src || "llm" }); api.glasserIntel(who, color2); api.octoberBuild(); api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
       /* the engine tells the shell which element is the stage and how to find a player's element */
       stage(el, locate) {
         api.live = UI.toolsLive(el, "game", cfg.tools);
@@ -456,6 +456,12 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
         api.live.dash(`<div class="k"><div><b>${BR.events.length}</b><small>events</small></div><div><b>${kinds.decision || 0}</b><small>decisions</small></div><div><b>${kinds.radio || 0}</b><small>radio</small></div></div>
           ${rows.length ? `<small class="muted">${esc(String(grp.title || "").toLowerCase())}</small>${UI.miniBars(rows)}` : ""}<small class="muted">events / 4 s</small>${UI.spark(buckets, "#ffc857")}`);
         api.live.stat("bruin", `${BR.events.length} events`);
+      },
+      /* October (simulated): between turns, coding agents on a canvas keep building the game */
+      octoberBuild() {
+        if (!cfg.tools.has("october") || !api.live) return;
+        const st = UI.octoberStep(api.live, "game", null);
+        if (st) { record("code_handoff", st[0], `${st[0]} → ${st[1]}: ${st[2]}`); api.log(`<b style="color:#3ddc97">🧩 October</b> <span class="act">${esc(st[0])} → ${esc(st[1])}: ${esc(st[2])} (simulated)</span>`, "sys"); }
       },
       /* Glasser (simulated): now and then an agent backs its plan with a looked-up data point */
       glasserIntel(who, color2) {
@@ -535,7 +541,7 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
     start(sub) {
       const [id, q] = String(sub || "").split("?");
       if (id === "custom") return creator(null);
-      if (/tools/.test(q || "")) ["band", "finch", "bruin", "adal", "glasser"].forEach(t => S.tools.add(t));
+      if (/tools/.test(q || "")) PLAY.tools.game.forEach(t => S.tools.add(t.id));
       if (ENGINES[id]) return setup(id, null, /demo/.test(q || ""));
       picker();
     },

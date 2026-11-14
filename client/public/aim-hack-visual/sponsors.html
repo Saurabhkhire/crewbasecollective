@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/aim-hack-visual/core.css" />
   <link rel="stylesheet" href="/aim-hack-visual/labs.css" />
   <link rel="stylesheet" href="/aim-hack-visual/coord.css" />
+  <link rel="stylesheet" href="/aim-hack-visual/world.css" />
 </head>
 <body>
   <header class="nav">
@@ -22,6 +23,7 @@
         <a href="/aim-hack-visual/tracks.html" class="hide-sm">Tracks</a>
         <a href="/aim-hack-visual/tracks.html#generator" class="hide-sm">Idea generator</a>
         <a href="/aim-hack-visual/sponsors.html" class="active">Sponsors</a>
+        <a href="/aim-hack-visual/partners.html">Partners</a>
         <a href="/aim-hack-visual/submit.html">📤 Submit</a>
         <a class="btn btn-sm nav-submit" href="https://hackathons.crewbasecollective.com" target="_blank" rel="noopener">Submit project ↗</a>
       </nav>
@@ -31,8 +33,8 @@
   <section class="page-hero wrap">
     <p class="eyebrow">// Sponsors &amp; partners</p>
     <h1>Meet the sponsors. <em class="grad">Then play with their tools.</em></h1>
-    <p class="lead">Every sponsor is a building in the Sponsor District. Click one to see who they are, or jump into the <b>Sponsor Labs</b> below: wire agents together in a BAND channel, generate images and video with AdaL, query agent data with Bruin, equip Finch skills, take a Casuro voice interview, and give agents real-world data with Glasser.</p>
-    <div class="cta-row" style="justify-content:flex-start;margin-top:18px"><a class="btn" href="#labs">🧪 Open the Sponsor Labs</a></div>
+    <p class="lead">Every sponsor is a tool in the tracks and a character in the world, doing what its tool does. Click one to see who they are, or jump into the <b>Sponsor Labs</b> below: wire agents together in a BAND channel, generate images and video with AdaL, query agent data with Bruin, equip Finch skills, take a Casuro voice interview, give agents real-world data with Glasser, and build with a team of coding agents on an October canvas.</p>
+    <div class="cta-row" style="justify-content:flex-start;margin-top:18px"><a class="btn" href="#labs">🧪 Open the Sponsor Labs</a><a class="btn ghost" href="/aim-hack-visual/partners.html">🤝 Meet the partners</a></div>
     <div class="view-toggle" id="viewToggle">
       <button class="on" data-view="flow">🔗 How the tools work together</button>
       <button data-view="map">🗺️ Map view</button>
@@ -49,13 +51,8 @@
 
   <section class="wrap" id="mapView" hidden>
     <div class="world-frame">
-      <div class="world-bar mono"><span class="live-dot"></span> SPONSOR DISTRICT <span class="muted">· click a building</span></div>
-      <div class="sp-map-grid">
-        <div class="map-wrap">
-          <svg id="world" viewBox="320 190 560 330" data-mode="sponsors" role="img" aria-label="Map of the sponsor district with a building for each sponsor"></svg>
-        </div>
-        <aside class="sp-list" id="spList"></aside>
-      </div>
+      <div class="world-bar mono"><span class="live-dot"></span> THE WORLD <span class="muted">· every sponsor and partner character, roaming the AWS Loft and the three track islands · click one to meet them</span></div>
+      <div data-world></div>
     </div>
   </section>
 
@@ -76,7 +73,7 @@
 
   <section class="section wrap">
     <div class="cta-panel">
-      <h2>Want a building on the map?</h2>
+      <h2>Want a character on the map?</h2>
       <p>Put your product in front of builders shaping what comes after chat: developers, game makers, ML engineers and storytellers.</p>
       <div class="cta-row"><a class="btn" href="mailto:hello@example.com?subject=Sponsoring%20Multiplayer%20AI">Become a sponsor</a><a class="btn ghost" href="/aim-hack-visual/index.html">← Back to the world</a></div>
     </div>
@@ -90,8 +87,9 @@
   </footer>
 
   <script src="/aim-hack-visual/data.js"></script>
+  <script src="/aim-hack-visual/mascots.js"></script>
   <script src="/aim-hack-visual/site.js"></script>
-  <script src="/aim-hack-visual/map.js"></script>
+  <script src="/aim-hack-visual/world.js"></script>
   <script src="/aim-hack-visual/play-data.js"></script>
   <script src="/aim-hack-visual/puppet.js"></script>
   <script src="/aim-hack-visual/scenes.js"></script>
@@ -101,5 +99,6 @@
   <script src="/aim-hack-visual/labs.js"></script>
   <script src="/aim-hack-visual/labs2.js"></script>
   <script src="/aim-hack-visual/labs3.js"></script>
+  <script src="/aim-hack-visual/labs4.js"></script>
 </body>
 </html>

@@ -481,6 +481,7 @@ Reply with JSON only: {"title":"max 6 words","opening":"the opening event, 1-2 v
       const g = UI.glasserCall(st.live, { topic: (d.source || "") + " " + d.fact, fact: d.fact, from: el(actor) });
       if (g) d.glasser = `${g.ep.provider} · ${PLAY.glasser.price(g.price)}`;
     }
+    if (tool("october")) UI.octoberStep(st.live, "film", null);
     st.log.push(`${actor.name}: ${d.action}${d.say ? ` (says: "${d.say}")` : ""}${d.skill_used && tool("finch") ? ` [uses skill ${actor.skill.name}]` : ""}${dmLine}${d.glasser ? ` [looked up via Glasser: ${d.fact}]` : ""}`);
     addLog({ actor, d, beat: st.beat + 1 });
     st.perBeat.push((d.say ? 1 : 0) + (d.skill_used ? 1 : 0) + (dmLine ? 1 : 0) + (["angry", "shocked", "scared"].includes(d.emotion) ? 2 : 0));
@@ -792,7 +793,7 @@ Story hook: ${st.opening} Compose the characters together in the scene. Title te
       Object.assign(S.story, { title: p.title, opening: p.opening, twist: p.twist, tone: p.tone, beats: 10 });
       S.sceneIds.splice(0, S.sceneIds.length, ...p.scenes);
       S.castIds.splice(0, S.castIds.length, ...p.cast);
-      if (sub === "demo-tools") ["band", "finch", "bruin", "adal", "glasser"].forEach(t => S.tools.add(t));
+      if (sub === "demo-tools") PLAY.tools.film.forEach(t => S.tools.add(t.id));
       return run();
     }
     storyScreen();

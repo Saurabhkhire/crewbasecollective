@@ -66,30 +66,38 @@ window.PLAY = {
     { id: "s-park", name: "City park", base: "park", time: "day", weather: "clear", desc: "A sunny park with a pond and a bench." }
   ],
 
-  /* Sponsor tools inside each track: what switching each one ON does there.
-     ids match HACK.sponsors in data.js. */
-  tools: {
-    film: [
-      { id: "band", label: "Agent channel", does: "Agents send each other private messages; glowing lines show who is talking to whom." },
-      { id: "adal", label: "Poster & frames", does: "Generates a movie poster and key frames for your film." },
-      { id: "finch", label: "Skills", does: "Each agent gets a skill (Persuade, Deceive, Investigate…) and uses it on screen." },
-      { id: "bruin", label: "Insights", does: "A live dashboard of who spoke, who acted, and how endings compare across runs." },
-      { id: "glasser", label: "Real-world facts", does: "Characters pull one real-world fact or statistic into a scene through Glasser; every lookup shows its provider and price (simulated)." }
+  /* Sponsor tools inside each track: built from each sponsor's `tracks` field in data.js.
+     Add / remove a sponsor there and its toggle appears / disappears in every track. */
+  get tools() {
+    const out = { film: [], game: [], grow: [] };
+    ((window.HACK && HACK.sponsors) || []).forEach(s => Object.entries(s.tracks || {}).forEach(([t, v]) => out[t] && out[t].push({ id: s.id, label: v.label, does: v.does })));
+    return out;
+  },
+
+  /* October: coding agents working as a team on one canvas (october.dev). The playground SIMULATES runs:
+     blocks = coding agents / apps on the canvas, steps = hand-offs along the wires. Nothing is sent to October. */
+  october: {
+    note: "Simulated run. Download October to run real coding agents.",
+    agents: [
+      { id: "claude", name: "Claude Code", icon: "🟠", color: "#ff9f43", role: "Builds features" },
+      { id: "codex", name: "Codex", icon: "⚪", color: "#eaf0ff", role: "Reviews and tests" },
+      { id: "cursor", name: "Cursor", icon: "⬛", color: "#9aa6c8", role: "Front-end and styling" },
+      { id: "gemini", name: "Gemini CLI", icon: "🔷", color: "#5c8dff", role: "Research and docs" },
+      { id: "opencode", name: "OpenCode", icon: "🟢", color: "#3ddc97", role: "Scripts and fixes" }
     ],
-    game: [
-      { id: "band", label: "Team radio", does: "Agent teammates coordinate in a shared channel; lines show callouts between them." },
-      { id: "finch", label: "Skills", does: "Agents get a special skill (Medic, Sharpshooter, Lucky…) that changes how they play." },
-      { id: "bruin", label: "Analytics", does: "Analytics panel: live metrics, a data pipeline, quality checks and data governance for the run." },
-      { id: "adal", label: "Custom art", does: "Generates cover art for the game you create." },
-      { id: "glasser", label: "Real data", does: "Agents look up real-world data (prices, trends, places) mid-game and cite it in their plans; each call shows its cost (simulated)." }
+    apps: [
+      { id: "browser", name: "Browser", icon: "🌐", color: "#7cc8ff", role: "Opens and checks the page" },
+      { id: "website", name: "Website preview", icon: "🖥️", color: "#c48bff", role: "The page being built" },
+      { id: "mobile", name: "Mobile screen", icon: "📱", color: "#ff4fa3", role: "Phone preview" },
+      { id: "video", name: "Video editor", icon: "🎞️", color: "#ffc857", role: "Cuts a trailer" },
+      { id: "memory", name: "Shared memory", icon: "🧠", color: "#b6ff5c", role: "Context every agent can read" }
     ],
-    grow: [
-      { id: "casuro", label: "Voice interview", does: "Answer out loud with your microphone and hear the panel speak. Fair, evidence-based scoring." },
-      { id: "band", label: "Panel back-channel", does: "See the panel's private messages to each other while you answer." },
-      { id: "finch", label: "Examiner skills", does: "Each panelist uses a scoring skill (STAR method, clarity, confidence…)." },
-      { id: "bruin", label: "Score analytics", does: "Charts of your scores per question and per skill." },
-      { id: "glasser", label: "Company research", does: "Before you start, the panel researches the company and role through Glasser and grounds its questions in what it found (simulated)." }
-    ]
+    /* canned steps shown on the stage per track: [from, to, what] */
+    steps: {
+      film: [["Claude Code", "Website preview", "builds the premiere page"], ["Cursor", "Website preview", "styles the poster section"], ["Codex", "Claude Code", "review: 2 fixes requested"], ["Claude Code", "Browser", "opens the page, checks links"], ["Codex", "Website preview", "approves → page published"]],
+      game: [["Claude Code", "Game build", "adds level 2 spawn points"], ["Codex", "Claude Code", "review: off-by-one in the wave timer"], ["Cursor", "Game build", "new HUD for the medkit count"], ["OpenCode", "Game build", "patches the ladder bug"], ["Codex", "Game build", "tests pass → hot-reloaded"]],
+      grow: [["Claude Code", "Starter repo", "builds the take-home app"], ["Cursor", "Website preview", "adds a sign-up screen"], ["Codex", "Pull request", "opens PR #12 for you to review"], ["Gemini CLI", "Shared memory", "writes the README"], ["Codex", "Pull request", "checks pass → ready for review"]]
+    }
   },
 
   /* Glasser: real-world data APIs for agents (glasser.ai). The playground SIMULATES calls:

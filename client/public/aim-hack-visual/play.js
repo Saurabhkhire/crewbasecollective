@@ -203,7 +203,7 @@ window.UI = (function () {
        live.refresh()                              re-sync with the active set (call after toggles)
      UI.toolFx(stageEl, id, opts) = stageEl._live.fx(id, opts)
      ========================================================= */
-  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls" };
+  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls", october: "hand-offs" };
   U.toolsLive = function (stage, track, active) {
     if (!stage) return null;
     if (stage._live) stage._live.destroy();
@@ -311,6 +311,19 @@ window.UI = (function () {
     live.stat("glasser", `${live._gl.n} call${live._gl.n === 1 ? "" : "s"} · $${live._gl.cost.toFixed(3)}`);
     return { ep, price: ep.price };
   };
+  /* October (simulated): one canvas hand-off between coding agents, at most every 6 s.
+     UI.octoberStep(live, track, fromEl) → shows "🧩 October · Claude Code → Website preview: builds the premiere page" */
+  U.octoberStep = function (live, track, from) {
+    if (!live || !live.active.has("october") || !PLAY.october) return null;
+    const now = Date.now();
+    if (live._oc && now - live._oc.t < 6000) return null;
+    live._oc = live._oc || { n: 0, t: 0 };
+    const steps = PLAY.october.steps[track] || PLAY.october.steps.film, st = steps[live._oc.n % steps.length];
+    live._oc.n++; live._oc.t = now;
+    live.fx("october", { text: `${st[0]} → ${st[1]}: ${st[2]}`, from, callout: !!from });
+    live.stat("october", `${live._oc.n} hand-off${live._oc.n === 1 ? "" : "s"}${live._oc.n >= steps.length ? " · shipped ✓" : ""}`);
+    return st;
+  };
   /* tiny charts for Bruin dashboards */
   U.miniBars = rows => {
     const max = Math.max(1, ...rows.map(r => r.value));
@@ -366,7 +379,7 @@ window.UI = (function () {
           <div class="pl-copy">
             <p class="eyebrow">// Playground · Multiplayer AI</p>
             <h1>Don't read about it. <em>Watch agents decide.</em></h1>
-            <p class="lead">Make characters, set a scene, and let a cast of AI agents take over: they direct films, play games with you, and interview you.</p>
+            <p class="lead">Make characters, set a scene, and let a cast of AI agents take over: they direct films, play the games you create, and teach, coach and test you.</p>
             <div class="cta-row"><a class="btn" href="#film">▶ Make an agent film</a><a class="btn ghost" href="#studio">✨ Create a character</a></div>
           </div>
         </div>
@@ -374,15 +387,17 @@ window.UI = (function () {
       <div class="pick-grid4">
         <a class="card pick" href="#film" style="--c:var(--film)"><span class="num">TRACK 01</span><span class="ico">🎬</span><h2>Agent Animated Film</h2>
           <p>Pick a cast and a scene, write one opening line, and watch 10–20 scenes play out. The agents decide the ending.</p><span class="go">Make a film →</span></a>
-        <a class="card pick" href="#game" style="--c:var(--game)"><span class="num">TRACK 02</span><span class="ico">🎮</span><h2>Play with Agents</h2>
-          <p>Zombie survival, Snakes & Ladders, Rock-Paper-Scissors, or build your own game, with AI teammates and rivals.</p><span class="go">Pick a game →</span></a>
+        <a class="card pick" href="#game" style="--c:var(--game)"><span class="num">TRACK 02</span><span class="ico">🎮</span><h2>Create Co-op Games</h2>
+          <p>Create your own game, or start from zombie survival, Snakes & Ladders or Rock-Paper-Scissors, and play it with AI teammates and rivals.</p><span class="go">Create a game →</span></a>
         <a class="card pick" href="#grow" style="--c:var(--grow)"><span class="num">TRACK 03</span><span class="ico">🎓</span><h2>Grow with Agents</h2>
-          <p>An agent panel interviews you, confers in private, adapts, and gives a verdict with evidence from your answers.</p><span class="go">Start a session →</span></a>
+          <p>A team of expert agents tutors, coaches, tests or interviews you, confers in private, adapts, and gives a verdict with evidence.</p><span class="go">Start a session →</span></a>
         <a class="card pick studio" href="#studio" style="--c:#c48bff"><span class="num">STUDIO</span><span class="ico">✨</span><h2>Characters & Scenes</h2>
           <p>Design characters by hand or describe them and let an AI agent create them. Build scenes like an office or a forest.</p><span class="go">Open the studio →</span></a>
       </div>
+      <div class="pl-isles">${HACK.tracks.map(t => `<a class="world-frame" href="#${t.id}" style="--c:${t.hex}"><div class="world-bar mono"><span class="live-dot"></span> LIVE ON ${U.esc(t.island.toUpperCase())}</div><div data-world="${t.id}"></div></a>`).join("")}</div>
       <a class="card labs-link" href="/aim-hack-visual/sponsors.html#labs"><span>🧪</span><div><b>Sponsor Labs</b><p>Play with each sponsor's tool: wire up agents in a BAND channel, generate images and video with AdaL, and more.</p></div><span class="go">Open labs →</span></a>`;
     U.$("#plStage") && Scenes.mount(U.$("#plStage"), { base: "city", time: "night", weather: "clear" });
+    if (window.World) document.querySelectorAll("#app [data-world]").forEach(el => World.mount(el));
     document.querySelectorAll(".pl-pup").forEach((el, i) => { Puppet.mount(el, cast[i]); setTimeout(() => Puppet.gesture(el, ["wave", "jump", "nod", "raise", "shrug", "point"][i], 2600), 600 + i * 450); });
   };
 

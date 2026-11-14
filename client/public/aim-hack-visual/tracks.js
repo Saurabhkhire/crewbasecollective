@@ -5,6 +5,10 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const TAGS = [["all", "All"], ["Starter", "Beginner-friendly"], ["3D", "3D"], ["Voice", "Voice"], ["ML", "ML / learning"]];
 
+  /* ---------- live cast per track (cast + script live in data.js → tracks[].cast) ---------- */
+  const mountCasts = () => window.LiveCast && document.querySelectorAll("[data-cast]").forEach(el => { const t = H.tracks.find(x => x.id === el.dataset.cast); if (t && t.cast) LiveCast.mount(el, Object.assign({ label: "LIVE CAST · " + t.short.toUpperCase() }, t.cast)); });
+  setTimeout(mountCasts, 0);
+
   /* ---------- tabs ---------- */
   const tabs = $("#trackTabs");
   if (tabs) {
@@ -27,8 +31,13 @@
           </div>
           <div>
             <div class="for-you"><b>Great fit for:</b> ${esc(t.forYou)}</div>
-            <a class="btn" style="margin-top:12px" href="/aim-hack-visual/play.html#${t.id}">▶ ${t.id === "film" ? "Direct a film with agents" : t.id === "game" ? "Play games with agents" : "Get interviewed by an agent panel"}</a>
+            <a class="btn" style="margin-top:12px" href="/aim-hack-visual/play.html#${t.id}">▶ ${t.id === "film" ? "Direct a film with agents" : t.id === "game" ? "Create & play a game with agents" : "Practise with a team of expert agents"}</a>
           </div>
+        </div>
+
+        <div class="track-live">
+          <div class="world-frame"><div class="world-bar mono"><span class="live-dot"></span> LIVE ON ${esc(t.island.toUpperCase())} <span class="muted">· the sponsor tools of this track, at work</span></div><div data-world="${t.id}"></div></div>
+          <div class="hero2-stage tl-cast" data-cast="${t.id}" aria-label="Live cast for ${esc(t.name)}"></div>
         </div>
 
         <div class="track-body">
