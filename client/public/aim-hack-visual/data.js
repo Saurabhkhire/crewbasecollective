@@ -361,9 +361,9 @@ window.HACK = {
       mascot: { name: "Blaze", look: "A flame with white goggles and a white scarf", action: "Sparks up the crowd: the builder community gathering at the Loft.", home: "center" }
     },
     {
-      id: "nerdconf", name: "NerdConf", kind: "Partner", url: "https://www.nerdconf.com",
+      id: "nerdconf", name: "NERDCONF", kind: "Partner", url: "https://www.nerdconf.com",
       icon: "🤓", color: "#8fe3a1", scene: { base: "classroom", time: "day" },
-      blurb: "NerdConf is a community for tech nerds and builders: talks, meetups and events for people who love making things.",
+      blurb: "NERDCONF is a community for tech nerds and builders: talks, meetups and events for people who love making things.",
       brings: "Brings speakers, mentors and community energy.",
       mascot: { name: "Nerdo", look: "A green alien with big taped glasses, a bow tie and a conference badge", action: "Gives lightning talks on a pocket projector.", home: "grow" }
     },

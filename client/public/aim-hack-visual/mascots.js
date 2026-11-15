@@ -204,7 +204,7 @@ window.Mascots = (function () {
         ${T(78, -104, 6.4, "170K+ builders", `fill="#eaf0ff" font-weight="700"`)}${T(78, -94, 5.8, "hackathons · salons", `fill="#8d97bd"`)}${T(78, -84, 5.8, "AWS Builder Nights", `fill="#8d97bd"`)}`, "sparks the builders")
     },
 
-    /* ---------- NerdConf: a nerdy alien giving a lightning talk ---------- */
+    /* ---------- NERDCONF: a nerdy alien giving a lightning talk ---------- */
     nerdconf: {
       body: () => `${legs("#2d3142", -9, 2, 7, 14)}<g class="m-bob">
         <rect x="-10" y="-34" width="20" height="21" rx="5" fill="#f4f4f4"/>
