@@ -40,7 +40,7 @@ Plus one pointer line each in `AGENTS.md` and `docs/CODE_MAP.md`.
 ```
 client/public/aim-hack-visual/
   index.html  tracks.html  sponsors.html (+ Sponsor Labs, coord.js tool views)  partners.html  submit.html (submission guide)  play.html (playground)
-  data.js          hackathon content: event, tracks, ideas, sponsors, partners, each with a `mascot` (name, action, home island)
+  data.js          hackathon content: event, tracks, ideas, sponsors, partners and the host (Crewbase Collective, `host`), each with a `mascot` (name, action, home island)
                    (+ HIDDEN_SPONSORS / HIDDEN_PARTNERS: organisers hide one here)
   play-data.js     preset characters, preset scenes; PLAY.tools is derived from each sponsor's `tracks` in data.js
   puppet.js        parametric animated SVG characters (Puppet.svg / mount / toImage)

@@ -6,6 +6,7 @@
      landmark, blurb, buildIdea, role + tag (tool-coordination node), tracks { film|game|grow: { label, does } }
      (= its toggle in each track), mascot { name, look, action, home: center|film|game|grow }.
    - Partner (not a tool): copy an entry in `partners`. Fields: id, name, url, icon, color, scene, blurb, brings, mascot.
+   - Host (the organiser, Crewbase Collective): the single `host` entry. Same fields as a partner.
    - Remove: delete the entry (or add its id to HIDDEN_SPONSORS / HIDDEN_PARTNERS at the bottom).
    Everything else follows automatically: world map + island views, home, sponsors/partners pages,
    track toolbars, tool coordination, labs list. Optional extras: custom art in mascots.js (ART[id], else a
@@ -333,6 +334,15 @@ window.HACK = {
     }
   ],
 
+  /* Host = the organiser. Shown first everywhere (map, home, partners page) and labelled "Host & organizer". */
+  host: {
+    id: "crewbase", name: "Crewbase Collective", kind: "Host & organizer", url: "https://crewbasecollective.com",
+    icon: "🛡️", color: "#3ea8ff", scene: { base: "office", time: "night" },
+    blurb: "Crewbase Collective is the community that hosts and organises the Multiplayer AI hackathon. It runs hackathons, pitch competitions, workshops and mixers for builders, and brings the sponsors, partners, judges and hackers together in one room.",
+    brings: "Hosts and runs the whole day: the tracks, the schedule, the judging and the crew on the floor.",
+    mascot: { name: "Captain Circuit", look: "A blue armored hero with glowing circuit lines and a light core in the chest", action: "Runs the day from the town hall: powers up circuits that connect sponsors, partners and builders across every island.", home: "center" }
+  },
+
   /* Partners = communities and companies that support the event (not tools in the tracks).
      Same mascot fields as sponsors. "brings" = what they bring to the hackathon. */
   partners: [
@@ -406,7 +416,9 @@ window.HACK = {
   H.sponsorVisible = id => !H.hiddenSponsors.includes(id);
   H.allPartners = (H.partners || []).slice();
   H.partners = H.allPartners.filter(p => !HIDDEN_PARTNERS.includes(p.id));
-  /* sponsor or partner by id (visible ones only) */
-  H.findOrg = id => H.sponsors.find(s => s.id === id) || H.partners.find(p => p.id === id);
+  /* host + partners in display order (the host always comes first) */
+  H.people = (H.host ? [H.host] : []).concat(H.partners);
+  /* sponsor, partner or host by id (visible ones only) */
+  H.findOrg = id => H.sponsors.find(s => s.id === id) || H.people.find(p => p.id === id);
   try { localStorage.removeItem("aimp_sponsors_hidden"); } catch {}
 })(window.HACK);

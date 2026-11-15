@@ -27,7 +27,7 @@
   let dlg;
   const mascotSvg = (id, o) => window.Mascots ? Mascots.svg(id, o) : "";
   window.openSponsor = function (id) {
-    const s = H.sponsors.find(x => x.id === id), p = !s && (H.partners || []).find(x => x.id === id);
+    const s = H.sponsors.find(x => x.id === id), p = !s && (H.people || H.partners || []).find(x => x.id === id);
     const o = s || p;
     if (!o) return;
     const m = o.mascot || {};
@@ -42,7 +42,7 @@
       <button class="close" aria-label="Close">✕</button>
       <div class="m-row"><div class="org-mascot">${mascotSvg(o.id, { act: true, label: m.name })}</div>${o.image ? `<img class="m-pic" src="${o.image}" alt="${esc(m.name || o.name)} mascot artwork">` : ""}</div>
       ${m.name ? `<p class="m-who"><b>${esc(m.name)}</b> · ${esc(m.action || "")}</p>` : ""}
-      <span class="lm">${s ? (s.tier === "main" ? "Main sponsor · " : "Sponsor · ") + esc(s.landmark) : "Partner"}</span>
+      <span class="lm">${s ? (s.tier === "main" ? "Main sponsor · " : "Sponsor · ") + esc(s.landmark) : esc(p.kind === "Host & organizer" ? p.kind : "Partner")}</span>
       <h3>${o.icon} ${esc(o.name)}</h3>
       <p>${esc(o.blurb)}</p>
       ${s ? `<div class="use"><b>Idea: how it could fit your build</b>${esc(s.buildIdea)}</div>` : `<div class="use"><b>What they bring to the hackathon</b>${esc(p.brings || "")}</div>`}
@@ -117,11 +117,19 @@
        <div class="bonus-row">${H.checklist.bonus.map(b => `<div class="card req bonus"><span class="n">★ SCORES HIGHER</span><h4>${b[0]}</h4><p>${b[1]}</p></div>`).join("")}</div>`;
   }
 
+  /* ---------- hosted-by line (any element with data-host) ---------- */
+  if (H.host) document.querySelectorAll("[data-host]").forEach(el => {
+    el.innerHTML = `<span class="org-mascot">${mascotSvg(H.host.id)}</span><span>Hosted by <b>${esc(H.host.name)}</b></span>`;
+    el.style.setProperty("--c", H.host.color);
+    el.addEventListener("click", () => window.openSponsor(H.host.id));
+  });
+
   /* ---------- home: partners (own section, different look from the sponsor tiles) ---------- */
   const homePt = $("#homePartners");
   if (homePt) {
-    homePt.innerHTML = (H.partners || []).map(p => `
-      <button class="card pt-tile" style="--c:${p.color}" data-sp="${p.id}">
+    homePt.innerHTML = (H.people || H.partners || []).map(p => `
+      <button class="card pt-tile ${p === H.host ? "host" : ""}" style="--c:${p.color}" data-sp="${p.id}">
+        ${p === H.host ? `<span class="host-badge">★ Host &amp; organizer</span>` : ""}
         <span class="pt-stage"><span class="org-mascot">${mascotSvg(p.id, { act: true })}</span></span>
         <span class="pt-txt"><b>${p.icon} ${esc(p.name)}</b><small>${esc((p.mascot || {}).name || "")}</small><i>${esc(p.brings || "")}</i></span>
       </button>`).join("");
@@ -165,7 +173,7 @@
   const ptFeat = $("#ptFeature");
   if (ptFeat) {
     const island = id => id === "center" ? "the AWS Loft town hall" : ((H.tracks.find(t => t.id === id) || {}).island || "the islands");
-    ptFeat.innerHTML = (H.partners || []).map((p, i) => { const m = p.mascot || {}; return `
+    ptFeat.innerHTML = (H.people || H.partners || []).map((p, i) => { const m = p.mascot || {}; return `
       <article class="pf ${i % 2 ? "flip" : ""}" style="--c:${p.color}" id="p-${p.id}">
         <div class="pf-stage" data-scene="${esc(JSON.stringify(p.scene || { base: "office", time: "day" }))}">
           <div class="pf-m">${mascotSvg(p.id, { act: true, label: m.name })}</div>
@@ -173,11 +181,11 @@
           <span class="pf-where">📍 Find ${esc(m.name || p.name)} on ${esc(island(m.home))}</span>
         </div>
         <div class="pf-body">
-          <span class="kind">Partner</span>
+          <span class="kind">${p === H.host ? "★ Host &amp; organizer" : "Partner"}</span>
           <h3>${p.icon} ${esc(p.name)}</h3>
           ${m.name ? `<p class="pf-who"><b>${esc(m.name)}</b>: ${esc(m.look || "")}</p>` : ""}
           <p>${esc(p.blurb)}</p>
-          <div class="brings"><b>What they bring</b>${esc(p.brings || "")}</div>
+          <div class="brings"><b>${p === H.host ? "What they run" : "What they bring"}</b>${esc(p.brings || "")}</div>
           ${m.action ? `<div class="brings act"><b>On the map</b>${esc(m.action)}</div>` : ""}
           <a class="btn btn-sm" href="${p.url}" target="_blank" rel="noopener">Visit ${esc(p.name)} ↗</a>
         </div>

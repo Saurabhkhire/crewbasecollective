@@ -183,6 +183,7 @@ window.World = (function () {
 
     /* mascots */
     let orgs = H.sponsors.map(s => ({ s, type: s.tier === "main" ? "Main sponsor" : "Sponsor" })).concat((H.partners || []).map(s => ({ s, type: "Partner" })));
+    if (H.host) orgs.unshift({ s: H.host, type: "Host" });
     if (isl1) orgs = orgs.filter(({ s }) => (s.tracks && s.tracks[isl1]) || (s.mascot && s.mascot.home === isl1));
     const station = i => { const I = ISL[isl1], a = (i / orgs.length) * Math.PI * 2 + 0.4; return { x: I.x + Math.cos(a) * I.rx * 0.6, y: I.y + Math.sin(a) * I.ry * 0.55 + 6 }; };
     const toolOf = s => (isl1 && s.tracks && s.tracks[isl1]) || null;
@@ -275,6 +276,21 @@ window.World = (function () {
               q.hs.setAttribute("x", mx); q.hs.setAttribute("y", (a.y + b.y) / 4 + my / 2 + 4);
               [a, b].forEach((p, j) => q.arms[j].setAttribute("d", `M${h.x} ${h.y + 30} Q${(h.x + p.x) / 2} ${Math.max(h.y, p.y) + 24} ${p.x} ${p.y + 8}`));
             });
+          },
+          end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
+        };
+      },
+      /* Crewbase host: lights circuit traces to the nearest characters and powers them up */
+      crewbase(e) {
+        const near = nearest(e, 3, o => o !== e && (o.kind === "agent" || o.kind === "mascot") && Math.hypot(o.x - e.x, o.y - e.y) < 260);
+        if (!near.length) return null;
+        const g = el("g", {}, fxL);
+        const L = near.map(() => ({ p: el("path", { fill: "none", stroke: "#7fe7ff", "stroke-width": 2.2, "stroke-dasharray": "5 4", class: "wm-flow" }, g), n: el("circle", { r: 4, fill: "#c9f6ff" }, g) }));
+        near.forEach(o => o.g.classList.add("matched"));
+        return {
+          update() {
+            const h = head(e);
+            near.forEach((o, k) => { const b = head(o), mx = b.x; L[k].p.setAttribute("d", `M${h.x} ${h.y + 14} L${mx} ${h.y + 14} L${b.x} ${b.y + 6}`); L[k].n.setAttribute("cx", b.x); L[k].n.setAttribute("cy", b.y + 6); });
           },
           end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
         };

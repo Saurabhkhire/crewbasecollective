@@ -12,7 +12,7 @@ window.Mascots = (function () {
   const INK = "#1b1530";
   const colorOf = id => {
     const H = window.HACK || {};
-    const s = (H.allSponsors || H.sponsors || []).concat(H.allPartners || H.partners || []).find(x => x.id === id);
+    const s = (H.allSponsors || H.sponsors || []).concat(H.allPartners || H.partners || [], H.host ? [H.host] : []).find(x => x.id === id);
     return (s && s.color) || "#ffc857";
   };
   const legs = (c, x1, x2, w, h) => `<g class="m-legs"><rect class="m-legL" x="${x1}" y="${-h}" width="${w}" height="${h}" rx="${w / 2}" fill="${c}"/><rect class="m-legR" x="${x2}" y="${-h}" width="${w}" height="${h}" rx="${w / 2}" fill="${c}"/></g>`;
@@ -311,6 +311,35 @@ window.Mascots = (function () {
         ${[0, 1, 2].map(i => `<rect x="${28 + i * 22}" y="-116" width="18" height="40" rx="2.5" fill="#1d2440" stroke="#3a4266"/>${[0, 1, 2, 3, 4].map(j => `<rect x="${31 + i * 22}" y="${-112 + j * 7}" width="12" height="3.5" rx="1" fill="#2a355e"/><circle cx="${45 + i * 22}" cy="${-110.2 + j * 7}" r="1.1" fill="${(i + j) % 3 ? "#3ddc97" : c}"><animate attributeName="opacity" values="1;.2;1" dur="${0.6 + ((i * 5 + j) % 4) * 0.25}s" repeatCount="indefinite"/></circle>`).join("")}`).join("")}
         <g opacity="0">${show(0.08, 0.95, 4)}<rect x="96" y="-116" width="28" height="40" rx="3" fill="#2c3657" stroke="${c}"/><rect x="101" y="-108" width="18" height="32" fill="#ffcf7a" opacity=".85"/>${T(110, -110, 5, "LOFT", `text-anchor="middle" fill="${c}" font-weight="800" class="m-mono"`)}</g>
         ${T(110, -82, 5.5, "OPEN", `text-anchor="middle" fill="#1b1530" font-weight="800" class="m-mono"`)}`, "doors open · servers up")
+    },
+
+    /* ---------- Crewbase Collective (host): Captain Circuit, a blue armored hero with circuit lines ---------- */
+    crewbase: {
+      body: () => `<g class="m-legs"><rect class="m-legL" x="-10" y="-17" width="8" height="17" rx="2.5" fill="#1f5fd1"/><rect class="m-legR" x="2" y="-17" width="8" height="17" rx="2.5" fill="#1f5fd1"/>
+        <rect x="-11" y="-3" width="10" height="3" rx="1" fill="#0e2f78"/><rect x="1" y="-3" width="10" height="3" rx="1" fill="#0e2f78"/>
+        <ellipse class="m-glow" cx="-6" cy="1.5" rx="4" ry="1.6" fill="#7fe7ff" opacity=".8"/><ellipse class="m-glow" cx="6" cy="1.5" rx="4" ry="1.6" fill="#7fe7ff" opacity=".8"/></g>
+        <g class="m-bob">
+        <path d="M-15 -40 L15 -40 L12 -16 L-12 -16Z" fill="#2f7bff" stroke="#0e2f78" stroke-width="1"/>
+        <path d="M-12 -20 L12 -20 L11 -15 L-11 -15Z" fill="#1a4fb8"/>
+        <path d="M-11 -36 L-6 -36 L-6 -28 L-2 -28 M11 -36 L6 -36 L6 -26 L2 -26 M-9 -22 L-3 -22 M9 -22 L4 -22" stroke="#7fe7ff" stroke-width=".9" fill="none" stroke-dasharray="3 2"><animate attributeName="stroke-dashoffset" values="10;0" dur="1.2s" repeatCount="indefinite"/></path>
+        <circle cx="0" cy="-31" r="5.2" fill="#0b1a3d" stroke="#7fe7ff" stroke-width="1.2"/>
+        <circle class="m-glow" cx="0" cy="-31" r="3.2" fill="#c9f6ff"><animate attributeName="r" values="2.6;3.6;2.6" dur="1.6s" repeatCount="indefinite"/></circle>
+        <rect class="m-armL" x="-21" y="-39" width="7" height="18" rx="3" fill="#2f7bff" stroke="#0e2f78" stroke-width=".8"/>
+        <circle cx="-17.5" cy="-20" r="2.6" fill="#7fe7ff" opacity=".85"/>
+        <g transform="rotate(-150 17 -37)"><g class="m-armR"><rect x="14" y="-39" width="7" height="18" rx="3" fill="#2f7bff" stroke="#0e2f78" stroke-width=".8"/><circle class="m-glow" cx="17.5" cy="-20" r="3.4" fill="#c9f6ff"/></g></g>
+        <path d="M-16 -41 Q-10 -46 0 -45 Q10 -46 16 -41 L14 -37 L-14 -37Z" fill="#1f5fd1"/>
+        <path d="M-11 -50 Q-12 -64 0 -65 Q12 -64 11 -50 L9 -43 L-9 -43Z" fill="#2f7bff" stroke="#0e2f78" stroke-width="1"/>
+        <path d="M-7 -58 L7 -58 L6 -46 L0 -44 L-6 -46Z" fill="#cfe3ff"/>
+        <path d="M0 -65 L0 -58 M-11 -54 L-7 -54 M11 -54 L7 -54" stroke="#7fe7ff" stroke-width=".8"/>
+        <g class="m-eyes"><path d="M-5.6 -54 L-1.6 -53 L-1.8 -51.6 L-5.4 -52.4Z M5.6 -54 L1.6 -53 L1.8 -51.6 L5.4 -52.4Z" fill="#7fe7ff"/></g>
+        <path d="M-3 -48 L3 -48" stroke="#5a7bb8" stroke-width="1"/></g>`,
+      act: c => panel(c, `
+        <path d="M74 -96 L44 -96 L44 -112 L34 -112 M74 -96 L44 -96 L44 -80 L34 -80 M74 -96 L104 -96 L104 -112 L114 -112 M74 -96 L104 -96 L104 -80 L114 -80" fill="none" stroke="#21406f" stroke-width="2"/>
+        ${[["M74 -96 L44 -96 L44 -112 L34 -112", 0], ["M74 -96 L104 -96 L104 -112 L114 -112", 0.4], ["M74 -96 L44 -96 L44 -80 L34 -80", 0.8], ["M74 -96 L104 -96 L104 -80 L114 -80", 1.2]].map(([d, b]) => `<circle r="2.4" fill="#c9f6ff"><animateMotion dur="1.6s" begin="${b}s" repeatCount="indefinite" path="${d}"/></circle>`).join("")}
+        ${[["🎬", 30, -112], ["🎮", 30, -80], ["🎓", 118, -112], ["☁️", 118, -80]].map(([e, x, y]) => `<circle cx="${x}" cy="${y}" r="7.5" fill="#132a55" stroke="${c}"/>${T(x, y + 3, 8, e, `text-anchor="middle"`)}`).join("")}
+        <rect x="60" y="-106" width="28" height="20" rx="3" fill="#132a55" stroke="${c}" stroke-width="1.4"/>
+        ${T(74, -93.5, 6.5, "CREW", `text-anchor="middle" fill="#c9f6ff" font-weight="800" class="m-mono"`)}
+        <rect x="60" y="-106" width="28" height="20" rx="3" fill="none" stroke="#c9f6ff" stroke-width="1"><animate attributeName="opacity" values=".1;1;.1" dur="1.6s" repeatCount="indefinite"/></rect>`, "hosts · connects · runs the day")
     },
 
     /* ---------- fallback for any sponsor without custom art ---------- */
