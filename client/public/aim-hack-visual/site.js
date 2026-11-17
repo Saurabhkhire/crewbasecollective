@@ -8,7 +8,7 @@
   /* ---------- home: event card + submission steps ---------- */
   const ev = $("#eventCard");
   if (ev && H.event) {
-    ev.innerHTML = `<div><small>📅 Date</small><b>${esc(H.event.date)}</b></div><div><small>⏰ Time</small><b>${esc(H.event.time)}</b></div><div><small>📍 Venue</small><b>${esc(H.event.venue)}</b></div><div><small>👥 Teams</small><b>${esc(H.event.format)}</b></div>${H.event.comms ? `<div><small>💬 Event chat</small><b><a href="/aim-hack-visual/teamily.html">${esc(H.event.comms)}</a> · mandatory</b></div>` : ""}`;
+    ev.innerHTML = `<div><small>📅 Date</small><b>${esc(H.event.date)}</b></div><div><small>⏰ Time</small><b>${esc(H.event.time)}</b></div><div><small>📍 Venue</small><b>${esc(H.event.venue)}</b></div><div><small>👥 Teams</small><b>${esc(H.event.format)}</b></div>`;
   }
   const steps = $("#submitSteps");
   if (steps) {
@@ -143,20 +143,19 @@
   document.querySelectorAll("[data-main-tool]").forEach(el => { const m = H.sponsors.find(s => s.tier === "main"); if (!m) return el.remove(); el.style.setProperty("--c", m.color); el.innerHTML = `${m.icon} Main tool: <b>${esc(m.name)}</b>`; el.onclick = () => window.openSponsor(m.id); });
   const homeComms = $("#homeComms");
   if (homeComms) {
-    if (!CT) homeComms.closest("section").remove();
+    if (!CT) homeComms.remove();
     else {
       const C = CT.comms, m = CT.mascot || {};
+      homeComms.style.setProperty("--c", CT.color);
       homeComms.innerHTML = `
-      <div class="comms-band" style="--c:${CT.color}">
-        <button class="cb-m" data-sp="${CT.id}" title="${esc(m.name || "")}"><span class="org-mascot">${mascotSvg(CT.id, { label: m.name })}</span></button>
-        <div class="cb-txt">
-          <span class="mand-badge">💬 EVENT COMMUNICATION · MANDATORY</span>
-          <h3>${esc(C.headline)}</h3>
-          <p class="muted">It replaces ${esc(C.replaces)} for this event: announcements, team chat, mentor help and questions. Using it inside your project is optional.</p>
-          <div class="cta-row" style="justify-content:flex-start"><a class="btn" href="${CT.url}" target="_blank" rel="noopener">Join ${esc(CT.name)} ↗</a><a class="btn ghost" href="/aim-hack-visual/teamily.html">How it works →</a></div>
-        </div>
-        <ul class="cb-list">${C.spaces.slice(0, 4).map(s => `<li><i>${s[0]}</i><b>${esc(s[1])}</b></li>`).join("")}</ul>
-      </div>`;
+        <span class="ch-ping"></span>
+        <button class="ch-m" data-sp="${CT.id}" title="${esc(m.name || "")}"><span class="org-mascot">${mascotSvg(CT.id, { label: m.name })}</span></button>
+        <div class="ch-txt">
+          <span class="ch-k">🔔 REQUIRED · JOIN TO GET EVENT UPDATES</span>
+          <b>All communication &amp; updates happen on ${esc(CT.name)}</b>
+          <small>Schedule changes, deadlines, demo order, mentor help and your team chat are posted <u>only</u> there, not on Discord or Slack. Join before you arrive.</small>
+          <div class="ch-cta"><a class="btn btn-sm" href="${CT.url}" target="_blank" rel="noopener">Join ${esc(CT.name)} now ↗</a><a class="btn ghost btn-sm" href="/aim-hack-visual/teamily.html">How it works →</a></div>
+        </div>`;
       homeComms.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
     }
   }
@@ -183,8 +182,8 @@
       </section>
 
       <section class="tp-two">
-        <div class="tp-card must"><span class="tp-k">✅ MANDATORY</span><h3>For communication</h3><ul>${C.mandatory.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
-        <div class="tp-card opt"><span class="tp-k">✨ OPTIONAL</span><h3>Inside your project</h3><ul>${C.optional.map(x => `<li>${esc(x)}</li>`).join("")}</ul><a class="lnk" href="/aim-hack-visual/sponsors.html#lab-teamily">Try agents in a group chat in the Sponsor Lab →</a></div>
+        <div class="tp-card must"><span class="tp-k">✅ REQUIRED FOR EVERY HACKER</span><h3>Join to get every update</h3><ul>${C.mandatory.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+        <div class="tp-card opt"><span class="tp-k">🤖 MORE THAN A CHAT APP</span><h3>Humans and agents together</h3><ul>${(C.perks || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul><a class="lnk" href="/aim-hack-visual/sponsors.html#lab-teamily">Make your own agents in the Sponsor Lab →</a></div>
       </section>
 
       <section class="tp-sec" id="tp-join"><span class="kicker">Before the event</span><h2>How to join</h2>

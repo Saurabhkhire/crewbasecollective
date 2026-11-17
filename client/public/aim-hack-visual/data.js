@@ -6,7 +6,7 @@
      landmark, blurb, buildIdea, role + tag (tool-coordination node), tracks { film|game|grow: { label, does } }
      (= its toggle in each track), mascot { name, look, action, home: center|film|game|grow }.
      Optional `comms` {...}: marks the sponsor as the event's official communication platform (mandatory for
-     event chat, optional in projects). It gets the "Teamily AI" tab (teamily.html), the home band and badges. Today: Teamily AI.
+     event chat and updates). It gets the "Teamily AI" tab (teamily.html), the home band and badges. Today: Teamily AI.
    - Partner (not a tool): copy an entry in `partners`. Fields: id, name, url, icon, color, scene, blurb, brings, mascot.
    - Host (the organiser, Crewbase Collective): the single `host` entry. Same fields as a partner.
    - Remove: delete the entry (or add its id to HIDDEN_SPONSORS / HIDDEN_PARTNERS at the bottom).
@@ -328,7 +328,7 @@ window.HACK = {
       blurb: "Teamily AI is a human+AI social platform and AI-native workspace: people and always-on AI agents collaborate in one unified messaging space. Agents are first-class members of your chats. You can @mention them, assign them tasks and let them run jobs in parallel, and you can create your own agents or whole agent teams in seconds with \"+ New Agent\". Everyone shares one connected context and a living memory, so no one has to repeat themselves.",
       buildIdea: "Run your whole team on Teamily: humans and your role agents (marketing, research, design, engineering, QA, coach…) in one group. @mention an agent to hand it a task, let agents hand work to each other in the thread, and show the judges how your human+agent team worked together.",
       role: "Human + agent workspace", tag: "TEAM CHAT",
-      /* official event communication: mandatory for talking at the event, optional inside projects */
+      /* official event communication: every hacker joins it to get updates and talk */
       comms: {
         headline: "All hackathon communication happens on Teamily AI.",
         replaces: "Discord and Slack",
@@ -339,10 +339,10 @@ window.HACK = {
           "Talk with your team in a Teamily AI group instead of Discord, Slack or WhatsApp",
           "Ask organizers, mentors and sponsor teams for help there"
         ],
-        optional: [
-          "Add AI agents to your team group as teammates (research, marketing, QA…)",
-          "Use Teamily AI inside your project, e.g. as the place where your agents talk to players",
-          "If your project uses it, say how in your submission"
+        perks: [
+          "Agents can be members of your team group: @mention them, assign tasks, let them work in parallel",
+          "Living memory: the chat remembers decisions, so nobody repeats themselves",
+          "Web, desktop and mobile, so updates reach you anywhere in the Loft"
         ],
         join: [
           ["Get the app", "Sign up at teamily.ai. It works on web, desktop and mobile."],
@@ -355,20 +355,19 @@ window.HACK = {
           ["🆘", "Help desk", "Ask organizers and mentors anything, all day."],
           ["🤝", "Find a team", "Looking for teammates? Post your idea or your skills."],
           ["🧪", "Sponsor Q&A", "Ask the sponsor teams about their tools."],
-          ["👥", "Your team group", "Your team's own chat. Add agents too, if you want."],
+          ["👥", "Your team group", "Your team's own chat, with your agents as members too."],
           ["🎬", "Showcase", "Share screenshots and demos while you build."]
         ],
         swap: [
           ["Event Discord server", "Teamily AI event space"],
           ["Slack or WhatsApp group for your team", "Teamily AI team group"],
           ["DM a mentor", "Teamily AI help desk"],
-          ["Bots bolted onto a chat app", "AI agents as real members of your group (optional)"]
+          ["Bots bolted onto a chat app", "AI agents as real members of your group"]
         ],
         faq: [
-          ["Is Teamily AI mandatory?", "Yes, for communication. Every hacker joins it, and all event announcements, help and team chat happen there instead of Discord or Slack."],
-          ["Do we have to use Teamily AI in our project?", "No. Using it inside your project is optional and doesn't affect judging. It's only required as the place where you communicate."],
-          ["Can we keep using Discord or Slack?", "Please don't for the event: announcements and help are only posted on Teamily AI, so you could miss deadlines and demo order."],
-          ["Can AI agents join our team chat?", "Yes, if you want. Create agents with roles and @mention them like teammates. It's optional."]
+          ["Is Teamily AI mandatory?", "Yes. Every hacker joins it: all event announcements, updates, help and team chat happen there instead of Discord or Slack."],
+          ["Can we keep using Discord or Slack?", "No: announcements, updates and help are only posted on Teamily AI, so you would miss deadlines and the demo order."],
+          ["Can AI agents join our team chat?", "Yes. Create agents with any role and @mention them like teammates. Try it first in the Sponsor Lab."]
         ]
       },
       tracks: {

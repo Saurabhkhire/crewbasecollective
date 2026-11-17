@@ -220,3 +220,18 @@
 .tp-swap s { color: var(--muted); } .tp-swap span { color: var(--c); font-weight: 800; text-align: center; } .tp-swap b { color: #fff; }
 @media (max-width: 860px) { .tp-hero, .tp-two { grid-template-columns: 1fr; } .tp-steps { grid-template-columns: 1fr 1fr; } .tp-spaces { grid-template-columns: 1fr; } }
 a.mand-tag { text-decoration: none; }
+
+/* home hero: the event-communication box under the date/time card */
+.comms-hero { --c: #8b7bff; position: relative; display: grid; grid-template-columns: 74px 1fr; gap: 12px; align-items: center; margin-top: 12px; padding: 14px 16px 14px 10px; border-radius: 16px; border: 2px solid var(--c); background: linear-gradient(115deg, color-mix(in srgb, var(--c) 32%, #0b0f26), #0b0f26 75%); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 18%, transparent), 0 14px 40px -16px var(--c); animation: chGlow 2.6s ease-in-out infinite; }
+.comms-hero:empty { display: none; }
+@keyframes chGlow { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--c) 10%, transparent), 0 14px 50px -10px var(--c); } }
+.ch-ping { position: absolute; top: -6px; right: -6px; width: 16px; height: 16px; border-radius: 50%; background: #ff4f6d; box-shadow: 0 0 0 0 rgba(255, 79, 109, .7); animation: chPing 1.6s infinite; }
+@keyframes chPing { 70% { box-shadow: 0 0 0 12px rgba(255, 79, 109, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 79, 109, 0); } }
+.ch-m { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.ch-m .org-mascot { display: block; width: 74px; } .ch-m svg { width: 100%; height: auto; }
+.ch-txt { display: flex; flex-direction: column; gap: 4px; }
+.ch-k { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .1em; color: #ffd8e0; background: #ff4f6d; align-self: flex-start; padding: 3px 8px; border-radius: 6px; }
+.ch-txt b { font-size: 18px; line-height: 1.25; color: #fff; }
+.ch-txt small { font-size: 13.5px; color: #c9cde6; line-height: 1.45; } .ch-txt u { text-decoration-color: var(--c); text-decoration-thickness: 2px; }
+.ch-cta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+@media (max-width: 520px) { .comms-hero { grid-template-columns: 56px 1fr; } .ch-m .org-mascot { width: 56px; } }
