@@ -169,7 +169,7 @@ window.Mascots = (function () {
           <circle cx="${x - 1.4}" cy="-30" r=".9" fill="${c}"/><circle cx="${+x + 1.4}" cy="-30" r=".9" fill="${c}"/></g>`).join("")}
         <path d="M-10 -27 Q1 -13 12 -27 L12 -24 Q1 -9 -10 -24Z" fill="#d9ab82" stroke="#a8693f" stroke-width=".8"/>
         <rect class="m-armL" x="-17" y="-37" width="5.5" height="14" rx="2.7" fill="#b9784a"/>
-        <rect class="m-armR" x="11.5" y="-40" width="5.5" height="13" rx="2.7" fill="#b9784a" transform="rotate(-35 14 -40)"/>
+        <g transform="rotate(-145 14 -38)"><rect class="m-armR" x="11.5" y="-38" width="5.5" height="14" rx="2.7" fill="#b9784a"/></g>
         <g transform="translate(16 -58)"><rect width="12" height="18" rx="2.2" fill="#10172f" stroke="#8b7bff" stroke-width="1.2"/>
           <rect x="2" y="3" width="6" height="3" rx="1.2" fill="#8b7bff"/><rect x="4" y="7.5" width="6" height="3" rx="1.2" fill="#ff6f61"/><rect x="2" y="12" width="6" height="3" rx="1.2" fill="#3ee6ff"/></g>
         <rect x="-9" y="-43" width="18" height="4.5" rx="2" fill="#8b7bff"/><path d="M5 -40 L9 -32 L5 -33Z" fill="#8b7bff"/>

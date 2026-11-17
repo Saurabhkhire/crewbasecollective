@@ -182,7 +182,7 @@ window.World = (function () {
     });
 
     /* mascots */
-    let orgs = H.sponsors.map(s => ({ s, type: s.tier === "main" ? "Main sponsor" : s.mandatory ? "Mandatory tool" : "Sponsor" })).concat((H.partners || []).map(s => ({ s, type: "Partner" })));
+    let orgs = H.sponsors.map(s => ({ s, type: s.tier === "main" ? "Main sponsor · main tool" : s.comms ? "Official event chat" : "Sponsor" })).concat((H.partners || []).map(s => ({ s, type: "Partner" })));
     if (H.host) orgs.unshift({ s: H.host, type: "Host" });
     if (isl1) orgs = orgs.filter(({ s }) => (s.tracks && s.tracks[isl1]) || (s.mascot && s.mascot.home === isl1));
     const station = i => { const I = ISL[isl1], a = (i / orgs.length) * Math.PI * 2 + 0.4; return { x: I.x + Math.cos(a) * I.rx * 0.6, y: I.y + Math.sin(a) * I.ry * 0.55 + 6 }; };

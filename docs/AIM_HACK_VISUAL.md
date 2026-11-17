@@ -39,7 +39,7 @@ Plus one pointer line each in `AGENTS.md` and `docs/CODE_MAP.md`.
 
 ```
 client/public/aim-hack-visual/
-  index.html  tracks.html  sponsors.html (+ Sponsor Labs, coord.js tool views)  partners.html  submit.html (submission guide)  play.html (playground)
+  index.html  tracks.html  sponsors.html (+ Sponsor Labs, coord.js tool views)  partners.html  teamily.html (event communication)  submit.html (submission guide)  play.html (playground)
   data.js          hackathon content: event, tracks, ideas, sponsors, partners and the host (Crewbase Collective, `host`), each with a `mascot` (name, action, home island)
                    (+ HIDDEN_SPONSORS / HIDDEN_PARTNERS: organisers hide one here)
   play-data.js     preset characters, preset scenes; PLAY.tools is derived from each sponsor's `tracks` in data.js
@@ -65,7 +65,7 @@ client/api/aim-hack-chat.ts       ← Vercel function → OpenAI chat + images (
 
 Demo routes for quick checks: `play.html#film/demo`, `#grow/demo`, `#game/zombie?demo`, `#game/snakes?demo`, `#game/rps?demo` (add `-tools` / `?demo-tools` to switch every sponsor tool on).
 
-**Add / remove a sponsor or partner:** edit one entry in `data.js` (the recipe is at the top of that file). A sponsor entry carries its track toggles (`tracks`), its coordination node (`role`, `tag`), its `mascot` and optionally `mandatory` (marks a required tool: badges, home showcase, checklist item, always-on toggle; today Teamily AI); a partner entry carries `brings`, `scene` and `mascot`. Delete the entry (or list its id in `HIDDEN_SPONSORS` / `HIDDEN_PARTNERS`) to remove it everywhere. Optional: custom art in `mascots.js` (`ART[id]`, otherwise a generic robot), a lab in `labs*.js`, a custom tool view in `coord.js`.
+**Add / remove a sponsor or partner:** edit one entry in `data.js` (the recipe is at the top of that file). A sponsor entry carries its track toggles (`tracks`), its coordination node (`role`, `tag`), its `mascot` and optionally `comms` (the official event communication platform: Teamily AI tab teamily.html, home band, event card line, badges; mandatory for event chat, optional in projects); a partner entry carries `brings`, `scene` and `mascot`. Delete the entry (or list its id in `HIDDEN_SPONSORS` / `HIDDEN_PARTNERS`) to remove it everywhere. Optional: custom art in `mascots.js` (`ART[id]`, otherwise a generic robot), a lab in `labs*.js`, a custom tool view in `coord.js`.
 
 Vercel's Root Directory is `client/`, so only files inside `client/` deploy. **No rewrites / no vercel.json** are used:
 `/aim-hack-visual/` is served by its `index.html`; the plugin in `client/aim-hack-visual.vite.ts` also writes

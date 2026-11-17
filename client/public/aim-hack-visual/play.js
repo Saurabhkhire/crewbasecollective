@@ -179,15 +179,14 @@ window.UI = (function () {
   U.sponsorBar = function (el, track, active, onChange, opts) {
     opts = opts || {};
     const tools = (PLAY.tools[track] || []).map(t => ({ ...t, sp: HACK.sponsors.find(s => s.id === t.id) })).filter(t => t.sp);
-    tools.forEach(t => t.sp.mandatory && active.add(t.id));
     const draw = () => {
       const on = tools.filter(t => active.has(t.id));
       el.classList.toggle("tl-sticky", !!opts.live);
       el.innerHTML = `<div class="toolbar-sp ${opts.live ? "live" : ""}"><span class="lbl">${opts.live ? "● LIVE · TAP TOOLS ON/OFF" : "SPONSOR TOOLS"}</span>
-        ${tools.map(t => `<button class="sp-tog ${active.has(t.id) ? "on" : ""}" data-t="${t.id}" style="--c:${t.sp.color}" title="${U.esc(t.does)}" aria-pressed="${active.has(t.id)}">${t.sp.icon} ${U.esc(t.sp.name)} <small>${U.esc(t.label)}</small>${t.sp.mandatory ? `<em class="req">REQUIRED</em>` : ""}</button>`).join("")}
+        ${tools.map(t => `<button class="sp-tog ${active.has(t.id) ? "on" : ""}" data-t="${t.id}" style="--c:${t.sp.color}" title="${U.esc(t.does)}" aria-pressed="${active.has(t.id)}">${t.sp.icon} ${U.esc(t.sp.name)} <small>${U.esc(t.label)}</small></button>`).join("")}
         <span class="sp-hint">${on.length ? on.map(t => `<b style="color:${t.sp.color}">${t.sp.icon} ${U.esc(t.sp.name)}:</b> ${U.esc(t.does)}`).join(" · ") : opts.live ? "Tap any tool, even mid-run: its effect appears on the stage immediately. Several at once is fine." : "Switch on a sponsor's tool to see what it adds to this track."}</span></div>`;
     };
-    el.onclick = e => { const b = e.target.closest("[data-t]"); if (!b) return; const id = b.dataset.t; if (U.sponsor(id) && U.sponsor(id).mandatory) return; active.has(id) ? active.delete(id) : active.add(id); draw(); if (opts.live) opts.live.refresh(); onChange && onChange(active); };
+    el.onclick = e => { const b = e.target.closest("[data-t]"); if (!b) return; const id = b.dataset.t; active.has(id) ? active.delete(id) : active.add(id); draw(); if (opts.live) opts.live.refresh(); onChange && onChange(active); };
     draw();
     return { on: id => active.has(id), redraw: draw };
   };

@@ -72,13 +72,13 @@
   LABS.push({
     id: "teamily", tool: "Humans + agents in one chat", playLink: "film",
     title: "Run a team of humans and role agents in one group chat",
-    pitch: "Teamily AI is the mandatory communication platform of this hackathon. Create agents with roles (marketing, research, design, engineering, QA, coach, sales), drop a task in the channel and watch each agent act in its role: the Marketing Agent writes posts, the Design Agent picks a palette, the Engineer Agent ships code, and they @mention each other to hand work on.",
+    pitch: "Teamily AI is the official communication platform of this hackathon (it replaces Discord and Slack). Inside your project it's optional, and this lab shows what it can do: create agents with roles (marketing, research, design, engineering, QA, coach, sales), drop a task in the channel and watch each agent act in its role: the Marketing Agent writes posts, the Design Agent picks a palette, the Engineer Agent ships code, and they @mention each other to hand work on.",
     how: [
       "<b>+ New Agent</b>: give it a name, pick a role and (optionally) your own instructions. It joins the channel as a member, like a teammate.",
       "<b>Post a task</b> in the channel. <b>@mention</b> agents to pick who works on it, or don't, and the right roles pick it up.",
       "Each agent answers <b>in its role</b> and posts a deliverable card: launch posts, a palette, code, a plan, checks, a practice plan or an email.",
       "Agents <b>hand off</b> to each other in the thread (\"@Design, I need a visual\"). With <b>Always-on</b>, they follow up on their own.",
-      "This lab simulates Teamily AI. Use the real app for your team at the hackathon: it's mandatory."
+      "This lab simulates Teamily AI. At the hackathon, Teamily AI is where all event communication happens; using it inside your project is optional."
     ],
     demoChars: ["kit"], demoScenes: {},
     demo: [
@@ -101,7 +101,7 @@
 
     main.innerHTML = `
       <div class="tml">
-        <div class="tml-top"><b>💬 Teamily AI</b><span class="tml-ws">Hackathon team workspace</span><span class="tml-req">MANDATORY PLATFORM</span>
+        <div class="tml-top"><b>💬 Teamily AI</b><span class="tml-ws">Hackathon team workspace</span><span class="tml-req">OFFICIAL EVENT CHAT</span>
           <label class="tml-on"><input type="checkbox" id="tmOn" checked> Always-on agents</label></div>
         <div class="tml-body">
           <aside class="tml-side">
@@ -125,8 +125,8 @@
             <ul class="tml-memo" id="tmMemo"><li class="muted small">What the team learns lands here.</li></ul>
           </aside>
         </div>
-        <div class="lab-panel tml-real"><div class="lp-h">USE IT FOR REAL · MANDATORY</div>
-          <p class="small">Teamily AI is the mandatory communication platform of the hackathon. Create your team's group, add your agents as members with roles, and keep all team talk there. Agents are first-class members: you can @mention them, assign tasks and let them work in parallel. Share the group (or exports of key threads) with your submission. <i class="gl-sim">${esc(T.note)}</i></p>
+        <div class="lab-panel tml-real"><div class="lp-h">USE IT FOR REAL</div>
+          <p class="small">Teamily AI is the official communication platform of the hackathon: join it for announcements, help and your team chat (it replaces Discord and Slack). Adding agents to your group, or using Teamily inside your project, is optional. Agents are first-class members: you can @mention them, assign tasks and let them work in parallel. <a href="/aim-hack-visual/teamily.html">How event chat works →</a> <i class="gl-sim">${esc(T.note)}</i></p>
           <a class="btn btn-sm" href="https://teamily.ai" target="_blank" rel="noopener">Open teamily.ai ↗</a></div>
       </div>`;
     const thread = $("#tmThread", main), input = $("#tmIn", main);

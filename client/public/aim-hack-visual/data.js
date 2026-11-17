@@ -5,8 +5,8 @@
    - Sponsor (a tool in the tracks): copy an entry in `sponsors`. Fields: id, name, tier, url, icon, color,
      landmark, blurb, buildIdea, role + tag (tool-coordination node), tracks { film|game|grow: { label, does } }
      (= its toggle in each track), mascot { name, look, action, home: center|film|game|grow }.
-     Optional `mandatory` { headline, why, rules[] }: marks the tool as MANDATORY everywhere (badge, home section,
-     submission checklist, always-on toggle in the playground). Today: Teamily AI.
+     Optional `comms` {...}: marks the sponsor as the event's official communication platform (mandatory for
+     event chat, optional in projects). It gets the "Teamily AI" tab (teamily.html), the home band and badges. Today: Teamily AI.
    - Partner (not a tool): copy an entry in `partners`. Fields: id, name, url, icon, color, scene, blurb, brings, mascot.
    - Host (the organiser, Crewbase Collective): the single `host` entry. Same fields as a partner.
    - Remove: delete the entry (or add its id to HIDDEN_SPONSORS / HIDDEN_PARTNERS at the bottom).
@@ -22,7 +22,8 @@ window.HACK = {
     dateShort: "Nov 23, 2026",
     time: "9:30 AM – 8:30 PM",
     venue: "AWS Loft",
-    format: "Solo or teams of up to 4"
+    format: "Solo or teams of up to 4",
+    comms: "Teamily AI"   /* official event chat (mandatory); details in the Teamily AI sponsor entry → comms */
   },
   dates: "Nov 23, 2026 · 9:30 AM – 8:30 PM · AWS Loft",
   submitUrl: "https://hackathons.crewbasecollective.com",
@@ -327,14 +328,47 @@ window.HACK = {
       blurb: "Teamily AI is a human+AI social platform and AI-native workspace: people and always-on AI agents collaborate in one unified messaging space. Agents are first-class members of your chats. You can @mention them, assign them tasks and let them run jobs in parallel, and you can create your own agents or whole agent teams in seconds with \"+ New Agent\". Everyone shares one connected context and a living memory, so no one has to repeat themselves.",
       buildIdea: "Run your whole team on Teamily: humans and your role agents (marketing, research, design, engineering, QA, coach…) in one group. @mention an agent to hand it a task, let agents hand work to each other in the thread, and show the judges how your human+agent team worked together.",
       role: "Human + agent workspace", tag: "TEAM CHAT",
-      mandatory: {
-        headline: "Teamily AI is the mandatory communication platform of the hackathon.",
-        why: "This is a multiplayer AI hackathon, so your team is multiplayer too: humans and AI agents working side by side in one place. Teamily AI is where that happens, for people talking to people, and for teams of agents collaborating with each other and with you.",
-        rules: [
-          ["Your team lives on Teamily", "Create your team's group on Teamily AI and use it for all team communication during the event."],
-          ["Agents are teammates", "Add your agents as members with clear roles (marketing, research, design, engineering, QA, coach…). @mention them, assign tasks, and let them hand work to each other in the thread."],
-          ["Event updates happen there", "Announcements, mentor help and questions for the organizers go through Teamily AI."],
-          ["Show it at submission", "Share your Teamily group, or exports/screenshots of its key threads, so judges can see how your humans and agents worked together."]
+      /* official event communication: mandatory for talking at the event, optional inside projects */
+      comms: {
+        headline: "All hackathon communication happens on Teamily AI.",
+        replaces: "Discord and Slack",
+        why: "Teamily AI is the official communication platform of the Multiplayer AI hackathon. It replaces Discord and Slack for this event: announcements, team chat, mentor help and questions all happen there. Join before you arrive.",
+        mandatory: [
+          "Join the Multiplayer AI hackathon on Teamily AI before the event starts",
+          "Follow announcements there: schedule, room changes, deadlines and demo order",
+          "Talk with your team in a Teamily AI group instead of Discord, Slack or WhatsApp",
+          "Ask organizers, mentors and sponsor teams for help there"
+        ],
+        optional: [
+          "Add AI agents to your team group as teammates (research, marketing, QA…)",
+          "Use Teamily AI inside your project, e.g. as the place where your agents talk to players",
+          "If your project uses it, say how in your submission"
+        ],
+        join: [
+          ["Get the app", "Sign up at teamily.ai. It works on web, desktop and mobile."],
+          ["Join the event", "Open the invite link the organizers share with registered hackers and at check-in."],
+          ["Make your team group", "Create one group for your team and add your teammates."],
+          ["Say hi", "Post an intro so mentors and other builders can find you."]
+        ],
+        spaces: [
+          ["📣", "Announcements", "Schedule, room changes, deadlines and demo order, straight from the organizers."],
+          ["🆘", "Help desk", "Ask organizers and mentors anything, all day."],
+          ["🤝", "Find a team", "Looking for teammates? Post your idea or your skills."],
+          ["🧪", "Sponsor Q&A", "Ask the sponsor teams about their tools."],
+          ["👥", "Your team group", "Your team's own chat. Add agents too, if you want."],
+          ["🎬", "Showcase", "Share screenshots and demos while you build."]
+        ],
+        swap: [
+          ["Event Discord server", "Teamily AI event space"],
+          ["Slack or WhatsApp group for your team", "Teamily AI team group"],
+          ["DM a mentor", "Teamily AI help desk"],
+          ["Bots bolted onto a chat app", "AI agents as real members of your group (optional)"]
+        ],
+        faq: [
+          ["Is Teamily AI mandatory?", "Yes, for communication. Every hacker joins it, and all event announcements, help and team chat happen there instead of Discord or Slack."],
+          ["Do we have to use Teamily AI in our project?", "No. Using it inside your project is optional and doesn't affect judging. It's only required as the place where you communicate."],
+          ["Can we keep using Discord or Slack?", "Please don't for the event: announcements and help are only posted on Teamily AI, so you could miss deadlines and demo order."],
+          ["Can AI agents join our team chat?", "Yes, if you want. Create agents with roles and @mention them like teammates. It's optional."]
         ]
       },
       tracks: {
@@ -423,9 +457,8 @@ window.HACK = {
   const HIDDEN_SPONSORS = [];
   const HIDDEN_PARTNERS = [];
   H.allSponsors = H.sponsors.slice();
-  /* a mandatory tool (sponsor.mandatory) also becomes a required item in the submission checklist */
-  H.sponsors.filter(s => s.mandatory && !HIDDEN_SPONSORS.includes(s.id)).forEach(s => H.checklist.must.push([s.name, "Your team (humans and agents) communicates on " + s.name + ", the mandatory platform."]));
-  H.mandatory = () => H.sponsors.filter(s => s.mandatory);
+  /* the official communication platform (sponsor with `comms`), or null */
+  H.commsTool = () => H.sponsors.find(s => s.comms) || null;
   H.hiddenSponsors = HIDDEN_SPONSORS.filter(id => H.allSponsors.some(s => s.id === id));
   H.sponsors = H.allSponsors.filter(s => !H.hiddenSponsors.includes(s.id));
   H.sponsorVisible = id => !H.hiddenSponsors.includes(id);

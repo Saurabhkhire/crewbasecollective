@@ -8,12 +8,13 @@
   /* ---------- home: event card + submission steps ---------- */
   const ev = $("#eventCard");
   if (ev && H.event) {
-    ev.innerHTML = `<div><small>📅 Date</small><b>${esc(H.event.date)}</b></div><div><small>⏰ Time</small><b>${esc(H.event.time)}</b></div><div><small>📍 Venue</small><b>${esc(H.event.venue)}</b></div><div><small>👥 Teams</small><b>${esc(H.event.format)}</b></div>`;
+    ev.innerHTML = `<div><small>📅 Date</small><b>${esc(H.event.date)}</b></div><div><small>⏰ Time</small><b>${esc(H.event.time)}</b></div><div><small>📍 Venue</small><b>${esc(H.event.venue)}</b></div><div><small>👥 Teams</small><b>${esc(H.event.format)}</b></div>${H.event.comms ? `<div><small>💬 Event chat</small><b><a href="/aim-hack-visual/teamily.html">${esc(H.event.comms)}</a> · mandatory</b></div>` : ""}`;
   }
   const steps = $("#submitSteps");
   if (steps) {
     const url = H.submitUrl || "https://hackathons.crewbasecollective.com", host = url.replace(/^https?:\/\//, "");
     const S = [
+      ...(H.commsTool() ? [["💬", "Join " + esc(H.commsTool().name), `All event communication happens on <a href="/aim-hack-visual/teamily.html">${esc(H.commsTool().name)}</a> (it replaces Discord and Slack). Join before the event, make your team group there and follow the announcements.`]] : []),
       ["🛠️", "Build during the event", `Hack at the ${esc(H.event.venue)} on ${esc(H.event.dateShort)}, ${esc(H.event.time)}. Solo or in a team of up to 4. Pick one track: agent film, multiplayer game, or grow with agents.`],
       ["🚀", "Submit online", `Go to <a href="${url}" target="_blank" rel="noopener">${esc(host)}</a> and create one submission per team before the deadline announced at the event. You can edit it until then.`],
       ["📦", "What to include", `<ul class="sub-list"><li>Project name and a 2–3 sentence description</li><li>Team members (names + emails)</li><li>Chosen track (01 Film · 02 Game · 03 Grow)</li><li>Link to your code repository</li><li><b>A demo video (1–3 min), a live demo link, or both.</b> At least one is required.</li><li>Which sponsor tools you used, and how</li></ul>`],
@@ -42,7 +43,7 @@
       <button class="close" aria-label="Close">✕</button>
       <div class="m-row"><div class="org-mascot">${mascotSvg(o.id, { act: true, label: m.name })}</div>${o.image ? `<img class="m-pic" src="${o.image}" alt="${esc(m.name || o.name)} mascot artwork">` : ""}</div>
       ${m.name ? `<p class="m-who"><b>${esc(m.name)}</b> · ${esc(m.action || "")}</p>` : ""}
-      <span class="lm">${s ? (s.tier === "main" ? "Main sponsor · " : "Sponsor · ") + (s.mandatory ? "⚠ Mandatory tool · " : "") + esc(s.landmark) : esc(p.kind === "Host & organizer" ? p.kind : "Partner")}</span>
+      <span class="lm">${s ? (s.tier === "main" ? "Main sponsor · Main tool · " : "Sponsor · ") + (s.comms ? "💬 Official event chat · " : "") + esc(s.landmark) : esc(p.kind === "Host & organizer" ? p.kind : "Partner")}</span>
       <h3>${o.icon} ${esc(o.name)}</h3>
       <p>${esc(o.blurb)}</p>
       ${s ? `<div class="use"><b>Idea: how it could fit your build</b>${esc(s.buildIdea)}</div>` : `<div class="use"><b>What they bring to the hackathon</b>${esc(p.brings || "")}</div>`}
@@ -117,47 +118,90 @@
        <div class="bonus-row">${H.checklist.bonus.map(b => `<div class="card req bonus"><span class="n">★ SCORES HIGHER</span><h4>${b[0]}</h4><p>${b[1]}</p></div>`).join("")}</div>`;
   }
 
-  /* ---------- mandatory tool(s): home showcase + hero pill (sponsors with `mandatory` in data.js) ---------- */
-  const mands = H.mandatory ? H.mandatory() : [];
-  document.querySelectorAll("[data-mand]").forEach(el => { const m = mands[0]; if (!m) return el.remove(); el.style.setProperty("--c", m.color); el.innerHTML = `${m.icon} <b>${esc(m.name)}</b> is mandatory for every team →`; });
-  const homeMand = $("#homeMandatory");
-  if (homeMand) {
-    if (!mands.length) homeMand.closest("section").remove();
-    homeMand.innerHTML = mands.map(s => { const M = s.mandatory, m = s.mascot || {}; return `
-      <div class="mand" style="--c:${s.color}">
-        <div class="mand-l">
-          <span class="mand-badge">⚠ MANDATORY TOOL · EVERY TEAM</span>
-          <h2>${s.icon} ${esc(s.name)}</h2>
-          <p class="mand-head">${esc(M.headline)}</p>
-          <p class="muted">${esc(M.why)}</p>
-          <ol class="mand-rules">${M.rules.map(r => `<li><b>${esc(r[0])}</b><span>${esc(r[1])}</span></li>`).join("")}</ol>
-          <div class="cta-row" style="justify-content:flex-start"><a class="btn" href="${s.url}" target="_blank" rel="noopener">Join ${esc(s.name)} ↗</a><a class="btn ghost" href="/aim-hack-visual/sponsors.html#lab-${s.id}">🧪 Try it in the Sponsor Lab</a></div>
+  /* ---------- official event communication (sponsor with `comms`): hero pill, home band, Teamily AI tab ---------- */
+  const CT = H.commsTool ? H.commsTool() : null;
+  const chatMock = (title) => `<div class="mand-chat"><div class="mc-h"><b>${title}</b><span>hackers · mentors · organizers · agents</span></div><div class="mc-t"></div></div>`;
+  /* plays a looping event chat in every .mc-t inside root */
+  function playChat(root) {
+    const box = root.querySelector(".mc-t"); if (!box) return;
+    const T = window.PLAY && PLAY.teamily, R = n => (T ? T.roles.find(r => n.startsWith(r.name)) : null);
+    const EVENT = [["Organizers", "📣", "Doors open 9:30 at the AWS Loft. Check-in is on floor 1 👋"], ["Maya (hacker)", "🙋", "Looking for a 3D artist for Track 01. Anyone?"], ["Leo (hacker)", "🎨", "Me! Meet at table 6?"], ["Mentor Sam", "🧑‍🏫", "Office hours at the help desk from 11. Ask anything here too."], ["Organizers", "📣", "⏰ Submissions close at the time shown on the submission site. Demo order posted at 5 pm."]];
+    const all = EVENT.map(e => [e[0], "#event", e[2], e[1]]).concat(T ? [].concat(...Object.values(T.steps)) : []);
+    let i = 0;
+    const step = () => {
+      if (!document.body.contains(box)) return;
+      const [who, ch, text, ic] = all[i++ % all.length], r = R(who);
+      const hd = box.parentNode.querySelector(".mc-h b"); if (hd) hd.textContent = ch === "#event" ? "# multiplayer-ai · event" : ch;
+      const d = document.createElement("div"); d.className = "mc-m"; d.style.setProperty("--k", r ? r.color : who === "Organizers" ? "#ffc857" : "#eaf0ff");
+      d.innerHTML = `<i>${r ? r.icon : ic || "🧑"}</i><div><b>${esc(who)}</b>${r ? " <em>AGENT</em>" : ""}<p>${esc(text).replace(/@(\w+)/g, "<u>@$1</u>")}</p></div>`;
+      box.appendChild(d); while (box.children.length > 4) box.firstChild.remove();
+      setTimeout(step, 2300);
+    };
+    step();
+  }
+  document.querySelectorAll("[data-comms]").forEach(el => { if (!CT) return el.remove(); el.style.setProperty("--c", CT.color); el.innerHTML = `${CT.icon} Event chat on <b>${esc(CT.name)}</b> →`; });
+  document.querySelectorAll("[data-main-tool]").forEach(el => { const m = H.sponsors.find(s => s.tier === "main"); if (!m) return el.remove(); el.style.setProperty("--c", m.color); el.innerHTML = `${m.icon} Main tool: <b>${esc(m.name)}</b>`; el.onclick = () => window.openSponsor(m.id); });
+  const homeComms = $("#homeComms");
+  if (homeComms) {
+    if (!CT) homeComms.closest("section").remove();
+    else {
+      const C = CT.comms, m = CT.mascot || {};
+      homeComms.innerHTML = `
+      <div class="comms-band" style="--c:${CT.color}">
+        <button class="cb-m" data-sp="${CT.id}" title="${esc(m.name || "")}"><span class="org-mascot">${mascotSvg(CT.id, { label: m.name })}</span></button>
+        <div class="cb-txt">
+          <span class="mand-badge">💬 EVENT COMMUNICATION · MANDATORY</span>
+          <h3>${esc(C.headline)}</h3>
+          <p class="muted">It replaces ${esc(C.replaces)} for this event: announcements, team chat, mentor help and questions. Using it inside your project is optional.</p>
+          <div class="cta-row" style="justify-content:flex-start"><a class="btn" href="${CT.url}" target="_blank" rel="noopener">Join ${esc(CT.name)} ↗</a><a class="btn ghost" href="/aim-hack-visual/teamily.html">How it works →</a></div>
         </div>
-        <div class="mand-r">
-          <div class="mand-chat"><div class="mc-h"><b>#team-launch</b><span>2 humans · 4 agents · always on</span></div><div class="mc-t"></div></div>
-          <button class="mand-m" data-sp="${s.id}" title="${esc(m.name || "")}"><span class="org-mascot">${mascotSvg(s.id, { act: true, label: m.name })}</span><small><b>${esc(m.name || "")}</b> · ${esc(m.action || "")}</small></button>
-        </div>
-        <div class="mand-tracks">${H.tracks.map(t => { const u = (s.tracks || {})[t.id]; return u ? `<div style="--t:${t.hex}"><span>${t.icon} Track ${t.num} · ${esc(t.short)}</span><b>${esc(u.label)}</b><p>${esc(u.does.replace(/ \(simulated\)/, ""))}</p></div>` : ""; }).join("")}</div>
-      </div>`; }).join("");
-    homeMand.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
-    /* the live chat: humans and role agents posting, one message at a time */
-    const T = window.PLAY && PLAY.teamily, box = homeMand.querySelector(".mc-t");
-    if (T && box) {
-      const R = n => T.roles.find(r => n.startsWith(r.name)) || null;
-      const all = [].concat(...Object.values(T.steps));
-      let i = 0;
-      const step = () => {
-        if (!document.body.contains(box)) return;
-        const [who, ch, text] = all[i++ % all.length], r = R(who);
-        box.closest(".mand-chat").querySelector(".mc-h b").textContent = ch;
-        const d = document.createElement("div"); d.className = "mc-m" + (r ? "" : " h"); d.style.setProperty("--k", r ? r.color : "#eaf0ff");
-        d.innerHTML = `<i>${r ? r.icon : "🧑"}</i><div><b>${esc(who)}</b>${r ? " <em>AGENT</em>" : ""}<p>${esc(text).replace(/@(\w+)/g, '<u>@$1</u>')}</p></div>`;
-        box.appendChild(d); while (box.children.length > 4) box.firstChild.remove();
-        setTimeout(step, 2300);
-      };
-      step();
+        <ul class="cb-list">${C.spaces.slice(0, 4).map(s => `<li><i>${s[0]}</i><b>${esc(s[1])}</b></li>`).join("")}</ul>
+      </div>`;
+      homeComms.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
     }
   }
+
+  /* ---------- Teamily AI tab (teamily.html) ---------- */
+  const tmPage = $("#tmPage");
+  if (tmPage) {
+    if (!CT) tmPage.innerHTML = `<p class="muted">The event communication platform will be announced soon.</p>`;
+    else {
+      const C = CT.comms, m = CT.mascot || {};
+      document.querySelectorAll("[data-ct-name]").forEach(e => (e.textContent = CT.name));
+      tmPage.style.setProperty("--c", CT.color);
+      tmPage.innerHTML = `
+      <section class="tp-hero">
+        <div>
+          <span class="mand-badge">💬 OFFICIAL EVENT COMMUNICATION · MANDATORY</span>
+          <h1>${esc(C.headline.replace(CT.name + ".", ""))}<em class="grad">${esc(CT.name)}.</em></h1>
+          <p class="lead">${esc(C.why)}</p>
+          <div class="cta-row" style="justify-content:flex-start"><a class="btn" href="${CT.url}" target="_blank" rel="noopener">Join ${esc(CT.name)} ↗</a><a class="btn ghost" href="#tp-join">How to join ↓</a></div>
+          <div class="tp-replace"><s>${esc(C.replaces.split(" and ").join(" · "))}</s><span>→</span><b>${CT.icon} ${esc(CT.name)}</b></div>
+        </div>
+        <div class="tp-side">${chatMock("# multiplayer-ai · event")}
+          <button class="mand-m" data-sp="${CT.id}"><span class="org-mascot">${mascotSvg(CT.id, { act: true, label: m.name })}</span><small><b>${esc(m.name || "")}</b> · ${esc(m.action || "")}</small></button></div>
+      </section>
+
+      <section class="tp-two">
+        <div class="tp-card must"><span class="tp-k">✅ MANDATORY</span><h3>For communication</h3><ul>${C.mandatory.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
+        <div class="tp-card opt"><span class="tp-k">✨ OPTIONAL</span><h3>Inside your project</h3><ul>${C.optional.map(x => `<li>${esc(x)}</li>`).join("")}</ul><a class="lnk" href="/aim-hack-visual/sponsors.html#lab-teamily">Try agents in a group chat in the Sponsor Lab →</a></div>
+      </section>
+
+      <section class="tp-sec" id="tp-join"><span class="kicker">Before the event</span><h2>How to join</h2>
+        <div class="tp-steps">${C.join.map((s, i) => `<div class="card"><span class="sub-n">${i + 1}</span><h4>${esc(s[0])}</h4><p>${esc(s[1])}</p></div>`).join("")}</div></section>
+
+      <section class="tp-sec"><span class="kicker">During the event</span><h2>What happens on ${esc(CT.name)}</h2>
+        <div class="tp-spaces">${C.spaces.map(s => `<div class="card"><i>${s[0]}</i><h4>${esc(s[1])}</h4><p>${esc(s[2])}</p></div>`).join("")}</div></section>
+
+      <section class="tp-sec"><span class="kicker">Instead of ${esc(C.replaces)}</span><h2>Where things moved</h2>
+        <div class="tp-swap">${C.swap.map(s => `<div><s>${esc(s[0])}</s><span>→</span><b>${esc(s[1])}</b></div>`).join("")}</div></section>
+
+      <section class="tp-sec sb-faq"><span class="kicker">FAQ</span><h2>Quick answers</h2>
+        ${C.faq.map(f => `<details><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</section>`;
+      tmPage.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
+    }
+  }
+  document.querySelectorAll(".mand-chat").forEach(el => playChat(el.parentNode));
 
   /* ---------- hosted-by line (any element with data-host) ---------- */
   if (H.host) document.querySelectorAll("[data-host]").forEach(el => {
@@ -182,8 +226,8 @@
   const strip = $("#homeSponsors");
   if (strip) {
     strip.innerHTML = H.sponsors.map(s => `
-      <button class="card sp-tile ${s.tier === "main" ? "main" : ""} ${s.mandatory ? "mand" : ""}" style="--c:${s.color}" data-sp="${s.id}" title="${esc((s.mascot || {}).name || "")}">
-        <span class="org-mascot">${mascotSvg(s.id)}</span><b>${esc(s.name)}</b><small>${s.tier === "main" ? "Main sponsor" : s.mandatory ? "⚠ Mandatory" : "Sponsor"}</small>
+      <button class="card sp-tile ${s.tier === "main" ? "main" : ""} ${s.comms ? "mand" : ""}" style="--c:${s.color}" data-sp="${s.id}" title="${esc((s.mascot || {}).name || "")}">
+        <span class="org-mascot">${mascotSvg(s.id)}</span><b>${esc(s.name)}</b><small>${s.tier === "main" ? "Main sponsor · Main tool" : s.comms ? "💬 Event chat" : "Sponsor"}</small>
       </button>`).join("");
     strip.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
   }
@@ -197,12 +241,12 @@
       main.map(s => `
         <div class="card sp-featured" style="--c:${s.color}">
           <div class="badge m-stage" style="width:200px;height:auto;font-size:0"><div class="org-mascot">${mascotSvg(s.id, { act: true })}</div></div>
-          <div><span class="kicker">Main sponsor · ${esc(s.landmark)}</span><h3>${esc(s.name)}</h3><p>${esc(s.blurb)}</p>
+          <div><span class="kicker">Main sponsor · Main tool · ${esc(s.landmark)}</span><h3>${esc(s.name)}</h3><p>${esc(s.blurb)}</p>
           <div class="use"><b>Idea: how it could fit your build</b>${esc(s.buildIdea)}</div>
           <p style="margin-top:14px"><a class="lnk" href="${s.url}" target="_blank" rel="noopener">${s.url.replace(/^https?:\/\//, "")} ↗</a></p></div>
         </div>`).join("") +
       `<div class="sp-cards">${rest.map(s => `
-        <div class="card sp-card ${s.mandatory ? "mand" : ""}" style="--c:${s.color}">${s.mandatory ? `<span class="mand-tag">⚠ MANDATORY TOOL</span>` : ""}
+        <div class="card sp-card ${s.comms ? "mand" : ""}" style="--c:${s.color}">${s.comms ? `<a class="mand-tag" href="/aim-hack-visual/teamily.html">💬 OFFICIAL EVENT CHAT</a>` : ""}
           <div class="m-stage"><div class="org-mascot">${mascotSvg(s.id, { act: true })}</div></div>
           <div class="hd"><span class="i">${s.icon}</span><div><h3>${esc(s.name)}</h3><span class="lm">${esc(s.landmark)}</span></div></div>
           ${s.mascot ? `<span class="m-name">${esc(s.mascot.name)}</span><p class="m-does">${esc(s.mascot.action)}</p>` : ""}
