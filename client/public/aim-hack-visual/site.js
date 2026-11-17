@@ -148,14 +148,14 @@
       const C = CT.comms, m = CT.mascot || {};
       homeComms.style.setProperty("--c", CT.color);
       homeComms.innerHTML = `
-        <span class="ch-ping"></span>
         <button class="ch-m" data-sp="${CT.id}" title="${esc(m.name || "")}"><span class="org-mascot">${mascotSvg(CT.id, { label: m.name })}</span></button>
         <div class="ch-txt">
-          <span class="ch-k">🔔 REQUIRED · JOIN TO GET EVENT UPDATES</span>
+          <span class="ch-k">💬 Event communication</span>
           <b>All communication &amp; updates happen on ${esc(CT.name)}</b>
-          <small>Schedule changes, deadlines, demo order, mentor help and your team chat are posted <u>only</u> there, not on Discord or Slack. Join before you arrive.</small>
-          <div class="ch-cta"><a class="btn btn-sm" href="${CT.url}" target="_blank" rel="noopener">Join ${esc(CT.name)} now ↗</a><a class="btn ghost btn-sm" href="/aim-hack-visual/teamily.html">How it works →</a></div>
-        </div>`;
+          <small class="ch-lead">Join ${esc(CT.name)} to stay in the loop. Schedule changes, deadlines, demo order, mentor help and your team chat are all shared there, in place of Discord or Slack. Join before you arrive.</small>
+          <div class="ch-cta"><a class="btn" href="${CT.url}" target="_blank" rel="noopener">Join ${esc(CT.name)} ↗</a><a class="btn ghost" href="/aim-hack-visual/teamily.html">How it works →</a></div>
+        </div>
+        <ul class="ch-list">${C.spaces.slice(0, 4).map(s => `<li><i>${s[0]}</i><span><b>${esc(s[1])}</b><small>${esc(s[2])}</small></span></li>`).join("")}</ul>`;
       homeComms.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
     }
   }
