@@ -203,7 +203,7 @@ window.UI = (function () {
        live.refresh()                              re-sync with the active set (call after toggles)
      UI.toolFx(stageEl, id, opts) = stageEl._live.fx(id, opts)
      ========================================================= */
-  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls", teamily: "messages" };
+  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls", teamily: "messages", runware: "jobs" };
   U.toolsLive = function (stage, track, active) {
     if (!stage) return null;
     if (stage._live) stage._live.destroy();
@@ -323,6 +323,20 @@ window.UI = (function () {
     live.fx("teamily", { text: `${st[1]} · ${st[0]}: ${st[2]}`, from, callout: !!from });
     live.stat("teamily", `${live._tm.n} message${live._tm.n === 1 ? "" : "s"} · ${st[1]}`);
     return st;
+  };
+  /* Runware (simulated): one inference job (image, voice, video, 3D or text), at most every 5 s.
+     UI.runwareJob(live, track, fromEl) → shows "⚡ Runware · 🖼️ Key frame · act 2 · 1.1 s · $0.0020" */
+  U.runwareJob = function (live, track, from) {
+    if (!live || !live.active.has("runware") || !PLAY.runware) return null;
+    const now = Date.now();
+    if (live._rw && now - live._rw.t < 5000) return null;
+    live._rw = live._rw || { n: 0, t: 0, cost: 0 };
+    const R = PLAY.runware, jobs = R.jobs[track] || R.jobs.film, j = jobs[live._rw.n % jobs.length], k = R.kinds.find(x => x.id === j[0]) || R.kinds[0];
+    const secs = +(k.secs * (0.7 + Math.random() * 0.6)).toFixed(1);
+    live._rw.n++; live._rw.t = now; live._rw.cost += k.price;
+    live.fx("runware", { text: `${k.icon} ${j[1]} · ${secs} s · ${R.price(k.price)}`, from, callout: !!from });
+    live.stat("runware", `${live._rw.n} job${live._rw.n === 1 ? "" : "s"} · ${R.price(live._rw.cost)} (½ of ${R.price(live._rw.cost * R.neo)})`);
+    return { kind: k, label: j[1], secs };
   };
   /* tiny charts for Bruin dashboards */
   U.miniBars = rows => {

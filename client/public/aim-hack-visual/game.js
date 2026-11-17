@@ -430,7 +430,7 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
       alive: () => api.token === UI.ctl.token && document.body.contains(api.main),
       status: t => { const s = $("#gmStatus"); if (s) s.textContent = t; },
       log(html, cls) { if (cls !== "think") record(cls === "event" ? "world_event" : cls === "sys" ? "system" : "action", (html.match(/<b[^>]*>([^<]*)<\/b>/) || [])[1], html); const l = $("#gmLog"); if (!l) return; const li = document.createElement("li"); if (cls) li.className = cls; li.innerHTML = html; l.prepend(li); while (l.children.length > 60) l.lastChild.remove(); },
-      think(who, color2, text, src) { record("decision", who, text, { src: src || "llm" }); api.glasserIntel(who, color2); api.teamilyPost(); api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
+      think(who, color2, text, src) { record("decision", who, text, { src: src || "llm" }); api.glasserIntel(who, color2); api.teamilyPost(); api.runwareRun(who); api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
       /* the engine tells the shell which element is the stage and how to find a player's element */
       stage(el, locate) {
         api.live = UI.toolsLive(el, "game", cfg.tools);
@@ -462,6 +462,12 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
         if (!cfg.tools.has("teamily") || !api.live) return;
         const st = UI.teamilyStep(api.live, "game", null);
         if (st) { record("team_chat", st[0], `${st[1]} · ${st[0]}: ${st[2]}`); api.log(`<b style="color:#8b7bff">💬 Teamily ${esc(st[1])}</b> <span class="act">${esc(st[0])}: ${esc(st[2])} (simulated)</span>`, "sys"); }
+      },
+      /* Runware (simulated): the agent's turn, voices and art run as inference jobs */
+      runwareRun(who) {
+        if (!cfg.tools.has("runware") || !api.live) return;
+        const j = UI.runwareJob(api.live, "game", api.locate(who));
+        if (j) record("inference", who, `${j.kind.name}: ${j.label} (${j.secs} s)`);
       },
       /* Glasser (simulated): now and then an agent backs its plan with a looked-up data point */
       glasserIntel(who, color2) {

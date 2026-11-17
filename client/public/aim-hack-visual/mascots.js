@@ -156,6 +156,27 @@ window.Mascots = (function () {
         ${["Northwind AI · 84 staff", "Lumen Labs · 41 staff", "Parcel Robotics · 120"].map((r, i) => `<g opacity="0">${show(0.42 + i * 0.12, 0.97, 4.4)}<rect x="28" y="${-114 + i * 12}" width="92" height="10" rx="2" fill="#16203f"/>${T(32, -106.6 + i * 12, 6.5, r, `fill="#eaf0ff"`)}</g>`).join("")}`, "real data · price first")
     },
 
+    /* ---------- Runware: a mint robot built from stacked GPU modules, lightning antenna, a bolt in hand ---------- */
+    runware: {
+      body: c => `${legs("#1f8f6c", -9, 3, 7, 12)}<g class="m-bob">
+        ${[0, 1, 2].map(i => `<rect x="-14" y="${-38 + i * 9}" width="28" height="8" rx="2" fill="#123a30" stroke="${c}" stroke-width="1.2"/>
+          <path d="M-10 ${-34 + i * 9} H2" stroke="${c}" stroke-opacity=".35" stroke-width="1.4"/>
+          ${[5, 9].map((x, j) => `<circle cx="${x}" cy="${-34 + i * 9}" r="1.3" fill="${j ? "#ffe066" : c}"><animate attributeName="opacity" values="1;.2;1" dur="${0.6 + i * 0.25 + j * 0.3}s" repeatCount="indefinite"/></circle>`).join("")}`).join("")}
+        <rect class="m-armL" x="-19" y="-36" width="5" height="14" rx="2.5" fill="#1f8f6c"/>
+        <g transform="rotate(-150 16.5 -36)"><rect class="m-armR" x="14" y="-36" width="5" height="14" rx="2.5" fill="#1f8f6c"/></g>
+        <path d="M17 -64 L12 -55 L16 -55 L13 -47 L21 -58 L17 -58 L20 -64Z" fill="#ffe066" stroke="#b8860b" stroke-width=".6"/>
+        <rect x="-3" y="-42" width="6" height="4" fill="#1f8f6c"/>
+        <rect x="-12" y="-58" width="24" height="17" rx="5" fill="#0b1022" stroke="${c}" stroke-width="1.6"/>
+        <g class="m-eyes"><rect x="-7" y="-53" width="4.5" height="5" rx="1.5" fill="${c}"/><rect x="2.5" y="-53" width="4.5" height="5" rx="1.5" fill="${c}"/></g>
+        <path d="M-3 -45.5 Q0 -43.5 3 -45.5" stroke="${c}" fill="none" stroke-width="1"/>
+        <path d="M0 -58 L0 -64" stroke="${c}" stroke-width="1.4"/><path d="M1 -70 L-2.5 -65 L0 -65 L-1.5 -61 L3 -66.5 L.5 -66.5 L2 -70Z" fill="#ffe066"/></g>`,
+      act: c => panel(c, `
+        ${T(28, -113, 5.5, "JOBS → SONIC POD", `fill="${c}" class="m-mono"`)}
+        ${Array.from({ length: 15 }, (_, i) => `<rect x="${28 + (i % 5) * 10}" y="${-108 + Math.floor(i / 5) * 9}" width="8" height="7" rx="1.5" fill="${c}" opacity=".15">${`<animate attributeName="opacity" values=".15;.15;1;.15" keyTimes="0;${(i * 0.06).toFixed(2)};${(i * 0.06 + 0.05).toFixed(2)};1" dur="3s" repeatCount="indefinite"/>`}</rect>`).join("")}
+        <g opacity="0">${show(0.35, 0.96, 4.4)}${T(84, -106, 5.2, "Runware", `fill="#eaf0ff"`)}<rect x="84" y="-104" width="18" height="5" rx="2" fill="${c}"/>
+          ${T(84, -93, 5.2, "neocloud", `fill="#eaf0ff"`)}<rect x="84" y="-91" width="36" height="5" rx="2" fill="#ff8a7a"/>${T(84, -79, 5.5, "½ the cost", `fill="${c}" font-weight="700"`)}</g>`, "any model · one API")
+    },
+
     /* ---------- Teamily AI: a kangaroo with a pouch of agent joeys and a phone full of chat ---------- */
     teamily: {
       body: () => `<path d="M-9 -12 Q-24 -10 -31 -1" stroke="#a8693f" stroke-width="6" fill="none" stroke-linecap="round"/>

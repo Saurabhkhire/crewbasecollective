@@ -95,6 +95,36 @@ window.PLAY = {
     }
   },
 
+  /* Runware: AI inference on one API (runware.ai). The playground SIMULATES jobs:
+     nothing is sent to Runware, prices are examples, results are local previews.
+     neo = how much a typical neocloud costs for the same job (Runware: up to half the cost). */
+  runware: {
+    note: "Simulated jobs, example prices.",
+    neo: 2,
+    kinds: [
+      { id: "image", icon: "🖼️", name: "Image", unit: "image", price: 0.002, secs: 1.2, color: "#2ee6a6" },
+      { id: "video", icon: "🎬", name: "Video", unit: "5 s clip", price: 0.14, secs: 8.5, color: "#ff4fa3" },
+      { id: "audio", icon: "🔊", name: "Voice", unit: "minute", price: 0.012, secs: 2.2, color: "#ffc857" },
+      { id: "3d", icon: "🧊", name: "3D", unit: "model", price: 0.03, secs: 5.5, color: "#7cc8ff" },
+      { id: "text", icon: "💬", name: "Text", unit: "1K tokens", price: 0.0002, secs: 0.5, color: "#c48bff" }
+    ],
+    jobs: {
+      film: [["text", "Next beat of the plot"], ["image", "Key frame · act 2"], ["audio", "Rook's voice line"], ["image", "Close-up of the cargo"], ["video", "5 s teaser clip"], ["image", "Movie poster"]],
+      game: [["text", "BOLT-9 plans the next wave"], ["audio", "NPC callout: cover the gate!"], ["image", "Zombie sprite variant"], ["3d", "Low-poly medkit"], ["text", "Nyx picks a target"], ["image", "Map tile: north gate"]],
+      grow: [["text", "Next interview question"], ["audio", "Priya asks it out loud"], ["image", "Panelist avatar"], ["text", "Score with evidence"], ["audio", "Coach's feedback, spoken"]]
+    },
+    example: `POST https://api.runware.ai/v1
+[{
+  "taskType": "imageInference",
+  "taskUUID": "a unique id",
+  "model": "the model id you pick",
+  "positivePrompt": "A neon city on a rainy night",
+  "width": 1024,
+  "height": 1024
+}]`,
+    price(n) { return "$" + (n >= 1 ? n.toFixed(2) : n >= 0.01 ? n.toFixed(3) : n.toFixed(4)); }
+  },
+
   /* Glasser: real-world data APIs for agents (glasser.ai). The playground SIMULATES calls:
      nothing is sent to Glasser, prices are examples, data rows are generated samples. */
   glasser: {

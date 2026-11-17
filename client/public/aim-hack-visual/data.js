@@ -323,6 +323,19 @@ window.HACK = {
       mascot: { name: "Gus the Lookout Monkey", look: "An orange monkey in black glasses with a telescope", action: "Spots the right data source, shows the price before the call, then brings back real rows.", home: "grow" }
     },
     {
+      id: "runware", name: "Runware", tier: "sponsor", url: "https://runware.ai",
+      landmark: "Runware Sonic Pod", icon: "⚡", color: "#2ee6a6",
+      blurb: "Runware provides cost-efficient AI infrastructure with on-demand model APIs, serverless and dedicated compute for AI workloads. Powered by next-generation modular data centers, it helps developers and businesses run AI workloads at up to half the cost of traditional neocloud infrastructure.",
+      buildIdea: "Run every model your project needs through one API: images, video, voice, 3D and text. Render a whole storyboard, voice every NPC or generate the interview panel's avatars without blowing your budget, and show the cost of each run next to the result.",
+      role: "AI inference & compute", tag: "COMPUTE",
+      tracks: {
+        film: { label: "Fast renders", does: "Frames, voice lines and teaser clips render through one Runware API; the stage shows each job's time and cost (simulated)." },
+        game: { label: "Low-cost inference", does: "Agent turns, NPC voices and art run as Runware jobs; a meter shows the cost per round next to a typical neocloud (simulated)." },
+        grow: { label: "Voice & avatars", does: "The panel's questions, spoken voices and avatars run as Runware jobs that scale to zero between answers (simulated)." }
+      },
+      mascot: { name: "Modi the Pod Bot", look: "A mint robot built from stacked GPU modules, with a lightning antenna", action: "Catches jobs from every agent, runs them in its modular pod and sends back images, video, voice and text at about half the usual price.", home: "game" }
+    },
+    {
       id: "teamily", name: "Teamily AI", tier: "sponsor", url: "https://teamily.ai",
       landmark: "Teamily Commons", icon: "💬", color: "#8b7bff",
       blurb: "Teamily AI is a human+AI social platform and AI-native workspace: people and always-on AI agents collaborate in one unified messaging space. Agents are first-class members of your chats. You can @mention them, assign them tasks and let them run jobs in parallel, and you can create your own agents or whole agent teams in seconds with \"+ New Agent\". Everyone shares one connected context and a living memory, so no one has to repeat themselves.",

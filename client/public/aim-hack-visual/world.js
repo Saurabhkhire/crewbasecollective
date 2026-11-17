@@ -300,6 +300,28 @@ window.World = (function () {
           end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
         };
       },
+      /* Runware bot: a mini pod above its head runs jobs and beams results to the nearest characters */
+      runware(e) {
+        const near = nearest(e, 3, o => o !== e && (o.kind === "agent" || o.kind === "mascot") && Math.hypot(o.x - e.x, o.y - e.y) < 280);
+        if (!near.length) return null;
+        const g = el("g", {}, fxL), pod = el("g", {}, g), ICONS = ["🖼️", "🔊", "💬"];
+        el("rect", { x: -26, y: -12, width: 52, height: 20, rx: 4, fill: "#0b1022", stroke: "#2ee6a6", "stroke-width": 1.5 }, pod);
+        const cells = Array.from({ length: 8 }, (_, i) => el("rect", { x: -22 + (i % 4) * 11, y: -9 + Math.floor(i / 4) * 8, width: 9, height: 6, rx: 1.5, fill: "#2ee6a6", opacity: 0.2 }, pod));
+        const L = near.map((o, k) => ({ p: el("path", { fill: "none", stroke: "#2ee6a6", "stroke-width": 2, "stroke-dasharray": "3 5", class: "wm-flow" }, g), b: el("g", { opacity: 0 }, g) }));
+        L.forEach((q, k) => { el("rect", { x: -11, y: -9, width: 22, height: 15, rx: 4, fill: "#123a30", stroke: "#2ee6a6" }, q.b); el("text", { y: 2.5, "text-anchor": "middle", "font-size": 9 }, q.b, ICONS[k % 3]); });
+        near.forEach(o => o.g.classList.add("matched"));
+        let t = 0;
+        return {
+          update(dt) {
+            t += dt;
+            const h = head(e), hy = h.y - 24;
+            pod.setAttribute("transform", `translate(${h.x} ${hy})`);
+            cells.forEach((c, i) => c.setAttribute("opacity", (Math.floor(t / 120) + i * 3) % 5 < 2 ? 1 : 0.2));
+            near.forEach((o, k) => { const b = head(o); L[k].p.setAttribute("d", `M${h.x} ${hy - 12} Q${(h.x + b.x) / 2} ${Math.min(hy, b.y) - 40} ${b.x} ${b.y - 10}`); L[k].b.setAttribute("transform", `translate(${b.x} ${b.y - 22})`); if (t > 600 + k * 500) L[k].b.setAttribute("opacity", 1); });
+          },
+          end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
+        };
+      },
       /* Crewbase host: lights circuit traces to the nearest characters and powers them up */
       crewbase(e) {
         const near = nearest(e, 3, o => o !== e && (o.kind === "agent" || o.kind === "mascot") && Math.hypot(o.x - e.x, o.y - e.y) < 260);

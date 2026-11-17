@@ -52,7 +52,7 @@ client/public/aim-hack-visual/
   game.js/.css     Track 2 · game hub; games/zombie.js, snakes.js, rps.js       → play.html#game
   grow.js/.css     Track 3 · expert panel interviews/coaches you                → play.html#grow
   studio.js/.css   character & scene creator (manual + AI)                      → play.html#studio
-  labs*.js, labs.css           Sponsor Labs (BAND, AdaL, Bruin, Finch, Casuro, Glasser, Teamily AI) → sponsors.html#labs
+  labs*.js, labs.css           Sponsor Labs (BAND, AdaL, Bruin, Finch, Casuro, Glasser, Runware, Teamily AI) → sponsors.html#labs
   coord.js/.css                "How the tools work together" + per-tool views on sponsors.html
   mascots.js       one SVG character per sponsor/partner + its looping "what it does" panel (Mascots.svg / body / act)
   world.js/.css    the world map: AWS Loft town hall island + 3 track islands, mascots roam and act.
