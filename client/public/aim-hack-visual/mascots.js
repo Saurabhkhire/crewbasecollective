@@ -156,32 +156,37 @@ window.Mascots = (function () {
         ${["Northwind AI · 84 staff", "Lumen Labs · 41 staff", "Parcel Robotics · 120"].map((r, i) => `<g opacity="0">${show(0.42 + i * 0.12, 0.97, 4.4)}<rect x="28" y="${-114 + i * 12}" width="92" height="10" rx="2" fill="#16203f"/>${T(32, -106.6 + i * 12, 6.5, r, `fill="#eaf0ff"`)}</g>`).join("")}`, "real data · price first")
     },
 
-    /* ---------- October: an autumn fox builder in a mint hard hat ---------- */
-    october: {
-      body: () => `${legs("#3b2618", -9, 2, 7, 14)}<g class="m-bob">
-        <path d="M-10 -18 Q-31 -16 -27 -37 Q-19 -31 -10 -27Z" fill="#e8742c"/><path d="M-27 -37 Q-31 -31 -24 -30 Q-26 -33 -27 -37Z" fill="#fff4e6"/>
-        <ellipse cx="0" cy="-26" rx="12" ry="13" fill="#e8742c"/><path d="M-5.5 -37 Q0 -21 5.5 -37Z" fill="#fff4e6"/>
-        <rect x="-12" y="-20" width="24" height="3.5" rx="1.5" fill="#3ddc97"/><rect x="4" y="-19.5" width="3" height="6" rx="1" fill="#2bb87c"/>
-        <rect class="m-armL" x="-16" y="-34" width="6" height="14" rx="3" fill="#e8742c"/>
-        <rect class="m-armR" x="10" y="-42" width="6" height="15" rx="3" fill="#e8742c"/>
-        <g transform="translate(10 -55)"><rect width="13" height="12" rx="2.5" fill="#3ddc97" stroke="#0b1022" stroke-width="1"/><text x="6.5" y="8.6" font-size="6.5" text-anchor="middle" font-weight="800" fill="#0b1022">{ }</text></g>
-        <path d="M-11.5 -53 L-10 -69 L-2.5 -58Z" fill="#e8742c"/><path d="M11.5 -53 L10 -69 L2.5 -58Z" fill="#e8742c"/>
-        <path d="M-9.5 -56 L-9 -64 L-5 -58Z M9.5 -56 L9 -64 L5 -58Z" fill="#3b2618"/>
-        <path d="M-12.5 -52 Q0 -65 12.5 -52 Q8 -40 0 -37.5 Q-8 -40 -12.5 -52Z" fill="#e8742c"/>
-        <path d="M-12.5 -50 Q-6 -42 0 -37.5 Q-5 -45 -12.5 -50Z M12.5 -50 Q6 -42 0 -37.5 Q5 -45 12.5 -50Z" fill="#fff4e6"/>
-        <circle cx="0" cy="-39.5" r="1.9" fill="${INK}"/>
-        <g class="m-eyes"><circle cx="-4.5" cy="-49" r="1.6" fill="${INK}"/><circle cx="4.5" cy="-49" r="1.6" fill="${INK}"/></g>
-        <path d="M-10.5 -57 Q0 -70 10.5 -57Z" fill="#3ddc97"/><rect x="-13" y="-58" width="26" height="3" rx="1.5" fill="#2bb87c"/><rect x="-1.5" y="-66" width="3" height="8" rx="1" fill="#2bb87c"/></g>`,
-      act: c => {
-        const blocks = [["Claude Code", 28, -114, "#ff9f43"], ["Codex", 28, -96, "#eaf0ff"], ["Cursor", 28, -78, "#8d97bd"]];
-        return panel(c, `
-          <pattern id="okGrid" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".6" fill="#2a355e"/></pattern>
-          <rect x="22" y="-120" width="104" height="48" rx="5" fill="url(#okGrid)"/>
-          ${blocks.map(([n, x, y, col], i) => `<g><rect x="${x}" y="${y}" width="36" height="12" rx="3" fill="#16203f" stroke="${col}"/>${T(x + 18, y + 8.3, 5.8, n, `text-anchor="middle" fill="#eaf0ff" font-weight="700"`)}<animateTransform attributeName="transform" type="translate" values="-30 0;-30 0;0 0;0 0" keyTimes="0;${0.04 + i * 0.1};${0.14 + i * 0.1};1" dur="4.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;${0.04 + i * 0.1};${0.14 + i * 0.1};.94;1" dur="4.6s" repeatCount="indefinite"/></g>`).join("")}
-          ${[[-108, -106], [-90, -100], [-72, -94]].map(([y1, y2], i) => `<path d="M64 ${y1} C76 ${y1} 76 ${y2} 86 ${y2}" fill="none" stroke="${c}" stroke-width="1.4" stroke-dasharray="30" stroke-dashoffset="30"><animate attributeName="stroke-dashoffset" values="30;30;0;0" keyTimes="0;${0.38 + i * 0.06};${0.48 + i * 0.06};1" dur="4.6s" repeatCount="indefinite"/></path>`).join("")}
-          <g opacity="0">${show(0.62, 0.94, 4.6)}<rect x="86" y="-114" width="36" height="34" rx="3" fill="#eaf0ff"/><rect x="86" y="-114" width="36" height="6" rx="3" fill="#c9d0ee"/><circle cx="89.5" cy="-111" r="1" fill="#ff6b6b"/><circle cx="93" cy="-111" r="1" fill="#ffc857"/>
-            <rect x="90" y="-104" width="20" height="3" rx="1" fill="#1b1530"/><rect x="90" y="-99" width="27" height="2" rx="1" fill="#8d97bd"/><rect x="90" y="-93" width="12" height="5" rx="2" fill="${c}"/>${T(104, -82.5, 5.5, "✓ site live", `text-anchor="middle" fill="#0b6b45" font-weight="800"`)}</g>`, "drag · connect · ship");
-      }
+    /* ---------- Teamily AI: a kangaroo with a pouch of agent joeys and a phone full of chat ---------- */
+    teamily: {
+      body: () => `<path d="M-9 -12 Q-24 -10 -31 -1" stroke="#a8693f" stroke-width="6" fill="none" stroke-linecap="round"/>
+        ${legs("#a8693f", -10, 2, 8, 11)}<ellipse cx="-8" cy="-1" rx="8" ry="2.6" fill="#8d5733"/><ellipse cx="8" cy="-1" rx="8" ry="2.6" fill="#8d5733"/>
+        <g class="m-bob">
+        <ellipse cx="0" cy="-26" rx="15" ry="17" fill="#b9784a"/>
+        <ellipse cx="1" cy="-23" rx="10" ry="12" fill="#e8c39e"/>
+        ${[["-5", "#ff6f61", "0"], ["1", "#ff4fa3", ".25"], ["7", "#3ee6ff", ".5"]].map(([x, c, d]) => `<g><animateTransform attributeName="transform" type="translate" values="0 2;0 -1.5;0 2" dur="1.4s" begin="${d}s" repeatCount="indefinite"/>
+          <path d="M${x} -33 L${x} -36" stroke="#8b93b8" stroke-width=".8"/><circle cx="${x}" cy="-36.5" r=".9" fill="${c}"/>
+          <rect x="${x - 3.6}" y="-33" width="7.2" height="6.5" rx="2.4" fill="#e6ecff" stroke="${c}" stroke-width="1"/>
+          <circle cx="${x - 1.4}" cy="-30" r=".9" fill="${c}"/><circle cx="${+x + 1.4}" cy="-30" r=".9" fill="${c}"/></g>`).join("")}
+        <path d="M-10 -27 Q1 -13 12 -27 L12 -24 Q1 -9 -10 -24Z" fill="#d9ab82" stroke="#a8693f" stroke-width=".8"/>
+        <rect class="m-armL" x="-17" y="-37" width="5.5" height="14" rx="2.7" fill="#b9784a"/>
+        <rect class="m-armR" x="11.5" y="-40" width="5.5" height="13" rx="2.7" fill="#b9784a" transform="rotate(-35 14 -40)"/>
+        <g transform="translate(16 -58)"><rect width="12" height="18" rx="2.2" fill="#10172f" stroke="#8b7bff" stroke-width="1.2"/>
+          <rect x="2" y="3" width="6" height="3" rx="1.2" fill="#8b7bff"/><rect x="4" y="7.5" width="6" height="3" rx="1.2" fill="#ff6f61"/><rect x="2" y="12" width="6" height="3" rx="1.2" fill="#3ee6ff"/></g>
+        <rect x="-9" y="-43" width="18" height="4.5" rx="2" fill="#8b7bff"/><path d="M5 -40 L9 -32 L5 -33Z" fill="#8b7bff"/>
+        <ellipse cx="-5" cy="-63" rx="3" ry="8.5" fill="#b9784a" transform="rotate(-14 -5 -63)"/><ellipse cx="5" cy="-63" rx="3" ry="8.5" fill="#b9784a" transform="rotate(14 5 -63)"/>
+        <ellipse cx="-5" cy="-63" rx="1.4" ry="6" fill="#f2b8a0" transform="rotate(-14 -5 -63)"/><ellipse cx="5" cy="-63" rx="1.4" ry="6" fill="#f2b8a0" transform="rotate(14 5 -63)"/>
+        <ellipse cx="0" cy="-51" rx="10.5" ry="9.5" fill="#b9784a"/>
+        <ellipse cx="2" cy="-46.5" rx="6.5" ry="4.6" fill="#e8c39e"/>
+        <ellipse cx="3" cy="-48.5" rx="2" ry="1.5" fill="#3b2618"/>
+        <g class="m-eyes"><circle cx="-4.5" cy="-53" r="1.7" fill="${INK}"/><circle cx="4.5" cy="-53" r="1.7" fill="${INK}"/></g>
+        <path d="M0 -44.5 Q2.5 -42.5 5 -44.5" stroke="${INK}" fill="none" stroke-width="1"/></g>`,
+      act: c => panel(c, `
+        ${T(28, -113, 5.5, "# team-launch · 2 humans · 3 agents", `fill="${c}" class="m-mono"`)}
+        ${[["🧑", "#eaf0ff", "Launch on Friday?", 0, 0.06], ["📣", "#ff6f61", "Posts drafted ✓", 1, 0.24], ["🎨", "#ff4fa3", "Poster ready ✓", 0, 0.42], ["💻", "#3ee6ff", "Page is live ✓", 1, 0.6]].map(([e, col, txt, right, at], i) => {
+          const y = -106 + i * 9, x = right ? 64 : 34;
+          return `<g opacity="0">${show(at, 0.96, 4.6)}<circle cx="${right ? 117 : 29}" cy="${y + 3}" r="3.6" fill="${col}" fill-opacity=".25" stroke="${col}" stroke-width=".7"/>${T(right ? 117 : 29, y + 5, 4.8, e, `text-anchor="middle"`)}
+            <rect x="${x}" y="${y}" width="48" height="7" rx="3.5" fill="${right ? "#1d2147" : "#2a2f55"}" stroke="${col}" stroke-width=".6"/>${T(x + 3, y + 5, 4.6, txt, `fill="#eaf0ff"`)}</g>`;
+        }).join("")}`, "humans + agents · one chat")
     },
 
     /* ---------- 2% Tech: the flame from fire.jpg (goggles + scarf) ---------- */

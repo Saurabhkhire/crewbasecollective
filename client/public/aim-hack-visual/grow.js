@@ -674,7 +674,7 @@ Reply with JSON only: {"findings":[{"source":"provider + endpoint, e.g. Apollo c
       await UI.waitWhilePaused(token);
       $("#qLbl").textContent = `Question ${k + 1} of ${G.nq}`;
       if (on("glasser") && !G.research) await glasserResearch(token);
-      if (on("october")) { const st = UI.octoberStep(G.live, "grow", null); if (st) gLog(`<b style="color:#3ddc97">🧩 October</b><span class="act">${esc(st[0])} → ${esc(st[1])}: ${esc(st[2])}</span><span class="thought">simulated coding-agent run</span>`); }
+      if (on("teamily")) { const st = UI.teamilyStep(G.live, "grow", null); if (st) gLog(`<b style="color:#8b7bff">💬 Teamily ${esc(st[1])}</b><span class="act">${esc(st[0])}: ${esc(st[2])}</span><span class="thought">simulated team chat</span>`); }
       $("#answerBox").innerHTML = `<div class="thinking-row"><span class="think-chip" style="--c:${C}">The panel is choosing the next question<span class="dots3"><i></i><i></i><i></i></span></span></div>`;
       G.panel.forEach(p => Puppet.emotion(p.el, "thinking"));
       const q = await nextQuestion(k);

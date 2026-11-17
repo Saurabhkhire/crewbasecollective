@@ -74,29 +74,24 @@ window.PLAY = {
     return out;
   },
 
-  /* October: coding agents working as a team on one canvas (october.dev). The playground SIMULATES runs:
-     blocks = coding agents / apps on the canvas, steps = hand-offs along the wires. Nothing is sent to October. */
-  october: {
-    note: "Simulated run. Download October to run real coding agents.",
-    agents: [
-      { id: "claude", name: "Claude Code", icon: "🟠", color: "#ff9f43", role: "Builds features" },
-      { id: "codex", name: "Codex", icon: "⚪", color: "#eaf0ff", role: "Reviews and tests" },
-      { id: "cursor", name: "Cursor", icon: "⬛", color: "#9aa6c8", role: "Front-end and styling" },
-      { id: "gemini", name: "Gemini CLI", icon: "🔷", color: "#5c8dff", role: "Research and docs" },
-      { id: "opencode", name: "OpenCode", icon: "🟢", color: "#3ddc97", role: "Scripts and fixes" }
+  /* Teamily AI: humans and always-on role agents in one group chat (teamily.ai). The playground SIMULATES it:
+     roles = agents you can create, steps = messages shown on the stage per track [who, channel, text]. Nothing is sent to Teamily. */
+  teamily: {
+    note: "Simulated workspace. Use Teamily AI for your real team.",
+    roles: [
+      { id: "marketing", name: "Marketing Agent", icon: "📣", color: "#ff6f61", does: "Positioning, launch posts, channel plan", style: "punchy and audience-first, always ends with a call to action" },
+      { id: "research", name: "Research Agent", icon: "🔎", color: "#7cc8ff", does: "Facts, competitors, users", style: "careful, says where each finding came from" },
+      { id: "design", name: "Design Agent", icon: "🎨", color: "#ff4fa3", does: "Visual direction, palettes, posters", style: "visual and opinionated about colour and type" },
+      { id: "engineer", name: "Engineer Agent", icon: "💻", color: "#3ee6ff", does: "Builds pages, prototypes, fixes", style: "practical, ships the smallest thing that works" },
+      { id: "producer", name: "Producer Agent", icon: "📋", color: "#ffc857", does: "Plans, owners, deadlines", style: "organised, turns a chat into a timeline with owners" },
+      { id: "qa", name: "QA Agent", icon: "🧪", color: "#b6ff5c", does: "Tests and finds what breaks", style: "skeptical, lists what could go wrong" },
+      { id: "coach", name: "Coach Agent", icon: "🎯", color: "#c48bff", does: "Feedback and practice plans", style: "warm but direct, one improvement at a time" },
+      { id: "sales", name: "Sales Agent", icon: "🤝", color: "#4fd1c5", does: "Outreach, pitches, follow-ups", style: "friendly, personal and short" }
     ],
-    apps: [
-      { id: "browser", name: "Browser", icon: "🌐", color: "#7cc8ff", role: "Opens and checks the page" },
-      { id: "website", name: "Website preview", icon: "🖥️", color: "#c48bff", role: "The page being built" },
-      { id: "mobile", name: "Mobile screen", icon: "📱", color: "#ff4fa3", role: "Phone preview" },
-      { id: "video", name: "Video editor", icon: "🎞️", color: "#ffc857", role: "Cuts a trailer" },
-      { id: "memory", name: "Shared memory", icon: "🧠", color: "#b6ff5c", role: "Context every agent can read" }
-    ],
-    /* canned steps shown on the stage per track: [from, to, what] */
     steps: {
-      film: [["Claude Code", "Website preview", "builds the premiere page"], ["Cursor", "Website preview", "styles the poster section"], ["Codex", "Claude Code", "review: 2 fixes requested"], ["Claude Code", "Browser", "opens the page, checks links"], ["Codex", "Website preview", "approves → page published"]],
-      game: [["Claude Code", "Game build", "adds level 2 spawn points"], ["Codex", "Claude Code", "review: off-by-one in the wave timer"], ["Cursor", "Game build", "new HUD for the medkit count"], ["OpenCode", "Game build", "patches the ladder bug"], ["Codex", "Game build", "tests pass → hot-reloaded"]],
-      grow: [["Claude Code", "Starter repo", "builds the take-home app"], ["Cursor", "Website preview", "adds a sign-up screen"], ["Codex", "Pull request", "opens PR #12 for you to review"], ["Gemini CLI", "Shared memory", "writes the README"], ["Codex", "Pull request", "checks pass → ready for review"]]
+      film: [["Kit (you)", "#film-crew", "Premiere is Friday. @Marketing @Design, go."], ["Marketing Agent", "#film-crew", "3 teaser posts drafted. @Design, I need the poster."], ["Design Agent", "#film-crew", "Poster v1 is up: rain, candles, one empty chair."], ["Producer Agent", "#film-crew", "Pinned: trailer Wed · invites Thu · premiere Fri."], ["Marketing Agent", "#film-crew", "Teaser is live. 140 RSVPs so far."]],
+      game: [["Kit (you)", "#game-squad", "@Engineer medkits spawn too often."], ["Engineer Agent", "#game-squad", "Patched: medkits every 3 waves. New build is up."], ["QA Agent", "#game-squad", "Replayed 5 rounds. Ladder bug is back on level 2."], ["Engineer Agent", "#game-squad", "Ladder fixed. @QA, try again?"], ["Producer Agent", "#game-squad", "Playtest tonight 8 pm: 6 humans + 4 agents."]],
+      grow: [["Jax (you)", "#study-group", "Pitch practice tomorrow. Help?"], ["Coach Agent", "#study-group", "Run it once now. I'll time you."], ["Research Agent", "#study-group", "Their market grew a third this year. Use it on slide 2."], ["Coach Agent", "#study-group", "Better. Slow down on the ask. Again at 6 pm?"], ["Sales Agent", "#study-group", "Here's a 3-line follow-up email for after the pitch."]]
     }
   },
 

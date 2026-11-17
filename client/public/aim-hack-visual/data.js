@@ -5,6 +5,8 @@
    - Sponsor (a tool in the tracks): copy an entry in `sponsors`. Fields: id, name, tier, url, icon, color,
      landmark, blurb, buildIdea, role + tag (tool-coordination node), tracks { film|game|grow: { label, does } }
      (= its toggle in each track), mascot { name, look, action, home: center|film|game|grow }.
+     Optional `mandatory` { headline, why, rules[] }: marks the tool as MANDATORY everywhere (badge, home section,
+     submission checklist, always-on toggle in the playground). Today: Teamily AI.
    - Partner (not a tool): copy an entry in `partners`. Fields: id, name, url, icon, color, scene, blurb, brings, mascot.
    - Host (the organiser, Crewbase Collective): the single `host` entry. Same fields as a partner.
    - Remove: delete the entry (or add its id to HIDDEN_SPONSORS / HIDDEN_PARTNERS at the bottom).
@@ -320,17 +322,27 @@ window.HACK = {
       mascot: { name: "Gus the Lookout Monkey", look: "An orange monkey in black glasses with a telescope", action: "Spots the right data source, shows the price before the call, then brings back real rows.", home: "grow" }
     },
     {
-      id: "october", name: "October", tier: "sponsor", url: "https://www.october.dev",
-      landmark: "October Canvas Works", icon: "🧩", color: "#3ddc97",
-      blurb: "October is where your coding agents work as a team. Drag coding agents (Claude Code, Codex, Cursor, Gemini and more), browsers and app previews onto one shared canvas and connect them so they share work. Or give October a task: it proposes a team and a plan, then handles the hand-offs, reviews and checks.",
-      buildIdea: "Build your hackathon project with a team of coding agents: drag Claude Code, Codex and Cursor onto a canvas, connect them to a browser and a website preview, and let them build, review and ship while you direct.",
-      role: "Coding-agent canvas", tag: "CODING TEAM",
-      tracks: {
-        film: { label: "Premiere site", does: "While the film plays, a team of coding agents on an October canvas (Claude Code builds, Codex reviews, Cursor styles) ships a premiere web page for it (simulated)." },
-        game: { label: "Build the game", does: "Coding agents wired together on an October canvas add a level, patch a bug and review each other's code between rounds (simulated)." },
-        grow: { label: "Coding challenge", does: "For tech roles, an October team of coding agents builds a take-home starter app on a shared canvas, and the panel asks you to review its pull request (simulated)." }
+      id: "teamily", name: "Teamily AI", tier: "sponsor", url: "https://teamily.ai",
+      landmark: "Teamily Commons", icon: "💬", color: "#8b7bff",
+      blurb: "Teamily AI is a human+AI social platform and AI-native workspace: people and always-on AI agents collaborate in one unified messaging space. Agents are first-class members of your chats. You can @mention them, assign them tasks and let them run jobs in parallel, and you can create your own agents or whole agent teams in seconds with \"+ New Agent\". Everyone shares one connected context and a living memory, so no one has to repeat themselves.",
+      buildIdea: "Run your whole team on Teamily: humans and your role agents (marketing, research, design, engineering, QA, coach…) in one group. @mention an agent to hand it a task, let agents hand work to each other in the thread, and show the judges how your human+agent team worked together.",
+      role: "Human + agent workspace", tag: "TEAM CHAT",
+      mandatory: {
+        headline: "Teamily AI is the mandatory communication platform of the hackathon.",
+        why: "This is a multiplayer AI hackathon, so your team is multiplayer too: humans and AI agents working side by side in one place. Teamily AI is where that happens, for people talking to people, and for teams of agents collaborating with each other and with you.",
+        rules: [
+          ["Your team lives on Teamily", "Create your team's group on Teamily AI and use it for all team communication during the event."],
+          ["Agents are teammates", "Add your agents as members with clear roles (marketing, research, design, engineering, QA, coach…). @mention them, assign tasks, and let them hand work to each other in the thread."],
+          ["Event updates happen there", "Announcements, mentor help and questions for the organizers go through Teamily AI."],
+          ["Show it at submission", "Share your Teamily group, or exports/screenshots of its key threads, so judges can see how your humans and agents worked together."]
+        ]
       },
-      mascot: { name: "Okto the Builder Fox", look: "An autumn fox in a mint hard hat carrying a code block", action: "Drags coding-agent blocks onto a canvas, wires them together and ships a website.", home: "game" }
+      tracks: {
+        film: { label: "Crew chat", does: "You and the film's role agents share one Teamily group: a Producer Agent pins the timeline, a Marketing Agent drafts the teaser posts, a Design Agent posts the poster, all in the same thread (simulated)." },
+        game: { label: "Squad chat", does: "Players and AI teammates coordinate in one Teamily group: @mention an agent to patch the build or plan the next wave, and it reports back in the thread (simulated)." },
+        grow: { label: "Study group", does: "You, your coach and research agents in one Teamily group: they remember your weak spots, share findings and post your next practice session (simulated)." }
+      },
+      mascot: { name: "Roo the Team Kangaroo", look: "A kangaroo in a violet scarf with a phone full of chat bubbles and a pouch of little agent joeys, each with its own role", action: "Opens a group chat anywhere, lets the agent joeys out of the pouch and each one does its role: marketing, design, code.", home: "game" }
     }
   ],
 
@@ -411,6 +423,9 @@ window.HACK = {
   const HIDDEN_SPONSORS = [];
   const HIDDEN_PARTNERS = [];
   H.allSponsors = H.sponsors.slice();
+  /* a mandatory tool (sponsor.mandatory) also becomes a required item in the submission checklist */
+  H.sponsors.filter(s => s.mandatory && !HIDDEN_SPONSORS.includes(s.id)).forEach(s => H.checklist.must.push([s.name, "Your team (humans and agents) communicates on " + s.name + ", the mandatory platform."]));
+  H.mandatory = () => H.sponsors.filter(s => s.mandatory);
   H.hiddenSponsors = HIDDEN_SPONSORS.filter(id => H.allSponsors.some(s => s.id === id));
   H.sponsors = H.allSponsors.filter(s => !H.hiddenSponsors.includes(s.id));
   H.sponsorVisible = id => !H.hiddenSponsors.includes(id);

@@ -182,7 +182,7 @@ window.World = (function () {
     });
 
     /* mascots */
-    let orgs = H.sponsors.map(s => ({ s, type: s.tier === "main" ? "Main sponsor" : "Sponsor" })).concat((H.partners || []).map(s => ({ s, type: "Partner" })));
+    let orgs = H.sponsors.map(s => ({ s, type: s.tier === "main" ? "Main sponsor" : s.mandatory ? "Mandatory tool" : "Sponsor" })).concat((H.partners || []).map(s => ({ s, type: "Partner" })));
     if (H.host) orgs.unshift({ s: H.host, type: "Host" });
     if (isl1) orgs = orgs.filter(({ s }) => (s.tracks && s.tracks[isl1]) || (s.mascot && s.mascot.home === isl1));
     const station = i => { const I = ISL[isl1], a = (i / orgs.length) * Math.PI * 2 + 0.4; return { x: I.x + Math.cos(a) * I.rx * 0.6, y: I.y + Math.sin(a) * I.ry * 0.55 + 6 }; };
@@ -276,6 +276,26 @@ window.World = (function () {
               q.hs.setAttribute("x", mx); q.hs.setAttribute("y", (a.y + b.y) / 4 + my / 2 + 4);
               [a, b].forEach((p, j) => q.arms[j].setAttribute("d", `M${h.x} ${h.y + 30} Q${(h.x + p.x) / 2} ${Math.max(h.y, p.y) + 24} ${p.x} ${p.y + 8}`));
             });
+          },
+          end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
+        };
+      },
+      /* Teamily kangaroo: opens a group chat with the nearest characters; agent joeys answer in role */
+      teamily(e) {
+        const near = nearest(e, 3, o => o !== e && (o.kind === "agent" || o.kind === "mascot") && Math.hypot(o.x - e.x, o.y - e.y) < 280);
+        if (!near.length) return null;
+        const g = el("g", {}, fxL), ROLES = ["📣", "🎨", "💻"];
+        const hub = el("g", {}, g); el("rect", { x: -30, y: -11, width: 60, height: 18, rx: 9, fill: "#8b7bff" }, hub); el("text", { y: 2, "text-anchor": "middle", "font-size": 10, fill: "#fff", "font-weight": 700 }, hub, "# team");
+        const L = near.map((o, k) => ({ p: el("path", { fill: "none", stroke: "#8b7bff", "stroke-width": 2, "stroke-dasharray": "4 4", class: "wm-flow" }, g), b: el("g", { opacity: 0 }, g) }));
+        L.forEach((q, k) => { el("rect", { x: -13, y: -10, width: 26, height: 16, rx: 7, fill: "#1d2147", stroke: "#8b7bff" }, q.b); el("text", { y: 2.5, "text-anchor": "middle", "font-size": 10 }, q.b, ROLES[k % 3]); });
+        near.forEach(o => o.g.classList.add("matched"));
+        let t = 0;
+        return {
+          update(dt) {
+            t += dt;
+            const h = head(e), hy = h.y - 22;
+            hub.setAttribute("transform", `translate(${h.x} ${hy})`);
+            near.forEach((o, k) => { const b = head(o); L[k].p.setAttribute("d", `M${h.x} ${hy + 7} Q${(h.x + b.x) / 2} ${Math.min(hy, b.y) - 30} ${b.x} ${b.y - 10}`); L[k].b.setAttribute("transform", `translate(${b.x} ${b.y - 22})`); if (t > 500 + k * 600) L[k].b.setAttribute("opacity", 1); });
           },
           end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
         };

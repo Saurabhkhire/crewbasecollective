@@ -3,7 +3,7 @@
      Coord.network(el)        → full animated network (sponsors.html "Tools together" view)
      Coord.strip(el, focusId) → compact "Works with" strip inside a lab
                                 returns { pulse(otherId, label, dir), note(text) }
-   Nodes: finch, band, adal, casuro, bruin, glasser, october (+ team = the agents, you = the human).
+   Nodes: finch, band, adal, casuro, bruin, glasser, teamily (+ team = the agents, you = the human).
    Needs data.js (HACK.sponsors), play-data.js, puppet.js.
    ========================================================= */
 window.Coord = (function () {
@@ -37,8 +37,8 @@ window.Coord = (function () {
         { f: "you", t: "casuro", label: "🎙️ your spoken review", detail: "You review the film out loud; Casuro transcribes it and scores it with evidence from your words." },
         { f: "casuro", t: "bruin", label: "📊 score + quotes", detail: "Casuro sends the scored review, with quotes, into Bruin." },
         { f: "band", t: "bruin", label: "🧾 54 events", detail: "Every message, skill use and frame lands in Bruin's pipeline: who drove the plot, which ending happens most." },
-        { f: "adal", t: "october", label: "🖼️ poster + trailer frames", detail: "The poster and frames go onto October's canvas, where a team of coding agents is building the film's premiere page." },
-        { f: "october", t: "you", label: "🧩 premiere page shipped", detail: "Claude Code builds the page, Cursor styles it, Codex reviews it, a browser block checks it. You get one card back: the page is live." }
+        { f: "adal", t: "teamily", label: "🖼️ poster in #film-crew", detail: "The poster lands in the crew's Teamily AI group, where you and your role agents (marketing, design, producer) work in one thread." },
+        { f: "teamily", t: "you", label: "📣 premiere plan + posts", detail: "Agents take tasks right from the chat: the Marketing Agent drafts teaser posts, the Producer Agent pins the timeline, and you approve in the same thread." }
       ]
     },
     game: {
@@ -53,8 +53,8 @@ window.Coord = (function () {
         { f: "adal", t: "team", label: "🎨 cover art + theme", detail: "AdaL generates the art for the custom game you designed." },
         { f: "team", t: "bruin", label: "📈 kills · damage · rounds", detail: "Every hit, heal and decision streams into Bruin's live stats and quality checks." },
         { f: "bruin", t: "finch", label: "💡 “Medic used 9× — keep it”", detail: "Bruin's numbers feed back into which Finch skills to equip next round." },
-        { f: "you", t: "october", label: "🧩 drag: “add level 2”", detail: "Between rounds you drag Claude Code and Codex blocks onto October's canvas and connect them to the game build." },
-        { f: "october", t: "team", label: "🚀 level 2 hot-reloaded", detail: "One coding agent writes the level, another reviews it, checks pass, and the agents get a new map to play on." }
+        { f: "you", t: "teamily", label: "💬 “@Engineer fix medkits”", detail: "Between rounds you @mention an agent in the squad's Teamily AI group, just like a human teammate." },
+        { f: "teamily", t: "team", label: "✅ patched + playtest set", detail: "The Engineer Agent patches the build, the QA Agent replays it, and everyone, human or agent, sees the update in the same chat." }
       ]
     },
     grow: {
@@ -70,7 +70,7 @@ window.Coord = (function () {
         { f: "band", t: "team", label: "⬆️ next question: harder", detail: "The agreed plan comes back: the next questioner adapts to you." },
         { f: "team", t: "adal", label: "🏅 certificate image", detail: "AdaL renders a certificate for your result." },
         { f: "casuro", t: "bruin", label: "📊 scores per skill", detail: "Every score lands in Bruin: charts per question and per skill, ready to compare sessions." },
-        { f: "october", t: "you", label: "🧑‍💻 take-home PR to review", detail: "For a tech role, a team of coding agents on October's canvas builds a starter app and opens a pull request. Reviewing it is your interview task." }
+        { f: "teamily", t: "you", label: "🎯 next practice in #study-group", detail: "After the session your coach and research agents stay in a Teamily AI group with you: they remember your weak spots and post your next practice." }
       ]
     }
   };
@@ -339,7 +339,7 @@ window.Coord = (function () {
     adal: { title: "AdaL · images and video", job: "An agent turns a prompt into a storyboard, renders frames one by one, and assembles a poster or short video the other agents can use.", lab: "adal" },
     bruin: { title: "Bruin · data from every agent", job: "Every message, skill use, render and score streams into Bruin: ingested into raw tables, transformed into assets with lineage, guarded by quality checks, then answered in plain English in Slack.", lab: "bruin" },
     casuro: { title: "Casuro · voice interview & scoring", job: "A human answers out loud. Casuro transcribes the voice, scores each rubric item with evidence quotes, and hands the verdict to the panel.", lab: "casuro" },
-    october: { title: "October · coding agents as a team", job: "Drag coding agents (Claude Code, Codex, Cursor…) and apps (browser, website preview, phone screen) onto one canvas and connect them. Each wire is a hand-off: one agent builds, another reviews, a browser block checks the result, and the finished work comes back as one card.", lab: "october" },
+    teamily: { title: "Teamily AI · humans and agents in one chat", job: "The mandatory team workspace. Humans and always-on agents are members of the same group chat. Each agent has a role (marketing, design, engineering, QA, coach…), takes a task when you @mention it, hands work to other agents and posts the result back in the thread.", lab: "teamily" },
     glasser: { title: "Glasser · real-world data for agents", job: "Agents need real data. Glasser gives them 2,000+ endpoints (people, companies, search, SEO, social, e-commerce) through one key: the agent picks a provider, sees the price before the call, pays per call and gets the rows back. No subscriptions.", lab: "glasser" }
   };
   const ORDER = { filter: f => IDS().filter(f) };
@@ -409,13 +409,13 @@ window.Coord = (function () {
         p.remove();
       }
     };
-    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom", glasser: "office", october: "lab" }[id] || "office", time: "night", weather: "clear" });
+    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom", glasser: "office", teamily: "office" }[id] || "office", time: "night", weather: "clear" });
     host.querySelector(".tv").addEventListener("click", e => {
       const b = e.target.closest("[data-tv]"); if (b) { ctx.paused = !ctx.paused; b.textContent = ctx.paused ? "▶" : "❚❚"; return; }
       const lab = e.target.closest("[data-lab-open]");
       if (lab) { e.preventDefault(); location.hash = "#lab-" + lab.dataset.labOpen; const t = document.getElementById("labs"); t && t.scrollIntoView({ behavior: "smooth" }); }
     });
-    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro, glasser: viewGlasser, october: viewOctober }[id] || viewGeneric;
+    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro, glasser: viewGlasser, teamily: viewTeamily }[id] || viewGeneric;
     run(ctx).catch(() => {});
     return { destroy() { ctx.alive = false; } };
   }
@@ -693,80 +693,65 @@ window.Coord = (function () {
     }
   }
 
-  /* ---------- October: drag coding-agent blocks onto a canvas, wire them, hand work along the wires ---------- */
-  async function viewOctober(x) {
-    const O = P.october;
-    if (!O) return;
-    const B = id => O.agents.concat(O.apps).find(b => b.id === id);
-    const box = document.createElement("div"); box.className = "tv-oc";
-    box.innerHTML = `<div class="oc-pal"><small>BLOCKS</small>${O.agents.concat(O.apps).map(b => `<span class="oc-pb" data-b="${b.id}" style="--k:${b.color}">${b.icon} ${esc(b.name)}</span>`).join("")}</div>
-      <div class="oc-cv"><svg class="oc-w" viewBox="0 0 100 100" preserveAspectRatio="none"></svg><div class="oc-task"></div></div>`;
+  /* ---------- Teamily AI: one group chat, humans + role agents; tasks get @mentioned, handed off and delivered ---------- */
+  async function viewTeamily(x) {
+    const T = P.teamily;
+    if (!T) return;
+    const R = id => T.roles.find(r => r.id === id);
+    const box = document.createElement("div"); box.className = "tv-tm";
+    box.innerHTML = `<div class="tm-side"><small>MEMBERS</small><div class="tm-mem"></div></div>
+      <div class="tm-main"><div class="tm-head"><b class="tm-ch"></b><span class="tm-sub"></span></div><div class="tm-thread"></div></div>`;
     x.layer.appendChild(box);
     const dir = x.agent("kit", 12, 86, 0.8);
-    const cv = box.querySelector(".oc-cv"), wsvg = box.querySelector(".oc-w"), task = box.querySelector(".oc-task");
+    const mem = box.querySelector(".tm-mem"), thread = box.querySelector(".tm-thread"), ch = box.querySelector(".tm-ch"), sub = box.querySelector(".tm-sub");
     const JOBS = [
-      { t: "Build a premiere page for “One Seat Left”", blocks: [["claude", 18, 24], ["cursor", 18, 78], ["codex", 48, 52], ["website", 80, 30], ["browser", 80, 80]],
-        wires: [["claude", "website", "build page"], ["cursor", "website", "style poster"], ["claude", "codex", "review?"], ["codex", "website", "approve ✓"], ["website", "browser", "open & check"]], out: ["ONE SEAT LEFT", "An agent film · premiere tonight", "▶ Trailer"] },
-      { t: "Add level 2 to the zombie game", blocks: [["memory", 18, 24], ["claude", 18, 78], ["opencode", 48, 24], ["codex", 48, 78], ["website", 82, 52]],
-        wires: [["memory", "claude", "game rules"], ["claude", "website", "new level"], ["opencode", "website", "fix ladder bug"], ["claude", "codex", "review?"], ["codex", "website", "tests pass ✓"]], out: ["LEVEL 2", "Night at the north gate", "▶ Play"] },
-      { t: "Build the take-home app for the interview", blocks: [["gemini", 18, 24], ["claude", 18, 78], ["codex", 48, 52], ["website", 80, 30], ["mobile", 80, 80]],
-        wires: [["gemini", "claude", "spec + README"], ["claude", "website", "build app"], ["claude", "codex", "open PR #12"], ["codex", "website", "checks ✓"], ["website", "mobile", "phone preview"]], out: ["SIGN UP", "Take-home · ready for review", "Review PR"] }
+      { ch: "#film-crew", humans: ["Kit", "Sam"], agents: ["producer", "marketing", "design"], msgs: [
+        ["h", "Kit", "Premiere is Friday 7 pm. @Producer @Marketing @Design, let's go."],
+        ["producer", "Owners set: poster → Design (Wed), posts → Marketing (Thu). Pinned 📌"],
+        ["marketing", "3 teaser posts drafted. @Design, I need the poster for post 1."],
+        ["design", "Poster v1 posted: rain, candles, one empty chair.", "card:🖼️ ONE SEAT LEFT · poster v1"],
+        ["h", "Sam", "Love it. Ship it 🚀"],
+        ["marketing", "Teaser is live. 140 RSVPs so far.", "card:📈 140 RSVPs · 3 posts live"]] },
+      { ch: "#game-squad", humans: ["Kit", "Ana"], agents: ["engineer", "qa", "producer"], msgs: [
+        ["h", "Kit", "@Engineer medkits spawn way too often."],
+        ["engineer", "Patched: one medkit every 3 waves. Build 0.4 is up.", "card:💻 build 0.4 · 1 file changed"],
+        ["qa", "Replayed 5 rounds. Ladder bug is back on level 2. @Engineer"],
+        ["engineer", "Ladder fixed. @QA, try again?"],
+        ["qa", "All 5 rounds clean ✓", "card:🧪 5/5 rounds pass"],
+        ["producer", "Playtest tonight 8 pm: 6 humans + 4 agents. Invites sent."]] },
+      { ch: "#study-group", humans: ["Jax"], agents: ["coach", "research", "sales"], msgs: [
+        ["h", "Jax", "Pitch practice tomorrow. Help? 😬"],
+        ["coach", "Run it once now. I'll time you and pick ONE thing to fix."],
+        ["research", "Their market grew a third this year. Use it on slide 2.", "card:🔎 market +33% · 2 sources"],
+        ["coach", "Better. Slow down on the ask. Again at 6 pm? ⏰"],
+        ["sales", "Here's a 3-line follow-up email for after the pitch.", "card:✉️ follow-up draft · 3 lines"]] }
     ];
-    let hand = 0, reviews = 0, nBlocks = 0;
-    const kp = () => x.kpis([["blocks on canvas", nBlocks], ["hand-offs", hand], ["reviews", reviews]]);
+    let msgs = 0, tasks = 0, members = 0;
+    const kp = () => x.kpis([["members", members], ["messages", msgs], ["tasks done", tasks]]);
     for (let k = 0; ; k++) {
       const J = JOBS[k % JOBS.length];
-      cv.querySelectorAll(".oc-b, .oc-wl, .oc-pk, .oc-hand").forEach(n => n.remove()); wsvg.innerHTML = ""; nBlocks = 0; kp();
-      task.innerHTML = `<small>TASK</small>${esc(J.t)}`;
-      Puppet.talk(dir.pup, 1400); Puppet.gesture(dir.pup, "point", 1200);
-      x.cap(`${dir.name} → October`, J.t);
-      await x.tick(1200);
-      const els = {};
-      const handEl = document.createElement("i"); handEl.className = "oc-hand"; handEl.textContent = "👆"; cv.appendChild(handEl);
-      for (const [id, px, py] of J.blocks) {
-        const b = B(id), d = document.createElement("div");
-        d.className = "oc-b"; d.style.setProperty("--k", b.color); d.style.left = "-12%"; d.style.top = py + "%";
-        d.innerHTML = `<b>${b.icon} ${esc(b.name)}</b><small>${esc(b.role)}</small>`;
-        cv.appendChild(d); els[id] = { el: d, x: px, y: py };
-        box.querySelectorAll(".oc-pb").forEach(p => p.classList.toggle("hot", p.dataset.b === id));
-        handEl.style.left = "-6%"; handEl.style.top = py + "%"; void d.offsetWidth;
-        d.style.left = px + "%"; handEl.style.left = px + "%";
-        nBlocks++; kp();
-        x.cap("Drag & drop", `${b.name} dropped on the canvas`);
-        await x.tick(650);
+      thread.innerHTML = ""; mem.innerHTML = "";
+      ch.textContent = J.ch; sub.textContent = `${J.humans.length} humans · ${J.agents.length} agents · always on`;
+      members = 0; kp();
+      for (const h of J.humans) { mem.insertAdjacentHTML("beforeend", `<span class="tm-m h">🧑 ${esc(h)}</span>`); members++; kp(); await x.tick(250); }
+      for (const a of J.agents) { const r = R(a); mem.insertAdjacentHTML("beforeend", `<span class="tm-m new" style="--k:${r.color}">${r.icon} ${esc(r.name)}</span>`); members++; kp(); x.cap("+ New Agent", `${r.name} joins ${J.ch}: ${r.does}`); await x.tick(450); }
+      for (const m of J.msgs) {
+        if (!x.alive) return;
+        const human = m[0] === "h", r = human ? null : R(m[0]);
+        const who = human ? m[1] : r.name, text = human ? m[2] : m[1], card = human ? null : m[2];
+        if (human && who === J.humans[0]) { Puppet.talk(dir.pup, 1200); Puppet.gesture(dir.pup, "point", 900); }
+        if (!human) { const t = document.createElement("div"); t.className = "tm-typing"; t.style.setProperty("--k", r.color); t.innerHTML = `${r.icon} ${esc(r.name)} is typing<i></i><i></i><i></i>`; thread.appendChild(t); thread.scrollTop = 9e9; await x.tick(700); t.remove(); }
+        const d = document.createElement("div"); d.className = "tm-msg" + (human ? " h" : ""); if (r) d.style.setProperty("--k", r.color);
+        d.innerHTML = `<span class="tm-av">${human ? "🧑" : r.icon}</span><div><b>${esc(who)}</b>${human ? "" : ` <em>AGENT</em>`}<p>${esc(text).replace(/@(\w+)/g, '<span class="tm-at">@$1</span>')}</p>${card ? `<div class="tm-card">${esc(card.slice(5))}</div>` : ""}</div>`;
+        thread.appendChild(d); thread.scrollTop = 9e9;
+        msgs++; if (card) tasks++; kp();
+        x.cap(`Teamily AI · ${J.ch}`, `${who}: ${text}`);
+        x.feed(`💬 <b>${esc(who)}</b> in ${esc(J.ch)}: ${esc(text)}`);
+        await x.tick(card ? 1500 : 1100);
       }
-      box.querySelectorAll(".oc-pb").forEach(p => p.classList.remove("hot")); handEl.remove();
-      const wires = J.wires.map(([a, b, label]) => {
-        const A = els[a], Bb = els[b], mx = (A.x + Bb.x) / 2;
-        const p = document.createElementNS(NS, "path");
-        p.setAttribute("d", `M${A.x} ${A.y} C${mx} ${A.y} ${mx} ${Bb.y} ${Bb.x} ${Bb.y}`); p.setAttribute("class", "oc-wire"); p.setAttribute("vector-effect", "non-scaling-stroke");
-        wsvg.appendChild(p);
-        const l = document.createElement("span"); l.className = "oc-wl"; l.textContent = label;
-        const mid = p.getPointAtLength(p.getTotalLength() / 2); l.style.left = mid.x + "%"; l.style.top = mid.y + "%"; cv.appendChild(l);
-        return { p, l, a, b, label };
-      });
-      x.cap("Connect", "Wires between blocks = who hands work to whom");
-      await x.tick(1100);
-      for (const w of wires) {
-        const from = els[w.a].el, to = els[w.b].el;
-        from.classList.add("on"); w.p.classList.add("hot"); w.l.classList.add("hot");
-        x.cap(`${B(w.a).name} → ${B(w.b).name}`, w.label);
-        const pk = document.createElement("i"); pk.className = "oc-pk"; cv.appendChild(pk);
-        const L = w.p.getTotalLength(), t0 = performance.now();
-        await new Promise(res => { (function step(now) { const q = Math.min(1, (now - t0) / 900), pt = w.p.getPointAtLength(L * q); pk.style.left = pt.x + "%"; pk.style.top = pt.y + "%"; if (q < 1 && x.alive) requestAnimationFrame(step); else res(); })(t0); setTimeout(res, 1400); });
-        pk.remove(); from.classList.remove("on"); to.classList.add("got"); setTimeout(() => to.classList.remove("got"), 700);
-        hand++; if (/review|PR|✓/.test(w.label)) reviews++;
-        x.feed(`🧩 <b>${esc(B(w.a).name)}</b> → ${esc(B(w.b).name)}: ${esc(w.label)}`); kp();
-        await x.tick(500);
-        w.p.classList.remove("hot"); w.l.classList.remove("hot");
-      }
-      const site = els.website.el;
-      site.classList.add("out");
-      site.innerHTML = `<div class="oc-site"><i></i><b>${esc(J.out[0])}</b><small>${esc(J.out[1])}</small><span>${esc(J.out[2])}</span></div><em>✓ shipped</em>`;
       Puppet.emotion(dir.pup, "happy"); Puppet.gesture(dir.pup, "jump", 1200);
-      x.cap("October · one card back", "Built, reviewed and checked by a team of coding agents");
-      x.feed(`✅ <b>${esc(J.out[0])}</b> shipped · ${J.wires.length} hand-offs`);
-      await x.tick(3200);
+      x.cap("Teamily AI · one thread", "Humans and agents planned, built and shipped in the same chat");
+      await x.tick(2600);
       Puppet.emotion(dir.pup, "neutral");
     }
   }

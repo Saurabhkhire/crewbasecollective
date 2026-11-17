@@ -6,7 +6,7 @@
      Finch  → equip skills and see output change
      Casuro → mini voice interview with evidence-based scoring
      Glasser → real-world data APIs, price before each call (labs3.js)
-     October → coding agents on one canvas: drag, connect, run (labs4.js)
+     Teamily → humans + role agents in one group chat: create agents, @mention, hand-offs (labs4.js)
    Every lab = interactive area + "How it works" + a looping demo "video".
    Needs: data.js, play-data.js, puppet.js, scenes.js, brain.js (+ core.css, labs.css)
    ========================================================= */

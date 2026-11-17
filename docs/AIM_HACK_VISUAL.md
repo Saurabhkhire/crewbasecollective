@@ -52,7 +52,7 @@ client/public/aim-hack-visual/
   game.js/.css     Track 2 · game hub; games/zombie.js, snakes.js, rps.js       → play.html#game
   grow.js/.css     Track 3 · expert panel interviews/coaches you                → play.html#grow
   studio.js/.css   character & scene creator (manual + AI)                      → play.html#studio
-  labs*.js, labs.css           Sponsor Labs (BAND, AdaL, Bruin, Finch, Casuro, Glasser, October) → sponsors.html#labs
+  labs*.js, labs.css           Sponsor Labs (BAND, AdaL, Bruin, Finch, Casuro, Glasser, Teamily AI) → sponsors.html#labs
   coord.js/.css                "How the tools work together" + per-tool views on sponsors.html
   mascots.js       one SVG character per sponsor/partner + its looping "what it does" panel (Mascots.svg / body / act)
   world.js/.css    the world map: AWS Loft town hall island + 3 track islands, mascots roam and act.
@@ -65,7 +65,7 @@ client/api/aim-hack-chat.ts       ← Vercel function → OpenAI chat + images (
 
 Demo routes for quick checks: `play.html#film/demo`, `#grow/demo`, `#game/zombie?demo`, `#game/snakes?demo`, `#game/rps?demo` (add `-tools` / `?demo-tools` to switch every sponsor tool on).
 
-**Add / remove a sponsor or partner:** edit one entry in `data.js` (the recipe is at the top of that file). A sponsor entry carries its track toggles (`tracks`), its coordination node (`role`, `tag`) and its `mascot`; a partner entry carries `brings`, `scene` and `mascot`. Delete the entry (or list its id in `HIDDEN_SPONSORS` / `HIDDEN_PARTNERS`) to remove it everywhere. Optional: custom art in `mascots.js` (`ART[id]`, otherwise a generic robot), a lab in `labs*.js`, a custom tool view in `coord.js`.
+**Add / remove a sponsor or partner:** edit one entry in `data.js` (the recipe is at the top of that file). A sponsor entry carries its track toggles (`tracks`), its coordination node (`role`, `tag`), its `mascot` and optionally `mandatory` (marks a required tool: badges, home showcase, checklist item, always-on toggle; today Teamily AI); a partner entry carries `brings`, `scene` and `mascot`. Delete the entry (or list its id in `HIDDEN_SPONSORS` / `HIDDEN_PARTNERS`) to remove it everywhere. Optional: custom art in `mascots.js` (`ART[id]`, otherwise a generic robot), a lab in `labs*.js`, a custom tool view in `coord.js`.
 
 Vercel's Root Directory is `client/`, so only files inside `client/` deploy. **No rewrites / no vercel.json** are used:
 `/aim-hack-visual/` is served by its `index.html`; the plugin in `client/aim-hack-visual.vite.ts` also writes

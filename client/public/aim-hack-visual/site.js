@@ -42,7 +42,7 @@
       <button class="close" aria-label="Close">✕</button>
       <div class="m-row"><div class="org-mascot">${mascotSvg(o.id, { act: true, label: m.name })}</div>${o.image ? `<img class="m-pic" src="${o.image}" alt="${esc(m.name || o.name)} mascot artwork">` : ""}</div>
       ${m.name ? `<p class="m-who"><b>${esc(m.name)}</b> · ${esc(m.action || "")}</p>` : ""}
-      <span class="lm">${s ? (s.tier === "main" ? "Main sponsor · " : "Sponsor · ") + esc(s.landmark) : esc(p.kind === "Host & organizer" ? p.kind : "Partner")}</span>
+      <span class="lm">${s ? (s.tier === "main" ? "Main sponsor · " : "Sponsor · ") + (s.mandatory ? "⚠ Mandatory tool · " : "") + esc(s.landmark) : esc(p.kind === "Host & organizer" ? p.kind : "Partner")}</span>
       <h3>${o.icon} ${esc(o.name)}</h3>
       <p>${esc(o.blurb)}</p>
       ${s ? `<div class="use"><b>Idea: how it could fit your build</b>${esc(s.buildIdea)}</div>` : `<div class="use"><b>What they bring to the hackathon</b>${esc(p.brings || "")}</div>`}
@@ -117,6 +117,48 @@
        <div class="bonus-row">${H.checklist.bonus.map(b => `<div class="card req bonus"><span class="n">★ SCORES HIGHER</span><h4>${b[0]}</h4><p>${b[1]}</p></div>`).join("")}</div>`;
   }
 
+  /* ---------- mandatory tool(s): home showcase + hero pill (sponsors with `mandatory` in data.js) ---------- */
+  const mands = H.mandatory ? H.mandatory() : [];
+  document.querySelectorAll("[data-mand]").forEach(el => { const m = mands[0]; if (!m) return el.remove(); el.style.setProperty("--c", m.color); el.innerHTML = `${m.icon} <b>${esc(m.name)}</b> is mandatory for every team →`; });
+  const homeMand = $("#homeMandatory");
+  if (homeMand) {
+    if (!mands.length) homeMand.closest("section").remove();
+    homeMand.innerHTML = mands.map(s => { const M = s.mandatory, m = s.mascot || {}; return `
+      <div class="mand" style="--c:${s.color}">
+        <div class="mand-l">
+          <span class="mand-badge">⚠ MANDATORY TOOL · EVERY TEAM</span>
+          <h2>${s.icon} ${esc(s.name)}</h2>
+          <p class="mand-head">${esc(M.headline)}</p>
+          <p class="muted">${esc(M.why)}</p>
+          <ol class="mand-rules">${M.rules.map(r => `<li><b>${esc(r[0])}</b><span>${esc(r[1])}</span></li>`).join("")}</ol>
+          <div class="cta-row" style="justify-content:flex-start"><a class="btn" href="${s.url}" target="_blank" rel="noopener">Join ${esc(s.name)} ↗</a><a class="btn ghost" href="/aim-hack-visual/sponsors.html#lab-${s.id}">🧪 Try it in the Sponsor Lab</a></div>
+        </div>
+        <div class="mand-r">
+          <div class="mand-chat"><div class="mc-h"><b>#team-launch</b><span>2 humans · 4 agents · always on</span></div><div class="mc-t"></div></div>
+          <button class="mand-m" data-sp="${s.id}" title="${esc(m.name || "")}"><span class="org-mascot">${mascotSvg(s.id, { act: true, label: m.name })}</span><small><b>${esc(m.name || "")}</b> · ${esc(m.action || "")}</small></button>
+        </div>
+        <div class="mand-tracks">${H.tracks.map(t => { const u = (s.tracks || {})[t.id]; return u ? `<div style="--t:${t.hex}"><span>${t.icon} Track ${t.num} · ${esc(t.short)}</span><b>${esc(u.label)}</b><p>${esc(u.does.replace(/ \(simulated\)/, ""))}</p></div>` : ""; }).join("")}</div>
+      </div>`; }).join("");
+    homeMand.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
+    /* the live chat: humans and role agents posting, one message at a time */
+    const T = window.PLAY && PLAY.teamily, box = homeMand.querySelector(".mc-t");
+    if (T && box) {
+      const R = n => T.roles.find(r => n.startsWith(r.name)) || null;
+      const all = [].concat(...Object.values(T.steps));
+      let i = 0;
+      const step = () => {
+        if (!document.body.contains(box)) return;
+        const [who, ch, text] = all[i++ % all.length], r = R(who);
+        box.closest(".mand-chat").querySelector(".mc-h b").textContent = ch;
+        const d = document.createElement("div"); d.className = "mc-m" + (r ? "" : " h"); d.style.setProperty("--k", r ? r.color : "#eaf0ff");
+        d.innerHTML = `<i>${r ? r.icon : "🧑"}</i><div><b>${esc(who)}</b>${r ? " <em>AGENT</em>" : ""}<p>${esc(text).replace(/@(\w+)/g, '<u>@$1</u>')}</p></div>`;
+        box.appendChild(d); while (box.children.length > 4) box.firstChild.remove();
+        setTimeout(step, 2300);
+      };
+      step();
+    }
+  }
+
   /* ---------- hosted-by line (any element with data-host) ---------- */
   if (H.host) document.querySelectorAll("[data-host]").forEach(el => {
     el.innerHTML = `<span class="org-mascot">${mascotSvg(H.host.id)}</span><span>Hosted by <b>${esc(H.host.name)}</b></span>`;
@@ -140,8 +182,8 @@
   const strip = $("#homeSponsors");
   if (strip) {
     strip.innerHTML = H.sponsors.map(s => `
-      <button class="card sp-tile ${s.tier === "main" ? "main" : ""}" style="--c:${s.color}" data-sp="${s.id}" title="${esc((s.mascot || {}).name || "")}">
-        <span class="org-mascot">${mascotSvg(s.id)}</span><b>${esc(s.name)}</b><small>${s.tier === "main" ? "Main sponsor" : "Sponsor"}</small>
+      <button class="card sp-tile ${s.tier === "main" ? "main" : ""} ${s.mandatory ? "mand" : ""}" style="--c:${s.color}" data-sp="${s.id}" title="${esc((s.mascot || {}).name || "")}">
+        <span class="org-mascot">${mascotSvg(s.id)}</span><b>${esc(s.name)}</b><small>${s.tier === "main" ? "Main sponsor" : s.mandatory ? "⚠ Mandatory" : "Sponsor"}</small>
       </button>`).join("");
     strip.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
   }
@@ -160,7 +202,7 @@
           <p style="margin-top:14px"><a class="lnk" href="${s.url}" target="_blank" rel="noopener">${s.url.replace(/^https?:\/\//, "")} ↗</a></p></div>
         </div>`).join("") +
       `<div class="sp-cards">${rest.map(s => `
-        <div class="card sp-card" style="--c:${s.color}">
+        <div class="card sp-card ${s.mandatory ? "mand" : ""}" style="--c:${s.color}">${s.mandatory ? `<span class="mand-tag">⚠ MANDATORY TOOL</span>` : ""}
           <div class="m-stage"><div class="org-mascot">${mascotSvg(s.id, { act: true })}</div></div>
           <div class="hd"><span class="i">${s.icon}</span><div><h3>${esc(s.name)}</h3><span class="lm">${esc(s.landmark)}</span></div></div>
           ${s.mascot ? `<span class="m-name">${esc(s.mascot.name)}</span><p class="m-does">${esc(s.mascot.action)}</p>` : ""}

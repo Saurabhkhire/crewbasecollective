@@ -179,14 +179,15 @@ window.UI = (function () {
   U.sponsorBar = function (el, track, active, onChange, opts) {
     opts = opts || {};
     const tools = (PLAY.tools[track] || []).map(t => ({ ...t, sp: HACK.sponsors.find(s => s.id === t.id) })).filter(t => t.sp);
+    tools.forEach(t => t.sp.mandatory && active.add(t.id));
     const draw = () => {
       const on = tools.filter(t => active.has(t.id));
       el.classList.toggle("tl-sticky", !!opts.live);
       el.innerHTML = `<div class="toolbar-sp ${opts.live ? "live" : ""}"><span class="lbl">${opts.live ? "● LIVE · TAP TOOLS ON/OFF" : "SPONSOR TOOLS"}</span>
-        ${tools.map(t => `<button class="sp-tog ${active.has(t.id) ? "on" : ""}" data-t="${t.id}" style="--c:${t.sp.color}" title="${U.esc(t.does)}" aria-pressed="${active.has(t.id)}">${t.sp.icon} ${U.esc(t.sp.name)} <small>${U.esc(t.label)}</small></button>`).join("")}
+        ${tools.map(t => `<button class="sp-tog ${active.has(t.id) ? "on" : ""}" data-t="${t.id}" style="--c:${t.sp.color}" title="${U.esc(t.does)}" aria-pressed="${active.has(t.id)}">${t.sp.icon} ${U.esc(t.sp.name)} <small>${U.esc(t.label)}</small>${t.sp.mandatory ? `<em class="req">REQUIRED</em>` : ""}</button>`).join("")}
         <span class="sp-hint">${on.length ? on.map(t => `<b style="color:${t.sp.color}">${t.sp.icon} ${U.esc(t.sp.name)}:</b> ${U.esc(t.does)}`).join(" · ") : opts.live ? "Tap any tool, even mid-run: its effect appears on the stage immediately. Several at once is fine." : "Switch on a sponsor's tool to see what it adds to this track."}</span></div>`;
     };
-    el.onclick = e => { const b = e.target.closest("[data-t]"); if (!b) return; const id = b.dataset.t; active.has(id) ? active.delete(id) : active.add(id); draw(); if (opts.live) opts.live.refresh(); onChange && onChange(active); };
+    el.onclick = e => { const b = e.target.closest("[data-t]"); if (!b) return; const id = b.dataset.t; if (U.sponsor(id) && U.sponsor(id).mandatory) return; active.has(id) ? active.delete(id) : active.add(id); draw(); if (opts.live) opts.live.refresh(); onChange && onChange(active); };
     draw();
     return { on: id => active.has(id), redraw: draw };
   };
@@ -203,7 +204,7 @@ window.UI = (function () {
        live.refresh()                              re-sync with the active set (call after toggles)
      UI.toolFx(stageEl, id, opts) = stageEl._live.fx(id, opts)
      ========================================================= */
-  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls", october: "hand-offs" };
+  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls", teamily: "messages" };
   U.toolsLive = function (stage, track, active) {
     if (!stage) return null;
     if (stage._live) stage._live.destroy();
@@ -311,17 +312,17 @@ window.UI = (function () {
     live.stat("glasser", `${live._gl.n} call${live._gl.n === 1 ? "" : "s"} · $${live._gl.cost.toFixed(3)}`);
     return { ep, price: ep.price };
   };
-  /* October (simulated): one canvas hand-off between coding agents, at most every 6 s.
-     UI.octoberStep(live, track, fromEl) → shows "🧩 October · Claude Code → Website preview: builds the premiere page" */
-  U.octoberStep = function (live, track, from) {
-    if (!live || !live.active.has("october") || !PLAY.october) return null;
+  /* Teamily AI (simulated): one message in the team's group chat, at most every 6 s.
+     UI.teamilyStep(live, track, fromEl) → shows "💬 Teamily · #film-crew · Marketing Agent: 3 teaser posts drafted…" */
+  U.teamilyStep = function (live, track, from) {
+    if (!live || !live.active.has("teamily") || !PLAY.teamily) return null;
     const now = Date.now();
-    if (live._oc && now - live._oc.t < 6000) return null;
-    live._oc = live._oc || { n: 0, t: 0 };
-    const steps = PLAY.october.steps[track] || PLAY.october.steps.film, st = steps[live._oc.n % steps.length];
-    live._oc.n++; live._oc.t = now;
-    live.fx("october", { text: `${st[0]} → ${st[1]}: ${st[2]}`, from, callout: !!from });
-    live.stat("october", `${live._oc.n} hand-off${live._oc.n === 1 ? "" : "s"}${live._oc.n >= steps.length ? " · shipped ✓" : ""}`);
+    if (live._tm && now - live._tm.t < 6000) return null;
+    live._tm = live._tm || { n: 0, t: 0 };
+    const steps = PLAY.teamily.steps[track] || PLAY.teamily.steps.film, st = steps[live._tm.n % steps.length];
+    live._tm.n++; live._tm.t = now;
+    live.fx("teamily", { text: `${st[1]} · ${st[0]}: ${st[2]}`, from, callout: !!from });
+    live.stat("teamily", `${live._tm.n} message${live._tm.n === 1 ? "" : "s"} · ${st[1]}`);
     return st;
   };
   /* tiny charts for Bruin dashboards */
