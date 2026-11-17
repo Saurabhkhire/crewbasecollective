@@ -225,8 +225,8 @@
   const strip = $("#homeSponsors");
   if (strip) {
     strip.innerHTML = H.sponsors.map(s => `
-      <button class="card sp-tile ${s.tier === "main" ? "main" : ""} ${s.comms ? "mand" : ""}" style="--c:${s.color}" data-sp="${s.id}" title="${esc((s.mascot || {}).name || "")}">
-        <span class="org-mascot">${mascotSvg(s.id)}</span><b>${esc(s.name)}</b><small>${s.tier === "main" ? "Main sponsor · Main tool" : s.comms ? "💬 Event chat" : "Sponsor"}</small>
+      <button class="card sp-tile ${s.tier === "main" ? "main" : ""}" style="--c:${s.color}" data-sp="${s.id}" title="${esc((s.mascot || {}).name || "")}">
+        <span class="org-mascot">${mascotSvg(s.id)}</span><b>${esc(s.name)}</b><small>${s.tier === "main" ? "Main sponsor · Main tool" : "Sponsor"}</small>
       </button>`).join("");
     strip.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
   }
