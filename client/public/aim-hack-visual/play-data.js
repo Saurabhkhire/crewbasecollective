@@ -95,6 +95,25 @@ window.PLAY = {
     }
   },
 
+  /* Telem AI: web infrastructure for agents (telem.ai): search routing, clean fetching, monitoring, traces.
+     The playground SIMULATES it: engines are generic examples, results are samples, nothing is sent.
+     searches[track] = [query, engine id, what the agent learned] */
+  telem: {
+    note: "Simulated searches and pages.",
+    engines: [
+      { id: "fast", name: "Fast engine", icon: "⚡", ms: 180, cost: 0.001, q: 0.82 },
+      { id: "deep", name: "Deep engine", icon: "🧠", ms: 900, cost: 0.005, q: 0.95 },
+      { id: "news", name: "News engine", icon: "📰", ms: 350, cost: 0.002, q: 0.88 },
+      { id: "budget", name: "Budget engine", icon: "🪙", ms: 420, cost: 0.0004, q: 0.74 }
+    ],
+    searches: {
+      film: [["1920s jazz club slang", "deep", "“The bee's knees” and “juice joint” fit the speakeasy scene"], ["how long does escape pod air last", "fast", "About 72 hours on a small pod: the countdown is real"], ["famous gala jewel thefts", "deep", "A real heist used a power cut as cover: steal that twist"], ["rainy night noir sound design", "fast", "Layer soft rain with distant traffic for the mood"]],
+      game: [["best zombie wave survival strategy", "fast", "Hold the choke points; keep the medic behind the shooters"], ["tower defence speedrun tricks", "deep", "Cheap walls first, upgrade on wave 3"], ["breaking: storm warning tonight", "news", "Monitor alert: a storm rolls in, visibility drops next wave"], ["how do real medics triage", "deep", "Treat the worst injury you can still save first"]],
+      grow: [["Lumen Labs latest product launch", "news", "Launched an agent API last month and is hiring engineers"], ["STAR method examples for engineers", "deep", "Lead with the result, then the action you took"], ["Lumen Labs engineering blog", "deep", "They moved to services this year: ask about migrations"], ["common product manager interview questions", "fast", "“Tell me about a product you decided to kill”"]]
+    },
+    price(n) { return "$" + (n >= 0.01 ? n.toFixed(3) : n.toFixed(4)); }
+  },
+
   /* Runware: AI inference on one API (runware.ai). The playground SIMULATES jobs:
      nothing is sent to Runware, prices are examples, results are local previews.
      neo = how much a typical neocloud costs for the same job (Runware: up to half the cost). */

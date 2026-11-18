@@ -203,7 +203,7 @@ window.UI = (function () {
        live.refresh()                              re-sync with the active set (call after toggles)
      UI.toolFx(stageEl, id, opts) = stageEl._live.fx(id, opts)
      ========================================================= */
-  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls", teamily: "messages", runware: "jobs" };
+  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls", teamily: "messages", runware: "jobs", telem: "searches" };
   U.toolsLive = function (stage, track, active) {
     if (!stage) return null;
     if (stage._live) stage._live.destroy();
@@ -323,6 +323,19 @@ window.UI = (function () {
     live.fx("teamily", { text: `${st[1]} · ${st[0]}: ${st[2]}`, from, callout: !!from });
     live.stat("teamily", `${live._tm.n} message${live._tm.n === 1 ? "" : "s"} · ${st[1]}`);
     return st;
+  };
+  /* Telem AI (simulated): one routed web search, at most every 6 s.
+     UI.telemSearch(live, track, fromEl) → shows "🛰️ Telem AI · 🔎 “1920s jazz club slang” → 🧠 Deep engine · 900 ms" */
+  U.telemSearch = function (live, track, from) {
+    if (!live || !live.active.has("telem") || !PLAY.telem) return null;
+    const now = Date.now();
+    if (live._tl && now - live._tl.t < 6000) return null;
+    live._tl = live._tl || { n: 0, t: 0, ms: 0 };
+    const T = PLAY.telem, list = T.searches[track] || T.searches.film, s = list[live._tl.n % list.length], eng = T.engines.find(e => e.id === s[1]) || T.engines[0];
+    live._tl.n++; live._tl.t = now; live._tl.ms += eng.ms;
+    live.fx("telem", { text: `🔎 “${s[0]}” → ${eng.icon} ${eng.name} · ${eng.ms} ms: ${s[2]}`, from, callout: !!from });
+    live.stat("telem", `${live._tl.n} search${live._tl.n === 1 ? "" : "es"} · all traced`);
+    return { query: s[0], engine: eng, found: s[2] };
   };
   /* Runware (simulated): one inference job (image, voice, video, 3D or text), at most every 5 s.
      UI.runwareJob(live, track, fromEl) → shows "⚡ Runware · 🖼️ Key frame · act 2 · 1.1 s · $0.0020" */

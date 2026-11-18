@@ -3,7 +3,7 @@
      Coord.network(el)        → full animated network (sponsors.html "Tools together" view)
      Coord.strip(el, focusId) → compact "Works with" strip inside a lab
                                 returns { pulse(otherId, label, dir), note(text) }
-   Nodes: finch, band, adal, casuro, bruin, glasser, runware, teamily (+ team = the agents, you = the human).
+   Nodes: finch, band, adal, casuro, bruin, glasser, telem, runware, teamily (+ team = the agents, you = the human).
    Needs data.js (HACK.sponsors), play-data.js, puppet.js.
    ========================================================= */
 window.Coord = (function () {
@@ -32,6 +32,8 @@ window.Coord = (function () {
         { f: "glasser", t: "team", label: "📊 1 fact · $0.005", detail: "The fact comes back and the agent works it into its next line, so the story feels grounded in reality." },
         { f: "team", t: "band", label: "💬 Vega → Rook (private)", detail: "Agents message each other only through the BAND channels the director allowed. Other actors can't read it." },
         { f: "band", t: "team", label: "📨 “Meet me at the pod.”", detail: "BAND routes the message, keeps the shared context in sync, and the receiver reacts on the next beat." },
+        { f: "team", t: "telem", label: "🔎 “1920s jazz club slang”", detail: "An actor-agent searches the live web. Telem AI routes the query to the best engine, fetches a clean page and traces the step." },
+        { f: "telem", t: "team", label: "📄 clean page · traced", detail: "The slang comes back as readable text with its source, and the agent works it into the next line." },
         { f: "team", t: "runware", label: "⚡ 36 frames + 9 voice lines", detail: "Every frame, voice line and teaser clip runs as an inference job on Runware: one API for every model, serverless GPUs in modular data centers, at about half the usual cost." },
         { f: "runware", t: "team", label: "🖼️ rendered · $0.18", detail: "Results come back in seconds with their cost, so the crew can render more takes without blowing the budget." },
         { f: "team", t: "adal", label: "🎬 12 scenes + cast", detail: "The finished plot goes to AdaL, which turns it into a movie poster and key frames for each act." },
@@ -52,6 +54,7 @@ window.Coord = (function () {
         { f: "glasser", t: "team", label: "💵 3 prices · $0.002", detail: "Real prices come back and the agent cites them in its next callout." },
         { f: "team", t: "band", label: "📻 “Cover the north gate!”", detail: "Teammates coordinate over BAND team radio, so plans are shared, not guessed." },
         { f: "band", t: "team", label: "📻 callouts synced", detail: "Every agent gets the callout and re-plans its next wave." },
+        { f: "telem", t: "team", label: "🔔 breaking: storm tonight", detail: "A Telem AI monitor spots new information and drops it into the round as a twist the agents must react to." },
         { f: "team", t: "runware", label: "⚡ NPC voices + sprites", detail: "Agent turns, NPC callouts and sprite variants run as Runware jobs, on serverless compute that scales with the wave." },
         { f: "runware", t: "team", label: "🔊 ready in 0.4 s", detail: "Voices and art come back fast and cheap, so every round can have new ones." },
         { f: "adal", t: "team", label: "🎨 cover art + theme", detail: "AdaL generates the art for the custom game you designed." },
@@ -67,6 +70,8 @@ window.Coord = (function () {
         { f: "finch", t: "team", label: "📋 Examine · 🧑‍🏫 Coach", detail: "Finch gives each panelist a scoring skill: one examines evidence, one coaches." },
         { f: "team", t: "glasser", label: "🏢 research the company", detail: "Before the first question the panel looks up the company and role: Apollo company search, BuiltWith tech stack, Crustdata headcount growth." },
         { f: "glasser", t: "team", label: "📇 3 findings · $0.17", detail: "The findings come back with their cost, and the panel grounds its questions in them." },
+        { f: "team", t: "telem", label: "🔎 the company's latest news", detail: "Before asking, the panel searches the live web and fetches the company's newest pages through Telem AI." },
+        { f: "telem", t: "team", label: "📰 launch last month · source", detail: "Clean extracts with sources come back, so questions are current and can cite where they came from." },
         { f: "team", t: "runware", label: "⚡ voices + avatars", detail: "The panel's spoken voices and avatars run as Runware jobs that scale to zero between your answers, so idle time costs nothing." },
         { f: "casuro", t: "you", label: "🎙️ question spoken", detail: "Casuro speaks the panel's question out loud." },
         { f: "you", t: "casuro", label: "🗣️ your answer (voice)", detail: "You answer with your voice; Casuro turns it into a transcript." },
@@ -345,6 +350,7 @@ window.Coord = (function () {
     bruin: { title: "Bruin · data from every agent", job: "Every message, skill use, render and score streams into Bruin: ingested into raw tables, transformed into assets with lineage, guarded by quality checks, then answered in plain English in Slack.", lab: "bruin" },
     casuro: { title: "Casuro · voice interview & scoring", job: "A human answers out loud. Casuro transcribes the voice, scores each rubric item with evidence quotes, and hands the verdict to the panel.", lab: "casuro" },
     teamily: { title: "Teamily AI · humans and agents in one chat", job: "The hackathon's official communication platform, replacing Discord and Slack. Humans and always-on agents are members of the same group chat. Each agent has a role (marketing, design, engineering, QA, coach…), takes a task when you @mention it, hands work to other agents and posts the result back in the thread.", lab: "teamily" },
+    telem: { title: "Telem AI · live web search for agents", job: "An agent asks a question. Telem AI routes the search to the best engine for quality, speed and cost (with failover), fetches clean readable pages, watches for new information and traces every step with a quality score.", lab: "telem" },
     runware: { title: "Runware · run any model, cheaper", job: "Agents send jobs (images, video, voice, 3D, text) to one API. Runware runs them on serverless or dedicated GPUs in modular Sonic Pod data centers and sends the results back, at up to half the cost of a traditional neocloud.", lab: "runware" },
     glasser: { title: "Glasser · real-world data for agents", job: "Agents need real data. Glasser gives them 2,000+ endpoints (people, companies, search, SEO, social, e-commerce) through one key: the agent picks a provider, sees the price before the call, pays per call and gets the rows back. No subscriptions.", lab: "glasser" }
   };
@@ -415,13 +421,13 @@ window.Coord = (function () {
         p.remove();
       }
     };
-    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom", glasser: "office", teamily: "office", runware: "lab" }[id] || "office", time: "night", weather: "clear" });
+    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom", glasser: "office", teamily: "office", runware: "lab", telem: "library" }[id] || "office", time: "night", weather: "clear" });
     host.querySelector(".tv").addEventListener("click", e => {
       const b = e.target.closest("[data-tv]"); if (b) { ctx.paused = !ctx.paused; b.textContent = ctx.paused ? "▶" : "❚❚"; return; }
       const lab = e.target.closest("[data-lab-open]");
       if (lab) { e.preventDefault(); location.hash = "#lab-" + lab.dataset.labOpen; const t = document.getElementById("labs"); t && t.scrollIntoView({ behavior: "smooth" }); }
     });
-    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro, glasser: viewGlasser, teamily: viewTeamily, runware: viewRunware }[id] || viewGeneric;
+    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro, glasser: viewGlasser, teamily: viewTeamily, runware: viewRunware, telem: viewTelem }[id] || viewGeneric;
     run(ctx).catch(() => {});
     return { destroy() { ctx.alive = false; } };
   }
@@ -680,6 +686,58 @@ window.Coord = (function () {
       x.feed(`<b>${esc(a.name)}</b> · ${ep.icon} ${esc(ep.provider)} <span style="color:${nodeColor("glasser")}">${G.price(cost)}</span><em>${esc(job.q)} → ${job.rows.length} rows</em>`);
       x.kpis([["calls", calls], ["spent", "$" + spent.toFixed(3)], ["subscriptions skipped", subs.size]]);
       await x.tick(2200);
+      Puppet.emotion(a.pup, "neutral");
+    }
+  }
+
+  /* ---------- Telem AI: route a search, fail over, fetch clean, trace it ---------- */
+  async function viewTelem(x) {
+    const T = P.telem;
+    if (!T) return;
+    const box = document.createElement("div"); box.className = "tv-tl";
+    box.innerHTML = `<div class="tlv-q"><span>🔎</span><b></b></div>
+      <div class="tlv-eng">${T.engines.map(e => `<div data-e="${e.id}"><span>${e.icon}</span><b>${esc(e.name)}</b><i style="--w:${e.q * 100}%"></i><small>${e.ms} ms</small></div>`).join("")}</div>
+      <div class="tlv-page"></div>
+      <div class="tlv-tr"><small>TRACE</small><div class="tlv-wf"></div></div>`;
+    x.layer.appendChild(box);
+    const A = [x.agent("marlowe", 12, 84, 0.8), x.agent("kit", 26, 84, 0.8), x.agent("priya", 40, 84, 0.8)];
+    const JOBS = [[0, "film"], [1, "game"], [2, "grow"]];
+    const at = el2 => { const r1 = el2.getBoundingClientRect(), r0 = x.stage.getBoundingClientRect(); return { x: (r1.left + r1.width / 2 - r0.left) / r0.width * 100, y: (r1.top + r1.height / 2 - r0.top) / r0.height * 100 }; };
+    let n = 0, fails = 0;
+    for (let k = 0; ; k++) {
+      const [who, track] = JOBS[k % 3], list = T.searches[track], s = list[Math.floor(k / 3) % list.length], a = A[who];
+      const eng = T.engines.find(e => e.id === s[1]), down = k % 4 === 1 ? T.engines.find(e => e.id !== eng.id) : null;
+      const engEls = [...box.querySelectorAll(".tlv-eng div")], wf = box.querySelector(".tlv-wf");
+      engEls.forEach(d => d.className = ""); wf.innerHTML = ""; box.querySelector(".tlv-page").innerHTML = "";
+      A.forEach(g => g.el.classList.toggle("on", g === a));
+      box.querySelector(".tlv-q b").textContent = s[0];
+      const bar = (name, w, fail) => wf.insertAdjacentHTML("beforeend", `<div class="${fail ? "fail" : ""}"><span>${esc(name)}</span><i style="margin-left:${wf.children.length * 9}%;width:${w}%"></i></div>`);
+      Puppet.talk(a.pup, 1200); Puppet.gesture(a.pup, "point", 1100);
+      x.cap(`${a.name} searches the live web`, `“${s[0]}”`);
+      bar("agent.query", 6);
+      await x.packet({ x: a.x, y: a.y - 26 }, at(box.querySelector(".tlv-q")), "#e86bff", 800);
+      x.cap("Telem AI routes the search", "Every engine is scored for quality, speed and cost.");
+      engEls.forEach(d => d.classList.add("scan")); bar("router.score", 8);
+      await x.tick(1100);
+      engEls.forEach(d => d.classList.remove("scan"));
+      if (down) {
+        box.querySelector(`[data-e="${down.id}"]`).classList.add("down"); bar(`search · ${down.name}`, 12, true); fails++;
+        x.cap(`${down.name} is down`, "Automatic failover to the next best engine.");
+        await x.tick(1100);
+      }
+      box.querySelector(`[data-e="${eng.id}"]`).classList.add("on"); bar(`search · ${eng.name}`, Math.max(10, eng.ms / 40));
+      await x.tick(900);
+      const pg = box.querySelector(".tlv-page");
+      pg.innerHTML = `<div class="raw">&lt;div class="cookie"&gt;… &lt;script&gt;… &lt;nav&gt;… &lt;div class="ad"&gt;…</div>`;
+      x.cap("Clean fetch", "Rendering, retries and extraction: the model gets readable text, not raw HTML.");
+      await x.tick(900);
+      pg.innerHTML = `<div class="clean"><b>${esc(s[2])}</b><small>source kept · traced</small></div>`; bar("fetch.clean", 14);
+      await x.packet(at(pg), { x: a.x, y: a.y - 26 }, "#e86bff", 800);
+      bar("agent.answer", 6); n++;
+      Puppet.emotion(a.pup, "happy"); Puppet.gesture(a.pup, "nod", 900);
+      x.feed(`<b>${esc(a.name)}</b> · 🔎 ${esc(s[0])} <span style="color:#e86bff">${eng.icon} ${esc(eng.name)}</span><em>${esc(s[2])}</em>`);
+      x.kpis([["searches", n], ["failovers", fails], ["traced", "100%"]]);
+      await x.tick(2000);
       Puppet.emotion(a.pup, "neutral");
     }
   }

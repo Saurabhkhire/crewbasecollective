@@ -300,6 +300,25 @@ window.World = (function () {
           end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
         };
       },
+      /* Telem owl: radar pings from its dish, then search beams reach the nearest characters */
+      telem(e) {
+        const near = nearest(e, 3, o => o !== e && (o.kind === "agent" || o.kind === "mascot") && Math.hypot(o.x - e.x, o.y - e.y) < 300);
+        if (!near.length) return null;
+        const g = el("g", {}, fxL), rings = [0, 1, 2].map(() => el("circle", { r: 0, fill: "none", stroke: "#e86bff", "stroke-width": 2 }, g));
+        const L = near.map(() => ({ p: el("path", { fill: "none", stroke: "#e86bff", "stroke-width": 1.8, "stroke-dasharray": "2 5", class: "wm-flow" }, g), b: el("g", { opacity: 0 }, g) }));
+        L.forEach(q => { el("rect", { x: -11, y: -9, width: 22, height: 15, rx: 7, fill: "#2a1340", stroke: "#e86bff" }, q.b); el("text", { y: 2.5, "text-anchor": "middle", "font-size": 9 }, q.b, "🔎"); });
+        near.forEach(o => o.g.classList.add("matched"));
+        let t = 0;
+        return {
+          update(dt) {
+            t += dt;
+            const h = head(e), hy = h.y - 28;
+            rings.forEach((r, i) => { const k = ((t / 1400) + i / 3) % 1; r.setAttribute("cx", h.x); r.setAttribute("cy", hy); r.setAttribute("r", 6 + k * 60); r.setAttribute("stroke-opacity", 1 - k); });
+            near.forEach((o, k) => { const b = head(o); L[k].p.setAttribute("d", `M${h.x} ${hy} Q${(h.x + b.x) / 2} ${Math.min(hy, b.y) - 36} ${b.x} ${b.y - 10}`); L[k].b.setAttribute("transform", `translate(${b.x} ${b.y - 22})`); if (t > 700 + k * 450) L[k].b.setAttribute("opacity", 1); });
+          },
+          end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
+        };
+      },
       /* Runware bot: a mini pod above its head runs jobs and beams results to the nearest characters */
       runware(e) {
         const near = nearest(e, 3, o => o !== e && (o.kind === "agent" || o.kind === "mascot") && Math.hypot(o.x - e.x, o.y - e.y) < 280);

@@ -323,6 +323,19 @@ window.HACK = {
       mascot: { name: "Gus the Lookout Monkey", look: "An orange monkey in black glasses with a telescope", action: "Spots the right data source, shows the price before the call, then brings back real rows.", home: "grow" }
     },
     {
+      id: "telem", name: "Telem AI", tier: "sponsor", url: "https://telem.ai",
+      landmark: "Telem Signal Tower", icon: "🛰️", color: "#e86bff",
+      blurb: "Telem AI is web infrastructure designed to help AI agents access and understand live web data. It provides intelligent search, clean page fetching, automated monitoring for new information, and end-to-end tracing of agent activity, making AI workflows more reliable, efficient, and transparent.",
+      buildIdea: "Let agents look things up on the live web mid-run: a detective searches real 1920s slang, a game agent pulls today's news into a plot twist, an interview panel reads the company's latest launch before asking. Show the trace of every search and fetch so judges can see where each fact came from.",
+      role: "Live web search", tag: "WEB SEARCH",
+      tracks: {
+        film: { label: "Live research", does: "Characters search the live web for facts, slang or news and work them into the scene; every search and fetch is traced (simulated)." },
+        game: { label: "Web search", does: "Agents search the web mid-game for strategies and real-world twists, and a monitor drops breaking news into the round (simulated)." },
+        grow: { label: "Fresh research", does: "The panel searches and reads the company's latest pages before asking, and cites the source in its questions (simulated)." }
+      },
+      mascot: { name: "Scout the Signal Owl", look: "A violet owl with a radar dish on its head and a magnifying glass", action: "Routes every search to the best engine, fetches clean pages, keeps watch for new information and traces each step.", home: "film" }
+    },
+    {
       id: "runware", name: "Runware", tier: "sponsor", url: "https://runware.ai",
       landmark: "Runware Sonic Pod", icon: "⚡", color: "#2ee6a6",
       blurb: "Runware provides cost-efficient AI infrastructure with on-demand model APIs, serverless and dedicated compute for AI workloads. Powered by next-generation modular data centers, it helps developers and businesses run AI workloads at up to half the cost of traditional neocloud infrastructure.",

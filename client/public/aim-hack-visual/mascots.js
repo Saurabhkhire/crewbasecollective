@@ -156,6 +156,30 @@ window.Mascots = (function () {
         ${["Northwind AI · 84 staff", "Lumen Labs · 41 staff", "Parcel Robotics · 120"].map((r, i) => `<g opacity="0">${show(0.42 + i * 0.12, 0.97, 4.4)}<rect x="28" y="${-114 + i * 12}" width="92" height="10" rx="2" fill="#16203f"/>${T(32, -106.6 + i * 12, 6.5, r, `fill="#eaf0ff"`)}</g>`).join("")}`, "real data · price first")
     },
 
+    /* ---------- Telem AI: a violet owl with a radar dish and a magnifying glass ---------- */
+    telem: {
+      body: c => `<path d="M-6 0 L-6 -6 M-9 0 L-6 -4 L-3 0 M6 0 L6 -6 M3 0 L6 -4 L9 0" stroke="#ffb347" stroke-width="2" stroke-linecap="round" fill="none"/><g class="m-bob">
+        <ellipse cx="0" cy="-24" rx="15" ry="18" fill="#8a3fb8"/>
+        <ellipse cx="0" cy="-20" rx="10" ry="12" fill="#f3d9ff"/>
+        ${[-26, -20, -14].map(y => `<path d="M-5 ${y} L-2.5 ${y + 2.5} L0 ${y} L2.5 ${y + 2.5} L5 ${y}" stroke="#c48be0" stroke-width="1" fill="none"/>`).join("")}
+        <path class="m-armL" d="M-14 -34 Q-24 -24 -15 -12 Z" fill="#6f2f99"/>
+        <g transform="rotate(-120 13 -33)"><path class="m-armR" d="M13 -34 Q23 -24 14 -12 Z" fill="#6f2f99"/></g>
+        <g transform="translate(19 -58)"><circle r="5.5" fill="#dff7ff" fill-opacity=".35" stroke="#2d3142" stroke-width="2"/><path d="M3.8 3.8 L8 8" stroke="#2d3142" stroke-width="2.6" stroke-linecap="round"/></g>
+        <path d="M-12 -55 L-9 -64 L-5 -55Z M12 -55 L9 -64 L5 -55Z" fill="#6f2f99"/>
+        <ellipse cx="0" cy="-48" rx="13" ry="11" fill="#9b4dca"/>
+        <circle cx="-5.5" cy="-49" r="5.2" fill="#fff"/><circle cx="5.5" cy="-49" r="5.2" fill="#fff"/>
+        <g class="m-eyes"><circle cx="-5.5" cy="-49" r="2.4" fill="${INK}"/><circle cx="5.5" cy="-49" r="2.4" fill="${INK}"/></g>
+        <path d="M-2 -44.5 L2 -44.5 L0 -41Z" fill="#ffb347"/>
+        <path d="M0 -59 L0 -65" stroke="#2d3142" stroke-width="1.6"/>
+        <path d="M-8 -66 Q0 -74 8 -66 Q0 -69 -8 -66Z" fill="#dfe6ff" stroke="#2d3142" stroke-width="1"/><circle cx="0" cy="-69" r="1.3" fill="${c}"/>
+        ${[0, 0.5, 1].map(d => `<path d="M-6 -74 Q0 -79 6 -74" stroke="${c}" stroke-width="1.2" fill="none" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="1.5s" begin="${d}s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -6" dur="1.5s" begin="${d}s" repeatCount="indefinite"/></path>`).join("")}</g>`,
+      act: c => panel(c, `
+        <rect x="28" y="-116" width="92" height="11" rx="5.5" fill="#1d2147" stroke="${c}" stroke-width=".7"/>${T(32, -108.5, 5.6, "🔎 1920s jazz slang", `fill="#eaf0ff"`)}
+        ${[["⚡ fast", 0.62, "#ff6b6b"], ["🧠 deep", 0.92, c], ["📰 news", 0.78, c]].map(([n, w, col], i) => `<g opacity="0">${show(0.1 + i * 0.08, 0.5, 4.6)}${T(28, -96 + i * 8, 5, n, `fill="#c9cde6"`)}<rect x="52" y="${-100 + i * 8}" width="${w * 66}" height="4.5" rx="2" fill="${col}"/></g>`).join("")}
+        <g opacity="0">${show(0.36, 0.5, 4.6)}${T(104, -88, 5, "✓", `fill="${c}" font-weight="700"`)}</g>
+        <g opacity="0">${show(0.54, 0.97, 4.6)}${T(28, -96, 5.2, "TRACE", `fill="${c}" class="m-mono"`)}${[[0, 14], [14, 10], [24, 30], [54, 18], [72, 12]].map(([s, w], i) => `<rect x="${46 + s}" y="${-100 + i * 5}" width="${w}" height="3.5" rx="1.5" fill="${i === 2 ? "#ff6b6b" : c}"/>`).join("")}</g>`, "search · fetch · trace")
+    },
+
     /* ---------- Runware: a mint robot built from stacked GPU modules, lightning antenna, a bolt in hand ---------- */
     runware: {
       body: c => `${legs("#1f8f6c", -9, 3, 7, 12)}<g class="m-bob">

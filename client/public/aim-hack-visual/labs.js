@@ -6,6 +6,7 @@
      Finch  → equip skills and see output change
      Casuro → mini voice interview with evidence-based scoring
      Glasser → real-world data APIs, price before each call (labs3.js)
+     Telem AI → live web search: router picks an engine, failover, clean fetch, monitor, trace (labs6.js)
      Runware → one API for any model, jobs light up a modular pod, cost vs neocloud (labs5.js)
      Teamily → humans + role agents in one group chat: create agents, @mention, hand-offs (labs4.js)
    Every lab = interactive area + "How it works" + a looping demo "video".

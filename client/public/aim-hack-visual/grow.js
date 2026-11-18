@@ -674,6 +674,7 @@ Reply with JSON only: {"findings":[{"source":"provider + endpoint, e.g. Apollo c
       await UI.waitWhilePaused(token);
       $("#qLbl").textContent = `Question ${k + 1} of ${G.nq}`;
       if (on("glasser") && !G.research) await glasserResearch(token);
+      if (on("telem")) { const s = UI.telemSearch(G.live, "grow", null); if (s) gLog(`<b style="color:#e86bff">🛰️ Telem AI</b><span class="act">🔎 “${esc(s.query)}” → ${esc(s.found)}</span><span class="thought">simulated web search · ${s.engine.name} · traced</span>`); }
       if (on("runware")) { const j = UI.runwareJob(G.live, "grow", null); if (j) gLog(`<b style="color:#2ee6a6">⚡ Runware</b><span class="act">${j.kind.icon} ${esc(j.label)} · ${j.secs} s · ${PLAY.runware.price(j.kind.price)}</span><span class="thought">simulated inference job</span>`); }
       if (on("teamily")) { const st = UI.teamilyStep(G.live, "grow", null); if (st) gLog(`<b style="color:#8b7bff">💬 Teamily ${esc(st[1])}</b><span class="act">${esc(st[0])}: ${esc(st[2])}</span><span class="thought">simulated team chat</span>`); }
       $("#answerBox").innerHTML = `<div class="thinking-row"><span class="think-chip" style="--c:${C}">The panel is choosing the next question<span class="dots3"><i></i><i></i><i></i></span></span></div>`;

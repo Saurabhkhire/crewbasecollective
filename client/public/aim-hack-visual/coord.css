@@ -324,3 +324,25 @@
 .rwv-cmp i { height: 9px; border-radius: 5px; } .rwv-cmp i.a { width: 50%; background: #2ee6a6; } .rwv-cmp i.b { width: 100%; background: #ff8a7a; }
 .rwv-cmp b { text-align: right; color: #fff; font-family: "JetBrains Mono", monospace; font-size: 11px; }
 @media (max-width: 700px) { .tv-rw { left: 8px; top: 8px; bottom: auto; } .rwv-out, .rwv-cmp { display: none; } }
+
+/* ---------- Telem AI individual view ---------- */
+.tv-tl { position: absolute; top: 50px; right: 14px; bottom: 72px; left: 50%; display: flex; flex-direction: column; gap: 7px; z-index: 3; font-size: 12px; color: #eaf0ff; }
+.tlv-q { display: flex; gap: 8px; align-items: center; padding: 7px 12px; border-radius: 999px; background: rgba(8, 12, 28, 0.92); border: 1.5px solid #e86bff; box-shadow: 0 0 22px -10px #e86bff; }
+.tlv-eng { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.tlv-eng div { display: grid; grid-template-columns: 18px 1fr auto; gap: 2px 6px; align-items: center; padding: 6px 8px; border-radius: 9px; background: rgba(8, 12, 28, 0.88); border: 1px solid rgba(232, 107, 255, 0.2); transition: border-color 0.25s, box-shadow 0.25s, opacity 0.25s; }
+.tlv-eng div i { grid-column: 1 / -1; height: 4px; width: var(--w); border-radius: 2px; background: #e86bff; opacity: 0.6; }
+.tlv-eng div small { color: #9fb0d8; font-family: "JetBrains Mono", monospace; font-size: 10px; }
+.tlv-eng div.scan { animation: tlScan 0.5s ease-in-out infinite alternate; }
+.tlv-eng div.on { border-color: #e86bff; box-shadow: 0 0 16px -4px #e86bff; } .tlv-eng div.on i { opacity: 1; }
+.tlv-eng div.down { border-color: #ff6b6b; opacity: 0.55; text-decoration: line-through; } .tlv-eng div.down i { background: #ff6b6b; }
+@keyframes tlScan { to { border-color: rgba(232, 107, 255, 0.8); } }
+.tlv-page { min-height: 44px; }
+.tlv-page .raw { padding: 7px 9px; border-radius: 8px; background: rgba(40, 10, 20, 0.85); color: #ff9c9c; font-family: "JetBrains Mono", monospace; font-size: 10.5px; }
+.tlv-page .clean { display: flex; flex-direction: column; gap: 2px; padding: 7px 9px; border-radius: 8px; background: rgba(8, 12, 28, 0.92); border-left: 3px solid #e86bff; animation: tmIn 0.35s ease-out; }
+.tlv-page .clean small { color: #9fb0d8; font-size: 10.5px; }
+.tlv-tr { margin-top: auto; padding: 7px 9px; border-radius: 10px; background: rgba(8, 12, 28, 0.88); }
+.tlv-tr > small { font-family: "JetBrains Mono", monospace; color: #e86bff; font-size: 10px; }
+.tlv-wf div { display: grid; grid-template-columns: 120px 1fr; gap: 6px; align-items: center; font-family: "JetBrains Mono", monospace; font-size: 10px; color: #c9d0ee; animation: tmIn 0.3s ease-out; }
+.tlv-wf div i { display: block; height: 7px; border-radius: 3px; background: #e86bff; }
+.tlv-wf div.fail i { background: #ff6b6b; } .tlv-wf div.fail span { color: #ff9c9c; }
+@media (max-width: 700px) { .tv-tl { left: 8px; top: 8px; bottom: auto; } .tlv-page, .tlv-tr { display: none; } }
