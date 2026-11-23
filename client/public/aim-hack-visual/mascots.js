@@ -392,6 +392,47 @@ window.Mascots = (function () {
         <rect x="60" y="-106" width="28" height="20" rx="3" fill="none" stroke="#c9f6ff" stroke-width="1"><animate attributeName="opacity" values=".1;1;.1" dur="1.6s" repeatCount="indefinite"/></rect>`, "hosts · connects · runs the day")
     },
 
+    /* ---------- LingCode (partner): Appy, a walking phone that builds your app on its own screen ---------- */
+    lingcode: {
+      body: c => `${legs("#2d3142", -8, 1.5, 6.5, 12)}<g class="m-bob">
+        <rect class="m-armL" x="-19" y="-44" width="5.5" height="16" rx="2.7" fill="#2d3142"/>
+        <g transform="rotate(-140 16 -44)"><rect class="m-armR" x="13.5" y="-44" width="5.5" height="16" rx="2.7" fill="#2d3142"/></g>
+        <rect x="-14" y="-66" width="28" height="54" rx="6" fill="#10172f" stroke="${c}" stroke-width="2"/>
+        <rect x="-4" y="-63.5" width="8" height="2" rx="1" fill="#2d3142"/>
+        <rect x="-11" y="-59" width="22" height="42" rx="2.5" fill="#0b1022"/>
+        <g class="m-eyes"><circle cx="-4.5" cy="-52" r="2" fill="${c}"/><circle cx="4.5" cy="-52" r="2" fill="${c}"/></g>
+        <path d="M-3 -47.5 Q0 -45 3 -47.5" stroke="${c}" fill="none" stroke-width="1.2"/>
+        <rect x="-8" y="-42" width="16" height="3" rx="1.5" fill="#2a3260"><animate attributeName="width" values="4;16;16" dur="2.4s" repeatCount="indefinite"/></rect>
+        <rect x="-8" y="-37" width="11" height="3" rx="1.5" fill="#2a3260"/>
+        <rect x="-8" y="-31" width="16" height="7" rx="3.5" fill="${c}"/><text x="0" y="-26" font-size="4.2" text-anchor="middle" font-weight="800" fill="#0b1022">PAY</text>
+        <rect x="-6" y="-14.5" width="12" height="1.4" rx=".7" fill="#3a4266"/>
+        <g transform="translate(20 -78)"><rect width="14" height="14" rx="3.5" fill="#2f7bff"/><path d="M4 10 L7 3.5 L10 10 M5 8 L9 8" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round"/></g></g>`,
+      act: c => panel(c, `
+        ${[["💬", "idea", 0.02], ["🛠️", "build", 0.22], ["💳", "payments", 0.42], ["🚀", "in the store", 0.62]].map(([e, t, at], i) => `<g opacity="0">${show(at, 0.96, 4.6)}<circle cx="${34 + i * 27}" cy="-100" r="9" fill="${c}" fill-opacity=".2" stroke="${c}" stroke-width=".9"/>${T(34 + i * 27, -97, 9, e, `text-anchor="middle"`)}${T(34 + i * 27, -82, 5.2, t, `text-anchor="middle" fill="#eaf0ff"`)}</g>`).join("")}
+        <path d="M43 -100 L52 -100 M70 -100 L79 -100 M97 -100 L106 -100" stroke="#3a4266" stroke-width="1.2"/>`, "idea → app in the store")
+    },
+
+    /* ---------- HarnessRouter (partner): Switch, a crab with a switchboard shell routing tasks to harnesses ---------- */
+    harnessrouter: {
+      body: c => `${[-14, -8, 8, 14].map((x, i) => `<path class="${i < 2 ? "m-legL" : "m-legR"}" d="M${x * 0.6} -10 L${x} -2 L${x + (x < 0 ? -3 : 3)} 0" stroke="#d9772a" stroke-width="2.6" fill="none" stroke-linecap="round"/>`).join("")}
+        <g class="m-bob">
+        <path class="m-armL" d="M-15 -22 Q-24 -30 -22 -40" stroke="#d9772a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M-27 -44 Q-22 -50 -17 -44 L-20 -40 L-22 -43 L-24 -40Z" fill="${c}"/>
+        <path class="m-armR" d="M15 -22 Q24 -30 22 -40" stroke="#d9772a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M17 -44 Q22 -50 27 -44 L24 -40 L22 -43 L20 -40Z" fill="${c}"/>
+        <ellipse cx="0" cy="-22" rx="18" ry="12" fill="${c}"/>
+        <rect x="-11" y="-28" width="22" height="9" rx="2" fill="#10172f"/>
+        ${[-7, 0, 7].map((x, i) => `<circle cx="${x}" cy="-23.5" r="1.8" fill="${["#3ee6ff", "#ff4fa3", "#b6ff5c"][i]}"><animate attributeName="opacity" values="1;.25;1" dur="1.2s" begin="${i * 0.4}s" repeatCount="indefinite"/></circle>`).join("")}
+        <path d="M-5 -33 L-6 -40 M5 -33 L6 -40" stroke="#d9772a" stroke-width="1.6"/>
+        <g class="m-eyes"><circle cx="-6" cy="-42" r="3.2" fill="#fff"/><circle cx="6" cy="-42" r="3.2" fill="#fff"/><circle cx="-5.6" cy="-41.6" r="1.6" fill="${INK}"/><circle cx="6.4" cy="-41.6" r="1.6" fill="${INK}"/></g>
+        <path d="M-3 -14 Q0 -11.5 3 -14" stroke="${INK}" fill="none" stroke-width="1.1"/></g>`,
+      act: c => panel(c, `
+        <rect x="30" y="-104" width="20" height="16" rx="3" fill="${c}"/>${T(40, -93.5, 6, "TASK", `text-anchor="middle" font-weight="800" fill="#1b1530" class="m-mono"`)}
+        ${[["#3ee6ff", -112], ["#ff4fa3", -96], ["#b6ff5c", -80]].map(([col, y], i) => `<path d="M50 -96 C70 -96 72 ${y} 92 ${y}" stroke="#2a355e" stroke-width="1.4" fill="none"/>
+          <rect x="92" y="${y - 6}" width="28" height="12" rx="3" fill="#161c3a" stroke="${col}" stroke-width="1"/>${T(106, y + 2, 5, "harness " + (i + 1), `text-anchor="middle" fill="#eaf0ff"`)}
+          <circle r="2.4" fill="${col}" opacity="0"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.05;.9;1" dur="3.6s" begin="${i * 1.2}s" repeatCount="indefinite"/><animateMotion dur="3.6s" begin="${i * 1.2}s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;.4;1" calcMode="linear" path="M50 -96 C70 -96 72 ${y} 92 ${y}"/></circle>`).join("")}`, "routes tasks to harnesses")
+    },
+
     /* ---------- fallback for any sponsor without custom art ---------- */
     _robot: {
       body: c => `${legs("#7f8ea3", -9, 2, 7, 14)}<g class="m-bob"><rect x="-11" y="-34" width="22" height="21" rx="6" fill="${c}"/>

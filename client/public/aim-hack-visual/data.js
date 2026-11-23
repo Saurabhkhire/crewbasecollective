@@ -352,7 +352,7 @@ window.HACK = {
       id: "teamily", name: "Teamily AI", tier: "sponsor", url: "https://teamily.ai",
       landmark: "Teamily Commons", icon: "💬", color: "#8b7bff",
       blurb: "Teamily AI is a human+AI social platform and AI-native workspace: people and always-on AI agents collaborate in one unified messaging space. Agents are first-class members of your chats. You can @mention them, assign them tasks and let them run jobs in parallel, and you can create your own agents or whole agent teams in seconds with \"+ New Agent\". Everyone shares one connected context and a living memory, so no one has to repeat themselves.",
-      buildIdea: "Run your whole team on Teamily: humans and your role agents (marketing, research, design, engineering, QA, coach…) in one group. @mention an agent to hand it a task, let agents hand work to each other in the thread, and show the judges how your human+agent team worked together.",
+      buildIdea: "Run your whole team on Teamily: humans and your role agents (marketing, research, design, engineering, video, QA, coach…) in one group. Your agents don't just talk: @mention one and it builds the website, cuts the demo video, designs the poster or drafts the deck right in the thread. Let agents hand work to each other in the thread, and show the judges how your human+agent team worked together.",
       role: "Human + agent workspace", tag: "TEAM CHAT",
       /* official event communication: every hacker joins it to get updates and talk */
       comms: {
@@ -367,8 +367,18 @@ window.HACK = {
         ],
         perks: [
           "Agents can be members of your team group: @mention them, assign tasks, let them work in parallel",
+          "Agents build, not just chat: ask for a website, a demo video, a poster or a pitch deck and it lands in the thread",
           "Living memory: the chat remembers decisions, so nobody repeats themselves",
           "Web, desktop and mobile, so updates reach you anywhere in the Loft"
+        ],
+        /* "Your agents build things": shown on teamily.html. [icon, what, your message, agent icon, agent, agent reply, preview kind] */
+        builds: [
+          ["🌐", "A website", "@Engineer build a landing page for our project, with the demo and a join button", "💻", "Engineer Agent", "Page is live in preview: hero, demo video, sign-up. @QA can you check mobile?", "site"],
+          ["🎬", "A demo video", "@Video make a 60-second demo video from our screen recordings", "🎬", "Video Agent", "Cut a 0:58 demo: hook, 3 features, the agents deciding live, the ending. Captions on.", "video"],
+          ["🖼️", "A poster & visuals", "@Design poster and thumbnails for our film, night-neon", "🎨", "Design Agent", "Poster v2 + 4 thumbnails + palette posted. Pick one and I'll make the variants.", "poster"],
+          ["📊", "A pitch deck", "@Producer turn this thread into our 5-slide judging deck", "📋", "Producer Agent", "Deck ready: problem, demo, how the agents work, tools used, what's next.", "deck"],
+          ["🐞", "Fixes & tests", "@QA playtest the build and file what breaks", "🧪", "QA Agent", "5 runs done. 2 bugs found, @Engineer patched both, new build is up.", "tests"],
+          ["📣", "Launch posts", "@Marketing write the launch posts for after the demo", "📣", "Marketing Agent", "3 posts drafted (X, LinkedIn, Teamily community), with the video attached.", "posts"]
         ],
         join: [
           ["Get the app", "Sign up at teamily.ai. It works on web, desktop and mobile."],
@@ -393,11 +403,12 @@ window.HACK = {
         faq: [
           ["Is Teamily AI mandatory?", "Yes. Every hacker joins it: all event announcements, updates, help and team chat happen there instead of Discord or Slack."],
           ["Can we keep using Discord or Slack?", "No: announcements, updates and help are only posted on Teamily AI, so you would miss deadlines and the demo order."],
-          ["Can AI agents join our team chat?", "Yes. Create agents with any role and @mention them like teammates. Try it first in the Sponsor Lab."]
+          ["Can AI agents join our team chat?", "Yes. Create agents with any role and @mention them like teammates. Try it first in the Sponsor Lab."],
+          ["Is Teamily AI only for chatting?", "No. Your agents can build for you right in the group: a website, a demo video, a poster, a pitch deck, tests and bug fixes, launch posts. Show the judges the thread where your human + agent team made it."]
         ]
       },
       tracks: {
-        film: { label: "Crew chat", does: "You and the film's role agents share one Teamily group: a Producer Agent pins the timeline, a Marketing Agent drafts the teaser posts, a Design Agent posts the poster, all in the same thread (simulated)." },
+        film: { label: "Crew chat", does: "You and the film's role agents share one Teamily group: a Producer Agent pins the timeline, a Design Agent posts the poster, a Video Agent cuts the trailer and an Engineer Agent ships the premiere page, all in the same thread (simulated)." },
         game: { label: "Squad chat", does: "Players and AI teammates coordinate in one Teamily group: @mention an agent to patch the build or plan the next wave, and it reports back in the thread (simulated)." },
         grow: { label: "Study group", does: "You, your coach and research agents in one Teamily group: they remember your weak spots, share findings and post your next practice session (simulated)." }
       },
@@ -458,6 +469,22 @@ window.HACK = {
       blurb: "Partnr Network is a talent layer for borderless societies. It connects skilled talent from emerging economies with startup societies, special economic zones and digital nomad hubs, with SkillGraph proof-of-work profiles.",
       brings: "Connects builders with global opportunities after the hackathon.",
       mascot: { name: "Brix the Bridge Beaver", look: "A beaver in a hard hat with a passport and a plank", action: "Builds bridges plank by plank between islands so talent can cross to new opportunities.", home: "game" }
+    },
+    /* LingCode and HarnessRouter are partners, not track tools: they have no toggles in the tracks, labs or build guide.
+       Optional and lowest priority; use the sponsor tools first. */
+    {
+      id: "lingcode", name: "LingCode", kind: "Partner", url: "https://lingcode.dev",
+      icon: "📱", color: "#5ce1e6", scene: { base: "lab", time: "day" },
+      blurb: "LingCode turns your app idea into a real iPhone, Android or web app that's live and taking payments. Describe what you want and the agent builds it, with the app running beside the chat. Sign-in, backend, payments, signing and App Store submission are included. You're done when your app is in the store, not when the code is written.",
+      brings: "After the hackathon: a path from demo to a real app in the App Store. Optional and low priority on the day; build with the sponsor tools first.",
+      mascot: { name: "Appy the Phone Bot", look: "A cyan phone with little legs, a chat bubble on its screen and an App Store badge", action: "Listens to your app idea, builds it on its own screen and ships it to the store.", home: "game" }
+    },
+    {
+      id: "harnessrouter", name: "HarnessRouter", kind: "Partner", url: "https://harnessrouter.ai",
+      icon: "🔀", color: "#f6a04d", scene: { base: "office", time: "night" },
+      blurb: "HarnessRouter is a unified API and infrastructure layer that runs, manages and routes tasks across different AI agent harnesses.",
+      brings: "Infrastructure for teams that already run several agent harnesses. Optional and low priority on the day; build with the sponsor tools first.",
+      mascot: { name: "Switch the Router Crab", look: "An orange crab with a switchboard shell and three glowing cables", action: "Catches each task and routes it down the right cable to the right agent harness.", home: "center" }
     }
   ],
 

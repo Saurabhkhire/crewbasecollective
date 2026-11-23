@@ -152,12 +152,23 @@
         <div class="ch-txt">
           <span class="ch-k">💬 Event communication</span>
           <b>All communication &amp; updates happen on ${esc(CT.name)}</b>
-          <small class="ch-lead">Join ${esc(CT.name)} to stay in the loop. Schedule changes, deadlines, demo order, mentor help and your team chat are all shared there, in place of Discord or Slack. Join before you arrive.</small>
+          <small class="ch-lead">Join ${esc(CT.name)} to stay in the loop. Schedule changes, deadlines, demo order, mentor help and your team chat are all shared there, in place of Discord or Slack. Join before you arrive. Bonus: agents in your team group can build the website, the demo video and the deck for you.</small>
           <div class="ch-cta"><a class="btn" href="${CT.url}" target="_blank" rel="noopener">Join ${esc(CT.name)} ↗</a><a class="btn ghost" href="/aim-hack-visual/teamily.html">How it works →</a></div>
         </div>
         <ul class="ch-list">${C.spaces.slice(0, 4).map(s => `<li><i>${s[0]}</i><span><b>${esc(s[1])}</b><small>${esc(s[2])}</small></span></li>`).join("")}</ul>`;
       homeComms.addEventListener("click", e => { const b = e.target.closest("[data-sp]"); b && window.openSponsor(b.dataset.sp); });
     }
+  }
+
+  /* small animated mock of what an agent built (teamily.html "Your agents build things") */
+  function buildPreview(k) {
+    const bar = w => `<i style="width:${w}%"></i>`;
+    if (k === "site") return `<div class="tb-pv site"><div class="tb-url"><s></s><s></s><s></s><span>our-project.app</span></div><div class="tb-page"><b>Agents decide the ending.</b>${bar(70)}${bar(45)}<span class="tb-btn">Join →</span></div></div>`;
+    if (k === "video") return `<div class="tb-pv video"><div class="tb-screen"><span class="tb-play">▶</span><span class="tb-cap">“The agents chose a different ending.”</span></div><div class="tb-prog"><i></i></div><small>0:58 · captions · 1080p</small></div>`;
+    if (k === "poster") return `<div class="tb-pv poster">${["#ff4fa3", "#8b7bff", "#ffc857", "#3ee6ff"].map((c, i) => `<div style="--p:${c};animation-delay:${i * 0.25}s"><span>${["🎬", "🌧️", "🕯️", "🪑"][i]}</span></div>`).join("")}</div>`;
+    if (k === "deck") return `<div class="tb-pv deck">${["Problem", "Demo", "Agents", "Tools", "Next"].map((t, i) => `<div style="animation-delay:${i * 0.35}s"><b>${i + 1}</b><span>${t}</span></div>`).join("")}</div>`;
+    if (k === "tests") return `<div class="tb-pv tests">${[["✓", "run 1–3 pass"], ["✗→✓", "ladder bug · patched"], ["✗→✓", "medkit spawn · patched"], ["✓", "new build up"]].map((t, i) => `<div style="animation-delay:${i * 0.4}s"><b>${t[0]}</b> ${t[1]}</div>`).join("")}</div>`;
+    return `<div class="tb-pv posts">${["X", "in", "T"].map((t, i) => `<div style="animation-delay:${i * 0.4}s"><b>${t}</b>${bar(80)}${bar(55)}</div>`).join("")}</div>`;
   }
 
   /* ---------- Teamily AI tab (teamily.html) ---------- */
@@ -174,7 +185,7 @@
           <span class="mand-badge">💬 OFFICIAL EVENT COMMUNICATION · MANDATORY</span>
           <h1>${esc(C.headline.replace(CT.name + ".", ""))}<em class="grad">${esc(CT.name)}.</em></h1>
           <p class="lead">${esc(C.why)}</p>
-          <div class="cta-row" style="justify-content:flex-start"><a class="btn" href="${CT.url}" target="_blank" rel="noopener">Join ${esc(CT.name)} ↗</a><a class="btn ghost" href="#tp-join">How to join ↓</a></div>
+          <div class="cta-row" style="justify-content:flex-start"><a class="btn" href="${CT.url}" target="_blank" rel="noopener">Join ${esc(CT.name)} ↗</a><a class="btn ghost" href="#tp-join">How to join ↓</a>${(C.builds || []).length ? `<a class="btn ghost" href="#tp-build">What agents can build ↓</a>` : ""}</div>
           <div class="tp-replace"><s>${esc(C.replaces.split(" and ").join(" · "))}</s><span>→</span><b>${CT.icon} ${esc(CT.name)}</b></div>
         </div>
         <div class="tp-side">${chatMock("# multiplayer-ai · event")}
@@ -185,6 +196,15 @@
         <div class="tp-card must"><span class="tp-k">✅ REQUIRED FOR EVERY HACKER</span><h3>Join to get every update</h3><ul>${C.mandatory.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
         <div class="tp-card opt"><span class="tp-k">🤖 MORE THAN A CHAT APP</span><h3>Humans and agents together</h3><ul>${(C.perks || []).map(x => `<li>${esc(x)}</li>`).join("")}</ul><a class="lnk" href="/aim-hack-visual/sponsors.html#lab-teamily">Make your own agents in the Sponsor Lab →</a></div>
       </section>
+
+      ${(C.builds || []).length ? `<section class="tp-sec" id="tp-build"><span class="kicker">More than communication</span><h2>Your agents build things, right in the chat</h2>
+        <p class="muted tb-lead">Make agents with any role in your team group and @mention them like teammates. They don't just answer: they make the website, cut the demo video, design the poster, draft the deck and fix the bugs, and post the result in the thread where everyone sees it. That thread is also your proof for the judges of how your human + agent team worked.</p>
+        <div class="tb-grid">${C.builds.map(b => `<div class="card tb-card" data-k="${esc(b[6])}">
+          <div class="tb-h"><i>${b[0]}</i><b>${esc(b[1])}</b></div>
+          <div class="tb-msg you"><span>🧑</span><p>${esc(b[2]).replace(/@(\w+)/g, "<u>@$1</u>")}</p></div>
+          <div class="tb-msg ag"><span>${b[3]}</span><p><b>${esc(b[4])}</b> <em>AGENT</em><br>${esc(b[5]).replace(/@(\w+)/g, "<u>@$1</u>")}</p></div>
+          ${buildPreview(b[6])}</div>`).join("")}</div>
+        <div class="cta-row" style="justify-content:flex-start;margin-top:18px"><a class="btn" href="/aim-hack-visual/sponsors.html#lab-teamily">Try it: make agents that build →</a><a class="btn ghost" href="${CT.url}" target="_blank" rel="noopener">Open ${esc(CT.name)} ↗</a></div></section>` : ""}
 
       <section class="tp-sec" id="tp-join"><span class="kicker">Before the event</span><h2>How to join</h2>
         <div class="tp-steps">${C.join.map((s, i) => `<div class="card"><span class="sub-n">${i + 1}</span><h4>${esc(s[0])}</h4><p>${esc(s[1])}</p></div>`).join("")}</div></section>

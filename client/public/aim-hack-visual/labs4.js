@@ -16,12 +16,14 @@
     "Launch our agent film next Friday",
     "Get 50 players for our co-op zombie game playtest",
     "Help me prepare a 2-minute sales pitch",
-    "Build a landing page for our hackathon project",
+    "Build a website for our hackathon project @Engineer @Design",
+    "Make a 60-second demo video of our project @Video",
     "Find sponsors for our community meetup"
   ];
   /* which roles a task needs when nobody is @mentioned */
   const ROUTE = [
     [/launch|post|market|promo|hype|audience|social|rsvp|players|signup|sign-up/i, "marketing"],
+    [/video|trailer|teaser|reel|clip|recording|montage/i, "video"],
     [/research|competitor|fact|data|market size|users|who are/i, "research"],
     [/poster|design|logo|visual|brand|colou?r|thumbnail/i, "design"],
     [/build|page|code|app|site|website|bug|fix|prototype|landing/i, "engineer"],
@@ -37,7 +39,8 @@
     marketing: t => ({ say: `On it. Positioning: "${cap(t)}, the version people share." 3 posts drafted, one per channel.`, card: { kind: "list", title: "📣 Launch posts (draft)", lines: [`X: "${cap(t)}. Agents decide the ending. You decide whether to watch. 🎬"`, `LinkedIn: why we built it with a human + agent team, in 4 lines`, `Discord: invite + 3 sneak-peek frames, CTA: RSVP`] }, handoff: ["design", "I need a hero visual for post 1."] }),
     research: t => ({ say: `Did a first pass on "${t}". Three findings worth acting on:`, card: { kind: "list", title: "🔎 Findings (simulated sources)", lines: ["Builders share demos with a moving character 2× more than screenshots", "Friday-evening launches get most replies in community channels", "Top 3 similar projects all lack a visible decision log, so that's our edge"] }, handoff: ["marketing", "Use finding 3 as the hook."] }),
     design: t => ({ say: `Visual direction for "${t}": night-neon, one bold title, a single character in frame.`, card: { kind: "palette", title: "🎨 Palette + poster", lines: ["#0b1022", "#8b7bff", "#ff4fa3", "#ffc857", "#eaf0ff"], note: "Title in Space Grotesk 800, character centre-left" }, handoff: ["engineer", "Can you put this on the page header?"] }),
-    engineer: t => ({ say: `Shipped a first version for "${t}". Smallest thing that works, live in preview.`, card: { kind: "code", title: "💻 hero.html · preview live", lines: [`<section class="hero">`, `  <h1>${esc(cap(t)).slice(0, 40)}</h1>`, `  <a class="cta" href="#rsvp">Join →</a>`, `</section>`] }, handoff: ["qa", "Please check mobile + links."] }),
+    engineer: t => ({ say: `Built the website for "${t}" and it's live in preview: hero, demo video, how it works, sign-up.`, card: { kind: "site", title: "💻 Website · live preview", head: cap(t), lines: ["Hero + one-line pitch", "Demo video embedded", "How the agents work, in 3 steps", "Sign-up form → our Teamily group"] }, handoff: ["qa", "Please check mobile + links."] }),
+    video: t => ({ say: `Cut a 0:58 demo video for "${t}" from our recordings. Captions on, ready to post.`, card: { kind: "video", title: "🎬 demo-video.mp4 · 0:58", head: cap(t), lines: ["0:00 Hook: the ending nobody wrote", "0:08 The setup in one shot", "0:20 Agents deciding live (sped up)", "0:45 Results + call to action"] }, handoff: ["marketing", "Video's ready to attach to the launch posts."] }),
     producer: t => ({ say: `Turned this into a plan with owners. Pinned to the channel 📌`, card: { kind: "list", title: "📋 Plan · " + t.slice(0, 32), lines: ["Mon · research + positioning → Research, Marketing", "Wed · visuals + page → Design, Engineer", "Thu · QA pass + invites → QA, Marketing", "Fri · launch 🚀 → everyone"] }, handoff: null }),
     qa: t => ({ say: `Ran checks on "${t}". 4 pass, 1 needs a fix.`, card: { kind: "list", title: "🧪 Checks", lines: ["✓ desktop layout", "✓ links work", "✓ copy has no typos", "✓ loads under 2 s", "✗ CTA hidden on small phones"] }, handoff: ["engineer", "CTA is cut off under 380 px."] }),
     coach: t => ({ say: `Let's practise "${t}". One thing at a time: your opening line.`, card: { kind: "list", title: "🎯 Practice plan", lines: ["1 · Say it once out loud, I time you", "2 · Fix ONE thing: a slower, clearer ask", "3 · Add one number that proves it", "4 · Again at 6 pm ⏰"] }, handoff: ["research", "Find one strong number for slide 2."] }),
@@ -50,8 +53,8 @@
     ["🧑", "#eaf0ff", "You", "Launch our film Friday. @Marketing @Design"],
     ["📣", "#ff6f61", "Marketing Agent", "3 posts drafted. @Design, need a visual."],
     ["🎨", "#ff4fa3", "Design Agent", "Poster v1 + palette posted ✓"],
-    ["💻", "#3ee6ff", "Engineer Agent", "Page is live in preview ✓"],
-    ["📋", "#ffc857", "Producer Agent", "Plan pinned: launch Fri 7 pm 📌"]
+    ["💻", "#3ee6ff", "Engineer Agent", "Website is live in preview ✓"],
+    ["🎬", "#ff9f43", "Video Agent", "Demo video cut: 0:58, captions on ✓"]
   ];
   function demoUI(ctx, W, H, members, msgs, typing) {
     ctx.fillStyle = "#0b1022"; ctx.fillRect(0, 0, W, H);
@@ -72,11 +75,11 @@
   LABS.push({
     id: "teamily", tool: "Humans + agents in one chat", playLink: "film",
     title: "Run a team of humans and role agents in one group chat",
-    pitch: "Teamily AI is the official communication platform of this hackathon (it replaces Discord and Slack), and agents are members of the chat too. Make any agent you want: a preset (marketing, research, design, engineering, QA, coach, sales) or your own role, job and personality. Drop a task in the channel and watch each agent act in its role: the Marketing Agent writes posts, the Design Agent picks a palette, the Engineer Agent ships code, and they @mention each other to hand work on.",
+    pitch: "Teamily AI is the official communication platform of this hackathon (it replaces Discord and Slack), and agents are members of the chat too. Make any agent you want: a preset (marketing, research, design, engineering, QA, coach, sales) or your own role, job and personality. Drop a task in the channel and watch each agent act in its role: the Marketing Agent writes posts, the Design Agent picks a palette, the Engineer Agent builds the website, the Video Agent cuts the demo video, and they @mention each other to hand work on. Teamily is not just the event chat: your agents build things in it.",
     how: [
       "<b>＋ New Agent</b>: start from a preset or blank and make <b>any agent you want</b>: emoji, name, role, what it does, personality and colour. It joins the channel as a member, like a teammate.",
       "<b>Post a task</b> in the channel. <b>@mention</b> agents to pick who works on it, or don't, and the right roles pick it up.",
-      "Each agent answers <b>in its role</b> and posts a deliverable card: launch posts, a palette, code, a plan, checks, a practice plan or an email.",
+      "Each agent answers <b>in its role</b> and posts a deliverable card: launch posts, a palette, a live website, a demo video, a plan, checks, a practice plan or an email.",
       "Agents <b>hand off</b> to each other in the thread (\"@Design, I need a visual\"). With <b>Always-on</b>, they follow up on their own.",
       "Watch the <b>how-it-works strip</b> light up and read <b>Behind the scenes</b>: who was picked and why, what each agent was told, and every hand-off.",
       "This lab simulates Teamily AI. At the hackathon, join Teamily AI to get every announcement and update, and to talk with your team."
@@ -110,7 +113,7 @@
       const a = { uid: "a" + ++S.n, role: pre && !o.custom ? pre.id : "custom", r, name: o.name || r.name, icon: o.icon || r.icon, color: o.color || r.color, notes: o.notes || "" };
       S.agents.push(a); return a;
     }
-    ["marketing", "design", "engineer", "producer"].forEach(p => mkAgent({ preset: p }));
+    ["marketing", "design", "engineer", "video", "producer"].forEach(p => mkAgent({ preset: p }));
 
     const FLOW = [
       ["create", "＋", "Create agents", "Each agent gets a role, a job and a personality. It joins the group as a member."],
@@ -186,6 +189,9 @@
     function card(c, colr) {
       if (!c) return "";
       if (c.kind === "palette") return `<div class="tml-card" style="--k:${colr}"><b>${esc(c.title)}</b><div class="tml-sw">${c.lines.map(h => `<i style="background:${esc(h)}" title="${esc(h)}"></i>`).join("")}</div>${c.note ? `<small>${esc(c.note)}</small>` : ""}</div>`;
+      const ul = () => `<ul>${(c.lines || []).map(l => `<li>${esc(l)}</li>`).join("")}</ul>`;
+      if (c.kind === "site") return `<div class="tml-card" style="--k:${colr}"><b>${esc(c.title)}</b><div class="tml-site"><div class="tml-url">● ● ● <span>${esc(String(c.head || "our-project").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 28) || "our-project")}.app</span></div><div class="tml-pg"><strong>${esc(String(c.head || "Our project").slice(0, 48))}</strong><i></i><i style="width:55%"></i><em>Join →</em></div></div>${ul()}</div>`;
+      if (c.kind === "video") return `<div class="tml-card" style="--k:${colr}"><b>${esc(c.title)}</b><div class="tml-vid"><span>▶</span><small>${esc(String(c.head || "Demo").slice(0, 48))}</small><div class="tml-vbar"><i></i></div></div>${ul()}</div>`;
       if (c.kind === "code") return `<div class="tml-card" style="--k:${colr}"><b>${esc(c.title)}</b><pre>${c.lines.map(esc).join("\n")}</pre></div>`;
       return `<div class="tml-card" style="--k:${colr}"><b>${esc(c.title)}</b><ul>${(c.lines || []).map(l => `<li>${esc(l)}</li>`).join("")}</ul></div>`;
     }
@@ -232,7 +238,7 @@ Return JSON: {"say":"<chat message>","card":{"title":"<emoji + deliverable title
       await wait(500 + Math.random() * 500);
       unpush(ch, typing);
       const offCard = offOf().card;
-      const c = d.card && d.card.lines ? { kind: d._src === "llm" ? "list" : offCard.kind, title: d.card.title, lines: d.card.lines, note: offCard.note } : null;
+      const c = d.card && d.card.lines ? { kind: d._src === "llm" && !/^(site|video)$/.test(offCard.kind) ? "list" : offCard.kind, title: d.card.title, lines: d.card.lines, note: offCard.note, head: offCard.head } : null;
       const ho = d.handoff && d.handoff.to ? S.agents.find(o => o !== a && handle(o).toLowerCase() === String(d.handoff.to).replace("@", "").toLowerCase()) : null;
       push(ch, { who: a.name, icon: a.icon, color: a.color, roleName: r.name.toUpperCase(), text: d.say + (ho ? ` @${handle(ho)} ${d.handoff.ask || ""}` : ""), card: c });
       coord.pulse("team", `${a.icon} ${a.name} posted`, "out");
