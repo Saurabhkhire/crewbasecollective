@@ -341,6 +341,50 @@ window.World = (function () {
           end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
         };
       },
+      /* LingCode phone bot: an app builds on a floating phone, then a store badge drops onto the nearest characters */
+      lingcode(e) {
+        const near = nearest(e, 3, o => o !== e && (o.kind === "agent" || o.kind === "mascot") && Math.hypot(o.x - e.x, o.y - e.y) < 280);
+        if (!near.length) return null;
+        const g = el("g", {}, fxL), ph = el("g", {}, g);
+        el("rect", { x: -12, y: -22, width: 24, height: 40, rx: 5, fill: "#10172f", stroke: "#5ce1e6", "stroke-width": 1.5 }, ph);
+        const rows = [0, 1, 2, 3].map(i => el("rect", { x: -8, y: -16 + i * 8, width: 16, height: 5, rx: 2, fill: i === 3 ? "#5ce1e6" : "#2a3260", opacity: 0 }, ph));
+        const L = near.map(() => ({ p: el("path", { fill: "none", stroke: "#5ce1e6", "stroke-width": 2, "stroke-dasharray": "3 5", class: "wm-flow" }, g), b: el("g", { opacity: 0 }, g) }));
+        L.forEach(q => { el("rect", { x: -11, y: -9, width: 22, height: 15, rx: 4, fill: "#0e3236", stroke: "#5ce1e6" }, q.b); el("text", { y: 2.5, "text-anchor": "middle", "font-size": 9 }, q.b, "📱"); });
+        near.forEach(o => o.g.classList.add("matched"));
+        let t = 0;
+        return {
+          update(dt) {
+            t += dt;
+            const h = head(e), hy = h.y - 30;
+            ph.setAttribute("transform", `translate(${h.x} ${hy})`);
+            rows.forEach((r, i) => r.setAttribute("opacity", t > 300 + i * 350 ? 1 : 0));
+            near.forEach((o, k) => { const b = head(o); L[k].p.setAttribute("d", `M${h.x} ${hy - 20} Q${(h.x + b.x) / 2} ${Math.min(hy, b.y) - 40} ${b.x} ${b.y - 10}`); L[k].b.setAttribute("transform", `translate(${b.x} ${b.y - 22})`); if (t > 1700 + k * 400) L[k].b.setAttribute("opacity", 1); });
+          },
+          end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
+        };
+      },
+      /* HarnessRouter crab: routes a task packet down a different coloured cable to each nearby character */
+      harnessrouter(e) {
+        const near = nearest(e, 3, o => o !== e && (o.kind === "agent" || o.kind === "mascot") && Math.hypot(o.x - e.x, o.y - e.y) < 300);
+        if (!near.length) return null;
+        const COLS = ["#3ee6ff", "#ff4fa3", "#b6ff5c"], g = el("g", {}, fxL);
+        const L = near.map((o, k) => ({ p: el("path", { fill: "none", stroke: COLS[k % 3], "stroke-width": 2.2, "stroke-opacity": 0.75 }, g), d: el("circle", { r: 4, fill: COLS[k % 3] }, g) }));
+        near.forEach(o => o.g.classList.add("matched"));
+        let t = 0;
+        return {
+          update(dt) {
+            t += dt;
+            const h = head(e);
+            near.forEach((o, k) => {
+              const b = head(o), d = `M${h.x} ${h.y - 6} C${h.x} ${h.y - 50} ${b.x} ${b.y - 60} ${b.x} ${b.y - 10}`;
+              L[k].p.setAttribute("d", d);
+              const len = L[k].p.getTotalLength(), u = ((t / 1400) + k / 3) % 1, pt = L[k].p.getPointAtLength(len * u);
+              L[k].d.setAttribute("cx", pt.x); L[k].d.setAttribute("cy", pt.y);
+            });
+          },
+          end() { g.remove(); near.forEach(o => o.g.classList.remove("matched")); }
+        };
+      },
       /* Crewbase host: lights circuit traces to the nearest characters and powers them up */
       crewbase(e) {
         const near = nearest(e, 3, o => o !== e && (o.kind === "agent" || o.kind === "mascot") && Math.hypot(o.x - e.x, o.y - e.y) < 260);

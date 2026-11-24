@@ -346,3 +346,41 @@
 .tlv-wf div i { display: block; height: 7px; border-radius: 3px; background: #e86bff; }
 .tlv-wf div.fail i { background: #ff6b6b; } .tlv-wf div.fail span { color: #ff9c9c; }
 @media (max-width: 700px) { .tv-tl { left: 8px; top: 8px; bottom: auto; } .tlv-page, .tlv-tr { display: none; } }
+
+/* HarnessRouter view: one API, four harnesses, routed tasks */
+.tv-hr { position: absolute; top: 50px; right: 14px; bottom: 72px; left: 50%; display: flex; flex-direction: column; gap: 7px; z-index: 3; font-size: 12px; color: #eaf0ff; }
+.hrv-api { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 8px 10px; border-radius: 12px; background: rgba(8, 12, 28, 0.9); border: 1.5px solid #f6a04d; box-shadow: 0 0 24px -10px #f6a04d; font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: #f6a04d; }
+.hrv-api small { color: #eaf0ff; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hrv-hs { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.hrv-hs div { position: relative; display: grid; grid-template-columns: 20px 1fr; gap: 0 6px; align-items: center; padding: 6px 8px; border-radius: 9px; background: rgba(8, 12, 28, 0.88); border: 1px solid rgba(246, 160, 77, 0.2); transition: border-color 0.2s, box-shadow 0.2s, background 0.2s; overflow: hidden; }
+.hrv-hs div span { grid-row: span 2; font-size: 15px; text-align: center; }
+.hrv-hs div small { color: #9fb0d8; font-size: 10px; }
+.hrv-hs div.scan { border-color: rgba(246, 160, 77, 0.6); }
+.hrv-hs div.on { border-color: var(--c); background: rgba(16, 23, 47, 0.95); box-shadow: 0 0 16px -4px var(--c); }
+.hrv-hs .hrv-sb { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--c); }
+.hrv-hs div.on .hrv-sb { animation: hrvRun 1.6s linear forwards; }
+@keyframes hrvRun { to { width: 100%; } }
+.hrv-out { display: flex; flex-direction: column; gap: 5px; }
+.hrv-out div { display: grid; grid-template-columns: 22px 1fr; gap: 0 6px; align-items: center; padding: 6px 8px; border-radius: 9px; background: rgba(8, 12, 28, 0.88); border-left: 3px solid var(--c); animation: tmIn 0.35s ease-out; }
+.hrv-out div span { grid-row: span 2; }
+.hrv-out small { color: #9fb0d8; font-family: "JetBrains Mono", monospace; font-size: 10px; }
+@media (max-width: 700px) { .tv-hr { left: 8px; top: 8px; bottom: auto; } .hrv-out { display: none; } }
+
+/* LingCode view: a phone that builds the app stage by stage */
+.tv-lc { position: absolute; top: 40px; right: 14px; bottom: 72px; left: 48%; display: flex; gap: 12px; align-items: center; z-index: 3; color: #eaf0ff; }
+.lcv-phone { flex: 0 0 auto; width: 128px; height: 230px; border-radius: 22px; background: #10172f; border: 2px solid #5ce1e6; box-shadow: 0 0 28px -8px #5ce1e6; padding: 18px 8px 10px; position: relative; }
+.lcv-notch { position: absolute; top: 6px; left: 50%; width: 36px; height: 6px; margin-left: -18px; border-radius: 4px; background: #2d3142; }
+.lcv-scr { height: 100%; border-radius: 12px; background: #0b1022; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 8px; text-align: center; font-size: 11px; line-height: 1.3; }
+.lcv-scr p { margin: 0; animation: tmIn 0.35s ease-out; }
+.lcv-big { font-size: 30px; animation: tmIn 0.35s ease-out; }
+.lcv-badge { font-size: 9px; padding: 3px 6px; border-radius: 6px; background: #5ce1e6; color: #0b1022; font-weight: 800; }
+.lcv-side { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.lcv-st { list-style: none; margin: 0; padding: 8px 10px; border-radius: 12px; background: rgba(8, 12, 28, 0.88); display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #8fa3c9; }
+.lcv-st li { display: flex; gap: 6px; align-items: center; transition: color 0.2s; }
+.lcv-st li.on { color: #5ce1e6; font-weight: 700; }
+.lcv-st li.done { color: #eaf0ff; }
+.lcv-st li.done::after { content: "✓"; margin-left: auto; color: #b6ff5c; }
+.lcv-after { padding: 6px 10px; border-radius: 10px; background: rgba(8, 12, 28, 0.88); font-size: 11.5px; min-height: 20px; }
+.lcv-after small { color: #5ce1e6; font-family: "JetBrains Mono", monospace; font-size: 9.5px; }
+.lcv-after p { margin: 2px 0 0; }
+@media (max-width: 700px) { .tv-lc { left: 8px; top: 8px; bottom: auto; } .lcv-side { display: none; } .lcv-phone { width: 100px; height: 170px; } }

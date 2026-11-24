@@ -621,3 +621,58 @@
 .tml-vbar { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255, 255, 255, .15); } .tml-vbar i { display: block; height: 100%; background: var(--k); transform-origin: left; animation: tbProg 4s linear infinite; }
 @keyframes tbPan { to { background-position: 200% 0; } }
 @keyframes tbProg { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---------- LingCode lab (labs7.js) ---------- */
+.lc-plats button.on, #lcPlat button.on { background: #5ce1e6; color: #06262a; border-color: #5ce1e6; }
+.lc-grid { display: grid; grid-template-columns: 1fr 220px; gap: 12px; margin: 12px 0; align-items: start; }
+@media (max-width: 760px) { .lc-grid { grid-template-columns: 1fr; } }
+.lc-stages { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.lc-stages li { display: grid; grid-template-columns: 24px 130px 1fr; gap: 8px; align-items: center; padding: 6px 10px; border-radius: 9px; background: rgba(255, 255, 255, 0.03); color: var(--muted); font-size: 13px; border-left: 3px solid transparent; transition: background 0.2s, color 0.2s; }
+.lc-stages li small { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lc-stages li.on { color: #fff; border-left-color: #5ce1e6; background: rgba(92, 225, 230, 0.1); }
+.lc-stages li.done { color: #fff; border-left-color: #b6ff5c; }
+.lc-stages li.done b::after { content: " ✓"; color: #b6ff5c; }
+.lc-phone-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.lc-phone { width: 190px; height: 340px; border-radius: 30px; background: #10172f; border: 2px solid #5ce1e6; box-shadow: 0 0 30px -10px #5ce1e6; padding: 24px 10px 14px; position: relative; }
+.lc-notch { position: absolute; top: 9px; left: 50%; width: 50px; height: 8px; margin-left: -25px; border-radius: 5px; background: #2d3142; }
+.lc-scr { height: 100%; border-radius: 16px; background: #0b1022; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; }
+.lc-app { width: 100%; height: 100%; padding: 12px 10px; display: flex; flex-direction: column; gap: 7px; background: #f4f7ff; color: #141a33; text-align: left; transition: background 0.3s, color 0.3s; }
+.lc-app.dark { background: #0d1226; color: #eaf0ff; }
+.lc-app > b { font-size: 15px; margin-bottom: 4px; }
+.lc-row { padding: 9px 10px; border-radius: 10px; background: rgba(92, 225, 230, 0.18); font-size: 12.5px; font-weight: 600; animation: tmIn 0.35s ease-out both; }
+.lc-row.pay { background: #5ce1e6; color: #06262a; }
+.lc-badge { margin-top: auto; align-self: center; font-size: 10.5px; font-weight: 800; padding: 4px 8px; border-radius: 7px; background: #141a33; color: #5ce1e6; }
+.lc-app.dark .lc-badge { background: #5ce1e6; color: #06262a; }
+.lc-plat-tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.lc-plat-tags span { font-size: 12px; padding: 3px 8px; border-radius: 99px; border: 1px solid rgba(92, 225, 230, 0.45); color: #5ce1e6; }
+.lc-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 6px; }
+.lc-kpis div { padding: 8px 10px; border-radius: 10px; background: rgba(92, 225, 230, 0.07); }
+.lc-kpis b { display: block; font-family: "JetBrains Mono", monospace; font-size: 18px; color: #5ce1e6; }
+.lc-kpis small { color: var(--muted); font-size: 11.5px; }
+@media (max-width: 560px) { .lc-kpis { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- HarnessRouter lab (labs7.js) ---------- */
+.hr-pref button.on, #hrPref button.on { background: #f6a04d; color: #2a1606; border-color: #f6a04d; }
+.hr-h { display: grid; grid-template-columns: 26px 1fr; gap: 0 8px; align-items: center; padding: 7px 10px; margin-bottom: 5px; border-radius: 10px; background: rgba(255, 255, 255, 0.03); border: 1px solid transparent; transition: border-color 0.2s, background 0.2s; }
+.hr-h span { grid-row: span 3; font-size: 18px; text-align: center; }
+.hr-h b i { font-style: normal; color: var(--c); font-size: 12px; margin-left: 4px; }
+.hr-h small { color: var(--muted); font-size: 12px; }
+.hr-h em { font-style: normal; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--muted); }
+.hr-h.on { border-color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+.hr-sb { border-radius: 12px; border: 1.5px dashed var(--c); padding: 10px 12px; background: rgba(0, 0, 0, 0.2); }
+.hr-sb-h { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+.hr-sb-h small { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: var(--muted); }
+.hr-sb ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: #c9d0ee; }
+.hr-sb ol li { animation: tmIn 0.25s ease-out; }
+.hr-state { margin-top: 8px; padding: 6px 10px; border-radius: 8px; font-size: 12.5px; background: rgba(255, 255, 255, 0.05); color: var(--muted); }
+.hr-state.ok { background: rgba(182, 255, 92, 0.12); color: #d9ffb0; }
+.hr-state.inc { background: rgba(246, 160, 77, 0.14); color: #ffd2a6; }
+.hr-code { margin: 0; padding: 10px 12px; border-radius: 10px; background: #070a14; color: #ffd2a6; font-family: "JetBrains Mono", monospace; font-size: 11.5px; line-height: 1.5; white-space: pre-wrap; overflow-x: auto; }
+.hr-arena { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
+.hr-arena div { display: grid; grid-template-columns: 140px 1fr 230px; gap: 10px; align-items: center; padding: 6px 10px; border-radius: 9px; background: rgba(255, 255, 255, 0.03); border: 1px solid transparent; }
+.hr-arena i { height: 10px; border-radius: 5px; background: rgba(255, 255, 255, 0.05); overflow: hidden; }
+.hr-arena s { display: block; height: 100%; width: 0; background: var(--c); text-decoration: none; }
+.hr-arena small { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--muted); text-align: right; }
+.hr-arena div.win { border-color: #f6a04d; background: rgba(246, 160, 77, 0.1); }
+.hr-arena div.win b::after { content: " 🏆"; }
+@media (max-width: 700px) { .hr-arena div { grid-template-columns: 1fr; } .hr-arena small { text-align: left; } }

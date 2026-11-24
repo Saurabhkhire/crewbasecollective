@@ -203,7 +203,7 @@ window.UI = (function () {
        live.refresh()                              re-sync with the active set (call after toggles)
      UI.toolFx(stageEl, id, opts) = stageEl._live.fx(id, opts)
      ========================================================= */
-  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls", teamily: "messages", runware: "jobs", telem: "searches" };
+  const UNIT = { band: "msgs", finch: "skills used", bruin: "events", adal: "frames", casuro: "answers scored", glasser: "calls", teamily: "messages", runware: "jobs", telem: "searches", lingcode: "build steps", harnessrouter: "tasks routed" };
   U.toolsLive = function (stage, track, active) {
     if (!stage) return null;
     if (stage._live) stage._live.destroy();
@@ -350,6 +350,33 @@ window.UI = (function () {
     live.fx("runware", { text: `${k.icon} ${j[1]} · ${secs} s · ${R.price(k.price)}`, from, callout: !!from });
     live.stat("runware", `${live._rw.n} job${live._rw.n === 1 ? "" : "s"} · ${R.price(live._rw.cost)} (½ of ${R.price(live._rw.cost * R.neo)})`);
     return { kind: k, label: j[1], secs };
+  };
+  /* LingCode (simulated): the project moves one step from idea to a live app, at most every 7 s.
+     UI.lingcodeStep(live, track, fromEl) → shows "📱 LingCode · 💳 Payments: $2.99 behind-the-scenes pack…" */
+  U.lingcodeStep = function (live, track, from) {
+    if (!live || !live.active.has("lingcode") || !PLAY.lingcode) return null;
+    const now = Date.now();
+    if (live._lc && now - live._lc.t < 7000) return null;
+    live._lc = live._lc || { n: 0, t: 0 };
+    const L = PLAY.lingcode, steps = L.steps[track] || L.steps.film, st = steps[live._lc.n % steps.length], stage = L.stages.find(x => x.id === st[0]) || L.stages[0];
+    live._lc.n++; live._lc.t = now;
+    live.fx("lingcode", { text: `${stage.icon} ${stage.name}: ${st[1]}`, from, callout: !!from });
+    live.stat("lingcode", `${stage.icon} ${stage.name} · step ${L.stages.indexOf(stage) + 1}/${L.stages.length}`);
+    return { stage, text: st[1] };
+  };
+  /* HarnessRouter (simulated): one agent task routed to a harness in its own sandbox, at most every 6 s.
+     UI.harnessRoute(live, track, fromEl) → shows "🔀 HarnessRouter · “Patch medkit spawn rate” → 💻 Codex · 0.9 s · done" */
+  U.harnessRoute = function (live, track, from) {
+    if (!live || !live.active.has("harnessrouter") || !PLAY.harnessrouter) return null;
+    const now = Date.now();
+    if (live._hr && now - live._hr.t < 6000) return null;
+    live._hr = live._hr || { n: 0, t: 0, used: {} };
+    const R = PLAY.harnessrouter, list = R.tasks[track] || R.tasks.film, tk = list[live._hr.n % list.length], h = R.harnesses.find(x => x.id === tk[1]) || R.harnesses[0];
+    const secs = +(h.ms / 1000 * (0.8 + Math.random() * 0.4)).toFixed(1);
+    live._hr.n++; live._hr.t = now; live._hr.used[h.id] = 1;
+    live.fx("harnessrouter", { text: `“${tk[0]}” → ${h.icon} ${h.name} · ${secs} s · ${tk[2]}`, from, callout: !!from });
+    live.stat("harnessrouter", `${live._hr.n} task${live._hr.n === 1 ? "" : "s"} · ${Object.keys(live._hr.used).length} harness${Object.keys(live._hr.used).length === 1 ? "" : "es"} · 1 API`);
+    return { task: tk[0], harness: h, secs, result: tk[2] };
   };
   /* tiny charts for Bruin dashboards */
   U.miniBars = rows => {

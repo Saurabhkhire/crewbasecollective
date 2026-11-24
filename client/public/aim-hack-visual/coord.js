@@ -3,7 +3,7 @@
      Coord.network(el)        → full animated network (sponsors.html "Tools together" view)
      Coord.strip(el, focusId) → compact "Works with" strip inside a lab
                                 returns { pulse(otherId, label, dir), note(text) }
-   Nodes: finch, band, adal, casuro, bruin, glasser, telem, runware, teamily (+ team = the agents, you = the human).
+   Nodes: finch, band, adal, casuro, bruin, glasser, telem, runware, harnessrouter, lingcode, teamily (+ team = the agents, you = the human).
    Needs data.js (HACK.sponsors), play-data.js, puppet.js.
    ========================================================= */
 window.Coord = (function () {
@@ -36,13 +36,17 @@ window.Coord = (function () {
         { f: "telem", t: "team", label: "📄 clean page · traced", detail: "The slang comes back as readable text with its source, and the agent works it into the next line." },
         { f: "team", t: "runware", label: "⚡ 36 frames + 9 voice lines", detail: "Every frame, voice line and teaser clip runs as an inference job on Runware: one API for every model, serverless GPUs in modular data centers, at about half the usual cost." },
         { f: "runware", t: "team", label: "🖼️ rendered · $0.18", detail: "Results come back in seconds with their cost, so the crew can render more takes without blowing the budget." },
+        { f: "team", t: "harnessrouter", label: "🔀 Rook's next move", detail: "Each actor-agent runs on a complete agent harness. HarnessRouter starts the right harness and model for the beat in its own sandbox, streams progress back and keeps the full trace." },
+        { f: "harnessrouter", t: "team", label: "✅ done · Hermes · traced", detail: "The result comes back through the same API whichever harness ran it, so you can swap a harness with one config line." },
         { f: "team", t: "adal", label: "🎬 12 scenes + cast", detail: "The finished plot goes to AdaL, which turns it into a movie poster and key frames for each act." },
         { f: "adal", t: "band", label: "🖼️ poster on #film", detail: "AdaL shares the poster and frames on the team channel so every agent sees the same visuals." },
         { f: "you", t: "casuro", label: "🎙️ your spoken review", detail: "You review the film out loud; Casuro transcribes it and scores it with evidence from your words." },
         { f: "casuro", t: "bruin", label: "📊 score + quotes", detail: "Casuro sends the scored review, with quotes, into Bruin." },
         { f: "band", t: "bruin", label: "🧾 54 events", detail: "Every message, skill use and frame lands in Bruin's pipeline: who drove the plot, which ending happens most." },
         { f: "adal", t: "teamily", label: "🖼️ poster in #film-crew", detail: "The poster lands in the crew's Teamily AI group, where you and your role agents (marketing, design, producer) work in one thread." },
-        { f: "teamily", t: "you", label: "📣 premiere plan + posts", detail: "Agents take tasks right from the chat: the Marketing Agent drafts teaser posts, the Producer Agent pins the timeline, and you approve in the same thread." }
+        { f: "teamily", t: "you", label: "📣 premiere plan + posts", detail: "Agents take tasks right from the chat: the Marketing Agent drafts teaser posts, the Producer Agent pins the timeline, and you approve in the same thread." },
+        { f: "you", t: "lingcode", label: "📱 “an app for our film”", detail: "You describe a companion app in one paragraph. LingCode builds it for iPhone, Android and web, with sign-in, data and payments." },
+        { f: "lingcode", t: "you", label: "🚀 live in both stores", detail: "Fans watch the short, vote on the next ending and buy the behind-the-scenes pack. LingCode reports crashes, reviews and a daily summary." }
       ]
     },
     game: {
@@ -57,11 +61,14 @@ window.Coord = (function () {
         { f: "telem", t: "team", label: "🔔 breaking: storm tonight", detail: "A Telem AI monitor spots new information and drops it into the round as a twist the agents must react to." },
         { f: "team", t: "runware", label: "⚡ NPC voices + sprites", detail: "Agent turns, NPC callouts and sprite variants run as Runware jobs, on serverless compute that scales with the wave." },
         { f: "runware", t: "team", label: "🔊 ready in 0.4 s", detail: "Voices and art come back fast and cheap, so every round can have new ones." },
+        { f: "team", t: "harnessrouter", label: "🔀 plan wave · patch build", detail: "Each teammate's task is routed to the harness that wins for it: a coding harness patches the build, a persistent one plans the next wave." },
+        { f: "harnessrouter", t: "bruin", label: "📊 time · cost · wins per harness", detail: "Every run ends in a clear state with its trace, so you can compare harnesses like in an arena and keep the winner." },
         { f: "adal", t: "team", label: "🎨 cover art + theme", detail: "AdaL generates the art for the custom game you designed." },
         { f: "team", t: "bruin", label: "📈 kills · damage · rounds", detail: "Every hit, heal and decision streams into Bruin's live stats and quality checks." },
         { f: "bruin", t: "finch", label: "💡 “Medic used 9× — keep it”", detail: "Bruin's numbers feed back into which Finch skills to equip next round." },
         { f: "you", t: "teamily", label: "💬 “@Engineer fix medkits”", detail: "Between rounds you @mention an agent in the squad's Teamily AI group, just like a human teammate." },
-        { f: "teamily", t: "team", label: "✅ patched + playtest set", detail: "The Engineer Agent patches the build, the QA Agent replays it, and everyone, human or agent, sees the update in the same chat." }
+        { f: "teamily", t: "team", label: "✅ patched + playtest set", detail: "The Engineer Agent patches the build, the QA Agent replays it, and everyone, human or agent, sees the update in the same chat." },
+        { f: "you", t: "lingcode", label: "📦 ship it to the stores", detail: "After the demo, LingCode turns the game into an iPhone, Android and web app with accounts, a leaderboard and in-app purchases." }
       ]
     },
     grow: {
@@ -73,6 +80,7 @@ window.Coord = (function () {
         { f: "team", t: "telem", label: "🔎 the company's latest news", detail: "Before asking, the panel searches the live web and fetches the company's newest pages through Telem AI." },
         { f: "telem", t: "team", label: "📰 launch last month · source", detail: "Clean extracts with sources come back, so questions are current and can cite where they came from." },
         { f: "team", t: "runware", label: "⚡ voices + avatars", detail: "The panel's spoken voices and avatars run as Runware jobs that scale to zero between your answers, so idle time costs nothing." },
+        { f: "team", t: "harnessrouter", label: "🔀 score · follow-up", detail: "Scoring goes to a deep harness, quick follow-ups to a fast one. A timeout ends as a clear “incomplete” with partial work kept, never a silent fail." },
         { f: "casuro", t: "you", label: "🎙️ question spoken", detail: "Casuro speaks the panel's question out loud." },
         { f: "you", t: "casuro", label: "🗣️ your answer (voice)", detail: "You answer with your voice; Casuro turns it into a transcript." },
         { f: "casuro", t: "team", label: "📝 transcript + evidence", detail: "The panel receives your exact words to score fairly." },
@@ -80,7 +88,8 @@ window.Coord = (function () {
         { f: "band", t: "team", label: "⬆️ next question: harder", detail: "The agreed plan comes back: the next questioner adapts to you." },
         { f: "team", t: "adal", label: "🏅 certificate image", detail: "AdaL renders a certificate for your result." },
         { f: "casuro", t: "bruin", label: "📊 scores per skill", detail: "Every score lands in Bruin: charts per question and per skill, ready to compare sessions." },
-        { f: "teamily", t: "you", label: "🎯 next practice in #study-group", detail: "After the session your coach and research agents stay in a Teamily AI group with you: they remember your weak spots and post your next practice." }
+        { f: "teamily", t: "you", label: "🎯 next practice in #study-group", detail: "After the session your coach and research agents stay in a Teamily AI group with you: they remember your weak spots and post your next practice." },
+        { f: "lingcode", t: "you", label: "📱 your practice app", detail: "LingCode turns the panel into a mobile practice app: learners sign in, book sessions and buy a practice pack." }
       ]
     }
   };
@@ -352,6 +361,8 @@ window.Coord = (function () {
     teamily: { title: "Teamily AI · humans and agents in one chat", job: "The hackathon's official communication platform, replacing Discord and Slack. Humans and always-on agents are members of the same group chat. Each agent has a role (marketing, design, engineering, QA, coach…), takes a task when you @mention it, hands work to other agents and posts the result back in the thread.", lab: "teamily" },
     telem: { title: "Telem AI · live web search for agents", job: "An agent asks a question. Telem AI routes the search to the best engine for quality, speed and cost (with failover), fetches clean readable pages, watches for new information and traces every step with a quality score.", lab: "telem" },
     runware: { title: "Runware · run any model, cheaper", job: "Agents send jobs (images, video, voice, 3D, text) to one API. Runware runs them on serverless or dedicated GPUs in modular Sonic Pod data centers and sends the results back, at up to half the cost of a traditional neocloud.", lab: "runware" },
+    harnessrouter: { title: "HarnessRouter · every agent harness, one API", job: "Agents hand tasks to one API. HarnessRouter routes each task to the harness and model that win on quality, cost or latency (Codex, Claude Code, Hermes, Pi…), runs it in its own isolated sandbox, streams progress back and ends every run in a clear state with a full trace.", lab: "harnessrouter" },
+    lingcode: { title: "LingCode · from idea to a live app", job: "Describe the product in plain English. LingCode builds it for iPhone, Android and web, sets up sign-in, data and payments, ships it to the stores and reports crashes, reviews and a daily summary after launch.", lab: "lingcode" },
     glasser: { title: "Glasser · real-world data for agents", job: "Agents need real data. Glasser gives them 2,000+ endpoints (people, companies, search, SEO, social, e-commerce) through one key: the agent picks a provider, sees the price before the call, pays per call and gets the rows back. No subscriptions.", lab: "glasser" }
   };
   const ORDER = { filter: f => IDS().filter(f) };
@@ -421,13 +432,13 @@ window.Coord = (function () {
         p.remove();
       }
     };
-    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom", glasser: "office", teamily: "office", runware: "lab", telem: "library" }[id] || "office", time: "night", weather: "clear" });
+    Scenes.mount(stage, { base: { band: "office", finch: "lab", adal: "stage", bruin: "boardroom", casuro: "boardroom", glasser: "office", teamily: "office", runware: "lab", telem: "library", harnessrouter: "office", lingcode: "lab" }[id] || "office", time: "night", weather: "clear" });
     host.querySelector(".tv").addEventListener("click", e => {
       const b = e.target.closest("[data-tv]"); if (b) { ctx.paused = !ctx.paused; b.textContent = ctx.paused ? "▶" : "❚❚"; return; }
       const lab = e.target.closest("[data-lab-open]");
       if (lab) { e.preventDefault(); location.hash = "#lab-" + lab.dataset.labOpen; const t = document.getElementById("labs"); t && t.scrollIntoView({ behavior: "smooth" }); }
     });
-    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro, glasser: viewGlasser, teamily: viewTeamily, runware: viewRunware, telem: viewTelem }[id] || viewGeneric;
+    const run = { band: viewBand, finch: viewFinch, adal: viewAdal, bruin: viewBruin, casuro: viewCasuro, glasser: viewGlasser, teamily: viewTeamily, runware: viewRunware, telem: viewTelem, harnessrouter: viewHarness, lingcode: viewLingcode }[id] || viewGeneric;
     run(ctx).catch(() => {});
     return { destroy() { ctx.alive = false; } };
   }
@@ -779,6 +790,85 @@ window.Coord = (function () {
       x.feed(`<b>${esc(a.name)}</b> · ${kk.icon} ${esc(kk.name)} <span style="color:#2ee6a6">${secs} s · ${R.price(kk.price)}</span><em>${esc(label)}</em>`);
       x.kpis([["jobs", n], ["avg time", (secsT / n).toFixed(1) + " s"], ["vs neocloud", "½ cost"]]);
       await x.tick(1600);
+      Puppet.emotion(a.pup, "neutral");
+    }
+  }
+
+  /* ---------- HarnessRouter: tasks enter one API, get routed to a harness, run in a sandbox, come back traced ---------- */
+  async function viewHarness(x) {
+    const R = P.harnessrouter;
+    if (!R) return;
+    const box = document.createElement("div"); box.className = "tv-hr";
+    box.innerHTML = `<div class="hrv-api"><b>🔀 ONE API</b><small class="hrv-task"></small></div>
+      <div class="hrv-hs">${R.harnesses.map(h => `<div data-h="${h.id}" style="--c:${h.color}"><span>${h.icon}</span><b>${esc(h.name)}</b><small>${esc(h.good)}</small><i class="hrv-sb"></i></div>`).join("")}</div>
+      <div class="hrv-out"></div>`;
+    x.layer.appendChild(box);
+    const A = [x.agent("marlowe", 12, 84, 0.8), x.agent("bolt", 26, 84, 0.8), x.agent("priya", 40, 84, 0.8)];
+    const at = el2 => { const r1 = el2.getBoundingClientRect(), r0 = x.stage.getBoundingClientRect(); return { x: (r1.left + r1.width / 2 - r0.left) / r0.width * 100, y: (r1.top + r1.height / 2 - r0.top) / r0.height * 100 }; };
+    const JOBS = ["film", "game", "grow"];
+    let n = 0;
+    const used = {};
+    for (let k = 0; ; k++) {
+      const track = JOBS[k % 3], list = R.tasks[track], tk = list[Math.floor(k / 3) % list.length], a = A[k % 3];
+      const h = R.harnesses.find(z => z.id === tk[1]) || R.harnesses[0], row = box.querySelector(`[data-h="${h.id}"]`);
+      A.forEach(g => g.el.classList.toggle("on", g === a));
+      box.querySelectorAll(".hrv-hs div").forEach(d => d.classList.remove("on", "scan"));
+      Puppet.talk(a.pup, 1200); Puppet.gesture(a.pup, "point", 1100);
+      box.querySelector(".hrv-task").textContent = `“${tk[0]}”`;
+      x.cap(`${a.name} sends a task`, `“${tk[0]}”`);
+      await x.packet({ x: a.x, y: a.y - 26 }, at(box.querySelector(".hrv-api")), "#f6a04d", 800);
+      x.cap("Smart routing", "It picks the harness and model that win on quality, cost and latency for this task.");
+      box.querySelectorAll(".hrv-hs div").forEach(d => d.classList.add("scan"));
+      await x.tick(1100);
+      box.querySelectorAll(".hrv-hs div").forEach(d => d.classList.remove("scan"));
+      row.classList.add("on");
+      x.cap(`${h.name} runs it in its own sandbox`, `Good at ${h.good}. Progress streams back and the trace is kept.`);
+      await x.tick(Math.min(2200, 600 + h.ms));
+      await x.packet(at(row), { x: a.x, y: a.y - 26 }, h.color, 800);
+      row.classList.remove("on");
+      n++; used[h.id] = (used[h.id] || 0) + 1;
+      const out = box.querySelector(".hrv-out");
+      out.insertAdjacentHTML("afterbegin", `<div style="--c:${h.color}"><span>${h.icon}</span><b>${esc(tk[2])}</b><small>${esc(h.name)} · completed · traced</small></div>`);
+      while (out.children.length > 3) out.lastChild.remove();
+      Puppet.emotion(a.pup, "happy"); Puppet.gesture(a.pup, "nod", 900);
+      x.feed(`<b>${esc(a.name)}</b> · ${esc(tk[0])} <span style="color:#f6a04d">${h.icon} ${esc(h.name)}</span><em>${esc(tk[2])}</em>`);
+      x.kpis([["tasks", n], ["harnesses used", Object.keys(used).length], ["servers you run", 0]]);
+      await x.tick(1500);
+      Puppet.emotion(a.pup, "neutral");
+    }
+  }
+
+  /* ---------- LingCode: an idea goes into the phone, the app builds stage by stage, ships to the store ---------- */
+  async function viewLingcode(x) {
+    const L = P.lingcode;
+    if (!L) return;
+    const box = document.createElement("div"); box.className = "tv-lc";
+    box.innerHTML = `<div class="lcv-phone"><div class="lcv-notch"></div><div class="lcv-scr"></div></div>
+      <div class="lcv-side"><ol class="lcv-st">${L.stages.map(st => `<li data-s="${st.id}"><span>${st.icon}</span>${esc(st.name)}</li>`).join("")}</ol><div class="lcv-after"></div></div>`;
+    x.layer.appendChild(box);
+    const A = [x.agent("ashford", 12, 84, 0.8), x.agent("kit", 26, 84, 0.8), x.agent("priya", 40, 84, 0.8)];
+    const at = el2 => { const r1 = el2.getBoundingClientRect(), r0 = x.stage.getBoundingClientRect(); return { x: (r1.left + r1.width / 2 - r0.left) / r0.width * 100, y: (r1.top + r1.height / 2 - r0.top) / r0.height * 100 }; };
+    let apps = 0;
+    for (let k = 0; ; k++) {
+      const track = ["film", "game", "grow"][k % 3], steps = L.steps[track], a = A[k % 3], scr = box.querySelector(".lcv-scr");
+      A.forEach(g => g.el.classList.toggle("on", g === a));
+      box.querySelectorAll(".lcv-st li").forEach(li => (li.className = ""));
+      Puppet.talk(a.pup, 1400); Puppet.gesture(a.pup, "point", 1200);
+      for (let i = 0; i < steps.length; i++) {
+        const [sid, text] = steps[i], li = box.querySelector(`[data-s="${sid}"]`), stage = L.stages.find(z => z.id === sid) || L.stages[0];
+        if (i === 0) { x.cap(`${a.name} describes the product`, text); await x.packet({ x: a.x, y: a.y - 26 }, at(box.querySelector(".lcv-phone")), "#5ce1e6", 800); }
+        else x.cap(`LingCode · ${stage.name}`, text);
+        li && li.classList.add("on");
+        scr.innerHTML = `<div class="lcv-big">${stage.icon}</div><p>${esc(text)}</p>${sid === "live" ? `<span class="lcv-badge">App Store · Google Play</span>` : ""}`;
+        await x.tick(sid === "live" ? 1800 : 1300);
+        li && li.classList.replace("on", "done");
+      }
+      apps++;
+      box.querySelector(".lcv-after").innerHTML = `<small>AFTER LAUNCH</small><p>📈 ${esc(L.after[k % L.after.length])}</p>`;
+      Puppet.emotion(a.pup, "happy"); Puppet.gesture(a.pup, "nod", 900);
+      x.feed(`<b>${esc(a.name)}</b> · 📱 ${esc(steps[0][1])} <span style="color:#5ce1e6">🚀 live</span><em>${esc(steps[steps.length - 1][1])}</em>`);
+      x.kpis([["apps shipped", apps], ["platforms", "iOS · Android · web"], ["payments", "Stripe"]]);
+      await x.tick(2000);
       Puppet.emotion(a.pup, "neutral");
     }
   }

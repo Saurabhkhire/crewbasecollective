@@ -115,6 +115,54 @@ window.PLAY = {
     price(n) { return "$" + (n >= 0.01 ? n.toFixed(3) : n.toFixed(4)); }
   },
 
+  /* LingCode: idea → real iPhone, Android and web app with sign-in, data, payments and store release (lingcode.dev).
+     The playground SIMULATES it: nothing is built or submitted, install numbers are samples.
+     stages = the path every app takes; steps[track] = [stage id, what happened] */
+  lingcode: {
+    note: "Simulated build. Nothing is submitted to a store.",
+    stages: [
+      { id: "idea", icon: "💬", name: "Idea" },
+      { id: "build", icon: "🛠️", name: "Build" },
+      { id: "auth", icon: "🔐", name: "Sign-in & data" },
+      { id: "pay", icon: "💳", name: "Payments" },
+      { id: "store", icon: "📦", name: "Store review" },
+      { id: "live", icon: "🚀", name: "Live" }
+    ],
+    steps: {
+      film: [["idea", "“An app for our film: watch it, vote on the next ending”"], ["build", "Watch + vote screens built, running beside the chat"], ["auth", "Sign in with Apple and Google, votes saved per fan"], ["pay", "$2.99 behind-the-scenes pack, paid into your Stripe"], ["store", "Submitted to the App Store and Google Play"], ["live", "Live on iPhone and Android · 312 installs"]],
+      game: [["idea", "“Ship our zombie co-op as a phone game with a leaderboard”"], ["build", "Game screen, lobby and leaderboard built"], ["auth", "Player accounts + cloud saves set up"], ["pay", "In-app purchase: $0.99 skin pack"], ["store", "Signed and sent to store review"], ["live", "Live in both stores · 1,040 players"]],
+      grow: [["idea", "“A practice app for our interview panel”"], ["build", "Practice, history and booking screens built"], ["auth", "Learner accounts, progress saved per user"], ["pay", "$9 practice pack, paid into the coach's Stripe"], ["store", "Sent to App Store review"], ["live", "Live on iPhone, Android and web · 86 learners"]]
+    },
+    after: ["Crash report: 0 crashes today", "New 5★ review: “voting on the ending is addictive”", "Daily summary: 41 new users, $63 revenue", "“Add a dark mode” → agent edits, rebuilds, snapshot saved"]
+  },
+
+  /* HarnessRouter: complete agent harnesses behind one API, one sandbox per task, smart routing (harnessrouter.ai).
+     The playground SIMULATES it: nothing is sent, times and costs are made-up examples for the demo, not benchmarks.
+     tasks[track] = [task, harness id, result] */
+  harnessrouter: {
+    note: "Simulated runs, example times and costs.",
+    harnesses: [
+      { id: "codex", name: "Codex", icon: "💻", good: "code and apps", ms: 900, cost: 1.5, q: 0.9, color: "#5c8dff" },
+      { id: "claude", name: "Claude Code", icon: "📁", good: "code, files and documents", ms: 1300, cost: 4, q: 0.95, color: "#ff9f43" },
+      { id: "hermes", name: "Hermes", icon: "🪽", good: "persistent, autonomous work", ms: 1100, cost: 1, q: 0.86, color: "#b6ff5c" },
+      { id: "pi", name: "Pi", icon: "π", good: "minimal and steerable", ms: 500, cost: 0.6, q: 0.78, color: "#c48bff" }
+    ],
+    tasks: {
+      film: [["Write Rook's next move", "hermes", "Rook hides the cargo and lies about it"], ["Build the premiere page", "codex", "Page built, trailer embedded"], ["Draft the decision log PDF", "claude", "12-page log with every choice"], ["Quick reaction line for Kit", "pi", "“I didn't write that ending!”"]],
+      game: [["BOLT-9 plans the next wave", "hermes", "Hold the north gate, medic behind"], ["Patch medkit spawn rate", "codex", "Medkits every 3 waves, build up"], ["Nyx picks a target", "pi", "Targets the weakest player"], ["Write the patch notes", "claude", "Patch notes posted"]],
+      grow: [["Score answer 2 with evidence", "claude", "Clarity 4/5, quotes your words"], ["Fast follow-up question", "pi", "“What would you cut first?”"], ["Plan next week's practice", "hermes", "3 sessions booked, weak spots first"], ["Build the score report page", "codex", "Report page ready"]]
+    },
+    example: `# one key for every harness
+HARNESSROUTER_API_KEY=sk-hr-••••
+
+# swap the harness and model with one config line
+{
+  "base": "codex",
+  "defaultModel": "the model you pick"
+}`,
+    price(n) { return "$" + n.toFixed(3); }
+  },
+
   /* Runware: AI inference on one API (runware.ai). The playground SIMULATES jobs:
      nothing is sent to Runware, prices are examples, results are local previews.
      neo = how much a typical neocloud costs for the same job (Runware: up to half the cost). */

@@ -430,7 +430,7 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
       alive: () => api.token === UI.ctl.token && document.body.contains(api.main),
       status: t => { const s = $("#gmStatus"); if (s) s.textContent = t; },
       log(html, cls) { if (cls !== "think") record(cls === "event" ? "world_event" : cls === "sys" ? "system" : "action", (html.match(/<b[^>]*>([^<]*)<\/b>/) || [])[1], html); const l = $("#gmLog"); if (!l) return; const li = document.createElement("li"); if (cls) li.className = cls; li.innerHTML = html; l.prepend(li); while (l.children.length > 60) l.lastChild.remove(); },
-      think(who, color2, text, src) { record("decision", who, text, { src: src || "llm" }); api.glasserIntel(who, color2); api.teamilyPost(); api.runwareRun(who); api.telemRun(who); api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
+      think(who, color2, text, src) { record("decision", who, text, { src: src || "llm" }); api.glasserIntel(who, color2); api.teamilyPost(); api.runwareRun(who); api.harnessRun(who); api.lingcodeShip(); api.telemRun(who); api.log(`<b style="color:${color2}">${esc(who)}</b> <span class="thought">🔒 ${esc(text)}</span>${src === "offline" && Brain.mode === "llm" ? ` <span class="warn-s">⚠ LLM failed, offline brain used</span>` : ""}`, "think"); },
       /* the engine tells the shell which element is the stage and how to find a player's element */
       stage(el, locate) {
         api.live = UI.toolsLive(el, "game", cfg.tools);
@@ -468,6 +468,18 @@ Reply with JSON only: {"title":"max 5 words","engine":"zombie|snakes|rps","enemy
         if (!cfg.tools.has("telem") || !api.live) return;
         const s = UI.telemSearch(api.live, "game", api.locate(who));
         if (s) { record("web_search", who, `${s.query} → ${s.engine.name}: ${s.found}`); api.log(`<b style="color:#e86bff">🛰️ ${esc(who)}</b> <span class="act">searched “${esc(s.query)}” → ${esc(s.found)} (simulated)</span>`, "sys"); }
+      },
+      /* HarnessRouter (simulated): the agent's task runs on a routed agent harness in its own sandbox */
+      harnessRun(who) {
+        if (!cfg.tools.has("harnessrouter") || !api.live) return;
+        const r = UI.harnessRoute(api.live, "game", api.locate(who));
+        if (r) record("harness_run", who, `${r.task} → ${r.harness.name} (${r.secs} s)`);
+      },
+      /* LingCode (simulated): the game moves one step closer to a live app in the stores */
+      lingcodeShip() {
+        if (!cfg.tools.has("lingcode") || !api.live) return;
+        const l = UI.lingcodeStep(api.live, "game", null);
+        if (l) { record("app_build", "LingCode", `${l.stage.name}: ${l.text}`); api.log(`<b style="color:#5ce1e6">📱 LingCode ${esc(l.stage.name)}</b> <span class="act">${esc(l.text)} (simulated)</span>`, "sys"); }
       },
       /* Runware (simulated): the agent's turn, voices and art run as inference jobs */
       runwareRun(who) {

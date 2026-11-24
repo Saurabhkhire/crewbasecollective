@@ -8,6 +8,8 @@
      Glasser → real-world data APIs, price before each call (labs3.js)
      Telem AI → live web search: router picks an engine, failover, clean fetch, monitor, trace (labs6.js)
      Runware → one API for any model, jobs light up a modular pod, cost vs neocloud (labs5.js)
+     LingCode → idea → app on a phone: sign-in, data, payments, change + undo, ship, after-launch reports (labs7.js)
+     HarnessRouter → task → routed agent harness in its own sandbox, trace, timeout = incomplete, arena (labs7.js)
      Teamily → humans + role agents in one group chat: create agents, @mention, hand-offs (labs4.js)
    Every lab = interactive area + "How it works" + a looping demo "video".
    Needs: data.js, play-data.js, puppet.js, scenes.js, brain.js (+ core.css, labs.css)

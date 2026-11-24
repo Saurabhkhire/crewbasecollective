@@ -392,7 +392,7 @@ window.Mascots = (function () {
         <rect x="60" y="-106" width="28" height="20" rx="3" fill="none" stroke="#c9f6ff" stroke-width="1"><animate attributeName="opacity" values=".1;1;.1" dur="1.6s" repeatCount="indefinite"/></rect>`, "hosts · connects · runs the day")
     },
 
-    /* ---------- LingCode (partner): Appy, a walking phone that builds your app on its own screen ---------- */
+    /* ---------- LingCode (sponsor): Appy, a walking phone that builds your app on its own screen ---------- */
     lingcode: {
       body: c => `${legs("#2d3142", -8, 1.5, 6.5, 12)}<g class="m-bob">
         <rect class="m-armL" x="-19" y="-44" width="5.5" height="16" rx="2.7" fill="#2d3142"/>
@@ -412,7 +412,7 @@ window.Mascots = (function () {
         <path d="M43 -100 L52 -100 M70 -100 L79 -100 M97 -100 L106 -100" stroke="#3a4266" stroke-width="1.2"/>`, "idea → app in the store")
     },
 
-    /* ---------- HarnessRouter (partner): Switch, a crab with a switchboard shell routing tasks to harnesses ---------- */
+    /* ---------- HarnessRouter (sponsor): Switch, a crab with a switchboard shell routing tasks to harnesses ---------- */
     harnessrouter: {
       body: c => `${[-14, -8, 8, 14].map((x, i) => `<path class="${i < 2 ? "m-legL" : "m-legR"}" d="M${x * 0.6} -10 L${x} -2 L${x + (x < 0 ? -3 : 3)} 0" stroke="#d9772a" stroke-width="2.6" fill="none" stroke-linecap="round"/>`).join("")}
         <g class="m-bob">

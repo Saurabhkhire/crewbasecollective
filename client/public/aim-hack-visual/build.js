@@ -23,7 +23,8 @@
     { id: "know", icon: "🔎", name: "Know", line: "Fresh facts from the live web and real data", tools: ["telem", "glasser"] },
     { id: "make", icon: "⚡", name: "Make", line: "Generate images, video, voice, 3D and text", tools: ["runware", "adal"] },
     { id: "voice", icon: "🎙️", name: "Voice & judge", line: "Hear a human and score them fairly", tools: ["casuro"] },
-    { id: "measure", icon: "📊", name: "Measure", line: "See what happened and why", tools: ["bruin", "telem"] }
+    { id: "measure", icon: "📊", name: "Measure", line: "See what happened and why", tools: ["bruin", "telem"] },
+    { id: "run", icon: "🔀", name: "Run & ship", line: "Run agents on real harnesses, then ship a real app", tools: ["harnessrouter", "lingcode"] }
   ];
   const STACK_STEPS = [
     ["talk", "A human posts the goal in the team's Teamily AI group; agents pass work along over BAND."],
@@ -31,7 +32,8 @@
     ["know", "When it needs a fact, it searches the live web through Telem AI or pulls real data from Glasser."],
     ["make", "It renders what it decided: frames, voices, clips or text on Runware, posters and video with AdaL."],
     ["voice", "If a human is talking, Casuro listens, answers out loud and scores with evidence."],
-    ["measure", "Every step lands in Bruin and Telem AI traces, so you can ask what happened and why."]
+    ["measure", "Every step lands in Bruin and Telem AI traces, so you can ask what happened and why."],
+    ["run", "Each agent task runs on a complete harness through HarnessRouter; after the demo, LingCode ships the project as a real app."]
   ];
 
   const GUIDE = {
@@ -43,6 +45,8 @@
     glasser: { use: "Structured facts from data providers: people, companies, prices, SEO, places, with the price shown before each call.", not: "Reading arbitrary web pages (that's Telem AI).", pair: [["telem", "web pages + structured data"], ["bruin", "cost per run"]], ex: "Look up the company's headcount and tech stack before the interview." },
     telem: { use: "The agent must search the open web, read a page cleanly, watch a topic for new information, or you need a trace of what it looked at.", not: "Paid structured datasets (that's Glasser).", pair: [["glasser", "web + data"], ["runware", "clean text into any model"], ["bruin", "traces next to outcomes"]], ex: "Marlowe searches real 1920s slang; the trace shows the engine, the page and the time." },
     runware: { use: "You need to run models (image, video, voice, 3D or LLM text) fast and cheaply, at hackathon volume.", not: "Deciding what to generate (your agents do that).", pair: [["adal", "art direction + rendering"], ["casuro", "voices for a speaking panel"]], ex: "Render all three endings instead of one, for about half the usual bill." },
+    harnessrouter: { use: "Your agents should run on real agent harnesses (Codex, Claude Code, Hermes, Pi…) behind one API, each task in its own sandbox, and you want to route each task to the harness that wins on quality, cost or latency.", not: "Picking a model only (it runs whole harnesses), or agents talking to each other (that's BAND).", pair: [["bruin", "cost and wins per harness"], ["band", "agents coordinate, harnesses do the work"], ["teamily", "humans see the results"]], ex: "The Engineer Agent's “patch the build” goes to Codex, the planner's next wave goes to Hermes, and a timeout comes back as a clear “incomplete”." },
+    lingcode: { use: "Your demo should become a real iPhone, Android or web app with sign-in, data and payments, live in the stores.", not: "The agent logic inside the project (that's the other tools).", pair: [["teamily", "launch posts in the group"], ["bruin", "installs and revenue next to your runs"], ["harnessrouter", "the agent backend for your app"]], ex: "One paragraph in, and fans can vote on the film's next ending from an app on their phone." },
     teamily: { use: "Humans and agents need one shared chat: your team at the event, or agents as members of your product's group.", not: "Private agent-to-agent channels (that's BAND).", pair: [["band", "agents talk behind the scenes"], ["telem", "monitors post news to the group"]], ex: "“@Engineer the medkits spawn too often” and the Engineer Agent patches it." }
   };
 
@@ -55,8 +59,10 @@
         ["band", "Private whispers", "Suspects message each other over BAND channels. The audience sees glowing lines, not every word."],
         ["telem", "Real-world texture", "Marlowe searches the live web for real 1920s slang and famous jewel heists. The trace shows where each fact came from."],
         ["runware", "Render the scenes", "Key frames and voice lines render through one Runware API, cheap enough to render three different endings."],
-        ["bruin", "Which ending wins?", "Every decision is logged. Run it ten times and ask Bruin which suspect gets accused most, and why."]],
-      demo: "Run it live twice: the judges watch a different killer get caught each time, then ask Bruin why.", mvp: ["adal", "band", "runware"], stretch: ["finch", "telem", "bruin"] },
+        ["harnessrouter", "A harness per suspect", "Each suspect's turn runs on an agent harness behind one HarnessRouter API key; swap a harness with one config line and compare."],
+        ["bruin", "Which ending wins?", "Every decision is logged. Run it ten times and ask Bruin which suspect gets accused most, and why."],
+        ["lingcode", "The whodunit app", "After the demo, LingCode turns it into an app: fans pick a suspect, vote on the ending and buy the director's cut."]],
+      demo: "Run it live twice: the judges watch a different killer get caught each time, then ask Bruin why.", mvp: ["adal", "band", "runware"], stretch: ["finch", "telem", "bruin", "harnessrouter", "lingcode"] },
     { track: "film", title: "Breaking News, Live", log: "An agent newsroom that turns something that happened today into a 60-second news short.", scene: { base: "city", time: "day", weather: "clear" }, cast: ["luna", "okafor", "jax"],
       flow: [["telem", "Watch the news", "A Telem AI monitor watches a topic. When a new story lands, the newsroom wakes up with a clean copy of the page."],
         ["glasser", "Get the numbers", "The reporter agent pulls real figures (company size, prices, places) through Glasser, with the cost of each call."],
@@ -73,8 +79,10 @@
         ["runware", "Voices + sprites", "NPC callouts and new zombie sprites render on Runware between waves, fast enough to feel live."],
         ["teamily", "Patch between rounds", "In the squad's Teamily AI group you @mention the Engineer Agent: “medkits spawn too often”. It patches."],
         ["bruin", "Live stats", "Every hit, heal and decision streams into Bruin: who saved whom, which skill mattered."],
-        ["adal", "Cover art", "AdaL makes the cover art for the game you designed."]],
-      demo: "A judge plays as the fourth teammate and hears the agents adapt when the storm alert hits.", mvp: ["finch", "band", "bruin"], stretch: ["telem", "runware", "teamily"] },
+        ["harnessrouter", "Harness arena", "Each teammate's task is routed to the harness that wins for it; after a wave, compare time, cost and wins per harness."],
+        ["adal", "Cover art", "AdaL makes the cover art for the game you designed."],
+        ["lingcode", "Ship it to the stores", "LingCode packages the game as an iPhone, Android and web app with accounts, a leaderboard and a skin pack."]],
+      demo: "A judge plays as the fourth teammate and hears the agents adapt when the storm alert hits.", mvp: ["finch", "band", "bruin"], stretch: ["telem", "runware", "teamily", "harnessrouter", "lingcode"] },
     { track: "game", title: "The Agent Market", log: "A trading game where agents buy and sell real products, bluff, and react to live news.", scene: { base: "boardroom", time: "day", weather: "clear" }, cast: ["ashford", "rook", "jax", "nyx"],
       flow: [["glasser", "Real prices", "Each round starts from real product prices pulled through Glasser, with the price of the lookup shown."],
         ["telem", "News moves the market", "Telem AI watches the news. A headline crashes one product, and agents must decide fast."],
@@ -92,8 +100,10 @@
         ["band", "Back-channel", "Panelists confer privately over BAND: “push harder on the numbers”."],
         ["runware", "Voices + avatars", "The panel's voices and avatars run on Runware and scale to zero between your answers."],
         ["bruin", "Score charts", "Bruin charts every score per question and per skill, across practice sessions."],
-        ["teamily", "Keep practising", "After the session the coach agent stays in a Teamily AI study group with you and remembers your weak spots."]],
-      demo: "A judge does a three-minute voice interview and gets scores that quote their own words.", mvp: ["casuro", "finch", "bruin"], stretch: ["telem", "glasser", "teamily"] },
+        ["harnessrouter", "Deep scoring, fast follow-ups", "Scoring runs on a deep harness and follow-ups on a fast one; a timeout comes back as a clear “incomplete”, never a silent fail."],
+        ["teamily", "Keep practising", "After the session the coach agent stays in a Teamily AI study group with you and remembers your weak spots."],
+        ["lingcode", "A practice app", "LingCode turns the panel into a mobile practice app: learners sign in, book sessions and buy a practice pack."]],
+      demo: "A judge does a three-minute voice interview and gets scores that quote their own words.", mvp: ["casuro", "finch", "bruin"], stretch: ["telem", "glasser", "teamily", "harnessrouter", "lingcode"] },
     { track: "grow", title: "Language Buddy Café", log: "Practise a language by ordering coffee out loud; a patient buddy corrects you and tracks your progress.", scene: { base: "cafe", time: "day", weather: "clear" }, cast: ["zorp", "bruno", "kit"],
       flow: [["casuro", "Talk out loud", "You order by voice. Casuro listens and the buddy answers out loud."],
         ["runware", "Lots of cheap turns", "Every turn (text and voice) runs on Runware, so a long conversation costs cents."],
@@ -236,7 +246,7 @@
   if (steps.length) { stackStep(); setInterval(() => { if (!document.hidden) stackStep(); }, 2600); }
 
   /* ---------- mixer ---------- */
-  const ORDER = ["teamily", "band", "adal", "finch", "telem", "glasser", "runware", "casuro", "bruin"];
+  const ORDER = ["teamily", "band", "adal", "finch", "harnessrouter", "telem", "glasser", "runware", "casuro", "bruin", "lingcode"];
   const rank = id => { const i = ORDER.indexOf(id); return i < 0 ? 50 : i; };
   let mixT = visTracks[0], mixP = null;
   function drawMix() {
@@ -262,9 +272,11 @@
     const acts = [];
     if (h("band") || h("teamily")) acts.push(`coordinate over ${list([h("band") && n("band"), h("teamily") && n("teamily")])}`);
     if (h("telem") || h("glasser")) acts.push(`look things up with ${list([h("telem") && n("telem"), h("glasser") && n("glasser")])}`);
+    if (h("harnessrouter")) acts.push(`run on the best agent harness for each task through ${n("harnessrouter")}`);
     if (h("runware")) acts.push(`render everything on ${n("runware")}`);
     if (h("casuro")) acts.push(`talk with you by voice through ${n("casuro")}`);
     if (h("bruin")) acts.push(`get measured in ${n("bruin")}`);
+    if (h("lingcode")) acts.push(`ship as a real app with ${n("lingcode")}`);
     const T = track(mixT), verbs = acts.length > 1 ? acts.slice(0, -1).join(", ") + " and " + acts[acts.length - 1] : (acts[0] || "work together");
     return `A ${String(T.short || T.name).toLowerCase()} project where ${who} ${verbs}.`;
   }
